@@ -974,7 +974,7 @@ function submitDL(){
   window.open('https://drive.google.com/drive/folders/1yBbk_6H861SDARijff2jkguYSIG-ngE8?usp=sharing','_blank');
   showToast('✓ Opening your kit…');
 }
-function checkPMS(){const s=document.getElementById('pmsSelect'),b=document.getElementById('pmsCompat');if(s.value){b.style.display='flex';document.getElementById('pmsCompatText').textContent=`Compatible — Split Pay works with ${s.value}.`;}else b.style.display='none';}
+function checkPMS(){const s=document.getElementById('pmsSelect'),b=document.getElementById('pmsCompat');if(s.value){b.style.display='flex';document.getElementById('pmsCompatText').textContent=`Compatible — Split Pay works with ${s.value}. No integration required.`;}else b.style.display='none';}
 function tog(btn){btn.parentElement.classList.toggle('open');}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity=1;setTimeout(()=>t.style.opacity=0,2500);}
 let floatOpen=false;

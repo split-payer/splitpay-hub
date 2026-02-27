@@ -28,20 +28,9 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--near-black);background:var(--white);-webkit-font-smoothing:antialiased;}
 
-  /* ── FLOATING PHOTOS ── */
-  .float-img{
-    position:absolute;
-    width:270px;
-    height:360px;
-    object-fit:cover;
-    border-radius:20px;
-    box-shadow:0 24px 64px rgba(0,0,0,0.13);
-    pointer-events:none;
-    user-select:none;
-  }
+  .float-img{position:absolute;width:270px;height:360px;object-fit:cover;border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,0.13);pointer-events:none;user-select:none;}
   @media(max-width:1200px){.float-img{display:none;}}
 
-  /* ── NAV ── */
   nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;gap:24px;}
   .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
   .nav-logo-svg{height:28px;width:auto;}
@@ -54,7 +43,6 @@
   .btn-kit{background:var(--orange);color:var(--white);border:none;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity 0.2s;font-family:inherit;}
   .btn-kit:hover{opacity:0.85;}
 
-  /* ── HERO ── */
   .hero{background:var(--yellow);padding:120px 56px 100px;text-align:center;position:relative;overflow:hidden;}
   .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--near-black);background:rgba(0,0,0,0.08);padding:6px 16px;border-radius:100px;margin-bottom:40px;letter-spacing:0.02em;}
   .hero h1{font-size:clamp(48px,6.5vw,88px);font-weight:800;line-height:1.02;letter-spacing:-2.5px;max-width:800px;margin:0 auto 24px;color:var(--near-black);}
@@ -71,7 +59,6 @@
   .hero-note{font-size:13px;color:rgba(41,41,41,0.55);display:flex;align-items:center;justify-content:center;gap:6px;}
   .hero-note::before{content:'';width:6px;height:6px;border-radius:50%;background:#34C759;display:block;}
 
-  /* ── SECTIONS ── */
   .section{padding:112px 56px;position:relative;overflow:hidden;}
   .container{max-width:1080px;margin:0 auto;}
   .container-sm{max-width:740px;margin:0 auto;}
@@ -83,7 +70,6 @@
   .book-strip-text h4{font-size:17px;font-weight:700;letter-spacing:-0.3px;margin-bottom:4px;}
   .book-strip-text p{font-size:14px;color:var(--gray);}
 
-  /* ── TOOLKIT ── */
   .toolkit{background:var(--white);}
   .asset-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:24px;overflow:hidden;border:1px solid var(--border);}
   .asset-tile{background:var(--white);padding:40px 36px;display:flex;flex-direction:column;transition:background 0.2s;}
@@ -101,7 +87,6 @@
   .t-btn-outline:hover{background:rgba(0,0,0,0.04);}
   .grid-note{text-align:center;font-size:13px;color:var(--gray-light);margin-top:28px;}
 
-  /* ── HOW ── */
   .how{background:var(--cream);}
   .steps-list{display:flex;flex-direction:column;}
   .step-row{display:flex;align-items:flex-start;gap:36px;padding:36px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
@@ -111,7 +96,6 @@
   .step-body p{font-size:15px;color:var(--gray);line-height:1.6;}
   .how-pill{margin-top:52px;background:var(--near-black);color:var(--white);display:inline-block;padding:16px 32px;border-radius:14px;font-size:15px;font-weight:600;letter-spacing:-0.3px;}
 
-  /* ── COMPARE ── */
   .compare{background:var(--white);}
   .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
   .compare-col{border-radius:24px;padding:44px;border:1px solid var(--border);}
@@ -126,7 +110,6 @@
   .without .cmp-dot{background:#E74C3C;}
   .with .cmp-dot{background:#27AE60;}
 
-  /* ── ZERO ── */
   .zero{background:var(--near-black);}
   .zero .eyebrow{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);}
   .zero h2.display{color:var(--white);}
@@ -136,7 +119,6 @@
   .no-text{font-size:15px;color:#AEAEB2;}
   .zero-body{font-size:17px;color:#8A8A8E;line-height:1.8;max-width:600px;margin:0 auto;text-align:center;}
 
-  /* ── ALREADY ── */
   .already{background:var(--yellow);text-align:center;}
   .already .eyebrow{background:rgba(0,0,0,0.1);}
   .stat-row{display:flex;justify-content:center;gap:88px;margin:72px 0 60px;flex-wrap:wrap;}
@@ -145,7 +127,6 @@
   .pms-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:44px;}
   .pms-chip{background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.1);border-radius:100px;padding:9px 20px;font-size:13px;font-weight:600;color:var(--near-black);}
 
-  /* ── FAQ ── */
   .faq-section{background:var(--white);}
   .faq-item{border-bottom:1px solid var(--border);}
   .faq-q{width:100%;text-align:left;background:none;border:none;padding:26px 0;font-size:16px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--near-black);letter-spacing:-0.2px;font-family:inherit;}
@@ -154,7 +135,6 @@
   .faq-item.open .faq-a{display:block;}
   .faq-item.open .faq-q .ico{transform:rotate(45deg);}
 
-  /* ── SIGNUP ── */
   .signup{background:var(--cream);}
   .signup-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:40px 0 52px;}
   .signup-tag{background:var(--white);border:1px solid var(--border);border-radius:100px;padding:8px 18px;font-size:13px;color:var(--near-black);font-weight:500;}
@@ -165,7 +145,6 @@
   .signup-submit:hover{opacity:0.85;}
   .signup-fine{font-size:12px;color:var(--gray-light);margin-top:18px;text-align:center;}
 
-  /* ── FINAL ── */
   .final{background:var(--near-black);text-align:center;padding:128px 56px;position:relative;overflow:hidden;}
   .final h2{font-size:clamp(34px,5vw,64px);font-weight:800;color:var(--white);letter-spacing:-2px;line-height:1.08;max-width:680px;margin:0 auto 52px;}
   .final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
@@ -176,14 +155,12 @@
   .btn-book-dark{background:transparent;color:rgba(255,255,255,0.5);border:1.5px solid rgba(255,255,255,0.15);padding:15px 28px;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:inherit;}
   .btn-book-dark:hover{color:var(--white);border-color:rgba(255,255,255,0.4);}
 
-  /* ── FOOTER ── */
   footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);padding:40px 56px;display:flex;align-items:center;justify-content:space-between;}
   .footer-logo{display:flex;align-items:center;gap:10px;}
   .footer-links{display:flex;gap:28px;}
   .footer-links a{font-size:13px;color:#555;text-decoration:none;}
   .footer-copy{font-size:12px;color:#444;}
 
-  /* ── OVERLAYS & MODALS ── */
   .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:center;justify-content:center;}
   .overlay.open{display:flex;}
   .modal-card{background:var(--white);border-radius:28px;width:90%;max-width:520px;padding:48px;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto;}
@@ -204,7 +181,6 @@
   .cal-header{padding:24px 32px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0;}
   .cal-header-text h2{font-size:21px;font-weight:800;letter-spacing:-0.4px;margin-bottom:4px;}
   .cal-header-text p{font-size:14px;color:var(--gray);}
-  .calendly-inline-widget{flex:1;min-height:0;}
   .flyer-card{background:var(--white);border-radius:28px;width:95%;max-width:960px;max-height:92vh;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.2);display:flex;flex-direction:column;overflow:hidden;}
   .flyer-header{padding:26px 36px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
   .flyer-header h2{font-size:19px;font-weight:800;letter-spacing:-0.4px;}
@@ -243,8 +219,6 @@
   .image-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:4px 0;}
   .image-item{border:1.5px solid var(--border);border-radius:16px;overflow:hidden;background:var(--cream);display:flex;flex-direction:column;}
   .image-label{padding:10px 12px;font-size:12px;font-weight:600;color:var(--near-black);border-top:1px solid var(--border);}
-  .image-dl-btn{margin:0 12px 12px;background:var(--near-black);color:var(--white);border:none;padding:8px 14px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.2s;text-align:center;}
-  .image-dl-btn:hover{opacity:0.78;}
   .faq-modal-card{background:var(--white);border-radius:28px;width:95%;max-width:820px;max-height:92vh;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.2);display:flex;flex-direction:column;overflow:hidden;}
   .faq-modal-body{overflow-y:auto;flex:1;}
   #toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--near-black);color:var(--white);padding:12px 24px;border-radius:100px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity 0.25s;pointer-events:none;}
@@ -298,16 +272,9 @@
   </div>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <div class="hero">
-  <!-- Photo: woman walking dog, right side -->
-  <img
-    src="assets/img/hero-dog-walk.jpg"
-    alt=""
-    class="float-img"
-    fetchpriority="high"
-    style="right:-50px;top:50%;transform:translateY(-50%) rotate(2deg);width:260px;height:380px;"
-  >
+  <img src="assets/img/hero-dog-walk.jpg" alt="" class="float-img" fetchpriority="high" style="right:-50px;top:50%;transform:translateY(-50%) rotate(2deg);width:260px;height:380px;">
   <div class="hero-eyebrow">🛟 Rent Week Support Kit — For Property Managers</div>
   <h1>Fewer late payments.<br>Less rent-week chaos.</h1>
   <p class="hero-sub">Properties using Split Pay see up to 80% fewer late payments. Residents pay through your existing portal — no integrations, no contracts, no accounting changes.</p>
@@ -319,7 +286,7 @@
   <p class="hero-note">Already works in your buildings today</p>
 </div>
 
-<!-- ── TOOLKIT ── -->
+<!-- TOOLKIT -->
 <section class="section toolkit">
   <div class="container">
     <div class="eyebrow">Toolkit</div>
@@ -370,16 +337,9 @@
   </div>
 </section>
 
-<!-- ── HOW ── -->
+<!-- HOW -->
 <section class="section how">
-  <!-- Photo: couple gardening, left side -->
-  <img
-    src="assets/img/garden-couple.jpg"
-    alt=""
-    class="float-img"
-    loading="lazy"
-    style="left:-50px;top:50%;transform:translateY(-50%) rotate(-1.5deg);width:260px;height:360px;"
-  >
+  <img src="assets/img/garden-couple.jpg" alt="" class="float-img" loading="lazy" style="left:-50px;top:50%;transform:translateY(-50%) rotate(-1.5deg);width:260px;height:360px;">
   <div class="container-sm">
     <div class="eyebrow">Process</div>
     <h2 class="display">How Split Pay works</h2>
@@ -397,16 +357,9 @@
   </div>
 </section>
 
-<!-- ── COMPARE ── -->
+<!-- COMPARE -->
 <section class="section compare">
-  <!-- Photo: dad teaching kid to ride bike, right side -->
-  <img
-    src="assets/img/dad-biking.jpg"
-    alt=""
-    class="float-img"
-    loading="lazy"
-    style="right:-50px;top:50%;transform:translateY(-50%) rotate(1.5deg);width:260px;height:360px;"
-  >
+  <img src="assets/img/dad-biking.jpg" alt="" class="float-img" loading="lazy" style="right:-50px;top:50%;transform:translateY(-50%) rotate(1.5deg);width:260px;height:360px;">
   <div class="container">
     <div class="eyebrow">Impact</div>
     <h2 class="display">The difference during rent week</h2>
@@ -427,16 +380,9 @@
   </div>
 </section>
 
-<!-- ── ZERO ── -->
+<!-- ZERO -->
 <section class="section zero">
-  <!-- Photo: woman on laptop in kitchen, left side (light image on dark bg) -->
-  <img
-    src="assets/img/woman-laptop-kitchen.jpg"
-    alt=""
-    class="float-img"
-    loading="lazy"
-    style="left:-50px;top:50%;transform:translateY(-50%) rotate(-2deg);width:240px;height:340px;opacity:0.85;"
-  >
+  <img src="assets/img/woman-laptop-kitchen.jpg" alt="" class="float-img" loading="lazy" style="left:-50px;top:50%;transform:translateY(-50%) rotate(-2deg);width:240px;height:340px;opacity:0.85;">
   <div class="container">
     <div class="eyebrow">Zero Operational Lift</div>
     <h2 class="display">What this does <em style="font-style:italic;color:#666;">not</em><br>require from you</h2>
@@ -453,16 +399,9 @@
   </div>
 </section>
 
-<!-- ── ALREADY ── -->
+<!-- ALREADY -->
 <section class="section already">
-  <!-- Photo: woman reading, right side -->
-  <img
-    src="assets/img/woman-reading.jpg"
-    alt=""
-    class="float-img"
-    loading="lazy"
-    style="right:-50px;top:50%;transform:translateY(-50%) rotate(1deg);width:250px;height:360px;"
-  >
+  <img src="assets/img/woman-reading.jpg" alt="" class="float-img" loading="lazy" style="right:-50px;top:50%;transform:translateY(-50%) rotate(1deg);width:250px;height:360px;">
   <div class="container">
     <div class="eyebrow" style="display:block;text-align:center;">Proven at Scale</div>
     <h2 class="display" style="text-align:center;">Already works in<br>your buildings today</h2>
@@ -479,7 +418,7 @@
   </div>
 </section>
 
-<!-- ── FAQ ── -->
+<!-- FAQ -->
 <section class="section faq-section">
   <div class="container-sm">
     <div class="eyebrow-plain" style="text-align:center;">FAQ</div>
@@ -495,7 +434,7 @@
   </div>
 </section>
 
-<!-- ── INLINE CHAT ── -->
+<!-- INLINE CHAT -->
 <section class="section" style="background:var(--cream);padding-top:0;padding-bottom:112px;">
   <div class="container-sm">
     <div style="border:1.5px solid var(--border);border-radius:24px;overflow:hidden;">
@@ -520,7 +459,7 @@
   </div>
 </section>
 
-<!-- ── SIGNUP ── -->
+<!-- SIGNUP -->
 <section class="section signup" style="text-align:center;">
   <div class="container">
     <div class="eyebrow-plain" style="text-align:center;">Stay Updated</div>
@@ -536,16 +475,9 @@
   </div>
 </section>
 
-<!-- ── FINAL ── -->
+<!-- FINAL -->
 <section class="final">
-  <!-- Photo: young dad holding newborn, left side -->
-  <img
-    src="assets/img/dad-newborn.jpg"
-    alt=""
-    class="float-img"
-    loading="lazy"
-    style="left:-40px;top:50%;transform:translateY(-50%) rotate(-1.5deg);width:240px;height:340px;opacity:0.7;"
-  >
+  <img src="assets/img/dad-newborn.jpg" alt="" class="float-img" loading="lazy" style="left:-40px;top:50%;transform:translateY(-50%) rotate(-1.5deg);width:240px;height:340px;opacity:0.7;">
   <h2>Rent week doesn't have to feel like emergency week.</h2>
   <div class="final-btns">
     <button class="btn-final-p" onclick="openDL()">Get the Support Kit</button>
@@ -636,13 +568,7 @@
       <div class="cal-header-text"><h2>Book a Meeting</h2><p>20 minutes · We'll walk you through how Split Pay works in your buildings.</p></div>
       <button class="modal-x" style="position:static;margin-left:16px;flex-shrink:0;" onclick="closeCal()">✕</button>
     </div>
-    <iframe
-      src="https://calendly.com/rent-app/onboarding?embed_domain=splitpay.com&embed_type=Inline&hide_gdpr_banner=1"
-      width="100%"
-      height="100%"
-      frameborder="0"
-      style="flex:1;border:none;min-height:0;"
-    ></iframe>
+    <iframe src="https://calendly.com/rent-app/onboarding?embed_domain=splitpay.com&embed_type=Inline&hide_gdpr_banner=1" width="100%" height="100%" frameborder="0" style="flex:1;border:none;min-height:0;"></iframe>
   </div>
 </div>
 
@@ -808,7 +734,7 @@ const FLYER_LINKS={
 };
 let flyerLang='en',flyerVariant='woman-phone';
 function getFlyerFileId(){return FLYER_LINKS[`${flyerLang}-${flyerVariant}`]||'';}
-function updateFlyerPreview(){const id=getFlyerFileId();document.getElementById('flyerPreviewIframe').src=id?`https://drive.google.com/file/d/${id}/preview`:''}
+function updateFlyerPreview(){const id=getFlyerFileId();document.getElementById('flyerPreviewIframe').src=id?`https://drive.google.com/file/d/${id}/preview`:'';}
 function setLang(l,b){flyerLang=l;document.querySelectorAll('.lang-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');updateFlyerPreview();}
 function setVariant(v,b){flyerVariant=v;document.querySelectorAll('.variant-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');updateFlyerPreview();}
 function openFlyer(){document.getElementById('flyerModal').classList.add('open');document.body.style.overflow='hidden';updateFlyerPreview();}
@@ -861,11 +787,8 @@ function closeDemoModal(){
   document.body.style.overflow='';
 }
 
-function openLogosModal(){
-  document.getElementById('logosModal').classList.add('open');
-  document.body.style.overflow='hidden';
-  switchLogosTab('logos');
-}
+let currentLogosTab='logos';
+function openLogosModal(){document.getElementById('logosModal').classList.add('open');document.body.style.overflow='hidden';switchLogosTab('logos');}
 function closeLogosModal(){document.getElementById('logosModal').classList.remove('open');document.body.style.overflow='';}
 function switchLogosTab(tab){
   currentLogosTab=tab;
@@ -920,6 +843,30 @@ function renderScreenshots(){
         </div>`).join('')}
     </div>`;
 }
+
+// ── THE FIX: renderHowItWorks now uses assets/how-it-works/ ──
+function renderHowItWorks(){
+  const variants=[
+    {file:'how-it-works-gray.png',   label:'Gray',   bg:'#F2F0EB'},
+    {file:'how-it-works-green.png',  label:'Green',  bg:'#F5FDF7'},
+    {file:'how-it-works-orange.png', label:'Orange', bg:'#FFF5F2'},
+    {file:'how-it-works-yellow.png', label:'Yellow', bg:'#fef9e6'},
+  ];
+  document.getElementById('logosContent').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+      ${variants.map(v=>`
+        <div style="border-radius:16px;overflow:hidden;border:1.5px solid var(--border);background:var(--white);display:flex;flex-direction:column;">
+          <div style="aspect-ratio:4/3;background:${v.bg};display:flex;align-items:center;justify-content:center;padding:24px;">
+            <img src="assets/how-it-works/${v.file}" alt="${v.label}" style="max-width:100%;max-height:100%;object-fit:contain;">
+          </div>
+          <div style="padding:12px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <span style="font-size:12px;font-weight:600;color:var(--near-black);">How It Works — ${v.label}</span>
+            <a href="assets/how-it-works/${v.file}" download style="background:var(--near-black);color:var(--white);border:none;padding:6px 14px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap;">↓ PNG</a>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
 function openFAQModal(){document.getElementById('faqModal').classList.add('open');document.body.style.overflow='hidden';document.getElementById('faqModalBody').innerHTML=getFAQHTML();}
 function closeFAQModal(){document.getElementById('faqModal').classList.remove('open');document.body.style.overflow='';}
 function getFAQHTML(){return `<div style="font-family:'DM Sans',-apple-system,sans-serif;color:#292929;font-size:13px;line-height:1.5;padding:40px 48px;"><style>.fq-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:20px;border-bottom:3px solid #292929;}.fq-doc-title{font-size:17px;font-weight:800;color:#292929;text-align:right;}.fq-doc-sub{font-size:11px;color:#6b7280;margin-top:2px;text-align:right;}.fq-intro{background:#292929;color:white;border-radius:12px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:12px;font-size:12.5px;line-height:1.6;}.fq-sec-label{background:#fae182;color:#292929;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:3px 12px;border-radius:100px;display:inline-block;margin-bottom:8px;}.fq-sec-title{font-size:14px;font-weight:800;color:#292929;margin-bottom:10px;}.fq-item{border:1.5px solid #e5e7eb;border-radius:10px;margin-bottom:8px;overflow:hidden;}.fq-q{background:#f9f9f9;padding:9px 12px;font-weight:700;font-size:12px;color:#292929;display:flex;align-items:flex-start;gap:8px;}.fq-qb{background:#F56B3F;color:white;font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px;flex-shrink:0;margin-top:1px;}.fq-a{padding:9px 12px 9px 30px;font-size:11.5px;color:#4b5563;line-height:1.65;border-top:1px solid #e5e7eb;}.fq-hl{background:#fef9e6;border-left:3px solid #fae182;padding:5px 9px;border-radius:0 4px 4px 0;margin-top:6px;font-size:11px;}.fq-two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}.fq-ref{background:#f9f9f9;border:1.5px solid #e5e7eb;border-radius:10px;padding:12px 14px;}.fq-ref h4{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;color:#292929;margin-bottom:8px;}.fq-ref li{font-size:11px;color:#4b5563;display:flex;align-items:flex-start;gap:6px;margin-bottom:4px;list-style:none;}.fq-ref li::before{content:'✓';color:#F56B3F;font-weight:800;}.fq-support{background:#292929;color:white;border-radius:12px;padding:12px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px;}.fq-si{text-align:center;}.fq-sl{font-size:9px;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;}.fq-sv{font-size:11.5px;font-weight:700;}.fq-foot{text-align:center;font-size:10px;color:#9ca3af;margin-top:10px;}.fq-logo-row{display:flex;align-items:center;gap:10px;}.fq-wordmark{font-size:22px;font-weight:800;color:#292929;letter-spacing:-0.5px;}.fq-sub{font-size:11px;color:#9ca3af;margin-top:1px;}</style><div class="fq-header"><div class="fq-logo-row"><svg width="36" height="36" viewBox="368 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><mask id="fqm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask><g mask="url(#fqm)"><path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#fqg1)"/><path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#fqg2)"/></g><defs><linearGradient id="fqg1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient><linearGradient id="fqg2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient></defs></svg><div><div class="fq-wordmark">Split Pay</div><div class="fq-sub">by Rent App</div></div></div><div><div class="fq-doc-title">Staff FAQ Sheet</div><div class="fq-doc-sub">For leasing agents & property management staff</div></div></div><div class="fq-intro"><div style="font-size:22px;flex-shrink:0;">💡</div><div><strong>Key message:</strong> Split Pay is free for residents, requires zero setup from you, and works with your existing payment portal. Residents pay their full rent on time — Split Pay handles the rest.</div></div><div style="margin-bottom:20px;"><div class="fq-sec-label">Basics</div><div class="fq-sec-title">What is Split Pay?</div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>What is Split Pay and what does it do?</div><div class="fq-a">Split Pay lets residents split their monthly rent into two payments — one at the start of the month and one mid-month. The resident gets flexibility; you still receive 100% of rent on time, in full, every month.</div></div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>Does this cost us anything to offer?</div><div class="fq-a"><strong>No.</strong> Split Pay is completely free for property managers and owners. No setup fee, monthly fee, or per-transaction fee. Residents pay a small fee — you pay nothing.</div></div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>Do we need to change anything in our system?</div><div class="fq-a"><strong>Nothing changes on your end.</strong> Split Pay works with your existing portal. You'll see one full rent payment hit your account, on time, every month — just like always.</div></div></div><div style="margin-bottom:20px;"><div class="fq-sec-label">How It Works</div><div class="fq-sec-title">The resident experience</div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>How does a resident sign up?</div><div class="fq-a">Residents download the Split Pay app (or visit splitpay.com), connect their bank account, and enter their payment portal details. Setup takes a few minutes. After that, Split Pay automatically handles payments.</div></div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>Will I see two payments hit our system instead of one?</div><div class="fq-a"><strong>No.</strong> You will always see one full rent payment on the due date. The two-payment arrangement is strictly between Split Pay and the resident. Your records are unaffected.</div></div></div><div style="margin-bottom:20px;"><div class="fq-sec-label">Objections</div><div class="fq-sec-title">What residents might push back on</div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>"Is this safe? I don't want to share my bank info."</div><div class="fq-a">Split Pay is SOC 2 compliant, end-to-end encrypted, CCPA and GDPR compliant. Built by veterans of Cash App and Dropbox. 550,000+ bank accounts linked.<div class="fq-hl">💬 "It's the same security standard used by Cash App and major fintech apps."</div></div></div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>"Will this affect my credit score?"</div><div class="fq-a">Split Pay reports on-time payments to credit bureaus — it can actually <strong>help build credit</strong>. No hard credit pull when signing up.</div></div><div class="fq-item"><div class="fq-q"><span class="fq-qb">Q</span>"Can I pay my rent with Split Pay after my due date?"</div><div class="fq-a">Yes, Split Pay can process payments at any point and deposits to us are standard ACH processing speed (typically the same day).</div></div></div><div class="fq-two"><div class="fq-ref"><h4>✅ Compatible Platforms</h4><ul><li>AppFolio</li><li>Yardi</li><li>Buildium</li><li>Rent Manager</li><li>Entrata / ResMan</li><li>RentCafe / RealPage</li><li>TurboTenant / DoorLoop</li><li>Any portal accepting ACH</li></ul></div><div class="fq-ref"><h4>📋 Key Facts</h4><ul><li>Free for property managers — always</li><li>Zero setup or IT work required</li><li>Available in all 50 US states</li><li>1,000+ property management firms</li><li>$100M+ payments processed</li><li>English & Spanish support</li><li>Materials in EN, ES, PT</li></ul></div></div><div style="margin-top:20px;"><div class="fq-sec-label">Support</div><div class="fq-sec-title">Direct residents and managers here — not to your staff</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;"><div style="background:#292929;color:white;border-radius:12px;padding:12px 18px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:#fae182;color:#292929;padding:2px 10px;border-radius:100px;display:inline-block;margin-bottom:10px;">Resident Support</div><div style="display:flex;flex-direction:column;gap:6px;"><div><div style="font-size:9px;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;">Email</div><div style="font-size:11.5px;font-weight:700;">support@splitpay.com</div></div><div><div style="font-size:9px;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;">Phone / Text</div><div style="font-size:11.5px;font-weight:700;">1 (877) 749-3592</div></div><div><div style="font-size:9px;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;">Hours</div><div style="font-size:11.5px;font-weight:700;">Mon–Fri, 8AM–8PM ET</div></div></div></div><div style="background:#292929;color:white;border-radius:12px;padding:12px 18px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:#2ECFB2;color:#1a1a1a;padding:2px 10px;border-radius:100px;display:inline-block;margin-bottom:10px;">Property Manager Support</div><div style="display:flex;flex-direction:column;gap:6px;"><div><div style="font-size:9px;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;">Email</div><div style="font-size:11.5px;font-weight:700;">landlords@splitpay.com</div></div><div><div style="font-size:9px;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;">Phone / Text</div><div style="font-size:11.5px;font-weight:700;">1 (877) 749-3592</div></div><div><div style="font-size:9px;opacity:0.6;text-transform:uppercase;letter-spacing:0.05em;">Hours</div><div style="font-size:11.5px;font-weight:700;">Mon–Fri, 8AM–8PM ET</div></div></div></div></div></div><div class="fq-foot">Split Pay is a product of Rent App · splitpay.com · For internal staff use only</div></div>`;}

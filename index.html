@@ -316,8 +316,8 @@ px;overflow-y:auto;background:var(--off-white);}
   .conc-submit{background:var(--teal);color:var(--white);border:none;padding:16px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;transition:opacity 0.2s;margin-top:4px;}
   .conc-submit:hover{opacity:0.85;}
   .conc-submit:disabled{opacity:0.35;cursor:not-allowed;}
-  .conc-success{text-align:center;padding:48px 24px;visibility:hidden;height:0;overflow:hidden;flex-direction:column;align-items:center;gap:18px;}
-  .conc-success.show{visibility:visible;height:auto;overflow:visible;display:flex;}
+  .conc-success{text-align:center;padding:48px 24px;display:none;flex-direction:column;align-items:center;gap:18px;}
+  .conc-success.show{display:flex;}
   .conc-success-icon{width:72px;height:72px;background:var(--teal-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;}
   /* Preview pane */
   .prev-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);margin-bottom:14px;}
@@ -1092,6 +1092,11 @@ var CONC_REQUIRED_FIELDS = ['First Name','Last Name','Email','Phone'];
 function openConcierge(){
   document.getElementById('conciergeModal').classList.add('open');
   document.body.style.overflow='hidden';
+  // Force all steps hidden before goStep runs
+  for(var i=0;i<5;i++){
+    var el = document.getElementById('cstep'+i);
+    if(el){ el.style.display='none'; el.classList.remove('active'); }
+  }
   concGoStep(0);
   concLive();
 }
@@ -1102,18 +1107,21 @@ function closeConcierge(){
 
 function concGoStep(n){
   concStep = n;
+  // Hide ALL steps using inline style — no CSS class ambiguity
   for(var i=0;i<5;i++){
     var el = document.getElementById('cstep'+i);
-    if(el) el.classList.remove('active');
+    if(el){ el.style.display='none'; el.classList.remove('active'); }
   }
+  // Show only the target step
   var target = document.getElementById('cstep'+n);
-  if(target) target.classList.add('active');
-  document.getElementById('concSuccess').classList.remove('show');
-  document.getElementById('concFormPane').style.display='flex';
-  // Progress
+  if(target){ target.style.display='flex'; target.classList.add('active'); }
+  // Hide success
+  var succ = document.getElementById('concSuccess');
+  succ.style.display='none'; succ.classList.remove('show');
+  // Progress bar
   var pct = ((n+1)/5)*100;
   document.getElementById('concProgress').style.width = pct+'%';
-  // Summary on last step
+  // Build summary on last step
   if(n===4) concBuildSummary();
 }
 
@@ -1280,13 +1288,13 @@ function concToggleSubmit(){
 }
 
 function concSubmit(){
-  // Show success
   for(var i=0;i<5;i++){
     var el = document.getElementById('cstep'+i);
-    if(el) el.classList.remove('active');
+    if(el){ el.style.display='none'; el.classList.remove('active'); }
   }
   document.getElementById('concProgress').style.width='100%';
-  document.getElementById('concSuccess').classList.add('show');
+  var succ = document.getElementById('concSuccess');
+  succ.style.display='flex'; succ.classList.add('show');
   showToast('✓ Submission received!');
 }
 

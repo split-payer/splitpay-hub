@@ -1380,8 +1380,8 @@ Key facts:
 Split Pay Concierge:
 - The Concierge is a free tool that lets property managers upload their rent roll and have Split Pay send personalized invitations to every resident by email, SMS, or both
 - It takes about 5 minutes and is available to any property manager at no cost
-- If someone asks how to reach residents directly, invite residents, send bulk invitations, or use the Concierge, tell them to click here: <a href="#" onclick="openConcierge();return false;" style="color:var(--teal);font-weight:700;text-decoration:underline;">Open the Split Pay Concierge</a>
-- You can also tell them the Concierge is available in the "Get the Kit" flow on this page
+- If someone asks how to reach residents directly, invite residents, send bulk invitations, or use the Concierge, tell them: "Yes! Use the Split Pay Concierge — click the button below to open it." Then end your reply with the exact string: ##SHOW_CONCIERGE_LINK##
+- You can also mention the Concierge is available after filling out the "Get the Kit" form on this page
 
 Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.`;
 
@@ -1411,7 +1411,17 @@ function appendMsg(container,role,text){
   if(isBot)div.innerHTML=`<div style="width:${container.id==='inlineChatMessages'?'28':'24'}px;height:${container.id==='inlineChatMessages'?'28':'24'}px;background:var(--near-black);border-radius:${container.id==='inlineChatMessages'?'8':'6'}px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="white" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>`;
   const bubble=document.createElement('div');
   bubble.style.cssText=`background:${isBot?'var(--white)':'var(--orange)'};color:${isBot?'var(--near-black)':'white'};border:${isBot?'1.5px solid var(--border)':'none'};border-radius:${isBot?'4px 16px 16px 16px':'16px 4px 16px 16px'};padding:${container.id==='inlineChatMessages'?'14px 18px':'10px 14px'};font-size:${container.id==='inlineChatMessages'?'14':'13'}px;line-height:1.65;max-width:${isBot?'480':'80%'}px;white-space:pre-wrap;`;
-  if(isBot)bubble.innerHTML=text;else bubble.textContent=text;
+  if(isBot){
+    const cleaned=text.replace('##SHOW_CONCIERGE_LINK##','');
+    bubble.innerHTML=cleaned;
+    if(text.includes('##SHOW_CONCIERGE_LINK##')){
+      const btn=document.createElement('button');
+      btn.textContent='✦ Open Split Pay Concierge →';
+      btn.style.cssText='margin-top:10px;display:block;background:var(--teal);color:white;border:none;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;';
+      btn.onclick=openConcierge;
+      bubble.appendChild(btn);
+    }
+  } else { bubble.textContent=text; }
   div.appendChild(bubble);container.appendChild(div);
   container.scrollTop=container.scrollHeight;return div;
 }

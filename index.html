@@ -491,6 +491,14 @@
       </div>
     </div>
     <p class="grid-note">All materials are property-manager safe and policy neutral.</p>
+    <div style="margin-top:24px;text-align:center;padding:16px 24px;background:rgba(67,189,174,0.07);border:1.5px solid rgba(67,189,174,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0;"></div>
+        <span style="font-size:13px;font-weight:700;color:var(--teal);">Split Pay Concierge</span>
+        <span style="font-size:13px;color:var(--gray);">— After getting the kit, we can send personalized invitations to every resident on your behalf. Upload your rent roll, choose email or SMS, done.</span>
+      </div>
+      <button onclick="openConcierge()" style="background:none;border:1.5px solid rgba(67,189,174,0.35);color:var(--teal);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.15s;" onmouseover="this.style.background='rgba(67,189,174,0.1)'" onmouseout="this.style.background='none'">Open Concierge →</button>
+    </div>
   </div>
 </section>
 
@@ -635,7 +643,11 @@
       <div class="concierge-feature"><div class="concierge-feature-dot"></div>Takes 5 minutes</div>
       <div class="concierge-feature"><div class="concierge-feature-dot"></div>Free for property managers</div>
     </div>
+    <div style="text-align:center;margin-top:48px;">
+      <button onclick="openConcierge()" style="background:none;border:1.5px solid rgba(67,189,174,0.4);color:var(--teal);padding:14px 32px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--teal)';this.style.background='rgba(67,189,174,0.08)'" onmouseout="this.style.borderColor='rgba(67,189,174,0.4)';this.style.background='none'">Already got the kit? Open Concierge directly →</button>
+    </div>
   </div>
+</section>
 </section>
 
 <!-- SIGNUP -->
@@ -1062,7 +1074,7 @@
         <div class="c-email-card" id="cEmailPreview">
           <div class="c-email-topbar">
             <div class="meta">From: Split Pay &lt;invites@splitpay.com&gt;</div>
-            <div class="meta" style="margin-bottom:5px">To: John Doe &lt;john@example.com&gt;</div>
+            <div class="meta" style="margin-bottom:5px">To: Jane Smith &lt;jane@example.com&gt;</div>
             <div class="subj" id="cPrevSubj">Your property manager invites you to use Split Pay</div>
           </div>
           <div class="c-email-logo-bar">
@@ -1070,7 +1082,7 @@
             <div class="c-email-logo-text">Split Pay</div>
           </div>
           <div class="c-email-body">
-            <p id="cPrevBody">Hi <span class="c-hl">John Doe</span>, Split Pay is now available for your unit at <span class="c-hl">123 Main St., Brooklyn NY 11201</span>.</p>
+            <p id="cPrevBody">Hi <span class="c-hl">Jane Smith</span>, Split Pay is now available for your unit at <span class="c-hl">123 Main St., Brooklyn NY 11201</span>.</p>
             <br/>
             <p>Accept <span class="c-hl" id="cPrevPM">your property manager</span>'s invitation to apply — it only takes a few minutes.</p>
             <div class="c-email-cta-btn">Accept Invitation →</div>
@@ -1109,7 +1121,8 @@ function closeCal(){calModal.classList.remove('open');document.body.style.overfl
 function submitDL(){
   const first=document.getElementById('dl-first').value.trim(),email=document.getElementById('dl-email').value.trim();
   if(!first||!email){alert('Please fill in at least your first name and email.');return;}
-  window.open('https://drive.google.com/drive/folders/1yBbk_6H861SDARijff2jkguYSIG-ngE8?usp=sharing','_blank');
+  // TODO: Hook up to Close.com — send kit email + enroll in drip sequence
+  // window.open('https://drive.google.com/drive/folders/1yBbk_6H861SDARijff2jkguYSIG-ngE8?usp=sharing','_blank');
   showDLScreen(2);
 }
 function goToConcierge(){
@@ -1117,9 +1130,13 @@ function goToConcierge(){
   const fn=document.getElementById('dl-first').value.trim();
   const ln=document.getElementById('dl-last').value.trim();
   const co=document.getElementById('dl-company').value.trim();
+  const em=document.getElementById('dl-email').value.trim();
+  const ph=document.getElementById('dl-phone').value.trim();
   if(fn)document.getElementById('cFirstName').value=fn;
   if(ln)document.getElementById('cLastName').value=ln;
   if(co)document.getElementById('cFirm').value=co;
+  if(em)document.getElementById('cPmEmail').value=em;
+  if(ph)document.getElementById('cPmPhone').value=ph;
   openConcierge();
 }
 function checkPMS(){const s=document.getElementById('pmsSelect'),b=document.getElementById('pmsCompat');if(s.value){b.style.display='flex';document.getElementById('pmsCompatText').textContent=`Compatible — Split Pay works with ${s.value}. No integration required.`;}else b.style.display='none';}
@@ -1360,6 +1377,12 @@ Key facts:
 - All resident servicing handled by Split Pay — not the property manager
 - For direct resident questions, refer them to splitpay.com
 
+Split Pay Concierge:
+- The Concierge is a free tool that lets property managers upload their rent roll and have Split Pay send personalized invitations to every resident by email, SMS, or both
+- It takes about 5 minutes and is available to any property manager at no cost
+- If someone asks how to reach residents directly, invite residents, send bulk invitations, or use the Concierge, tell them to click here: <a href="#" onclick="openConcierge();return false;" style="color:var(--teal);font-weight:700;text-decoration:underline;">Open the Split Pay Concierge</a>
+- You can also tell them the Concierge is available in the "Get the Kit" flow on this page
+
 Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.`;
 
 const inlineHistory=[],floatHistory=[];
@@ -1388,7 +1411,8 @@ function appendMsg(container,role,text){
   if(isBot)div.innerHTML=`<div style="width:${container.id==='inlineChatMessages'?'28':'24'}px;height:${container.id==='inlineChatMessages'?'28':'24'}px;background:var(--near-black);border-radius:${container.id==='inlineChatMessages'?'8':'6'}px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="white" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>`;
   const bubble=document.createElement('div');
   bubble.style.cssText=`background:${isBot?'var(--white)':'var(--orange)'};color:${isBot?'var(--near-black)':'white'};border:${isBot?'1.5px solid var(--border)':'none'};border-radius:${isBot?'4px 16px 16px 16px':'16px 4px 16px 16px'};padding:${container.id==='inlineChatMessages'?'14px 18px':'10px 14px'};font-size:${container.id==='inlineChatMessages'?'14':'13'}px;line-height:1.65;max-width:${isBot?'480':'80%'}px;white-space:pre-wrap;`;
-  bubble.textContent=text;div.appendChild(bubble);container.appendChild(div);
+  if(isBot)bubble.innerHTML=text;else bubble.textContent=text;
+  div.appendChild(bubble);container.appendChild(div);
   container.scrollTop=container.scrollHeight;return div;
 }
 function appendTyping(container){
@@ -1481,8 +1505,8 @@ function cUpdatePreview(){
   document.getElementById('cPrevSubj').textContent=subj;
   document.getElementById('cPrevPM').textContent=pm;
   const bodyEl=document.getElementById('cPrevBody');
-  bodyEl.innerHTML=`Hi <span class="c-hl">John Doe</span>, Split Pay is now available for your unit at <span class="c-hl">${addr}</span>.`;
-  document.getElementById('cPrevSMS').textContent=`Hi John Doe, ${pm} has invited you to use Split Pay${prop?' at '+prop:''}. Apply: splitpay.com/apply`;
+  bodyEl.innerHTML=`Hi <span class="c-hl">Jane Smith</span>, Split Pay is now available for your unit at <span class="c-hl">${addr}</span>.`;
+  document.getElementById('cPrevSMS').textContent=`Hi Jane Smith, ${pm} has invited you to use Split Pay${prop?' at '+prop:''}. Apply: splitpay.com/apply`;
 }
 function cLiveValidate(field){
   if(field==='email'){const v=document.getElementById('cPmEmail').value.trim();document.getElementById('cEmailErr').textContent=v&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?'Invalid email address':'';}

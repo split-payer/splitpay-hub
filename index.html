@@ -1535,6 +1535,24 @@ async function cSubmitForm() {
   btn.disabled = true;
   btn.textContent = 'Submitting…';
 
+  // Count non-empty rows in CSV (excluding header)
+  let rentRollRowCount = null;
+  if (cFile) {
+    try {
+      const csvText = await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result);
+        r.onerror = reject;
+        r.readAsText(cFile);
+      });
+      const rows = csvText.split('\n').slice(1);
+      rentRollRowCount = rows.filter(row => row.split(',').some(cell => cell.trim() !== '')).length;
+      console.log('Row count debug:', rentRollRowCount, 'rows:', rows.length, 'sample:', rows.slice(0,3));
+    } catch(err) {
+      console.error('Row count error:', err);
+    }
+  }
+
   // Upload rent roll to Drive if present
   let rentRollDriveUrl = null;
   if (cFile) {
@@ -1564,6 +1582,23 @@ async function cSubmitForm() {
     btn.textContent = 'Submitting…';
   }
 
+  // Count non-empty rows in the CSV (excluding header)
+  let rentRollRowCount = null;
+  if (cFile) {
+    try {
+      const text = await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(r.result);
+        r.onerror = reject;
+        r.readAsText(cFile);
+      });
+      const rows = text.split('\n').slice(1); // drop header
+      rentRollRowCount = rows.filter(row => row.split(',').some(cell => cell.trim() !== '')).length;
+    } catch(err) {
+      console.error('Row count error:', err);
+    }
+  }
+
   const payload = {
     formType:        'concierge',
     firstName:       document.getElementById('cFirstName').value.trim(),
@@ -1583,6 +1618,7 @@ async function cSubmitForm() {
     hasRentRoll:     !!cFile,
     rentRollName:    cFile ? cFile.name : null,
     rentRollDriveUrl: rentRollDriveUrl,
+    rentRollRowCount: rentRollRowCount,
   };
   try {
     await fetch('/.netlify/functions/submit-to-close', {

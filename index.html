@@ -1591,6 +1591,43 @@ async function cSubmitForm() {
   document.getElementById('cSuccessScreen').classList.add('visible');
   document.getElementById('cSuccessName').textContent = document.getElementById('cFirstName').value || 'there';
 }
+function cAddAnotherProperty(){
+  // Reset file state
+  cFile = null;
+  cColumnMap = {};
+
+  // Reset upload area
+  document.getElementById('cUploadArea').classList.remove('has-file');
+  document.getElementById('cUploadIcon').textContent = '📂';
+  document.getElementById('cUploadTitle').textContent = 'Click to upload or drag & drop';
+  document.getElementById('cFileName').textContent = '';
+  document.getElementById('cFileInput').value = '';
+  document.getElementById('cMapper').classList.remove('visible');
+  document.getElementById('cMapperRows').innerHTML = '';
+
+  // Reset property fields (Step 1)
+  ['cPropName','cStreet','cCity','cState','cZip'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+
+  // Reset compliance checkbox and submit button
+  document.getElementById('cComplianceCheck').checked = false;
+  document.getElementById('cSubmitBtn').disabled = true;
+
+  // Reset channel to default
+  cChannel = 'email';
+  ['email','sms','both'].forEach(c => {
+    document.getElementById('cCh'+c.charAt(0).toUpperCase()+c.slice(1)).classList.toggle('active', c === 'email');
+  });
+
+  // Show the form body again and hide success screen
+  document.getElementById('cModalBody').style.display = 'flex';
+  document.getElementById('cSuccessScreen').classList.remove('visible');
+
+  // Jump straight to Step 1 (Property) — skip Step 0 since we already have their info
+  cGoToStep(1);
+  cUpdatePreview();
+}
 </script>
 </body>
 </html>

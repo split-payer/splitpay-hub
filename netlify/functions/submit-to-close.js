@@ -92,7 +92,7 @@ exports.handler = async (event) => {
 
     // 2. Create an opportunity on the lead
     // value = unit count * $500 (estimated ARR proxy — adjust multiplier as needed)
-    const oppValue = unitCount ? parseInt(unitCount, 10) : null;
+    const oppValue = unitCount ? parseInt(unitCount, 10) * 100 : null;
 
     const oppPayload = {
       lead_id:      lead.id,

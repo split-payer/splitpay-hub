@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     company, firm, email, phone,
     pms, unitCount,
     propertyName, propertyAddress, channel,
-    hasRentRoll, rentRollName, rentRollDriveUrl,
+    hasRentRoll, rentRollName, rentRollDriveUrl, rentRollRowCount,
   } = body;
 
   const name = `${firstName || ''} ${lastName || ''}`.trim();
@@ -47,12 +47,13 @@ exports.handler = async (event) => {
 
   // ── 2. Build custom fields ─────────────────────────────────────────────────
   const customFields = {
-    'custom.Lead Source':         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
-    'custom.PMS':                 pms             || null,
-    'custom.Property Name':       propertyName    || null,
-    'custom.Property Address':    propertyAddress || null,
-    'custom.Concierge Channel':   channel         || null,
-    'custom.Concierge Requested': formType === 'concierge' ? 'Yes' : null,
+    'custom.Lead Source':              formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
+    'custom.PMS':                      pms             || null,
+    'custom.Property Name':            propertyName    || null,
+    'custom.Property Address':         propertyAddress || null,
+    'custom.Concierge Channel':        channel         || null,
+    'custom.Concierge Requested':      formType === 'concierge' ? 'Yes' : null,
+    'custom.Total Units': unitCount || null,
   };
   Object.keys(customFields).forEach((k) => {
     if (customFields[k] === null) delete customFields[k];
@@ -88,7 +89,9 @@ exports.handler = async (event) => {
   }
 
   // ── 4. Create opportunity ──────────────────────────────────────────────────
-  const oppValue = unitCount ? parseInt(unitCount, 10) * 100 : null;
+  const oppValue = rentRollRowCount
+    ? rentRollRowCount * 100
+    : (unitCount ? parseInt(unitCount, 10) * 100 : null);
   const oppRes = await fetch('https://api.close.com/api/v1/opportunity/', {
     method: 'POST',
     headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -119,6 +122,7 @@ function buildNote(data) {
   if (data.channel)               lines.push(`Channel: ${data.channel}`);
   if (data.hasRentRoll) {
     lines.push(`Rent Roll: ${data.rentRollName || 'Uploaded'}`);
+    if (data.rentRollRowCount)    lines.push(`Rent Roll Row Count: ${data.rentRollRowCount}`);
     if (data.rentRollDriveUrl)    lines.push(`Rent Roll Link: ${data.rentRollDriveUrl}`);
   }
   return lines.join('\n');

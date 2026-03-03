@@ -42,12 +42,14 @@ exports.handler = async (event) => {
       requestBody: {
         name: fileName,
         parents: [FOLDER_ID],
+        driveId: FOLDER_ID,
       },
       media: {
         mimeType: mimeType || 'application/octet-stream',
         body: stream,
       },
       fields: 'id, webViewLink',
+      supportsAllDrives: true,
     });
 
     return {

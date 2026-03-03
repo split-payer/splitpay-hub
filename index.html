@@ -155,7 +155,7 @@
   .faq-item.open .faq-a{display:block;}
   .faq-item.open .faq-q .ico{transform:rotate(45deg);}
 
-  /* CONCIERGE SECTION — dark, no button, descriptive only */
+  /* CONCIERGE SECTION */
   .concierge-section{background:var(--near-black);padding:112px 56px;text-align:center;}
   .concierge-section h2.display{color:var(--white);}
   .concierge-section .lead{color:#8A8A8E;margin-bottom:0;}
@@ -627,7 +627,7 @@
   </div>
 </section>
 
-<!-- CONCIERGE SECTION — descriptive only, no button -->
+<!-- CONCIERGE SECTION -->
 <section class="concierge-section" id="concierge">
   <div class="container">
     <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(67,189,174,0.12);border:1px solid rgba(67,189,174,0.25);padding:5px 14px;border-radius:100px;margin-bottom:20px;">
@@ -647,7 +647,6 @@
       <button onclick="openConcierge()" style="background:none;border:1.5px solid rgba(67,189,174,0.4);color:var(--teal);padding:14px 32px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--teal)';this.style.background='rgba(67,189,174,0.08)'" onmouseout="this.style.borderColor='rgba(67,189,174,0.4)';this.style.background='none'">Already got the kit? Open Concierge directly →</button>
     </div>
   </div>
-</section>
 </section>
 
 <!-- SIGNUP -->
@@ -720,12 +719,10 @@
   </button>
 </div>
 
-<!-- ── GET THE KIT MODAL ── -->
+<!-- GET THE KIT MODAL -->
 <div class="overlay" id="dlModal">
   <div class="modal-card">
     <button class="modal-x" onclick="closeDL()">✕</button>
-
-    <!-- Screen 1: The form -->
     <div class="dl-screen active" id="dlScreen1">
       <h2>Get the Rent Week Support Kit</h2>
       <p>Tell us where to send it.</p>
@@ -753,8 +750,6 @@
         <p class="mfooter">We only send operational updates related to Split Pay.</p>
       </div>
     </div>
-
-    <!-- Screen 2: Success + Concierge upsell -->
     <div class="dl-screen" id="dlScreen2">
       <div style="text-align:center;margin-bottom:28px;">
         <div style="font-size:44px;margin-bottom:12px;">🎉</div>
@@ -933,7 +928,7 @@
   </div>
 </div>
 
-<!-- ── CONCIERGE MODAL ── -->
+<!-- CONCIERGE MODAL -->
 <div id="conciergeOverlay" onclick="handleConciergeOverlayClick(event)">
   <div class="c-modal" id="cModal">
     <div class="c-modal-header">
@@ -954,7 +949,6 @@
     </div>
     <div class="c-modal-body" id="cModalBody">
       <div class="c-form-side" id="cFormSide">
-
         <!-- Step 0 -->
         <div class="c-step active" id="cstep0">
           <div class="c-step-eyebrow">Step 1 of 5</div>
@@ -981,7 +975,6 @@
             <div class="c-nav-right"><span class="c-step-counter">1 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
           </div>
         </div>
-
         <!-- Step 1 -->
         <div class="c-step" id="cstep1">
           <div class="c-step-eyebrow">Step 2 of 5</div>
@@ -999,7 +992,6 @@
             <div class="c-nav-right"><span class="c-step-counter">2 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
           </div>
         </div>
-
         <!-- Step 2 -->
         <div class="c-step" id="cstep2">
           <div class="c-step-eyebrow">Step 3 of 5</div>
@@ -1016,7 +1008,6 @@
             <div class="c-nav-right"><span class="c-step-counter">3 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
           </div>
         </div>
-
         <!-- Step 3 -->
         <div class="c-step" id="cstep3">
           <div class="c-step-eyebrow">Step 4 of 5</div>
@@ -1040,7 +1031,6 @@
             <div class="c-nav-right"><span class="c-step-counter">4 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
           </div>
         </div>
-
         <!-- Step 4 -->
         <div class="c-step" id="cstep4">
           <div class="c-step-eyebrow">Step 5 of 5</div>
@@ -1061,9 +1051,7 @@
             <div class="c-nav-right"><span class="c-step-counter">5 of 5</span><button class="c-btn-submit" id="cSubmitBtn" onclick="cSubmitForm()" disabled>Submit ✦</button></div>
           </div>
         </div>
-
       </div>
-
       <!-- Preview Panel -->
       <div class="c-preview-side" id="cPreviewSide">
         <div class="c-preview-label">Live Preview</div>
@@ -1096,7 +1084,6 @@
         </div>
       </div>
     </div>
-
     <div class="c-success-screen" id="cSuccessScreen">
       <div class="c-success-icon">🎉</div>
       <h2>You're all set, <span id="cSuccessName">there</span>!</h2>
@@ -1118,13 +1105,34 @@ function openDL(){dlModal.classList.add('open');document.body.style.overflow='hi
 function closeDL(){dlModal.classList.remove('open');document.body.style.overflow='';}
 function openCal(){calModal.classList.add('open');document.body.style.overflow='hidden';}
 function closeCal(){calModal.classList.remove('open');document.body.style.overflow='';}
-function submitDL(){
-  const first=document.getElementById('dl-first').value.trim(),email=document.getElementById('dl-email').value.trim();
-  if(!first||!email){alert('Please fill in at least your first name and email.');return;}
-  // TODO: Hook up to Close.com — send kit email + enroll in drip sequence
-  // window.open('https://drive.google.com/drive/folders/1yBbk_6H861SDARijff2jkguYSIG-ngE8?usp=sharing','_blank');
+
+async function submitDL() {
+  const first = document.getElementById('dl-first').value.trim();
+  const last  = document.getElementById('dl-last').value.trim();
+  const email = document.getElementById('dl-email').value.trim();
+  if (!first || !email) { alert('Please fill in at least your first name and email.'); return; }
+  const payload = {
+    formType:      'kit',
+    firstName:     first,
+    lastName:      last,
+    company:       document.getElementById('dl-company').value.trim(),
+    portfolioSize: document.getElementById('dl-size').value,
+    pms:           document.getElementById('pmsSelect').value,
+    email:         email,
+    phone:         document.getElementById('dl-phone').value.trim(),
+  };
+  try {
+    await fetch('/.netlify/functions/submit-to-close', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+  } catch (err) {
+    console.error('Close submission error:', err);
+  }
   showDLScreen(2);
 }
+
 function goToConcierge(){
   closeDL();
   const fn=document.getElementById('dl-first').value.trim();
@@ -1191,57 +1199,12 @@ function closeDemoModal(){document.getElementById('demoModal').classList.remove(
    EMAIL TEMPLATES
 ═══════════════════════════ */
 const EMAIL_TEMPLATES=[
-  {subject:"Introducing a smarter way to pay rent at {{property_name}}",body:`Hi [Resident Name],
-
-We're excited to let you know that Split Pay is now available for residents at {{property_name}}.
-
-Split Pay lets you divide your rent into two smaller payments — one on your due date, one two weeks later — at no cost to you and no changes to how you pay through {{portal_link}}.
-
-To get started, simply visit splitpay.com and apply. It takes just a few minutes. Once approved, you'll receive an ACH account and routing number to add to your payment profile in our portal.
-
-If you have any questions, feel free to reach out.
-
-Best,
-The {{property_name}} Team`},
-  {subject:"Split Pay is now available — pay rent in two parts",body:`Hi [Resident Name],
-
-Starting this month, you can use Split Pay to divide your rent into two payments at {{property_name}}.
-
-Get started at splitpay.com — takes about 5 minutes to apply.
-
-Questions? Reply to this email.
-
-— The {{property_name}} Team`},
-  {subject:"Reminder: Split Pay is available before rent is due",body:`Hi [Resident Name],
-
-Just a heads-up — if you haven't tried Split Pay yet, now's a great time to set it up before rent is due.
-
-Split Pay lets you split your rent into two payments at no cost. Apply at splitpay.com, then add your new ACH details to {{portal_link}}.
-
-Best,
-The {{property_name}} Team`},
-  {subject:"Rent due soon — Split Pay can help",body:`Hi [Resident Name],
-
-Rent will be due shortly. If you'd like to split your payment into two parts, you can still apply for Split Pay at splitpay.com.
-
-Once approved, add your new ACH account to {{portal_link}} before submitting your payment.
-
-— {{property_name}}`},
-  {subject:"Today's the day — Split Pay available now",body:`Hi [Resident Name],
-
-Rent is due today. If you're using Split Pay, make sure you've updated your payment info in {{portal_link}}.
-
-Haven't signed up yet? Visit splitpay.com — approvals are fast.
-
-— {{property_name}}`},
-  {subject:"Thank you for paying rent — Split Pay tip for next month",body:`Hi [Resident Name],
-
-Thanks for submitting your rent payment this month.
-
-If you'd like to split next month's rent into two payments, Split Pay makes it easy. Apply at splitpay.com before your next due date and add your ACH details to {{portal_link}}.
-
-Best,
-The {{property_name}} Team`}
+  {subject:"Introducing a smarter way to pay rent at {{property_name}}",body:`Hi [Resident Name],\n\nWe're excited to let you know that Split Pay is now available for residents at {{property_name}}.\n\nSplit Pay lets you divide your rent into two smaller payments — one on your due date, one two weeks later — at no cost to you and no changes to how you pay through {{portal_link}}.\n\nTo get started, simply visit splitpay.com and apply. It takes just a few minutes. Once approved, you'll receive an ACH account and routing number to add to your payment profile in our portal.\n\nIf you have any questions, feel free to reach out.\n\nBest,\nThe {{property_name}} Team`},
+  {subject:"Split Pay is now available — pay rent in two parts",body:`Hi [Resident Name],\n\nStarting this month, you can use Split Pay to divide your rent into two payments at {{property_name}}.\n\nGet started at splitpay.com — takes about 5 minutes to apply.\n\nQuestions? Reply to this email.\n\n— The {{property_name}} Team`},
+  {subject:"Reminder: Split Pay is available before rent is due",body:`Hi [Resident Name],\n\nJust a heads-up — if you haven't tried Split Pay yet, now's a great time to set it up before rent is due.\n\nSplit Pay lets you split your rent into two payments at no cost. Apply at splitpay.com, then add your new ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`},
+  {subject:"Rent due soon — Split Pay can help",body:`Hi [Resident Name],\n\nRent will be due shortly. If you'd like to split your payment into two parts, you can still apply for Split Pay at splitpay.com.\n\nOnce approved, add your new ACH account to {{portal_link}} before submitting your payment.\n\n— {{property_name}}`},
+  {subject:"Today's the day — Split Pay available now",body:`Hi [Resident Name],\n\nRent is due today. If you're using Split Pay, make sure you've updated your payment info in {{portal_link}}.\n\nHaven't signed up yet? Visit splitpay.com — approvals are fast.\n\n— {{property_name}}`},
+  {subject:"Thank you for paying rent — Split Pay tip for next month",body:`Hi [Resident Name],\n\nThanks for submitting your rent payment this month.\n\nIf you'd like to split next month's rent into two payments, Split Pay makes it easy. Apply at splitpay.com before your next due date and add your ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`}
 ];
 let currentEmailIdx=0;
 function openEmailModal(){document.getElementById('emailModal').classList.add('open');document.body.style.overflow='hidden';setEmailTemplate(0,document.querySelector('#emailModal .variant-btn'));}
@@ -1567,13 +1530,41 @@ function cBuildSummary(){
   ].map(([k,v])=>`<div class="c-sum-row"><span class="c-sum-key">${k}</span><span class="c-sum-val">${v}</span></div>`).join('');
 }
 function cToggleSubmit(){document.getElementById('cSubmitBtn').disabled=!document.getElementById('cComplianceCheck').checked;}
-async function cSubmitForm(){
-  const btn=document.getElementById('cSubmitBtn');
-  btn.disabled=true;btn.textContent='Submitting…';
-  await new Promise(r=>setTimeout(r,1200));
-  document.getElementById('cModalBody').style.display='none';
+
+async function cSubmitForm() {
+  const btn = document.getElementById('cSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+  const payload = {
+    formType:        'concierge',
+    firstName:       document.getElementById('cFirstName').value.trim(),
+    lastName:        document.getElementById('cLastName').value.trim(),
+    firm:            document.getElementById('cFirm').value.trim(),
+    email:           document.getElementById('cPmEmail').value.trim(),
+    phone:           document.getElementById('cPmPhone').value.trim(),
+    propertyName:    document.getElementById('cPropName').value.trim(),
+    propertyAddress: [
+      document.getElementById('cStreet').value.trim(),
+      document.getElementById('cCity').value.trim(),
+      document.getElementById('cState').value.trim(),
+      document.getElementById('cZip').value.trim(),
+    ].filter(Boolean).join(', '),
+    channel:         cChannel,
+    hasRentRoll:     !!cFile,
+    rentRollName:    cFile ? cFile.name : null,
+  };
+  try {
+    await fetch('/.netlify/functions/submit-to-close', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+  } catch (err) {
+    console.error('Close submission error:', err);
+  }
+  document.getElementById('cModalBody').style.display = 'none';
   document.getElementById('cSuccessScreen').classList.add('visible');
-  document.getElementById('cSuccessName').textContent=document.getElementById('cFirstName').value||'there';
+  document.getElementById('cSuccessName').textContent = document.getElementById('cFirstName').value || 'there';
 }
 </script>
 </body>

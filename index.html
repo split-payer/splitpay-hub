@@ -1582,23 +1582,6 @@ async function cSubmitForm() {
     btn.textContent = 'Submitting…';
   }
 
-  // Count non-empty rows in the CSV (excluding header)
-  let rentRollRowCount = null;
-  if (cFile) {
-    try {
-      const text = await new Promise((resolve, reject) => {
-        const r = new FileReader();
-        r.onload = () => resolve(r.result);
-        r.onerror = reject;
-        r.readAsText(cFile);
-      });
-      const rows = text.split('\n').slice(1); // drop header
-      rentRollRowCount = rows.filter(row => row.split(',').some(cell => cell.trim() !== '')).length;
-    } catch(err) {
-      console.error('Row count error:', err);
-    }
-  }
-
   const payload = {
     formType:        'concierge',
     firstName:       document.getElementById('cFirstName').value.trim(),

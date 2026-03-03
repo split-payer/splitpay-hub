@@ -5,3 +5,8 @@
   from = "/api/chat"
   to = "/.netlify/functions/chat"
   status = 200
+
+[[redirects]]
+  from = "/api/upload-to-drive"
+  to = "/.netlify/functions/upload-to-drive"
+  status = 200

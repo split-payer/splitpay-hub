@@ -1528,6 +1528,36 @@ async function cSubmitForm() {
   const btn = document.getElementById('cSubmitBtn');
   btn.disabled = true;
   btn.textContent = 'Submitting…';
+
+  // Upload rent roll to Drive if present
+  let rentRollDriveUrl = null;
+  if (cFile) {
+    try {
+      btn.textContent = 'Uploading rent roll…';
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(cFile);
+      });
+      const uploadRes = await fetch('/.netlify/functions/upload-to-drive', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: cFile.name,
+          fileBase64: base64,
+          mimeType: cFile.type,
+        }),
+      });
+      const uploadData = await uploadRes.json();
+      if (uploadData.url) rentRollDriveUrl = uploadData.url;
+    } catch (err) {
+      console.error('Drive upload error:', err);
+      // Non-fatal — continue without the link
+    }
+    btn.textContent = 'Submitting…';
+  }
+
   const payload = {
     formType:        'concierge',
     firstName:       document.getElementById('cFirstName').value.trim(),
@@ -1546,6 +1576,7 @@ async function cSubmitForm() {
     channel:         cChannel,
     hasRentRoll:     !!cFile,
     rentRollName:    cFile ? cFile.name : null,
+    rentRollDriveUrl: rentRollDriveUrl,
   };
   try {
     await fetch('/.netlify/functions/submit-to-close', {

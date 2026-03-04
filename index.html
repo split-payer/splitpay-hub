@@ -1049,8 +1049,8 @@
         </div>
         <div class="c-email-card" id="cEmailPreview">
           <div class="c-email-topbar">
-            <div class="meta">From: Split Pay &lt;invites@splitpay.com&gt;</div>
-            <div class="meta" style="margin-bottom:5px">To: Jane Smith &lt;jane@example.com&gt;</div>
+            <div class="meta">From: Split Pay &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2cbccd4cbd6c7d1e2d1d2cecbd6d2c3db8cc1cdcf">[email&#160;protected]</a>&gt;</div>
+            <div class="meta" style="margin-bottom:5px">To: Jane Smith &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0a606b646f4a6f726b677a666f24696567">[email&#160;protected]</a>&gt;</div>
             <div class="subj" id="cPrevSubj">Your property manager invites you to use Split Pay</div>
           </div>
           <div class="c-email-logo-bar">
@@ -1067,7 +1067,7 @@
           <div class="c-email-foot">© Split Pay · You're receiving this because your property manager invited you.</div>
         </div>
         <div class="c-sms-card" id="cSmsPreview">
-          <div class="c-sms-bubble" id="cPrevSMS">Hi John Doe, your property manager has invited you to use Split Pay. Apply: splitpay.com/apply</div>
+          <div class="c-sms-bubble" id="cPrevSMS">Hi John Doe, your property manager has invited you to use Split Pay. Apply: rent.app/go</div>
           <div class="c-sms-time">Delivered</div>
         </div>
       </div>
@@ -1089,7 +1089,7 @@
 <div id="toast">✓ Copied</div>
 <iframe id="printFrame" style="display:none;"></iframe>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ═══════════════════════════
    GET THE KIT MODAL
 ═══════════════════════════ */
@@ -1195,12 +1195,12 @@ function closeDemoModal(){document.getElementById('demoModal').classList.remove(
    EMAIL TEMPLATES
 ═══════════════════════════ */
 const EMAIL_TEMPLATES=[
-  {subject:"Introducing a smarter way to pay rent at {{property_name}}",body:`Hi [Resident Name],\n\nWe're excited to let you know that Split Pay is now available for residents at {{property_name}}.\n\nSplit Pay lets you divide your rent into two smaller payments — one on your due date, one two weeks later — at no cost to you and no changes to how you pay through {{portal_link}}.\n\nTo get started, simply visit splitpay.com and apply. It takes just a few minutes. Once approved, you'll receive an ACH account and routing number to add to your payment profile in our portal.\n\nIf you have any questions, feel free to reach out.\n\nBest,\nThe {{property_name}} Team`},
-  {subject:"Split Pay is now available — pay rent in two parts",body:`Hi [Resident Name],\n\nStarting this month, you can use Split Pay to divide your rent into two payments at {{property_name}}.\n\nGet started at splitpay.com — takes about 5 minutes to apply.\n\nQuestions? Reply to this email.\n\n— The {{property_name}} Team`},
-  {subject:"Reminder: Split Pay is available before rent is due",body:`Hi [Resident Name],\n\nJust a heads-up — if you haven't tried Split Pay yet, now's a great time to set it up before rent is due.\n\nSplit Pay lets you split your rent into two payments at no cost. Apply at splitpay.com, then add your new ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`},
-  {subject:"Rent due soon — Split Pay can help",body:`Hi [Resident Name],\n\nRent will be due shortly. If you'd like to split your payment into two parts, you can still apply for Split Pay at splitpay.com.\n\nOnce approved, add your new ACH account to {{portal_link}} before submitting your payment.\n\n— {{property_name}}`},
-  {subject:"Today's the day — Split Pay available now",body:`Hi [Resident Name],\n\nRent is due today. If you're using Split Pay, make sure you've updated your payment info in {{portal_link}}.\n\nHaven't signed up yet? Visit splitpay.com — approvals are fast.\n\n— {{property_name}}`},
-  {subject:"Thank you for paying rent — Split Pay tip for next month",body:`Hi [Resident Name],\n\nThanks for submitting your rent payment this month.\n\nIf you'd like to split next month's rent into two payments, Split Pay makes it easy. Apply at splitpay.com before your next due date and add your ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`}
+  {subject:"Introducing a smarter way to pay rent at {{property_name}}",body:`Hi [Resident Name],\n\nWe're excited to let you know that Split Pay is now available for residents at {{property_name}}.\n\nSplit Pay lets you divide your rent into two smaller payments — one on your due date, one two weeks later — at no cost to you and no changes to how you pay through {{portal_link}}.\n\nTo get started, simply visit rent.app/go and apply. It takes just a few minutes. Once approved, you'll receive an ACH account and routing number to add to your payment profile in our portal.\n\nIf you have any questions, feel free to reach out.\n\nBest,\nThe {{property_name}} Team`},
+  {subject:"Split Pay is now available — pay rent in two parts",body:`Hi [Resident Name],\n\nStarting this month, you can use Split Pay to divide your rent into two payments at {{property_name}}.\n\nGet started at rent.app/go — takes about 5 minutes to apply.\n\nQuestions? Reply to this email.\n\n— The {{property_name}} Team`},
+  {subject:"Reminder: Split Pay is available before rent is due",body:`Hi [Resident Name],\n\nJust a heads-up — if you haven't tried Split Pay yet, now's a great time to set it up before rent is due.\n\nSplit Pay lets you split your rent into two payments at no cost. Apply at rent.app/go, then add your new ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`},
+  {subject:"Rent due soon — Split Pay can help",body:`Hi [Resident Name],\n\nRent will be due shortly. If you'd like to split your payment into two parts, you can still apply for Split Pay at rent.app/go.\n\nOnce approved, add your new ACH account to {{portal_link}} before submitting your payment.\n\n— {{property_name}}`},
+  {subject:"Today's the day — Split Pay available now",body:`Hi [Resident Name],\n\nRent is due today. If you're using Split Pay, make sure you've updated your payment info in {{portal_link}}.\n\nHaven't signed up yet? Visit rent.app/go — approvals are fast.\n\n— {{property_name}}`},
+  {subject:"Thank you for paying rent — Split Pay tip for next month",body:`Hi [Resident Name],\n\nThanks for submitting your rent payment this month.\n\nIf you'd like to split next month's rent into two payments, Split Pay makes it easy. Apply at rent.app/go before your next due date and add your ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`}
 ];
 let currentEmailIdx=0;
 function openEmailModal(){document.getElementById('emailModal').classList.add('open');document.body.style.overflow='hidden';setEmailTemplate(0,document.querySelector('#emailModal .variant-btn'));}
@@ -1222,11 +1222,11 @@ function copyEmail(){
    SMS MODAL
 ═══════════════════════════ */
 const SMS_SCRIPTS=[
-  {label:"Launch",text:"Hi [Name], Split Pay is now available at {{property_name}}. Split your rent into 2 payments, no cost to you. Apply in minutes: splitpay.com — {{property_name}} Mgmt"},
-  {label:"Reminder — Early",text:"Reminder: Split Pay lets you pay rent in 2 parts at no cost. Set it up before rent is due: splitpay.com — {{property_name}}"},
-  {label:"Reminder — Urgent",text:"Rent due soon. Use Split Pay to pay in 2 parts — apply now: splitpay.com. Questions? Reply to this message. — {{property_name}}"},
-  {label:"Due Today",text:"Rent is due today. If you're using Split Pay, make sure your account is updated in the portal. Haven't applied? splitpay.com — {{property_name}}"},
-  {label:"Post Rent Day",text:"Thanks for paying rent! Want to split next month? Apply for Split Pay at splitpay.com before your next due date. — {{property_name}}"}
+  {label:"Launch",text:"Hi [Name], Split Pay is now available at {{property_name}}. Split your rent into 2 payments, no cost to you. Apply in minutes: rent.app/go — {{property_name}} Mgmt"},
+  {label:"Reminder — Early",text:"Reminder: Split Pay lets you pay rent in 2 parts at no cost. Set it up before rent is due: rent.app/go — {{property_name}}"},
+  {label:"Reminder — Urgent",text:"Rent due soon. Use Split Pay to pay in 2 parts — apply now: rent.app/go. Questions? Reply to this message. — {{property_name}}"},
+  {label:"Due Today",text:"Rent is due today. If you're using Split Pay, make sure your account is updated in the portal. Haven't applied? rent.app/go — {{property_name}}"},
+  {label:"Post Rent Day",text:"Thanks for paying rent! Want to split next month? Apply for Split Pay at rent.app/go before your next due date. — {{property_name}}"}
 ];
 function openSMSModal(){
   document.getElementById('smsModal').classList.add('open');
@@ -1293,7 +1293,7 @@ const FAQ_STAFF=[
   {q:"Does Split Pay require approval from management?",a:"No. Residents can sign up and use Split Pay independently. It works through any ACH-compatible resident portal and requires no action from property management."},
   {q:"How does it show up in our system?",a:"Split Pay looks exactly like any other ACH bank payment in your PMS. Residents use a virtual account and routing number issued by Split Pay. You'll see a normal bank transfer — nothing out of the ordinary."},
   {q:"Does this affect our due dates or late fee policies?",a:"No. Your existing rent policies remain completely unchanged. Residents using Split Pay are still responsible for paying through your portal by your stated due date."},
-  {q:"What if a resident asks us about Split Pay?",a:"Direct them to splitpay.com to apply. The process takes a few minutes. If they have questions about how their payments work or their account status, they should contact Split Pay support directly."},
+  {q:"What if a resident asks us about Split Pay?",a:"Direct them to rent.app/go to apply. The process takes a few minutes. If they have questions about how their payments work or their account status, they should contact Split Pay support directly."},
   {q:"What if a resident accidentally paid Split Pay directly instead of through our portal?",a:"This occasionally happens. Contact Split Pay and they'll reach out to the resident to help them set up the correct ACH/routing number for your portal going forward."},
   {q:"Does Split Pay guarantee rent will be paid on time?",a:"No. Split Pay structures the resident's payments around your due date, but the resident is still responsible for having sufficient funds available. Split Pay does not guarantee or insure rent payments."},
   {q:"Is there any cost to our company?",a:"No. Split Pay is completely free for property managers. There are no setup fees, monthly fees, or per-transaction charges of any kind."},
@@ -1325,7 +1325,7 @@ const CHAT_SYSTEM=`You are the Split Pay assistant on a property manager support
 
 Key facts:
 - Split Pay lets residents divide monthly rent into two payments: one on the due date, one ~2 weeks later
-- Residents apply at splitpay.com — takes minutes. No landlord/PM approval needed.
+- Residents apply at rent.app/go — takes minutes. No landlord/PM approval needed.
 - Residents get a virtual ACH account and routing number to enter in their existing portal
 - Works with any ACH-compatible PMS: Yardi, Entrata, AppFolio, RealPage, MRI Software, Buildium, DoorLoop, ResMan, RentCafe, Rent Manager, Avail, Hemlane, Innago, RentRedi, TurboTenant, and 40+ more
 - No PMS integration required. No contracts. No cost to property managers.
@@ -1334,7 +1334,7 @@ Key facts:
 - Entrata requires 1-3 day micro-deposit verification for new bank accounts
 - Residents build credit (Equifax + Experian) automatically at no cost
 - All resident servicing handled by Split Pay — not the property manager
-- For direct resident questions, refer them to splitpay.com
+- For direct resident questions, refer them to rent.app/go
 
 Split Pay vs. Flex (if asked to compare):
 - Split Pay uses cash flow-based approval (no credit check) — up to ~50% of residents qualify. Flex uses credit checks — only ~20% qualify.
@@ -1483,7 +1483,7 @@ function cUpdatePreview(){
   document.getElementById('cPrevPM').textContent=pm;
   const bodyEl=document.getElementById('cPrevBody');
   bodyEl.innerHTML=`Hi <span class="c-hl">Jane Smith</span>, Split Pay is now available for your unit at <span class="c-hl">${addr}</span>.`;
-  document.getElementById('cPrevSMS').textContent=`Hi Jane Smith, ${pm} has invited you to use Split Pay${prop?' at '+prop:''}. Apply: splitpay.com/apply`;
+  document.getElementById('cPrevSMS').textContent=`Hi Jane Smith, ${pm} has invited you to use Split Pay${prop?' at '+prop:''}. Apply: rent.app/go`;
 }
 function cLiveValidate(field){
   if(field==='email'){const v=document.getElementById('cPmEmail').value.trim();document.getElementById('cEmailErr').textContent=v&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?'Invalid email address':'';}
@@ -1650,16 +1650,4 @@ function cAddAnotherProperty(){
   cChannel = 'email';
   ['email','sms','both'].forEach(c => {
     document.getElementById('cCh'+c.charAt(0).toUpperCase()+c.slice(1)).classList.toggle('active', c === 'email');
-  });
-
-  // Show the form body again and hide success screen
-  document.getElementById('cModalBody').style.display = 'flex';
-  document.getElementById('cSuccessScreen').classList.remove('visible');
-
-  // Jump straight to Step 1 (Property) — skip Step 0 since we already have their info
-  cGoToStep(1);
-  cUpdatePreview();
-}
-</script>
-</body>
-</html>
+ 

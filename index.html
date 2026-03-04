@@ -1049,8 +1049,8 @@
         </div>
         <div class="c-email-card" id="cEmailPreview">
           <div class="c-email-topbar">
-            <div class="meta">From: Split Pay &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2cbccd4cbd6c7d1e2d1d2cecbd6d2c3db8cc1cdcf">[email&#160;protected]</a>&gt;</div>
-            <div class="meta" style="margin-bottom:5px">To: Jane Smith &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0a606b646f4a6f726b677a666f24696567">[email&#160;protected]</a>&gt;</div>
+            <div class="meta">From: Split Pay &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2e474058475a4b5d6e5d5e42475a5e4f57004d4143">[email&#160;protected]</a>&gt;</div>
+            <div class="meta" style="margin-bottom:5px">To: Jane Smith &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d373c33381d38253c302d3138733e3230">[email&#160;protected]</a>&gt;</div>
             <div class="subj" id="cPrevSubj">Your property manager invites you to use Split Pay</div>
           </div>
           <div class="c-email-logo-bar">
@@ -1288,35 +1288,138 @@ function switchLogosTab(tab){
 /* ═══════════════════════════
    FAQ MODAL
 ═══════════════════════════ */
-const FAQ_STAFF=[
-  {q:"What is Split Pay?",a:"Split Pay is a free service that lets residents divide their monthly rent into two separate payments — one on their regular due date and one approximately two weeks later. Residents apply directly through Split Pay. You don't need to do anything to enable it."},
-  {q:"Does Split Pay require approval from management?",a:"No. Residents can sign up and use Split Pay independently. It works through any ACH-compatible resident portal and requires no action from property management."},
-  {q:"How does it show up in our system?",a:"Split Pay looks exactly like any other ACH bank payment in your PMS. Residents use a virtual account and routing number issued by Split Pay. You'll see a normal bank transfer — nothing out of the ordinary."},
-  {q:"Does this affect our due dates or late fee policies?",a:"No. Your existing rent policies remain completely unchanged. Residents using Split Pay are still responsible for paying through your portal by your stated due date."},
-  {q:"What if a resident asks us about Split Pay?",a:"Direct them to rent.app/go to apply. The process takes a few minutes. If they have questions about how their payments work or their account status, they should contact Split Pay support directly."},
-  {q:"What if a resident accidentally paid Split Pay directly instead of through our portal?",a:"This occasionally happens. Contact Split Pay and they'll reach out to the resident to help them set up the correct ACH/routing number for your portal going forward."},
-  {q:"Does Split Pay guarantee rent will be paid on time?",a:"No. Split Pay structures the resident's payments around your due date, but the resident is still responsible for having sufficient funds available. Split Pay does not guarantee or insure rent payments."},
-  {q:"Is there any cost to our company?",a:"No. Split Pay is completely free for property managers. There are no setup fees, monthly fees, or per-transaction charges of any kind."},
-  {q:"What PMS systems work with Split Pay?",a:"Any PMS that accepts ACH payments is compatible — including Yardi, Entrata, AppFolio, RealPage, MRI, Buildium, DoorLoop, and many others. No integration is required."},
-  {q:"Does Entrata require anything special?",a:"Yes. Entrata requires a micro-deposit verification process for new bank accounts, which takes 1–3 business days. Residents using Entrata should add their Split Pay account a few days before rent is due."},
-  {q:"Do residents build credit with Split Pay?",a:"Yes. On-time rent payments made through Split Pay are reported to Equifax and Experian at no cost to the resident or the property. No action is required from management."},
+/* ── FAQ data ─────────────────────────────────────────────── */
+const FAQ_SECTIONS=[
+  {
+    label:'Basics',color:'#F56B3F',title:'What is Split Pay?',
+    items:[
+      {q:'What is Split Pay and what does it do?',
+       a:'Split Pay lets residents split their monthly rent into two payments \u2014 one on the due date and one approximately two weeks later. The resident gets flexibility; you still receive full rent through your portal on the due date, every month.'},
+      {q:'Does this cost us anything to offer?',
+       a:'<strong>No.</strong> Split Pay is completely free for property managers and owners. No setup fee, monthly fee, or per-transaction fee. Residents pay a small fee \u2014 you pay nothing.'},
+      {q:'Do we need to change anything in our system?',
+       a:'<strong>Nothing changes on your end.</strong> Split Pay works with your existing portal. You\u2019ll see one full rent payment hit your account, on time, every month \u2014 just like always.'},
+    ]
+  },
+  {
+    label:'How It Works',color:'#2D4A6B',title:'The resident experience',
+    items:[
+      {q:'How does a resident sign up?',
+       a:'Residents visit <strong>rent.app/go</strong> to apply. They connect their bank account and enter their Split Pay ACH details into your payment portal. Setup takes a few minutes. After that, Split Pay automatically handles the split.'},
+      {q:'Will I see two payments hit our system instead of one?',
+       a:'<strong>No.</strong> You will always see one full rent payment on the due date. The two-payment arrangement is strictly between Split Pay and the resident. Your records are unaffected.'},
+      {q:'What if a resident misses a payment to Split Pay?',
+       a:'That\u2019s between the resident and Split Pay. Split Pay handles recovery and does <strong>not</strong> reverse rent payments already made through your portal. Your income is not affected.'},
+    ]
+  },
+  {
+    label:'Objections',color:'#B7860B',title:'What residents might push back on',
+    items:[
+      {q:'\u201cIs this safe? I don\u2019t want to share my bank info.\u201d',
+       a:'Split Pay is SOC 2 compliant, end-to-end encrypted, and CCPA and GDPR compliant. Built by veterans of Cash App and Dropbox. 550,000+ bank accounts linked.',
+       callout:'\u201cIt\u2019s the same security standard used by Cash App and major fintech apps.\u201d'},
+      {q:'\u201cWill this affect my credit score?\u201d',
+       a:'Split Pay reports on-time payments to credit bureaus \u2014 it can actually <strong>help build credit</strong>. No hard credit pull when signing up.'},
+      {q:'\u201cCan I pay my rent with Split Pay after my due date?\u201d',
+       a:'Yes, Split Pay can process payments at any point and deposits to us are standard ACH processing speed (typically the same day).'},
+    ]
+  },
 ];
+const FAQ_COMPAT=['AppFolio','Yardi','Buildium','Rent Manager','Entrata / ResMan','RentCafe / RealPage','TurboTenant / DoorLoop','Any portal accepting ACH'];
+const FAQ_FACTS=['Free for property managers \u2014 always','Zero setup or IT work required','Available in all 50 US states','1,000+ property management firms','$100M+ payments processed','English &amp; Spanish support','Materials in EN, ES, PT'];
+
+function buildFAQHTML(forPDF){
+  let s='';
+  s+=`<div style="background:#1C1C1E;border-radius:${forPDF?'8':'12'}px;padding:${forPDF?'14px 18px':'18px 22px'};display:flex;align-items:flex-start;gap:12px;margin-bottom:${forPDF?'20':'24'}px;">
+    <span style="font-size:18px;flex-shrink:0;">\u{1F4A1}</span>
+    <p style="margin:0;font-size:${forPDF?'12':'13'}px;color:#ccc;line-height:1.7;">
+      <strong style="color:white;">Key message:</strong> Split Pay is free for residents, requires zero setup from you, and works with your existing payment portal. Residents pay their full rent on time \u2014 Split Pay handles the rest.
+    </p>
+  </div>`;
+  FAQ_SECTIONS.forEach(sec=>{
+    s+=`<div style="margin-bottom:${forPDF?'18':'22'}px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="background:${sec.color};color:white;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;">${sec.label}</span>
+      </div>
+      <div style="font-size:${forPDF?'14':'16'}px;font-weight:800;color:#1C1C1E;margin-bottom:10px;letter-spacing:-0.3px;">${sec.title}</div>`;
+    sec.items.forEach(item=>{
+      s+=`<div style="border:1.5px solid #e8e8e0;border-radius:${forPDF?'8':'12'}px;padding:${forPDF?'12px 16px':'16px 20px'};margin-bottom:8px;background:white;">
+        <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;">
+          <span style="background:#F56B3F;color:white;font-size:10px;font-weight:800;width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">Q</span>
+          <div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:#1C1C1E;line-height:1.5;">${item.q}</div>
+        </div>
+        <div style="font-size:${forPDF?'11.5':'13'}px;color:#555;line-height:1.75;padding-left:26px;">${item.a}</div>
+        ${item.callout?`<div style="margin-top:8px;margin-left:26px;background:#FEF9E6;border-left:3px solid #F7C948;padding:8px 12px;border-radius:0 6px 6px 0;font-size:${forPDF?'11':'12'}px;color:#7a6000;font-style:italic;">\u{1F4AC} ${item.callout}</div>`:''}
+      </div>`;
+    });
+    s+=`</div>`;
+  });
+  s+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:${forPDF?'18':'22'}px;">
+    <div style="border:1.5px solid #e8e8e0;border-radius:${forPDF?'8':'12'}px;padding:${forPDF?'14px 16px':'18px 20px'};background:white;">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#2D4A6B;margin-bottom:10px;">\u2705 Compatible Platforms</div>
+      ${FAQ_COMPAT.map(p=>`<div style="font-size:${forPDF?'11.5':'13'}px;color:#374151;padding:3px 0;display:flex;align-items:center;gap:6px;"><span style="color:#27AE60;font-weight:700;">\u2713</span>${p}</div>`).join('')}
+    </div>
+    <div style="border:1.5px solid #e8e8e0;border-radius:${forPDF?'8':'12'}px;padding:${forPDF?'14px 16px':'18px 20px'};background:white;">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#2D4A6B;margin-bottom:10px;">\u{1F4CB} Key Facts</div>
+      ${FAQ_FACTS.map(f=>`<div style="font-size:${forPDF?'11.5':'13'}px;color:#374151;padding:3px 0;display:flex;align-items:center;gap:6px;"><span style="color:#27AE60;font-weight:700;">\u2713</span>${f}</div>`).join('')}
+    </div>
+  </div>`;
+  s+=`<div style="margin-bottom:${forPDF?'16':'20'}px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span style="background:#43BDAE;color:white;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;">Support</span>
+    </div>
+    <div style="font-size:${forPDF?'14':'16'}px;font-weight:800;color:#1C1C1E;margin-bottom:10px;letter-spacing:-0.3px;">Direct residents and managers here \u2014 not to your staff</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div style="background:#1C1C1E;border-radius:${forPDF?'8':'12'}px;padding:${forPDF?'14px 16px':'18px 20px'};">
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#F56B3F;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:#F56B3F;display:inline-block;"></span>Resident Support</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Email</div>
+        <div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">support@splitpay.com</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Phone / Text</div>
+        <div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">1 (877) 749-3592</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Hours</div>
+        <div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;">Mon\u2013Fri, 8AM\u20138PM ET</div>
+      </div>
+      <div style="background:#1C1C1E;border-radius:${forPDF?'8':'12'}px;padding:${forPDF?'14px 16px':'18px 20px'};">
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#43BDAE;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:#43BDAE;display:inline-block;"></span>Property Manager Support</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Email</div>
+        <div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">landlords@splitpay.com</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Phone / Text</div>
+        <div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">1 (877) 749-3592</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Hours</div>
+        <div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;">Mon\u2013Fri, 8AM\u20138PM ET</div>
+      </div>
+    </div>
+  </div>`;
+  s+=`<div style="text-align:center;font-size:11px;color:#aaa;padding-top:16px;border-top:1px solid #e8e8e0;">Split Pay is a product of Rent App \u00b7 pmc.splitpay.com \u00b7 For internal staff use only</div>`;
+  return s;
+}
+
 function openFAQModal(){
   document.getElementById('faqModal').classList.add('open');
   document.body.style.overflow='hidden';
-  document.getElementById('faqModalBody').innerHTML=`<div style="padding:32px 36px;">${FAQ_STAFF.map((f,i)=>`
-    <div style="border-bottom:1px solid var(--border);padding:20px 0;">
-      <div style="font-size:15px;font-weight:700;color:var(--near-black);margin-bottom:8px;">${i+1}. ${f.q}</div>
-      <div style="font-size:14px;color:var(--gray);line-height:1.7;">${f.a}</div>
-    </div>`).join('')}</div>`;
+  const header=`<div style="background:var(--near-black);padding:24px 32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:white;flex-shrink:0;">SP</div>
+        <div><div style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.3px;">Split Pay</div><div style="font-size:11px;color:#666;">by Rent App</div></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:14px;font-weight:800;color:white;">Staff FAQ Sheet</div>
+        <div style="font-size:11px;color:#666;">For leasing agents &amp; property management staff</div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:16px;"></div>
+  </div>`;
+  document.getElementById('faqModalBody').innerHTML=header+`<div style="padding:24px 32px 32px;">${buildFAQHTML(false)}</div>`;
 }
 function closeFAQModal(){document.getElementById('faqModal').classList.remove('open');document.body.style.overflow='';}
 function downloadFAQPDF(){
-  const content=`<html><head><style>body{font-family:Arial,sans-serif;padding:48px;max-width:720px;margin:0 auto;}h1{font-size:22px;margin-bottom:8px;}p.sub{color:#666;font-size:14px;margin-bottom:32px;}h3{font-size:15px;margin-bottom:6px;margin-top:24px;}p{font-size:13px;color:#444;line-height:1.7;}hr{border:none;border-top:1px solid #eee;margin:10px 0;}</style></head><body><h1>Split Pay — Staff FAQ Sheet</h1><p class="sub">For leasing agents & property management staff. Confidential.</p>${FAQ_STAFF.map((f,i)=>`<hr><h3>${i+1}. ${f.q}</h3><p>${f.a}</p>`).join('')}</body></html>`;
+  const content=`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;background:white;}.page{max-width:720px;margin:0 auto;}.hdr{background:#1C1C1E;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;}.hdr-logo{width:32px;height:32px;background:#F56B3F;border-radius:8px;text-align:center;line-height:32px;font-weight:800;font-size:12px;color:white;flex-shrink:0;}.hdr-name{font-size:15px;font-weight:800;color:white;}.hdr-sub{font-size:11px;color:#666;}.hdr-right{text-align:right;}.hdr-title{font-size:14px;font-weight:800;color:white;}.body{padding:24px 32px 40px;}@media print{body{background:white;}.page{margin:0;width:100%;}@page{margin:0.4in;size:letter;}}</style></head><body><div class="page"><div class="hdr"><div style="display:flex;align-items:center;gap:10px;"><div class="hdr-logo">SP</div><div><div class="hdr-name">Split Pay</div><div class="hdr-sub">by Rent App</div></div></div><div class="hdr-right"><div class="hdr-title">Staff FAQ Sheet</div><div class="hdr-sub">For leasing agents &amp; property management staff</div></div></div><div class="body">${buildFAQHTML(true)}</div></div></body></html>`;
   const frame=document.getElementById('printFrame');
   frame.contentDocument.open();frame.contentDocument.write(content);frame.contentDocument.close();
-  setTimeout(()=>frame.contentWindow.print(),400);
+  setTimeout(()=>frame.contentWindow.print(),500);
 }
+
 
 /* ═══════════════════════════
    CHAT

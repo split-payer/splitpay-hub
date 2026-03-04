@@ -123,23 +123,167 @@ exports.handler = async (event) => {
       : '';
 
     const greeting = firstName ? `Hi ${firstName},` : 'Hi there,';
-    const htmlBody = `
-      <div style="font-family: sans-serif; font-size: 15px; color: #1a1a1a; max-width: 600px;">
-        <p>${greeting}</p>
-        <p>Here's your Split Pay Starter Kit — I've attached the latest flyers for your residents. Print them, post them, or forward this email to your team.</p>
-        <p>A few quick things you can do right now:</p>
-        <ul>
-          <li>Post the flyers in common areas or include them with lease renewals</li>
-          <li>Use the SMS scripts and email templates to reach out to residents directly</li>
-          <li>Set up resident invites via the <a href="https://pmc.splitpay.com/#concierge" style="color:#00B2A9;">Split Pay Concierge</a></li>
-        </ul>
-        ${moreFlyersSection}
-        <p style="margin-top:24px;">Need Spanish or Portuguese versions? <a href="https://drive.google.com/drive/folders/${flyersFolder.id}" style="color:#00B2A9;">Download them here →</a></p>
-        <p style="margin-top:24px;">Reply to this email if you have any questions — I'm happy to help.</p>
-        <p>Nils<br>
-        <span style="color:#888; font-size:13px;">Split Pay · <a href="https://pmc.splitpay.com" style="color:#888;">pmc.splitpay.com</a></span></p>
-      </div>
-    `;
+    const htmlBody = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Split Pay Starter Kit is here</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f5f5f0;font-family:Arial,sans-serif;">
+
+<div style="display:none;max-height:0;overflow:hidden;color:#f5f5f0;">I'm attaching some flyers you can share with your residents right away — no integrations, nothing changes for you.</div>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f5f0;">
+<tr><td align="center" style="padding:32px 16px;">
+
+  <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e8e8e0;">
+
+    <!-- Logo bar -->
+    <tr>
+      <td style="background:#ffffff;padding:20px 32px;border-bottom:1px solid #f0f0ea;">
+        <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo.svg" alt="Split Pay" height="32" style="display:block;" />
+      </td>
+    </tr>
+
+    <!-- Yellow hero -->
+    <tr>
+      <td style="background-color:#F7C948;padding:32px 32px 28px;">
+        <p style="margin:0 0 6px;font-size:12px;font-weight:700;color:#7a6000;letter-spacing:0.1em;text-transform:uppercase;">🏠 Rent Week Support Kit</p>
+        <h1 style="margin:0;font-size:26px;font-weight:800;color:#1a1a1a;line-height:1.25;letter-spacing:-0.4px;">Everything you need<br>for rent week.</h1>
+      </td>
+    </tr>
+
+    <!-- Intro -->
+    <tr>
+      <td style="padding:32px 32px 0;">
+        <p style="margin:0 0 14px;font-size:15px;color:#1a1a1a;line-height:1.6;">Hi ${firstName},</p>
+        <p style="margin:0 0 14px;font-size:15px;color:#1a1a1a;line-height:1.6;">I'm Nils — I head up Business Development at Split Pay. I'm attaching some flyers you can share with your residents right away. If you have time today, just send those out and we'll get your residents set up.</p>
+        <p style="margin:0;font-size:15px;color:#1a1a1a;line-height:1.6;">We also put together a full marketing hub with everything you need:</p>
+      </td>
+    </tr>
+
+    <!-- Kit Cards -->
+    <tr>
+      <td style="padding:20px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e8e8e0;border-radius:12px;overflow:hidden;">
+          <tr>
+            <td width="50%" valign="top" style="padding:20px;border-bottom:1px solid #e8e8e0;border-right:1px solid #e8e8e0;">
+              <p style="margin:0 0 8px;font-size:18px;">📄</p>
+              <p style="margin:0 0 5px;font-size:13px;font-weight:700;color:#1a1a1a;">Resident Flyer</p>
+              <p style="margin:0 0 14px;font-size:12px;color:#666;line-height:1.5;">One-page explainer in EN, ES & PT. Print-ready PDF.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#E8531A;color:#ffffff;font-size:11px;font-weight:700;padding:7px 14px;border-radius:100px;text-decoration:none;">Preview &amp; Download</a>
+            </td>
+            <td width="50%" valign="top" style="padding:20px;border-bottom:1px solid #e8e8e0;">
+              <p style="margin:0 0 8px;font-size:18px;">✉️</p>
+              <p style="margin:0 0 5px;font-size:13px;font-weight:700;color:#1a1a1a;">Email Templates</p>
+              <p style="margin:0 0 14px;font-size:12px;color:#666;line-height:1.5;">5 ready-to-send templates for launch, reminders &amp; follow-up.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#1a1a1a;color:#ffffff;font-size:11px;font-weight:700;padding:7px 14px;border-radius:100px;text-decoration:none;">Preview &amp; Copy</a>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%" valign="top" style="padding:20px;border-right:1px solid #e8e8e0;">
+              <p style="margin:0 0 8px;font-size:18px;">💬</p>
+              <p style="margin:0 0 5px;font-size:13px;font-weight:700;color:#1a1a1a;">SMS Scripts</p>
+              <p style="margin:0 0 14px;font-size:12px;color:#666;line-height:1.5;">Short, mobile-ready scripts for rent-week blasts.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#1a1a1a;color:#ffffff;font-size:11px;font-weight:700;padding:7px 14px;border-radius:100px;text-decoration:none;">Preview &amp; Copy</a>
+            </td>
+            <td width="50%" valign="top" style="padding:20px;">
+              <p style="margin:0 0 8px;font-size:18px;">🎬</p>
+              <p style="margin:0 0 5px;font-size:13px;font-weight:700;color:#1a1a1a;">Videos</p>
+              <p style="margin:0 0 14px;font-size:12px;color:#666;line-height:1.5;">Explainer and ad videos ready to share with residents.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#E8531A;color:#ffffff;font-size:11px;font-weight:700;padding:7px 14px;border-radius:100px;text-decoration:none;margin-right:5px;">Explainer</a>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#fff;color:#1a1a1a;font-size:11px;font-weight:700;padding:7px 14px;border-radius:100px;text-decoration:none;border:1px solid #1a1a1a;">Ad Videos</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- What's next -->
+    <tr>
+      <td style="padding:28px 32px 0;">
+        <p style="margin:0 0 14px;font-size:15px;font-weight:700;color:#1a1a1a;">What's next?</p>
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tr><td style="padding:5px 0;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="vertical-align:top;"><span style="display:inline-block;width:20px;height:20px;background:#F7C948;border-radius:50%;text-align:center;font-size:11px;font-weight:700;color:#1a1a1a;line-height:20px;">1</span></td>
+              <td style="padding-left:10px;font-size:14px;color:#1a1a1a;line-height:1.6;">Pick your favorite flyer from the attachments</td>
+            </tr></table>
+          </td></tr>
+          <tr><td style="padding:5px 0;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="vertical-align:top;"><span style="display:inline-block;width:20px;height:20px;background:#F7C948;border-radius:50%;text-align:center;font-size:11px;font-weight:700;color:#1a1a1a;line-height:20px;">2</span></td>
+              <td style="padding-left:10px;font-size:14px;color:#1a1a1a;line-height:1.6;">Email or print it for your residents</td>
+            </tr></table>
+          </td></tr>
+          <tr><td style="padding:5px 0;">
+            <table cellpadding="0" cellspacing="0" border="0"><tr>
+              <td style="vertical-align:top;"><span style="display:inline-block;width:20px;height:20px;background:#F7C948;border-radius:50%;text-align:center;font-size:11px;font-weight:700;color:#1a1a1a;line-height:20px;">3</span></td>
+              <td style="padding-left:10px;font-size:14px;color:#1a1a1a;line-height:1.6;">Optionally, send a follow-up reminder in a few days</td>
+            </tr></table>
+          </td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Reminder box -->
+    <tr>
+      <td style="padding:20px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f5f0;border-radius:10px;">
+          <tr><td style="padding:16px 20px;">
+            <p style="margin:0;font-size:13px;color:#444;line-height:1.6;"><em><strong>Reminder:</strong> Split Pay works directly with your existing building portal — no integrations, no contracts, no accounting changes. All you need to do is share the flyers. <strong>Nothing changes for you.</strong></em></p>
+          </td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Concierge CTA -->
+    <tr>
+      <td style="padding:16px 32px 0;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0d1f2d;border-radius:10px;">
+          <tr><td style="padding:20px 24px;">
+            <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:#00B2A9;letter-spacing:0.07em;text-transform:uppercase;">● Split Pay Concierge</p>
+            <p style="margin:0 0 14px;font-size:13px;color:#ccc;line-height:1.5;">We can send personalized invitations to every resident on your behalf. Upload your rent roll, choose email or SMS, done.</p>
+            <a href="https://pmc.splitpay.com/#concierge" style="display:inline-block;border:1px solid #00B2A9;color:#00B2A9;font-size:12px;font-weight:700;padding:8px 18px;border-radius:100px;text-decoration:none;">Open Concierge →</a>
+          </td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Signature -->
+    <tr>
+      <td style="padding:28px 32px 24px;">
+        <p style="margin:0 0 20px;font-size:15px;color:#1a1a1a;line-height:1.6;">Let me know how I can help — happy to jump on a call if that's easier.</p>
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="border-left:3px solid #F7C948;padding-left:14px;vertical-align:top;">
+              <p style="margin:0 0 2px;font-size:14px;font-weight:700;color:#1a1a1a;">Nils Decker</p>
+              <p style="margin:0 0 10px;font-size:13px;color:#666;">Head of Business Development · Split Pay</p>
+              <p style="margin:0;font-size:13px;color:#555;line-height:2;">
+                <a href="tel:+13478171759" style="color:#555;text-decoration:none;">+1-347-817-1759</a><br>
+                <a href="mailto:nils@splitpay.com" style="color:#E8531A;text-decoration:none;">nils@splitpay.com</a><br>
+                <a href="https://linkedin.com/in/nilsdecker" style="color:#E8531A;text-decoration:none;">LinkedIn</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Footer -->
+    <tr>
+      <td style="background:#f5f5f0;padding:16px 32px;border-top:1px solid #e8e8e0;">
+        <p style="margin:0;font-size:11px;color:#999;line-height:1.6;">Split Pay · <a href="https://pmc.splitpay.com" style="color:#999;text-decoration:none;">pmc.splitpay.com</a> · You're receiving this because you requested the Split Pay Starter Kit.</p>
+      </td>
+    </tr>
+
+  </table>
+</td></tr>
+</table>
+</body>
+</html>
+`;
 
     const textBody = `${greeting}
 

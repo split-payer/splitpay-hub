@@ -525,7 +525,7 @@
       <div class="compare-col with">
         <h3>With Split Pay</h3>
         <div class="cmp-item"><div class="cmp-dot"></div>Up to 80% fewer late payments across your portfolio</div>
-        <div class="cmp-item"><div class="cmp-dot"></div>Residents avoid late fees and build credit — automatically, for free</div>
+        <div class="cmp-item"><div class="cmp-dot"></div>Residents avoid late fees and build credit automatically</div>
         <div class="cmp-item"><div class="cmp-dot"></div>Residents are set up to pay on time — Split Pay structures payments around your due date</div>
         <div class="cmp-item"><div class="cmp-dot"></div>Less friction for your staff during rent week</div>
       </div>
@@ -1209,9 +1209,9 @@ function closeDemoModal(){document.getElementById('demoModal').classList.remove(
    EMAIL TEMPLATES
 ═══════════════════════════ */
 const EMAIL_TEMPLATES=[
-  {subject:"Introducing a smarter way to pay rent at {{property_name}}",body:`Hi [Resident Name],\n\nWe're excited to let you know that Split Pay is now available for residents at {{property_name}}.\n\nSplit Pay lets you divide your rent into two smaller payments — one on your due date, one two weeks later — at no cost to you and no changes to how you pay through {{portal_link}}.\n\nTo get started, simply visit rent.app/go and apply. It takes just a few minutes. Once approved, you'll receive an ACH account and routing number to add to your payment profile in our portal.\n\nIf you have any questions, feel free to reach out.\n\nBest,\nThe {{property_name}} Team`},
+  {subject:"Introducing a smarter way to pay rent at {{property_name}}",body:`Hi [Resident Name],\n\nWe're excited to let you know that Split Pay is now available for residents at {{property_name}}.\n\nSplit Pay lets you divide your rent into two smaller payments — one on your due date, one two weeks later — with no changes to how you pay through {{portal_link}}. A small fee applies to residents.\n\nTo get started, simply visit rent.app/go and apply. It takes just a few minutes. Once approved, you'll receive an ACH account and routing number to add to your payment profile in our portal.\n\nIf you have any questions, feel free to reach out.\n\nBest,\nThe {{property_name}} Team`},
   {subject:"Split Pay is now available — pay rent in two parts",body:`Hi [Resident Name],\n\nStarting this month, you can use Split Pay to divide your rent into two payments at {{property_name}}.\n\nGet started at rent.app/go — takes about 5 minutes to apply.\n\nQuestions? Reply to this email.\n\n— The {{property_name}} Team`},
-  {subject:"Reminder: Split Pay is available before rent is due",body:`Hi [Resident Name],\n\nJust a heads-up — if you haven't tried Split Pay yet, now's a great time to set it up before rent is due.\n\nSplit Pay lets you split your rent into two payments at no cost. Apply at rent.app/go, then add your new ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`},
+  {subject:"Reminder: Split Pay is available before rent is due",body:`Hi [Resident Name],\n\nJust a heads-up — if you haven't tried Split Pay yet, now's a great time to set it up before rent is due.\n\nSplit Pay lets you split your rent into two payments for a small monthly fee. Apply at rent.app/go, then add your new ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`},
   {subject:"Rent due soon — Split Pay can help",body:`Hi [Resident Name],\n\nRent will be due shortly. If you'd like to split your payment into two parts, you can still apply for Split Pay at rent.app/go.\n\nOnce approved, add your new ACH account to {{portal_link}} before submitting your payment.\n\n— {{property_name}}`},
   {subject:"Today's the day — Split Pay available now",body:`Hi [Resident Name],\n\nRent is due today. If you're using Split Pay, make sure you've updated your payment info in {{portal_link}}.\n\nHaven't signed up yet? Visit rent.app/go — approvals are fast.\n\n— {{property_name}}`},
   {subject:"Thank you for paying rent — Split Pay tip for next month",body:`Hi [Resident Name],\n\nThanks for submitting your rent payment this month.\n\nIf you'd like to split next month's rent into two payments, Split Pay makes it easy. Apply at rent.app/go before your next due date and add your ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`}
@@ -1236,8 +1236,8 @@ function copyEmail(){
    SMS MODAL
 ═══════════════════════════ */
 const SMS_SCRIPTS=[
-  {label:"Launch",text:"Hi [Name], Split Pay is now available at {{property_name}}. Split your rent into 2 payments, no cost to you. Apply in minutes: rent.app/go — {{property_name}} Mgmt"},
-  {label:"Reminder — Early",text:"Reminder: Split Pay lets you pay rent in 2 parts at no cost. Set it up before rent is due: rent.app/go — {{property_name}}"},
+  {label:"Launch",text:"Hi [Name], Split Pay is now available at {{property_name}}. Split your rent into 2 payments for a small fee. Apply in minutes: rent.app/go — {{property_name}} Mgmt"},
+  {label:"Reminder — Early",text:"Reminder: Split Pay lets you pay rent in 2 parts for a small fee. Set it up before rent is due: rent.app/go — {{property_name}}"},
   {label:"Reminder — Urgent",text:"Rent due soon. Use Split Pay to pay in 2 parts — apply now: rent.app/go. Questions? Reply to this message. — {{property_name}}"},
   {label:"Due Today",text:"Rent is due today. If you're using Split Pay, make sure your account is updated in the portal. Haven't applied? rent.app/go — {{property_name}}"},
   {label:"Post Rent Day",text:"Thanks for paying rent! Want to split next month? Apply for Split Pay at rent.app/go before your next due date. — {{property_name}}"}
@@ -1336,7 +1336,7 @@ const FAQ_FACTS=['Free for property managers — always','Zero setup or IT work 
 function buildFAQHTML(forPDF){
   const r=forPDF?'8':'12', p=forPDF?'14px 18px':'18px 22px', mb=forPDF?'20':'24', fs=forPDF?'12':'13';
   let s='';
-  s+=`<div style="background:#1C1C1E;border-radius:${r}px;padding:${p};display:flex;align-items:flex-start;gap:12px;margin-bottom:${mb}px;"><span style="font-size:18px;flex-shrink:0;">💡</span><p style="margin:0;font-size:${fs}px;color:#ccc;line-height:1.7;"><strong style="color:white;">Key message:</strong> Split Pay is free for residents, requires zero setup from you, and works with your existing payment portal. Residents pay their full rent on time — Split Pay handles the rest.</p></div>`;
+  s+=`<div style="background:#1C1C1E;border-radius:${r}px;padding:${p};display:flex;align-items:flex-start;gap:12px;margin-bottom:${mb}px;"><span style="font-size:18px;flex-shrink:0;">💡</span><p style="margin:0;font-size:${fs}px;color:#ccc;line-height:1.7;"><strong style="color:white;">Key message:</strong> Split Pay requires zero setup from you and works with your existing payment portal. Residents pay a small monthly fee — you pay nothing. Your full rent arrives on time, every month.</p></div>`;
   FAQ_SECTIONS.forEach(sec=>{
     s+=`<div style="margin-bottom:${forPDF?'18':'22'}px;"><div style="margin-bottom:8px;"><span style="background:${sec.color};color:white;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;">${sec.label}</span></div><div style="font-size:${forPDF?'14':'16'}px;font-weight:800;color:#1C1C1E;margin-bottom:10px;letter-spacing:-0.3px;">${sec.title}</div>`;
     sec.items.forEach(item=>{

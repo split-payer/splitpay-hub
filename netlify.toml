@@ -5,3 +5,18 @@
   from = "/api/chat"
   to = "/.netlify/functions/chat"
   status = 200
+
+[[redirects]]
+  from = "/api/upload-to-drive"
+  to = "/.netlify/functions/upload-to-drive"
+  status = 200
+
+  [[redirects]]
+  from = "/api/submit-to-close"
+  to = "/.netlify/functions/submit-to-close"
+  status = 200
+
+[[redirects]]
+  from = "/api/send-kit-email"
+  to = "/.netlify/functions/send-kit-email"
+  status = 200

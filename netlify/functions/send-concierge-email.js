@@ -17,7 +17,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) };
   }
 
-  const { firstName, lastName, firm, phone, email, propertyName, propertyAddress, channel, unitCount, pms } = body;
+  const { firstName, lastName, firm, phone, email, propertyName, propertyAddress, channel, unitCount, portfolioUnits, pms } = body;
   const channelLabel = channel === 'email' ? 'Email' : channel === 'sms' ? 'SMS' : 'Email &amp; SMS';
   const unitLabel = unitCount ? `~${unitCount} residents` : '—';
   const fullName = [firstName, lastName].filter(Boolean).join(' ') || '—';
@@ -129,7 +129,7 @@ exports.handler = async (event) => {
                 </td>
                 <td width="50%" style="padding-top:12px;">
                   <p style="margin:0 0 2px;font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.06em;">Total Units (Portfolio)</p>
-                  <p style="margin:0;font-size:13px;color:#aac4d8;">${unitCount ? '~' + unitCount + ' units' : '—'}</p>
+                  <p style="margin:0;font-size:13px;color:#aac4d8;">${portfolioUnits ? '~' + portfolioUnits + ' units' : '—'}</p>
                 </td>
               </tr>
             </table>

@@ -973,7 +973,7 @@
             <div class="c-field-hint">Helps us estimate reach.</div>
           </div>
           <div class="c-field">
-            <label>Property Management Software</label>
+            <label>Property Management Software <span class="req">*</span></label>
             <select id="cPmsSelect">
               <option disabled selected value="">Select your PMS</option>
               <optgroup label="Most Common"><option>AppFolio</option><option>Buildium</option><option>DoorLoop</option><option>Entrata</option><option>MRI Software</option><option>RealPage</option><option>ResMan</option><option>Yardi</option></optgroup>
@@ -1567,7 +1567,8 @@ function cNextStep(){
     const email=document.getElementById('cPmEmail').value.trim();
     const phone=document.getElementById('cPmPhone').value.trim();
     const uc=document.getElementById('cUnitCount').value.trim();
-    if(!fn||!ln||!firm||!email||!phone||!uc){alert('Please fill in all required fields.');return;}
+    const pms=document.getElementById('cPmsSelect').value;
+    if(!fn||!ln||!firm||!email||!phone||!uc||!pms){alert('Please fill in all required fields.');return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('cEmailErr').textContent='Please enter a valid email.';return;}
   }
   if(cStep===1){
@@ -1761,6 +1762,7 @@ async function cSubmitForm() {
         propertyAddress: payload.propertyAddress,
         channel:         payload.channel,
         unitCount:       payload.rentRollRowCount || payload.unitCount,
+        portfolioUnits:  payload.unitCount,
         pms:             payload.pms,
       }),
     });

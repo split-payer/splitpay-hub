@@ -1743,11 +1743,14 @@ async function cSubmitForm() {
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({
         firstName:       payload.firstName,
+        lastName:        payload.lastName,
+        firm:            payload.firm,
+        phone:           payload.phone,
         email:           payload.email,
         propertyName:    payload.propertyName,
         propertyAddress: payload.propertyAddress,
         channel:         payload.channel,
-        unitCount:       payload.unitCount || payload.rentRollRowCount,
+        unitCount:       payload.rentRollRowCount || payload.unitCount,
       }),
     });
   } catch (err) {

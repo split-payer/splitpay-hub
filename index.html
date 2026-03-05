@@ -1138,6 +1138,15 @@ async function submitDL() {
   } catch (err) {
     console.error('Close submission error:', err);
   }
+  try {
+    await fetch('/.netlify/functions/send-kit-email', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ firstName: first, email: email }),
+    });
+  } catch (err) {
+    console.error('Email send error:', err);
+  }
   showDLScreen(2);
 }
 

@@ -142,7 +142,7 @@ exports.handler = async (event) => {
     <!-- Logo bar -->
     <tr>
       <td style="background:#ffffff;padding:20px 32px;border-bottom:1px solid #f0f0ea;">
-        <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo.svg" alt="Split Pay" height="32" style="display:block;" />
+        <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo.png" alt="Split Pay" height="32" style="display:block;" />
       </td>
     </tr>
 

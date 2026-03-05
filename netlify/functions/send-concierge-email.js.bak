@@ -17,14 +17,13 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) };
   }
 
-  const { firstName, lastName, firm, phone, email, propertyName, propertyAddress, channel, unitCount } = body;
-  const channelLabel = channel === 'email' ? 'Email' : channel === 'sms' ? 'SMS' : 'Email &amp; SMS';
-  const unitLabel = unitCount ? `~${unitCount} residents` : '—';
-  const fullName = [firstName, lastName].filter(Boolean).join(' ') || '—';
+  const { firstName, email, propertyName, propertyAddress, channel, unitCount } = body;
   if (!email) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Missing email' }) };
   }
 
+  const channelLabel = channel === 'email' ? 'Email' : channel === 'sms' ? 'SMS' : 'Email & SMS';
+  const unitLabel = unitCount ? `~${unitCount} units` : 'Unknown';
 
   const htmlBody = `<!DOCTYPE html>
 <html lang="en">
@@ -68,10 +67,10 @@ exports.handler = async (event) => {
 
         <p style="margin:0 0 28px;font-size:15px;color:#aac4d8;line-height:1.7;">Thanks for submitting <strong style="color:#ffffff;">${propertyName || 'your property'}</strong>${propertyAddress ? ' at ' + propertyAddress : ''}. We'll reach out to your residents on your behalf and let them know they can start splitting rent — no further action needed from you.</p>
 
-        <!-- Table 1: Property details -->
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#152a3a;border-radius:10px;border:1px solid #2a4a64;margin-bottom:12px;">
+        <!-- Property confirmation box -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#152a3a;border-radius:10px;border:1px solid #2a4a64;">
           <tr><td style="padding:20px 24px;">
-            <p style="margin:0 0 14px;font-size:11px;font-weight:700;color:#00B2A9;letter-spacing:0.07em;text-transform:uppercase;">This property</p>
+            <p style="margin:0 0 14px;font-size:11px;font-weight:700;color:#00B2A9;letter-spacing:0.07em;text-transform:uppercase;">Property submitted</p>
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td width="50%" style="padding-bottom:12px;">
@@ -89,37 +88,8 @@ exports.handler = async (event) => {
                   <p style="margin:0;font-size:13px;color:#aac4d8;">${channelLabel}</p>
                 </td>
                 <td width="50%">
-                  <p style="margin:0 0 2px;font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.06em;">Residents at this property</p>
+                  <p style="margin:0 0 2px;font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.06em;">Est. residents</p>
                   <p style="margin:0;font-size:13px;color:#aac4d8;">${unitLabel}</p>
-                </td>
-              </tr>
-            </table>
-          </td></tr>
-        </table>
-
-        <!-- Table 2: Contact details -->
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#152a3a;border-radius:10px;border:1px solid #2a4a64;">
-          <tr><td style="padding:20px 24px;">
-            <p style="margin:0 0 14px;font-size:11px;font-weight:700;color:#00B2A9;letter-spacing:0.07em;text-transform:uppercase;">Your details</p>
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-              <tr>
-                <td width="50%" style="padding-bottom:12px;">
-                  <p style="margin:0 0 2px;font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.06em;">Name</p>
-                  <p style="margin:0;font-size:13px;font-weight:700;color:#ffffff;">${fullName}</p>
-                </td>
-                <td width="50%" style="padding-bottom:12px;">
-                  <p style="margin:0 0 2px;font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.06em;">Property Management Firm</p>
-                  <p style="margin:0;font-size:13px;color:#aac4d8;">${firm || '—'}</p>
-                </td>
-              </tr>
-              <tr>
-                <td width="50%">
-                  <p style="margin:0 0 2px;font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.06em;">Email</p>
-                  <p style="margin:0;font-size:13px;color:#aac4d8;">${email}</p>
-                </td>
-                <td width="50%">
-                  <p style="margin:0 0 2px;font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.06em;">Phone</p>
-                  <p style="margin:0;font-size:13px;color:#aac4d8;">${phone || '—'}</p>
                 </td>
               </tr>
             </table>

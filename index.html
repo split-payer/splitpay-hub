@@ -729,7 +729,7 @@
         <input type="email" id="dl-email" placeholder="Work email">
         <input type="tel" id="dl-phone" placeholder="Mobile phone number">
         <label class="mcheck"><input type="checkbox" checked> Send me monthly Rent Week Support updates</label>
-        <button class="msub" onclick="submitDL()">Download Now</button>
+        <button class="msub" id="dlSubmitBtn" onclick="this.disabled=true;this.textContent='Sending…';submitDL()">Download Now</button>
         <p class="mfooter">We only send operational updates related to Split Pay.</p>
       </div>
     </div>
@@ -1736,6 +1736,22 @@ async function cSubmitForm() {
     });
   } catch (err) {
     console.error('Close submission error:', err);
+  }
+  try {
+    await fetch('/.netlify/functions/send-concierge-email', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({
+        firstName:       payload.firstName,
+        email:           payload.email,
+        propertyName:    payload.propertyName,
+        propertyAddress: payload.propertyAddress,
+        channel:         payload.channel,
+        unitCount:       payload.unitCount || payload.rentRollRowCount,
+      }),
+    });
+  } catch (err) {
+    console.error('Concierge email error:', err);
   }
   document.getElementById('cModalBody').style.display = 'none';
   document.getElementById('cSuccessScreen').classList.add('visible');

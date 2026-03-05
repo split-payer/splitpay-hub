@@ -972,6 +972,15 @@
             <input type="number" id="cUnitCount" placeholder="e.g. 500" min="1"/>
             <div class="c-field-hint">Helps us estimate reach.</div>
           </div>
+          <div class="c-field">
+            <label>Property Management Software</label>
+            <select id="cPmsSelect">
+              <option disabled selected value="">Select your PMS</option>
+              <optgroup label="Most Common"><option>AppFolio</option><option>Buildium</option><option>DoorLoop</option><option>Entrata</option><option>MRI Software</option><option>RealPage</option><option>ResMan</option><option>Yardi</option></optgroup>
+              <optgroup label="Also Compatible"><option>Avail</option><option>Bilt</option><option>Hemlane</option><option>Innago</option><option>Livly</option><option>Rent Manager</option><option>RentCafe</option><option>RentRedi</option><option>TenantCloud</option><option>TurboTenant</option></optgroup>
+              <option value="other">Other / Not listed</option>
+            </select>
+          </div>
           <div class="c-step-nav">
             <span></span>
             <div class="c-nav-right"><span class="c-step-counter">1 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
@@ -1715,6 +1724,7 @@ async function cSubmitForm() {
     email:           document.getElementById('cPmEmail').value.trim(),
     phone:           document.getElementById('cPmPhone').value.trim(),
     unitCount:       document.getElementById('cUnitCount').value.trim(),
+    pms:             document.getElementById('cPmsSelect').value,
     propertyName:    document.getElementById('cPropName').value.trim(),
     propertyAddress: [
       document.getElementById('cStreet').value.trim(),
@@ -1751,6 +1761,7 @@ async function cSubmitForm() {
         propertyAddress: payload.propertyAddress,
         channel:         payload.channel,
         unitCount:       payload.rentRollRowCount || payload.unitCount,
+        pms:             payload.pms,
       }),
     });
   } catch (err) {

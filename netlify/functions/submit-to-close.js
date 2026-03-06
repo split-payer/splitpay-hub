@@ -61,7 +61,7 @@ exports.handler = async (event) => {
     [CF.propertyAddress]:    propertyAddress || null,
     [CF.conciergeChannel]:   channel || null,
     [CF.conciergeRequested]: formType === 'concierge' ? 'Yes' : null,
-    [CF.totalUnits]:         unitCount || null,
+    [CF.totalUnits]:         unitCount ? parseInt(unitCount, 10) : null,
     [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
   };
 
@@ -93,7 +93,6 @@ exports.handler = async (event) => {
           emails: email ? [{ type: 'work', email }] : [],
           phones: phone ? [{ type: 'mobile', phone }] : [],
         }],
-        status: 'New Lead',
         ...customFields,
       }),
     });

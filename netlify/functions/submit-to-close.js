@@ -75,10 +75,10 @@ exports.handler = async (event) => {
     const updateRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
       method: 'PUT',
       headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        ...(companyName ? { name: companyName } : {}),
-        ...customFields,
-      }),
+      body: JSON.stringify(Object.assign(
+        companyName ? { name: companyName } : {},
+        customFields
+      )),
     });
     if (!updateRes.ok) console.error('Lead update failed:', await updateRes.text());
     leadId = existingLeadId;
@@ -86,15 +86,14 @@ exports.handler = async (event) => {
     const leadRes = await fetch('https://api.close.com/api/v1/lead/', {
       method: 'POST',
       headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
+      body: JSON.stringify(Object.assign({
         name: companyName || name || 'Split Pay PMC Lead',
         contacts: [{
           name,
           emails: email ? [{ type: 'work', email }] : [],
           phones: phone ? [{ type: 'mobile', phone }] : [],
         }],
-        ...customFields,
-      }),
+      }, customFields)),
     });
     const lead = await leadRes.json();
     console.log('CLOSE LEAD RESPONSE:', JSON.stringify(lead));

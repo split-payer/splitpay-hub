@@ -1715,7 +1715,8 @@ function mdToHtml(t){
     .replace(/\n/g,'<br>');
 }
 function appendMsgMulti(container,role,bubbles){
-  bubbles.forEach(b=>appendMsg(container,role,b));
+  const arr=Array.isArray(bubbles)?bubbles:[bubbles];
+  arr.forEach(b=>appendMsg(container,role,b));
 }
 
 function appendMsg(container,role,text){

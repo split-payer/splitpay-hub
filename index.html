@@ -1495,19 +1495,13 @@ function downloadFAQPDF(){
   const doc=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Split Pay Staff FAQ</title><style>${css}</style></head><body><div class="page">${hdr}<div class="body">${buildFAQHTML(true)}</div></div><script>window.onload=function(){window.print();}<\/script>
   // Auto-open chat if ?chat=open in URL (used in email "Questions?" links)
   (function() {
-    if (window.location.search.includes('chat=open') || window.location.hash.includes('chat=open')) {
-      var openChat = function() {
-        var win = document.getElementById('floatWindow');
-        var input = document.getElementById('floatChatInput');
-        if (win) {
-          win.style.setProperty('display', 'flex', 'important');
-          if (input) { input.focus(); }
-        }
-      };
+    if (window.location.search.includes('chat=open')) {
       window.addEventListener('load', function() {
-        setTimeout(openChat, 100);
-        setTimeout(openChat, 600);
-        setTimeout(openChat, 1200);
+        setTimeout(function() {
+          toggleFloat();
+          var input = document.getElementById('floatChatInput');
+          if (input) input.focus();
+        }, 400);
       });
     }
   })();

@@ -97,7 +97,8 @@ exports.handler = async (event) => {
     if (!leadRes.ok) return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
     leadId = lead.id;
 
-    // Write custom fields via separate PUT — Close silently ignores cf_ fields on POST
+    // Write custom fields via separate PUT — Close needs a moment after lead creation
+    await new Promise(r => setTimeout(r, 1500));
     if (Object.keys(customFields).length > 0) {
       const cfRes = await fetch('https://api.close.com/api/v1/lead/' + leadId + '/', {
         method: 'PUT',

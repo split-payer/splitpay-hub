@@ -2139,6 +2139,22 @@ function copyAdLink(btn,url){
   });
 }
 initTopAds();
+
+  // Auto-open chat if ?chat=open in URL
+  (function() {
+    if (window.location.search.includes('chat=open')) {
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var w = document.getElementById('floatWindow');
+          if (w && (w.style.display === 'none' || w.style.display === '')) {
+            toggleFloat();
+          }
+          var input = document.getElementById('floatChatInput');
+          if (input) input.focus();
+        }, 600);
+      });
+    }
+  })();
 </script>
 </body>
 </html>

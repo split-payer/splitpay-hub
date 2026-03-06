@@ -1507,37 +1507,84 @@ function downloadFlexPDF(){
 /* ═══════════════════════════
    CHAT
 ═══════════════════════════ */
-const CHAT_SYSTEM=`You are the Split Pay assistant on a property manager support website (pmc.splitpay.com). Your job is to answer questions from property managers about Split Pay clearly and accurately.
+const CHAT_SYSTEM=`You are the Split Pay assistant on pmc.splitpay.com, a site for property managers. You may also be speaking with a renter who found this chat — handle both gracefully.
 
-Key facts:
-- Split Pay lets residents divide monthly rent into two payments: one on the due date, one ~2 weeks later
-- Residents apply at rent.app/go — takes minutes. No landlord/PM approval needed.
+RESPONSE STYLE:
+- Keep each response to 2-4 sentences max. Be conversational, not encyclopedic.
+- After answering, ask ONE curious follow-up question to learn more about their situation or nudge toward a next step.
+- Never use headers or bullet lists. Write in plain flowing sentences.
+- Be warm, confident, and subtly promotional — you believe in this product.
+- If a response genuinely needs more detail, split it into 2 short messages separated by the exact token ##NEXT_BUBBLE## — never write walls of text.
+
+PROPERTY MANAGER FACTS:
+- Split Pay lets residents split rent into two payments: one on the due date, one ~2 weeks later
+- Residents apply at rent.app/go — takes minutes, no PM approval or integration needed
 - Residents get a virtual ACH account and routing number to enter in their existing portal
-- Works with any ACH-compatible PMS: Yardi, Entrata, AppFolio, RealPage, MRI Software, Buildium, DoorLoop, ResMan, RentCafe, Rent Manager, Avail, Hemlane, Innago, RentRedi, TurboTenant, and 40+ more
+- Works with any ACH-compatible PMS: Yardi, Entrata, AppFolio, RealPage, MRI, Buildium, DoorLoop, ResMan, RentCafe, Rent Manager, Avail, Hemlane, Innago, RentRedi, TurboTenant, and 40+ more
 - No PMS integration required. No contracts. No cost to property managers.
-- Payments appear as standard ACH in the PMS — indistinguishable from any other bank account
-- If a resident misses a payment, Split Pay handles recovery. We do not reverse rent payments already made through the PMS. This is between the resident and Split Pay — not the property manager's concern.
+- Payments appear as standard ACH — indistinguishable from any other bank account
+- If a resident misses a payment, Split Pay handles recovery — not the PM's concern
 - Entrata requires 1-3 day micro-deposit verification for new bank accounts
 - Residents build credit (Equifax + Experian) automatically at no cost
-- All resident servicing handled by Split Pay — not the property manager
 - For direct resident questions, refer them to rent.app/go
 
-Split Pay vs. Flex (if asked to compare):
-- Split Pay uses cash flow-based approval (no credit check) — up to ~50% of residents qualify. Flex uses credit checks — only ~20% qualify.
-- Split Pay requires no PM partnership or contract — residents can start same day. Flex requires a PM contract and integration, taking weeks to launch.
-- Split Pay costs residents $9.99 + 1.5% of rent/month. Flex costs $14.99 + 1% of rent/month.
-- Split Pay has zero operational impact on the PM — no integration, no accounting changes, no reconciliation. Flex requires integration and changes to PM workflows.
-- A detailed comparison PDF is available at: https://pmc.splitpay.com/splitpay-vs-flex.pdf
+SPLIT PAY VS. FLEX (if asked):
+- Split Pay: cash flow-based approval, no credit check, ~50% qualify, $9.99 + 1.5%/month, no PM contract, same-day launch, zero PM workflow changes
+- Flex: credit check required, ~20% qualify, $14.99 + 1%/month, requires PM contract and integration, takes weeks to launch
+- Comparison PDF: https://pmc.splitpay.com/splitpay-vs-flex.pdf
 
-Split Pay Concierge:
-- The Concierge is a free tool that lets property managers upload their rent roll and have Split Pay send personalized invitations to every resident by email, SMS, or both
-- It takes about 5 minutes and is available to any property manager at no cost
-- If someone asks how to reach residents directly, invite residents, send bulk invitations, or use the Concierge, tell them: "Yes! Use the Split Pay Concierge — click the button below to open it." Then end your reply with the exact string: ##SHOW_CONCIERGE_LINK##
-- You can also mention the Concierge is available after filling out the "Get the Kit" form on this page
+CONCIERGE:
+- Free tool: PMs upload their rent roll, Split Pay sends personalized invitations to every resident by email, SMS, or both — takes 5 minutes
+- If someone asks how to reach residents, invite them, or send bulk outreach, say: "Yes! Use the Split Pay Concierge — click the button below to open it." Then end with: ##SHOW_CONCIERGE_LINK##
 
-Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.`;
+RENTER FAQ KNOWLEDGE (for renters who find this chat, or PMs asking what residents will ask):
+Q: How long does a rent payment take / how quickly will my building receive it?
+A: Split Pay sends the full payment to the building on the scheduled date. It settles in the landlord's account within 3-5 business days via standard ACH.
+
+Q: Can I schedule payments in advance / can you process it later?
+A: All scheduling happens in the resident portal, not in Split Pay. Residents can schedule in advance through their portal. The second Split Pay payment can be moved up to 4 calendar days early once the first processes.
+
+Q: Why didn't my payment go through / what happens if it fails?
+A: Split Pay charges the debit card when the portal sends the request (1-3 days after scheduled date). If it fails, Split Pay notifies immediately and retries same day if funded before 2:45 PM ET. Otherwise, the resident reschedules through the portal.
+
+Q: How do I schedule a rent payment?
+A: All scheduling is done in the resident portal — not in Split Pay. The date entered in Split Pay is for informational purposes only.
+
+Q: How do I set up my first payment / set up Split Pay with my portal?
+A: After approval, residents connect their Split Pay virtual account via Plaid (search "Rent App") or by manually entering the virtual account and routing numbers. Use "Evolve Bank and Trust" as the bank name if asked.
+
+Q: How do my monthly payments work with Split Pay?
+A: Each month, the resident pays the first portion on rent day (Split Pay covers the full rent to the building immediately), then pays the second portion ~2 weeks later. It's either a 50/50 equal split or a partial split based on the approved amount.
+
+Q: When does Split Pay take the first payment / when will my payment be processed?
+A: Payments before 6:30 AM ET process the same business day; after that they process the next business day. Weekends and holidays shift to the next business day. Schedule at least one business day before the due date.
+
+Q: Is there a grace period for the first payment?
+A: If the first payment fails, Split Pay retries same day if funded before 2:45 PM ET. No formal grace period — keep the debit card funded from the scheduled date.
+
+Q: Can I make a full or non-Split Pay payment with my virtual account?
+A: No. Residents using a portal can only pay via Split Pay through that virtual account.
+
+Q: My payment already failed and I get paid later today — what can I do?
+A: Fund the debit card before 2:45 PM ET and Split Pay will automatically retry the same day.
+
+Q: Is there a fee for using Split Pay?
+A: Yes — $9.99 + 1.5% of rent per month, added to the first payment. A $15 late fee applies if the second payment is 15+ days overdue.
+
+Q: I scheduled the wrong type of payment — how do I fix it?
+A: Click "Move Out" for the address in the Split Pay app (this only resets the payment method, not the lease), then complete onboarding again and choose "I pay through a resident portal." Note: this requires reapplying for Split Pay.
+
+Q: Can I cancel or change a payment / pause Split Pay?
+A: All payment changes must be made in the resident portal. To pause or cancel Split Pay, change the payment method in the portal.
+
+Q: Will Split Pay overdraft my bank account?
+A: That's determined by the debit card provider and bank — Split Pay has no control over overdraft decisions.
+
+Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.\`;
 
 const inlineHistory=[],floatHistory=[];
+let inlineLeadCaptured=false,floatLeadCaptured=false;
+let inlineAiCount=0,floatAiCount=0;
 let inlineLeadCaptured=false,floatLeadCaptured=false;
 let inlineAiCount=0,floatAiCount=0;
 async function sendChat(type){
@@ -1548,16 +1595,60 @@ async function sendChat(type){
   const msg=inputEl.value.trim();if(!msg)return;
   inputEl.value='';
   appendMsg(messagesEl,'user',msg);
+  const aiCount=isInline?inlineAiCount:floatAiCount;
+  const leadCaptured=isInline?inlineLeadCaptured:floatLeadCaptured;
+  if(aiCount>=2&&!leadCaptured){
+    if(isInline)inlineLeadCaptured=true;else floatLeadCaptured=true;
+    extractAndSaveLead(msg,[...history]).catch(()=>{});
+  }
   history.push({role:'user',content:msg});
   const typing=appendTyping(messagesEl);
   try{
     const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:CHAT_SYSTEM,messages:history})});
     const data=await res.json();
     const reply=data.content?.[0]?.text||'Sorry, I had trouble with that.';
-    typing.remove();appendMsg(messagesEl,'bot',reply);
+    typing.remove();
+    await appendMsgMulti(messagesEl,'bot',reply);
     history.push({role:'assistant',content:reply});
+    if(isInline)inlineAiCount++;else floatAiCount++;
+    const newCount=isInline?inlineAiCount:floatAiCount;
+    const alreadyCaptured=isInline?inlineLeadCaptured:floatLeadCaptured;
+    if(newCount===2&&!alreadyCaptured){
+      setTimeout(()=>{appendMsg(messagesEl,'bot','Quick one before we continue — what\'s your name and email? And roughly how many units do you manage?');},800);
+    }
   }catch(e){typing.remove();appendMsg(messagesEl,'bot','Sorry, I\'m having trouble connecting. Please try again in a moment.');}
 }
+
+async function extractAndSaveLead(msg,historySnapshot){
+  const extractRes=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    system:`You are a CRM assistant. Given a chat history and the user's last message, return ONLY a JSON object with these keys:
+- firstName (string|null)
+- lastName (string|null)
+- email (string|null)
+- unitCount (integer|null)
+- chatSummary (string): 1-3 sentence sales-ready summary of the conversation — what they asked about, their situation, PMS if mentioned, any buying signals. Written for a sales rep about to call them.
+No markdown, no explanation, just the JSON object.`,
+    messages:[...historySnapshot.slice(-6),{role:'user',content:msg}]
+  })});
+  const extractData=await extractRes.json();
+  const raw=(extractData.content?.[0]?.text||'{}').replace(/```json|```/g,'').trim();
+  let parsed={};
+  try{parsed=JSON.parse(raw);}catch(e){return;}
+  if(!parsed.email&&!parsed.firstName)return;
+  await fetch('/.netlify/functions/submit-to-close',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      formType:'chat',
+      firstName:parsed.firstName||'',
+      lastName:parsed.lastName||'',
+      email:parsed.email||'',
+      unitCount:parsed.unitCount||null,
+      chatSummary:parsed.chatSummary||null,
+    })
+  });
+}
+
 function appendMsg(container,role,text){
   const isBot=role==='bot';
   const div=document.createElement('div');
@@ -1566,8 +1657,8 @@ function appendMsg(container,role,text){
   const bubble=document.createElement('div');
   bubble.style.cssText=`background:${isBot?'var(--white)':'var(--orange)'};color:${isBot?'var(--near-black)':'white'};border:${isBot?'1.5px solid var(--border)':'none'};border-radius:${isBot?'4px 16px 16px 16px':'16px 4px 16px 16px'};padding:${container.id==='inlineChatMessages'?'14px 18px':'10px 14px'};font-size:${container.id==='inlineChatMessages'?'14':'13'}px;line-height:1.65;max-width:${isBot?'480':'80%'}px;white-space:pre-wrap;`;
   if(isBot){
-    const cleaned=text.replace('##SHOW_CONCIERGE_LINK##','');
-    bubble.innerHTML=cleaned;
+    const cleaned=text.replace('##SHOW_CONCIERGE_LINK##','').replace(/##NEXT_BUBBLE##/g,'');
+    bubble.innerHTML=mdToHtml(cleaned);
     if(text.includes('##SHOW_CONCIERGE_LINK##')){
       const btn=document.createElement('button');
       btn.textContent='✦ Open Split Pay Concierge →';

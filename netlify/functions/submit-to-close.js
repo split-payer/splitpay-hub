@@ -119,6 +119,17 @@ exports.handler = async (event) => {
     });
   }
 
+  if (formType === 'chat' && body.chatSummary) {
+    await fetch('https://api.close.com/api/v1/activity/note/', {
+      method: 'POST',
+      headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        lead_id: leadId,
+        note: `Chat summary (pmc.splitpay.com):\n\n${body.chatSummary}`,
+      }),
+    });
+  }
+
   const oppValue = rentRollRowCount
     ? rentRollRowCount * 100
     : unitCount ? parseInt(unitCount, 10) * 100 : null;

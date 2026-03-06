@@ -1681,6 +1681,7 @@ async function extractAndSaveLead(msg,historySnapshot){
 - companyName (string|null): their property management company name if mentioned
 - unitCount (integer|null)
 - pms (string|null): property management software mentioned (e.g. Yardi, AppFolio, Buildium, RealPage, etc.)
+- usesFlexProvider (string|null): whether they currently use Flex or another flexible rent provider - return "Yes", "No", or null if not mentioned
 - chatSummary (string): 1-3 sentence sales-ready summary of the conversation — what they asked about, their situation, PMS if mentioned, any buying signals. Written for a sales rep about to call them.
 No markdown, no explanation, just the JSON object.`,
     messages:[...historySnapshot.slice(-6),{role:'user',content:msg}]

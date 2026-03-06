@@ -1,13 +1,21 @@
 // netlify/functions/submit-to-close.js
 
 const CF = {
-  leadSource:         'cf_yABHaHWbML9hNEy77Mu4QlWthjf3LXLkSobSkEgFgVO',
-  pms:                'cf_gTwvG5VGF2RZhgzu1mUvQri0QiBM5FpPtOLj2SFcRj1',
+  leadSource:         'cf_EOQPBnrrysvnIKFiTN7yANCjTULX8zvYoICmsiaeQA0',
+  pms:                'cf_Jr0LDrn6Nj1pxvMyKQtq6p9TF7nsWwHKMcmRj9SsX7m',
+  usesFlexProvider:   'cf_QkURdO0XIJp0CWgf9sSdVMqaJLHLOqGlaYFUSa0mWMw',
   conciergeChannel:   'cf_JXm6UvEEHIwkXySm3XQdeMTrjUgv25gnvkeSFZdU5Go',
   conciergeRequested: 'cf_IqQ1s9ZshyYPq60cEdSGPTVGV3zcFrrqyK0wXvw8nkm',
   totalUnits:         'cf_5HP7O9bC0L2Evm71ibnEOMg3VcuedBmj7w0Xq78sfOL',
   kitDownloaded:      'cf_PACYZMcqEhj64C9CodO5VKS7sVcmly92zDwZcHuvJCH',
 };
+
+
+const LEAD_SOURCE_MAP = {kit:'PMC Kit Download',chat:'PMC Chat',concierge:'PMC Concierge',instantly:'Instantly',referral:'Referral',other:'Other'};
+const PMS_CANONICAL = ['Yardi','AppFolio','Entrata','RealPage','MRI','Buildium','DoorLoop','ResMan','RentCafe','Rent Manager','Avail','Hemlane','Innago','RentRedi','TurboTenant','Other'];
+function normalizePms(raw){if(!raw)return[];const l=String(raw).toLowerCase();const m=PMS_CANONICAL.filter(c=>l.includes(c.toLowerCase()));return m.length?m:['Other'];}
+function normalizeLeadSource(ft){return LEAD_SOURCE_MAP[String(ft||'').toLowerCase()]||'Other';}
+function normalizeFlexUsage(raw){if(raw===null||raw===undefined||raw==='')return null;const s=String(raw).toLowerCase();if(s==='yes'||s==='true'||s==='1')return 'Yes';if(s==='no'||s==='false'||s==='0')return 'No';return null;}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -53,8 +61,9 @@ exports.handler = async (event) => {
   }
 
   const customFields = {
-    [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : formType === 'chat' ? 'PMC Chat' : 'PMC Concierge',
-    [CF.pms]:                pms || null,
+    [CF.leadSource]: [normalizeLeadSource(formType)],
+    [CF.pms]: normalizePms(pms),
+        [CF.usesFlexProvider]: normalizeFlexUsage(usesFlexProvider) ? [normalizeFlexUsage(usesFlexProvider)] : [],
     [CF.propertyName]:       propertyName || null,
     [CF.propertyAddress]:    propertyAddress || null,
     [CF.conciergeChannel]:   channel || null,

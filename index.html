@@ -1667,7 +1667,7 @@ async function sendChat(type){
     const newCount=isInline?inlineAiCount:floatAiCount;
     const alreadyCaptured=isInline?inlineLeadCaptured:floatLeadCaptured;
     if(newCount===2&&!alreadyCaptured){
-      setTimeout(()=>{appendMsg(messagesEl,'bot','Quick one before we continue — what\'s your name and email? And roughly how many units do you manage?');},800);
+      setTimeout(()=>{appendMsg(messagesEl,'bot','Quick one before we continue — what\'s your name, email, and company name? And roughly how many units do you manage?');},800);
     }
   }catch(e){typing.remove();appendMsg(messagesEl,'bot','Sorry, I\'m having trouble connecting. Please try again in a moment.');}
 }
@@ -1678,7 +1678,9 @@ async function extractAndSaveLead(msg,historySnapshot){
 - firstName (string|null)
 - lastName (string|null)
 - email (string|null)
+- companyName (string|null): their property management company name if mentioned
 - unitCount (integer|null)
+- pms (string|null): property management software mentioned (e.g. Yardi, AppFolio, Buildium, RealPage, etc.)
 - chatSummary (string): 1-3 sentence sales-ready summary of the conversation — what they asked about, their situation, PMS if mentioned, any buying signals. Written for a sales rep about to call them.
 No markdown, no explanation, just the JSON object.`,
     messages:[...historySnapshot.slice(-6),{role:'user',content:msg}]
@@ -1697,6 +1699,8 @@ No markdown, no explanation, just the JSON object.`,
       lastName:parsed.lastName||'',
       email:parsed.email||'',
       unitCount:parsed.unitCount||null,
+      companyName:parsed.companyName||null,
+      pms:parsed.pms||null,
       chatSummary:parsed.chatSummary||null,
     })
   });

@@ -1,12 +1,12 @@
 // netlify/functions/submit-to-close.js
 
 const CF = {
-  leadSource:         'Lead Source',
-  pms:                'PMS',
-  conciergeChannel:   'Concierge Channel',
-  conciergeRequested: 'Concierge Requested',
-  totalUnits:         'Total Units',
-  kitDownloaded:      'Kit Downloaded',
+  leadSource:         'cf_yABHaHWbML9hNEy77Mu4QlWthjf3LXLkSobSkEgFgVO',
+  pms:                'cf_gTwvG5VGF2RZhgzu1mUvQri0QiBM5FpPtOLj2SFcRj1',
+  conciergeChannel:   'cf_JXm6UvEEHIwkXySm3XQdeMTrjUgv25gnvkeSFZdU5Go',
+  conciergeRequested: 'cf_IqQ1s9ZshyYPq60cEdSGPTVGV3zcFrrqyK0wXvw8nkm',
+  totalUnits:         'cf_5HP7O9bC0L2Evm71ibnEOMg3VcuedBmj7w0Xq78sfOL',
+  kitDownloaded:      'cf_PACYZMcqEhj64C9CodO5VKS7sVcmly92zDwZcHuvJCH',
 };
 
 exports.handler = async (event) => {
@@ -97,8 +97,7 @@ exports.handler = async (event) => {
     if (!leadRes.ok) return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
     leadId = lead.id;
 
-    // Write custom fields via separate PUT — Close needs a moment after lead creation
-    await new Promise(r => setTimeout(r, 1500));
+    // Write custom fields via separate PUT with { custom: ... } wrapper
     if (Object.keys(customFields).length > 0) {
       const cfRes = await fetch('https://api.close.com/api/v1/lead/' + leadId + '/', {
         method: 'PUT',

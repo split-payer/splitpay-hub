@@ -136,6 +136,31 @@
   .stat-num{font-size:56px;font-weight:800;letter-spacing:-2.5px;color:var(--near-black);}
   .stat-label{font-size:13px;color:rgba(41,41,41,0.6);margin-top:6px;}
   .pms-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:44px;}
+
+  /* ── Channel toggle v2 ── */
+  .c-ch-toggles{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .c-ch-btn{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--cream);cursor:pointer;transition:all 0.18s;user-select:none;}
+  .c-ch-btn:hover{border-color:#bbb;}
+  .c-ch-btn.active{border-color:#00B2A9;background:#f0faf9;}
+  .c-ch-icon{font-size:20px;flex-shrink:0;}
+  .c-ch-text{flex:1;}
+  .c-ch-title{font-size:14px;font-weight:700;color:var(--near-black);margin-bottom:2px;}
+  .c-ch-desc{font-size:12px;color:var(--muted);line-height:1.4;}
+  .c-ch-check{width:22px;height:22px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.18s;background:#fff;}
+  .c-ch-btn.active .c-ch-check{background:#00B2A9;border-color:#00B2A9;}
+  .c-ch-info{border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:4px;}
+  .c-ch-info-row{display:flex;align-items:flex-start;gap:12px;padding:11px 15px;background:#fafaf8;transition:background 0.15s;}
+  .c-ch-info-row+.c-ch-info-row{border-top:1px solid var(--border);}
+  .c-ch-info-row.active{background:#f7fffe;}
+  .c-ch-info-both{background:#f0faf9 !important;}
+  .c-ch-info-dot{width:8px;height:8px;border-radius:50%;background:#ddd;margin-top:4px;flex-shrink:0;transition:background 0.15s;}
+  .c-ch-info-row.active .c-ch-info-dot{background:#00B2A9;}
+  .c-ch-info-label{font-size:12px;font-weight:700;color:var(--near-black);margin-bottom:1px;}
+  .c-ch-info-val{font-size:11px;color:var(--muted);line-height:1.4;}
+  /* PMS compat */
+  .c-pms-compat{display:none;align-items:center;gap:10px;background:#F0FBF4;border:1px solid #B6E8C8;border-radius:10px;padding:10px 14px;font-size:13px;color:#1A7A3E;font-weight:600;margin-top:8px;}
+  .c-pms-compat.visible{display:flex;}
+
   .pms-chip{background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.1);border-radius:100px;padding:9px 20px;font-size:13px;font-weight:600;color:var(--near-black);}
 
   .faq-section{background:var(--white);}
@@ -974,12 +999,16 @@
           </div>
           <div class="c-field">
             <label>Property Management Software <span class="req">*</span></label>
-            <select id="cPmsSelect">
+            <select id="cPmsSelect" onchange="cCheckPMS()">
               <option disabled selected value="">Select your PMS</option>
               <optgroup label="Most Common"><option>AppFolio</option><option>Buildium</option><option>DoorLoop</option><option>Entrata</option><option>MRI Software</option><option>RealPage</option><option>ResMan</option><option>Yardi</option></optgroup>
               <optgroup label="Also Compatible"><option>Avail</option><option>Bilt</option><option>Hemlane</option><option>Innago</option><option>Livly</option><option>Rent Manager</option><option>RentCafe</option><option>RentRedi</option><option>TenantCloud</option><option>TurboTenant</option></optgroup>
               <option value="other">Other / Not listed</option>
             </select>
+            <div class="c-pms-compat" id="cPmsCompat">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.25" stroke="#27AE60" stroke-width="1.5"/><polyline points="4.5,8.5 7,11 11.5,5.5" stroke="#27AE60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="cPmsCompatText">Compatible — Split Pay works with your portal.</span>
+            </div>
           </div>
           <div class="c-step-nav">
             <span></span>
@@ -1007,13 +1036,43 @@
         <div class="c-step" id="cstep2">
           <div class="c-step-eyebrow">Step 3 of 5</div>
           <div class="c-step-title">How should we reach residents?</div>
-          <div class="c-step-sub">Choose your channel. The preview updates live on the right.</div>
-          <div class="c-channel-toggle">
-            <button class="c-channel-btn active" id="cChEmail" onclick="cSetChannel('email')">✉ Email</button>
-            <button class="c-channel-btn" id="cChSms" onclick="cSetChannel('sms')">💬 SMS</button>
-            <button class="c-channel-btn" id="cChBoth" onclick="cSetChannel('both')">⚡ Both</button>
+          <div class="c-step-sub">Both is recommended — deselect any channel you'd prefer to skip.</div>
+          <div class="c-ch-toggles">
+            <div class="c-ch-btn active" id="cChEmail" onclick="cToggleChannel('email')">
+              <div class="c-ch-icon">✉️</div>
+              <div class="c-ch-text">
+                <div class="c-ch-title">Email</div>
+                <div class="c-ch-desc">Branded invitation with a CTA button</div>
+              </div>
+              <div class="c-ch-check" id="cChEmailCheck">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="2,5 4,7.5 8,2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="c-ch-btn active" id="cChSms" onclick="cToggleChannel('sms')">
+              <div class="c-ch-icon">💬</div>
+              <div class="c-ch-text">
+                <div class="c-ch-title">SMS</div>
+                <div class="c-ch-desc">~98% open rate, instant delivery</div>
+              </div>
+              <div class="c-ch-check" id="cChSmsCheck">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="2,5 4,7.5 8,2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
           </div>
-          <div class="c-info-box"><b>Email</b> — Branded look, higher engagement, includes a CTA button.<br/><b>SMS</b> — Highest open rate (~98%), instant delivery.<br/><b>Both</b> — Maximum reach. Recommended for best results.</div>
+          <div class="c-ch-info">
+            <div class="c-ch-info-row active" id="cInfoEmail">
+              <div class="c-ch-info-dot"></div>
+              <div><div class="c-ch-info-label">Email</div><div class="c-ch-info-val">Branded look, higher engagement, includes a CTA button</div></div>
+            </div>
+            <div class="c-ch-info-row active" id="cInfoSms">
+              <div class="c-ch-info-dot"></div>
+              <div><div class="c-ch-info-label">SMS</div><div class="c-ch-info-val">Highest open rate (~98%), instant delivery</div></div>
+            </div>
+            <div class="c-ch-info-row c-ch-info-both" id="cInfoBoth">
+              <div class="c-ch-info-dot" style="background:#00B2A9;"></div>
+              <div><div class="c-ch-info-label" style="color:#00B2A9;">Both — recommended</div><div class="c-ch-info-val">Maximum reach. Email + SMS together drive the most sign-ups.</div></div>
+            </div>
+          </div>
           <div class="c-step-nav">
             <button class="c-btn-back" onclick="cPrevStep()">← Back</button>
             <div class="c-nav-right"><span class="c-step-counter">3 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
@@ -1538,7 +1597,7 @@ function showToast(msg='✓ Copied'){const t=document.getElementById('toast');t.
 /* ═══════════════════════════
    CONCIERGE
 ═══════════════════════════ */
-let cStep=0;const cTotalSteps=5;let cChannel='email',cPreviewTab='email',cFile=null,cColumnMap={};
+let cStep=0;const cTotalSteps=5;let cChannel='both',cPreviewTab='email',cFile=null,cColumnMap={};
 function openConcierge(){
   const o=document.getElementById('conciergeOverlay');
   o.classList.add('open');document.body.style.overflow='hidden';
@@ -1582,11 +1641,35 @@ function cNextStep(){
   if(cStep<cTotalSteps-1)cGoToStep(cStep+1);
 }
 function cPrevStep(){if(cStep>0)cGoToStep(cStep-1);}
-function cSetChannel(ch){
-  cChannel=ch;
-  ['email','sms','both'].forEach(c=>{document.getElementById('cCh'+c.charAt(0).toUpperCase()+c.slice(1)).classList.toggle('active',c===ch);});
-  if(ch==='sms')cSwitchTab('sms');else cSwitchTab('email');
+let cEmailOn=true,cSmsOn=true;
+function cToggleChannel(ch){
+  if(ch==='email'&&!cSmsOn)return;
+  if(ch==='sms'&&!cEmailOn)return;
+  if(ch==='email'){cEmailOn=!cEmailOn;}else{cSmsOn=!cSmsOn;}
+  document.getElementById('cChEmail').classList.toggle('active',cEmailOn);
+  document.getElementById('cChSms').classList.toggle('active',cSmsOn);
+  document.getElementById('cInfoEmail').classList.toggle('active',cEmailOn);
+  document.getElementById('cInfoSms').classList.toggle('active',cSmsOn);
+  const bothRow=document.getElementById('cInfoBoth');
+  if(cEmailOn&&cSmsOn){bothRow.style.background='#f0faf9';bothRow.querySelector('.c-ch-info-dot').style.background='#00B2A9';}
+  else{bothRow.style.background='';bothRow.querySelector('.c-ch-info-dot').style.background='#ddd';}
+  cChannel=cEmailOn&&cSmsOn?'both':cEmailOn?'email':'sms';
+  if(!cEmailOn)cSwitchTab('sms');else cSwitchTab('email');
   cUpdatePreview();
+}
+function cCheckPMS(){
+  const s=document.getElementById('cPmsSelect');
+  const box=document.getElementById('cPmsCompat');
+  const txt=document.getElementById('cPmsCompatText');
+  if(s.value&&s.value!=='other'){
+    txt.textContent='Compatible — Split Pay works with '+s.options[s.selectedIndex].text+'.';
+    box.classList.add('visible');
+  } else if(s.value==='other'){
+    txt.textContent='Compatible — Split Pay works with any ACH-compatible portal.';
+    box.classList.add('visible');
+  } else {
+    box.classList.remove('visible');
+  }
 }
 function cSwitchTab(tab){
   cPreviewTab=tab;

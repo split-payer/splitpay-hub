@@ -1538,6 +1538,8 @@ Split Pay Concierge:
 Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.`;
 
 const inlineHistory=[],floatHistory=[];
+let inlineLeadCaptured=false,floatLeadCaptured=false;
+let inlineAiCount=0,floatAiCount=0;
 async function sendChat(type){
   const isInline=type==='inline';
   const inputEl=document.getElementById(isInline?'inlineChatInput':'floatChatInput');

@@ -53,7 +53,7 @@ exports.handler = async (event) => {
   }
 
   const customFields = {
-    [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
+    [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : formType === 'chat' ? 'PMC Chat' : 'PMC Concierge',
     [CF.pms]:                pms || null,
     [CF.propertyName]:       propertyName || null,
     [CF.propertyAddress]:    propertyAddress || null,

@@ -97,6 +97,7 @@ exports.handler = async (event) => {
       }),
     });
     const lead = await leadRes.json();
+    console.log('CLOSE LEAD RESPONSE:', JSON.stringify(lead));
     if (!leadRes.ok) return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
     leadId = lead.id;
   }

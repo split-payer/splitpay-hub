@@ -96,9 +96,18 @@ exports.handler = async (event) => {
       }, customFields)),
     });
     const lead = await leadRes.json();
-    console.log('CLOSE LEAD RESPONSE:', JSON.stringify(lead));
     if (!leadRes.ok) return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
     leadId = lead.id;
+
+    // Write custom fields via separate PUT — Close silently ignores cf_ fields on POST
+    if (Object.keys(customFields).length > 0) {
+      const cfRes = await fetch('https://api.close.com/api/v1/lead/' + leadId + '/', {
+        method: 'PUT',
+        headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(customFields),
+      });
+      if (!cfRes.ok) console.error('Custom fields PUT failed:', await cfRes.text());
+    }
   }
 
   if (formType === 'kit') {

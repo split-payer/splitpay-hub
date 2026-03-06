@@ -75,7 +75,7 @@ exports.handler = async (event) => {
       headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(Object.assign(
         companyName ? { name: companyName } : {},
-        customFields
+        { custom: customFields }
       )),
     });
     if (!updateRes.ok) console.error('Lead update failed:', await updateRes.text());
@@ -103,7 +103,7 @@ exports.handler = async (event) => {
       const cfRes = await fetch('https://api.close.com/api/v1/lead/' + leadId + '/', {
         method: 'PUT',
         headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(customFields),
+        body: JSON.stringify({ custom: customFields }),
       });
       if (!cfRes.ok) console.error('Custom fields PUT failed:', await cfRes.text());
     }

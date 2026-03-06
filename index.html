@@ -1500,15 +1500,15 @@ function downloadFAQPDF(){
         var win = document.getElementById('floatWindow');
         var input = document.getElementById('floatChatInput');
         if (win) {
-          win.style.display = 'flex';
+          win.style.setProperty('display', 'flex', 'important');
           if (input) { input.focus(); }
         }
       };
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() { setTimeout(openChat, 300); });
-      } else {
-        setTimeout(openChat, 300);
-      }
+      window.addEventListener('load', function() {
+        setTimeout(openChat, 100);
+        setTimeout(openChat, 600);
+        setTimeout(openChat, 1200);
+      });
     }
   })();
 

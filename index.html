@@ -1702,6 +1702,22 @@ No markdown, no explanation, just the JSON object.`,
   });
 }
 
+function mdToHtml(t){
+  if(!t)return '';
+  return t
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^### (.+)$/gm,'<strong>$1</strong>')
+    .replace(/^## (.+)$/gm,'<strong>$1</strong>')
+    .replace(/^# (.+)$/gm,'<strong>$1</strong>')
+    .replace(/^[-•] (.+)$/gm,'• $1')
+    .replace(/\n/g,'<br>');
+}
+function appendMsgMulti(container,role,bubbles){
+  bubbles.forEach(b=>appendMsg(container,role,b));
+}
+
 function appendMsg(container,role,text){
   const isBot=role==='bot';
   const div=document.createElement('div');

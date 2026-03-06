@@ -392,6 +392,41 @@
     .c-preview-side{display:none;}.c-row,.c-row-3{grid-template-columns:1fr;}
     .concierge-section{padding:80px 24px;}
   }
+
+/* ─── TOP ADS SECTION ─── */
+.ads-section{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 0;}
+.ads-inner{max-width:860px;margin:0 auto;padding:0 32px;}
+.ads-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;}
+.ads-eyebrow{font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);margin-bottom:5px;}
+.ads-title{font-size:20px;font-weight:800;color:var(--near-black);letter-spacing:-0.3px;}
+.ads-sub{font-size:13px;color:#666;margin-top:4px;line-height:1.5;max-width:420px;}
+.btn-browse{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--near-black);text-decoration:none;border:1px solid var(--border);padding:8px 16px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-top:4px;}
+.shelf-wrap{position:relative;}
+.shelf{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;}
+.shelf::-webkit-scrollbar{display:none;}
+.shelf-wrap::after{content:'';position:absolute;right:0;top:0;bottom:4px;width:80px;background:linear-gradient(to right,transparent,#ffffff);pointer-events:none;}
+.video-card{flex:0 0 210px;scroll-snap-align:start;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow 0.2s,transform 0.2s;}
+.video-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.09);transform:translateY(-2px);}
+.video-thumb{position:relative;width:100%;padding-top:177.78%;background:#111;overflow:hidden;}
+.video-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#1e2e3d 0%,#0d1f2d 100%);gap:10px;}
+.placeholder-icon{width:40px;height:40px;background:rgba(247,201,72,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.placeholder-icon svg{width:18px;height:18px;fill:#F7C948;margin-left:3px;}
+.placeholder-label{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.06em;}
+.platform-badge{position:absolute;top:8px;left:8px;display:inline-flex;align-items:center;gap:4px;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);border-radius:100px;padding:3px 8px;font-size:10px;font-weight:700;color:#fff;}
+.platform-badge svg{width:10px;height:10px;fill:currentColor;flex-shrink:0;}
+.rank-badge{position:absolute;top:8px;right:8px;background:#F7C948;color:#7a6000;font-size:9px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;padding:3px 7px;border-radius:100px;}
+.video-body{padding:12px;}
+.video-title{font-size:12px;font-weight:700;color:var(--near-black);margin-bottom:3px;line-height:1.35;}
+.video-meta{font-size:11px;color:#aaa;margin-bottom:10px;}
+.video-actions{display:flex;gap:6px;}
+.btn-dl{display:inline-flex;align-items:center;gap:4px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:6px 11px;border-radius:100px;text-decoration:none;white-space:nowrap;}
+.btn-link{display:inline-flex;align-items:center;gap:4px;background:#fff;color:var(--near-black);font-size:10px;font-weight:700;padding:6px 11px;border-radius:100px;text-decoration:none;border:1px solid var(--border);white-space:nowrap;cursor:pointer;font-family:inherit;}
+.btn-dl svg,.btn-link svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.shelf-dots{display:flex;gap:5px;justify-content:center;margin-top:18px;}
+.shelf-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background 0.2s,width 0.2s;}
+.shelf-dot.active{background:var(--orange);width:18px;border-radius:3px;}
+.ads-footer-note{margin-top:16px;font-size:11px;color:#ccc;text-align:center;}
 </style>
 </head>
 <body>
@@ -499,6 +534,7 @@
       </div>
     </div>
     <p class="grid-note">All materials are property-manager safe and policy neutral.</p>
+
     <div style="margin-top:24px;text-align:center;padding:16px 24px;background:rgba(67,189,174,0.07);border:1.5px solid rgba(67,189,174,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:8px;">
         <div style="width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0;"></div>
@@ -509,6 +545,25 @@
     </div>
   </div>
 </section>
+
+<!-- ═══════════════ TOP ADS SECTION ═══════════════ -->
+<div class="ads-section">
+  <div class="ads-inner">
+    <div class="ads-header">
+      <div>
+        <div class="ads-eyebrow">⚡ Updated monthly</div>
+        <div class="ads-title">This month's top resident ads</div>
+        <div class="ads-sub">Our best-performing UGC videos — download to attach to your emails, or copy the link to drop straight into a message.</div>
+      </div>
+      <a href="#" id="adsBrowseBtn" class="btn-browse">Full library →</a>
+    </div>
+    <div class="shelf-wrap">
+      <div class="shelf" id="adsShelf"></div>
+    </div>
+    <div class="shelf-dots" id="adsDots"></div>
+    <p class="ads-footer-note">Updated every month · <a href="#" id="adsLibraryLink" style="color:#aaa;">Browse full library in Drive →</a></p>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="section how" id="how-it-works">
@@ -1580,11 +1635,9 @@ A: All payment changes must be made in the resident portal. To pause or cancel S
 Q: Will Split Pay overdraft my bank account?
 A: That's determined by the debit card provider and bank — Split Pay has no control over overdraft decisions.
 
-Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.\`;
+Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.`;
 
 const inlineHistory=[],floatHistory=[];
-let inlineLeadCaptured=false,floatLeadCaptured=false;
-let inlineAiCount=0,floatAiCount=0;
 let inlineLeadCaptured=false,floatLeadCaptured=false;
 let inlineAiCount=0,floatAiCount=0;
 async function sendChat(type){
@@ -1986,6 +2039,70 @@ function cAddAnotherProperty(){
   cGoToStep(1);
   cUpdatePreview();
 }
+
+/* ═══════════ TOP ADS ═══════════ */
+async function initTopAds(){
+  let ads=[];
+  try{
+    const r=await fetch('/ads.json');
+    if(r.ok){const d=await r.json();ads=d.ads||[];if(d.libraryUrl){document.getElementById('adsBrowseBtn').href=d.libraryUrl;document.getElementById('adsLibraryLink').href=d.libraryUrl;}}
+  }catch(e){console.warn('ads.json not found');}
+  const shelf=document.getElementById('adsShelf');
+  const dotsEl=document.getElementById('adsDots');
+  if(!shelf||!ads.length)return;
+  const ICONS={
+    tiktok:`<svg viewBox="0 0 24 24"><path d="M19.6 3h-3.2v12.3a2.8 2.8 0 1 1-2.8-2.8c.3 0 .5 0 .8.1V9.3a6 6 0 0 0-.8-.1 6.1 6.1 0 1 0 6.1 6.1V8.7a9.4 9.4 0 0 0 5.5 1.8V7.3A5.7 5.7 0 0 1 19.6 3z"/></svg>`,
+    youtube:`<svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>`,
+    instagram:`<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.6 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.3 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9C.3 21.3 2.7 23.7 7.1 23.9 8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg>`,
+  };
+  shelf.innerHTML=ads.map((ad,i)=>{
+    const icon=ICONS[ad.platform]||'';
+    const rankBadge=ad.rank?`<div class="rank-badge">#${ad.rank} this month</div>`:'';
+    const dlUrl=ad.fileId?`https://drive.google.com/uc?export=download&id=${ad.fileId}`:'#';
+    const viewUrl=ad.fileId?`https://drive.google.com/file/d/${ad.fileId}/view`:'#';
+    return `<div class="video-card">
+      <div class="video-thumb">
+        <div class="video-placeholder">
+          <div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <span class="placeholder-label">Video preview</span>
+        </div>
+        ${ad.platform?`<div class="platform-badge">${icon}${ad.platform.charAt(0).toUpperCase()+ad.platform.slice(1)}</div>`:''}
+        ${rankBadge}
+      </div>
+      <div class="video-body">
+        <div class="video-title">${ad.title}</div>
+        <div class="video-meta">${[ad.type,ad.duration,ad.views].filter(Boolean).join(' · ')}</div>
+        <div class="video-actions">
+          <a href="${dlUrl}" target="_blank" class="btn-dl">
+            <svg viewBox="0 0 24 24"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg>
+            Download
+          </a>
+          <button class="btn-link" onclick="copyAdLink(this,'${viewUrl}')">
+            <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            Copy link
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  dotsEl.innerHTML=ads.map((_,i)=>`<div class="shelf-dot${i===0?' active':''}" data-i="${i}"></div>`).join('');
+  const dots=Array.from(dotsEl.querySelectorAll('.shelf-dot'));
+  const cards=Array.from(shelf.querySelectorAll('.video-card'));
+  dots.forEach((dot,i)=>dot.addEventListener('click',()=>cards[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'})));
+  shelf.addEventListener('scroll',()=>{
+    let closest=0,minDist=Infinity;
+    cards.forEach((c,i)=>{const d=Math.abs(c.getBoundingClientRect().left-shelf.getBoundingClientRect().left);if(d<minDist){minDist=d;closest=i;}});
+    dots.forEach((d,i)=>d.classList.toggle('active',i===closest));
+  });
+}
+function copyAdLink(btn,url){
+  navigator.clipboard.writeText(url).then(()=>{
+    const orig=btn.innerHTML;
+    btn.textContent='✓ Copied!';btn.style.color='#00a67e';btn.style.borderColor='#00a67e';
+    setTimeout(()=>{btn.innerHTML=orig;btn.style.color='';btn.style.borderColor='';},1800);
+  });
+}
+initTopAds();
 </script>
 </body>
 </html>

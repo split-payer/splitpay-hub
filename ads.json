@@ -1,0 +1,50 @@
+{
+  "libraryUrl": "https://drive.google.com/drive/folders/REPLACE_WITH_YOUR_FOLDER_ID",
+  "ads": [
+    {
+      "title": "Can't cover rent this month?",
+      "platform": "tiktok",
+      "type": "UGC",
+      "duration": "18s",
+      "views": "2.4M views",
+      "rank": 1,
+      "fileId": "REPLACE_WITH_DRIVE_FILE_ID"
+    },
+    {
+      "title": "Split your rent in two",
+      "platform": "youtube",
+      "type": "UGC",
+      "duration": "30s",
+      "views": "890K views",
+      "rank": 2,
+      "fileId": "REPLACE_WITH_DRIVE_FILE_ID"
+    },
+    {
+      "title": "Payday doesn't always line up",
+      "platform": "instagram",
+      "type": "UGC",
+      "duration": "22s",
+      "views": "540K views",
+      "rank": 3,
+      "fileId": "REPLACE_WITH_DRIVE_FILE_ID"
+    },
+    {
+      "title": "My landlord doesn't know I do this",
+      "platform": "tiktok",
+      "type": "UGC",
+      "duration": "15s",
+      "views": "1.1M views",
+      "rank": 4,
+      "fileId": "REPLACE_WITH_DRIVE_FILE_ID"
+    },
+    {
+      "title": "First of the month stress, gone",
+      "platform": "youtube",
+      "type": "UGC",
+      "duration": "28s",
+      "views": "320K views",
+      "rank": 5,
+      "fileId": "REPLACE_WITH_DRIVE_FILE_ID"
+    }
+  ]
+}

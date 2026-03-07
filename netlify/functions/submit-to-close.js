@@ -11,6 +11,22 @@ const CF = {
   kitDownloaded:      'cf_PACYZMcqEhj64C9CodO5VKS7sVcmly92zDwZcHuvJCH',
 };
 
+// leadSource and pms are Contact-scoped in Close, not Lead-scoped.
+// They must be sent on the contact object, not the lead payload.
+const LEAD_SCOPED_CF = new Set([
+  CF.propertyName,
+  CF.propertyAddress,
+  CF.conciergeChannel,
+  CF.conciergeRequested,
+  CF.totalUnits,
+  CF.kitDownloaded,
+]);
+
+const CONTACT_SCOPED_CF = new Set([
+  CF.leadSource,
+  CF.pms,
+]);
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -38,23 +54,8 @@ exports.handler = async (event) => {
   const companyName = company || firm || '';
   const authHeader = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
 
-  let existingLeadId = null;
-  if (email) {
-    try {
-      const searchRes = await fetch(
-        `https://api.close.com/api/v1/lead/?query=${encodeURIComponent(`email:"${email}"`)}`,
-        { headers: { Authorization: authHeader, Accept: 'application/json' } }
-      );
-      const searchData = await searchRes.json();
-      if (searchData.data && searchData.data.length > 0) {
-        existingLeadId = searchData.data[0].id;
-      }
-    } catch (err) {
-      console.error('Lead search error:', err);
-    }
-  }
-
-  const customFields = {
+  // --- Build field maps split by scope ---
+  const allCustomFields = {
     [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
     [CF.pms]:                pms || null,
     [CF.propertyName]:       propertyName || null,
@@ -65,24 +66,69 @@ exports.handler = async (event) => {
     [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
   };
 
-  Object.keys(customFields).forEach((k) => {
-    if (customFields[k] === null) delete customFields[k];
-  });
+  const leadCustomFields = {};
+  const contactCustomFields = {};
+
+  for (const [k, v] of Object.entries(allCustomFields)) {
+    if (v === null) continue;
+    if (LEAD_SCOPED_CF.has(k)) leadCustomFields[k] = v;
+    if (CONTACT_SCOPED_CF.has(k)) contactCustomFields[k] = v;
+  }
+
+  // --- Search for existing lead by email ---
+  let existingLeadId = null;
+  let existingContactId = null;
+
+  if (email) {
+    try {
+      const searchRes = await fetch(
+        `https://api.close.com/api/v1/lead/?query=${encodeURIComponent(`email:"${email}"`)}`,
+        { headers: { Authorization: authHeader, Accept: 'application/json' } }
+      );
+      const searchData = await searchRes.json();
+      if (searchData.data && searchData.data.length > 0) {
+        existingLeadId = searchData.data[0].id;
+        // Find matching contact for CF update
+        const contacts = searchData.data[0].contacts || [];
+        const match = contacts.find(c =>
+          (c.emails || []).some(e => e.email === email)
+        );
+        if (match) existingContactId = match.id;
+      }
+    } catch (err) {
+      console.error('Lead search error:', err);
+    }
+  }
 
   let leadId;
 
   if (existingLeadId) {
-    const updateRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
-      method: 'PUT',
-      headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        ...(companyName ? { name: companyName } : {}),
-        ...customFields,
-      }),
-    });
-    if (!updateRes.ok) console.error('Lead update failed:', await updateRes.text());
+    // Update lead-scoped custom fields
+    if (Object.keys(leadCustomFields).length > 0) {
+      const updateRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
+        method: 'PUT',
+        headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          ...(companyName ? { name: companyName } : {}),
+          ...leadCustomFields,
+        }),
+      });
+      if (!updateRes.ok) console.error('Lead update failed:', await updateRes.text());
+    }
+
+    // Update contact-scoped custom fields
+    if (existingContactId && Object.keys(contactCustomFields).length > 0) {
+      const contactUpdateRes = await fetch(`https://api.close.com/api/v1/contact/${existingContactId}/`, {
+        method: 'PUT',
+        headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(contactCustomFields),
+      });
+      if (!contactUpdateRes.ok) console.error('Contact update failed:', await contactUpdateRes.text());
+    }
+
     leadId = existingLeadId;
   } else {
+    // Create new lead with contact
     const leadRes = await fetch('https://api.close.com/api/v1/lead/', {
       method: 'POST',
       headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -92,16 +138,20 @@ exports.handler = async (event) => {
           name,
           emails: email ? [{ type: 'work', email }] : [],
           phones: phone ? [{ type: 'mobile', phone }] : [],
+          ...contactCustomFields,
         }],
-        status: 'New Lead',
-        ...customFields,
+        ...leadCustomFields,
       }),
     });
     const lead = await leadRes.json();
-    if (!leadRes.ok) return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
+    if (!leadRes.ok) {
+      console.error('Lead creation failed:', JSON.stringify(lead));
+      return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
+    }
     leadId = lead.id;
   }
 
+  // --- Note for kit downloads ---
   if (formType === 'kit') {
     await fetch('https://api.close.com/api/v1/activity/note/', {
       method: 'POST',
@@ -113,6 +163,7 @@ exports.handler = async (event) => {
     });
   }
 
+  // --- Opportunity ---
   const oppValue = rentRollRowCount
     ? rentRollRowCount * 100
     : unitCount ? parseInt(unitCount, 10) * 100 : null;
@@ -152,4 +203,3 @@ function buildNote(data) {
   }
   return lines.join('\n');
 }
-

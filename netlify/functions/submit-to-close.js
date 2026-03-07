@@ -12,7 +12,6 @@ const CF = {
 };
 
 // leadSource and pms are Contact-scoped in Close, not Lead-scoped.
-// They must be sent on the contact object, not the lead payload.
 const LEAD_SCOPED_CF = new Set([
   CF.propertyName,
   CF.propertyAddress,
@@ -27,6 +26,21 @@ const CONTACT_SCOPED_CF = new Set([
   CF.pms,
 ]);
 
+// --- Slack alerting ---
+async function slackAlert(message) {
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+  if (!webhookUrl) return;
+  try {
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: message }),
+    });
+  } catch (err) {
+    console.error('Slack alert failed:', err);
+  }
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -34,6 +48,7 @@ exports.handler = async (event) => {
 
   const CLOSE_API_KEY = process.env.CLOSE_API_KEY;
   if (!CLOSE_API_KEY) {
+    await slackAlert('🚨 *submit-to-close*: Missing CLOSE_API_KEY environment variable.');
     return { statusCode: 500, body: JSON.stringify({ error: 'Missing CLOSE_API_KEY' }) };
   }
 
@@ -54,138 +69,161 @@ exports.handler = async (event) => {
   const companyName = company || firm || '';
   const authHeader = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
 
-  // --- Build field maps split by scope ---
-  const allCustomFields = {
-    [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
-    [CF.pms]:                pms || null,
-    [CF.propertyName]:       propertyName || null,
-    [CF.propertyAddress]:    propertyAddress || null,
-    [CF.conciergeChannel]:   channel || null,
-    [CF.conciergeRequested]: formType === 'concierge' ? 'Yes' : null,
-    [CF.totalUnits]:         unitCount || null,
-    [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
-  };
+  // Wrap everything so crashes also fire a Slack alert
+  try {
 
-  const leadCustomFields = {};
-  const contactCustomFields = {};
+    // --- Build field maps split by scope ---
+    const allCustomFields = {
+      [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
+      [CF.pms]:                pms || null,
+      [CF.propertyName]:       propertyName || null,
+      [CF.propertyAddress]:    propertyAddress || null,
+      [CF.conciergeChannel]:   channel || null,
+      [CF.conciergeRequested]: formType === 'concierge' ? 'Yes' : null,
+      [CF.totalUnits]:         unitCount || null,
+      [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
+    };
 
-  for (const [k, v] of Object.entries(allCustomFields)) {
-    if (v === null) continue;
-    if (LEAD_SCOPED_CF.has(k)) leadCustomFields[k] = v;
-    if (CONTACT_SCOPED_CF.has(k)) contactCustomFields[k] = v;
-  }
+    const leadCustomFields = {};
+    const contactCustomFields = {};
 
-  // --- Search for existing lead by email ---
-  let existingLeadId = null;
-  let existingContactId = null;
-
-  if (email) {
-    try {
-      const searchRes = await fetch(
-        `https://api.close.com/api/v1/lead/?query=${encodeURIComponent(`email:"${email}"`)}`,
-        { headers: { Authorization: authHeader, Accept: 'application/json' } }
-      );
-      const searchData = await searchRes.json();
-      if (searchData.data && searchData.data.length > 0) {
-        existingLeadId = searchData.data[0].id;
-        // Find matching contact for CF update
-        const contacts = searchData.data[0].contacts || [];
-        const match = contacts.find(c =>
-          (c.emails || []).some(e => e.email === email)
-        );
-        if (match) existingContactId = match.id;
-      }
-    } catch (err) {
-      console.error('Lead search error:', err);
+    for (const [k, v] of Object.entries(allCustomFields)) {
+      if (v === null) continue;
+      if (LEAD_SCOPED_CF.has(k)) leadCustomFields[k] = v;
+      if (CONTACT_SCOPED_CF.has(k)) contactCustomFields[k] = v;
     }
-  }
 
-  let leadId;
+    // --- Search for existing lead by email ---
+    let existingLeadId = null;
+    let existingContactId = null;
 
-  if (existingLeadId) {
-    // Update lead-scoped custom fields
-    if (Object.keys(leadCustomFields).length > 0) {
-      const updateRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
-        method: 'PUT',
+    if (email) {
+      try {
+        const searchRes = await fetch(
+          `https://api.close.com/api/v1/lead/?query=${encodeURIComponent(`email:"${email}"`)}`,
+          { headers: { Authorization: authHeader, Accept: 'application/json' } }
+        );
+        const searchData = await searchRes.json();
+        if (searchData.data && searchData.data.length > 0) {
+          existingLeadId = searchData.data[0].id;
+          const contacts = searchData.data[0].contacts || [];
+          const match = contacts.find(c =>
+            (c.emails || []).some(e => e.email === email)
+          );
+          if (match) existingContactId = match.id;
+        }
+      } catch (err) {
+        console.error('Lead search error:', err);
+      }
+    }
+
+    let leadId;
+
+    if (existingLeadId) {
+      // Update lead-scoped custom fields
+      if (Object.keys(leadCustomFields).length > 0) {
+        const updateRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
+          method: 'PUT',
+          headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            ...(companyName ? { name: companyName } : {}),
+            ...leadCustomFields,
+          }),
+        });
+        if (!updateRes.ok) {
+          const detail = await updateRes.text();
+          console.error('Lead update failed:', detail);
+          await slackAlert(`⚠️ *submit-to-close*: Lead update failed for \`${email || 'unknown'}\`\n\`\`\`${detail}\`\`\``);
+        }
+      }
+
+      // Update contact-scoped custom fields
+      if (existingContactId && Object.keys(contactCustomFields).length > 0) {
+        const contactUpdateRes = await fetch(`https://api.close.com/api/v1/contact/${existingContactId}/`, {
+          method: 'PUT',
+          headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(contactCustomFields),
+        });
+        if (!contactUpdateRes.ok) {
+          const detail = await contactUpdateRes.text();
+          console.error('Contact update failed:', detail);
+          await slackAlert(`⚠️ *submit-to-close*: Contact update failed for \`${email || 'unknown'}\`\n\`\`\`${detail}\`\`\``);
+        }
+      }
+
+      leadId = existingLeadId;
+    } else {
+      // Create new lead with contact
+      const leadRes = await fetch('https://api.close.com/api/v1/lead/', {
+        method: 'POST',
         headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          ...(companyName ? { name: companyName } : {}),
+          name: companyName || name || 'Split Pay PMC Lead',
+          contacts: [{
+            name,
+            emails: email ? [{ type: 'work', email }] : [],
+            phones: phone ? [{ type: 'mobile', phone }] : [],
+            ...contactCustomFields,
+          }],
           ...leadCustomFields,
         }),
       });
-      if (!updateRes.ok) console.error('Lead update failed:', await updateRes.text());
+      const lead = await leadRes.json();
+      if (!leadRes.ok) {
+        const detail = JSON.stringify(lead);
+        console.error('Lead creation failed:', detail);
+        await slackAlert(`🚨 *submit-to-close*: Lead creation failed for \`${email || 'unknown'}\` (${formType})\n\`\`\`${detail}\`\`\``);
+        return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
+      }
+      leadId = lead.id;
     }
 
-    // Update contact-scoped custom fields
-    if (existingContactId && Object.keys(contactCustomFields).length > 0) {
-      const contactUpdateRes = await fetch(`https://api.close.com/api/v1/contact/${existingContactId}/`, {
-        method: 'PUT',
+    // --- Note for kit downloads ---
+    if (formType === 'kit') {
+      await fetch('https://api.close.com/api/v1/activity/note/', {
+        method: 'POST',
         headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(contactCustomFields),
+        body: JSON.stringify({
+          lead_id: leadId,
+          note: `Kit downloaded via pmc.splitpay.com`,
+        }),
       });
-      if (!contactUpdateRes.ok) console.error('Contact update failed:', await contactUpdateRes.text());
     }
 
-    leadId = existingLeadId;
-  } else {
-    // Create new lead with contact
-    const leadRes = await fetch('https://api.close.com/api/v1/lead/', {
-      method: 'POST',
-      headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        name: companyName || name || 'Split Pay PMC Lead',
-        contacts: [{
-          name,
-          emails: email ? [{ type: 'work', email }] : [],
-          phones: phone ? [{ type: 'mobile', phone }] : [],
-          ...contactCustomFields,
-        }],
-        ...leadCustomFields,
-      }),
-    });
-    const lead = await leadRes.json();
-    if (!leadRes.ok) {
-      console.error('Lead creation failed:', JSON.stringify(lead));
-      return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
-    }
-    leadId = lead.id;
-  }
+    // --- Opportunity ---
+    const oppValue = rentRollRowCount
+      ? rentRollRowCount * 100
+      : unitCount ? parseInt(unitCount, 10) * 100 : null;
 
-  // --- Note for kit downloads ---
-  if (formType === 'kit') {
-    await fetch('https://api.close.com/api/v1/activity/note/', {
+    const oppRes = await fetch('https://api.close.com/api/v1/opportunity/', {
       method: 'POST',
       headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
         lead_id: leadId,
-        note: `Kit downloaded via pmc.splitpay.com`,
+        status_type: 'active',
+        status_label: 'Interested',
+        note: buildNote(body),
+        ...(oppValue ? { value: oppValue, value_period: 'annual' } : {}),
       }),
     });
+    const opp = await oppRes.json();
+    if (!oppRes.ok) {
+      const detail = JSON.stringify(opp);
+      console.error('Opportunity creation failed:', detail);
+      await slackAlert(`⚠️ *submit-to-close*: Opportunity creation failed for lead \`${leadId}\` (${email || 'unknown'})\n\`\`\`${detail}\`\`\``);
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ success: true, leadId, oppId: opp.id || null, wasExisting: !!existingLeadId }),
+    };
+
+  } catch (err) {
+    // Unhandled crash — alert so it never goes silent again
+    console.error('Unhandled error in submit-to-close:', err);
+    await slackAlert(`🚨 *submit-to-close*: Unhandled crash for \`${email || 'unknown'}\` (${formType || 'unknown form'})\n\`\`\`${err.message}\`\`\``);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
-
-  // --- Opportunity ---
-  const oppValue = rentRollRowCount
-    ? rentRollRowCount * 100
-    : unitCount ? parseInt(unitCount, 10) * 100 : null;
-
-  const oppRes = await fetch('https://api.close.com/api/v1/opportunity/', {
-    method: 'POST',
-    headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      lead_id: leadId,
-      status_type: 'active',
-      status_label: 'Interested',
-      note: buildNote(body),
-      ...(oppValue ? { value: oppValue, value_period: 'annual' } : {}),
-    }),
-  });
-  const opp = await oppRes.json();
-  if (!oppRes.ok) console.error('Opportunity creation failed:', JSON.stringify(opp));
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ success: true, leadId, oppId: opp.id || null, wasExisting: !!existingLeadId }),
-  };
 };
 
 function buildNote(data) {

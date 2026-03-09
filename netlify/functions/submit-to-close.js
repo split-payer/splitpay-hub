@@ -26,7 +26,7 @@ const CONTACT_SCOPED_CF = new Set([
   CF.pms,
 ]);
 
-// --- Slack alerting ---
+// ── Slack alerting ────────────────────────────────────────────────────────────
 async function slackAlert(message) {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!webhookUrl) return;
@@ -41,6 +41,49 @@ async function slackAlert(message) {
   }
 }
 
+// ── SendGrid: enroll contact in list ──────────────────────────────────────────
+async function enrollInSendGrid({ email, firstName, lastName, listId }) {
+  const sgKey = process.env.SENDGRID_API_KEY;
+  if (!sgKey) {
+    console.warn('SENDGRID_API_KEY not set — skipping list enrollment');
+    return;
+  }
+  if (!email || !listId) {
+    console.warn('enrollInSendGrid: missing email or listId');
+    return;
+  }
+
+  try {
+    const res = await fetch('https://api.sendgrid.com/v3/marketing/contacts', {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${sgKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        list_ids: [listId],
+        contacts: [{
+          email,
+          first_name: firstName || '',
+          last_name:  lastName  || '',
+        }],
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('SendGrid enrollment error:', err);
+      await slackAlert(`⚠️ *submit-to-close*: SendGrid enrollment failed for \`${email}\`\n\`\`\`${err}\`\`\``);
+    } else {
+      console.log(`SendGrid: enrolled ${email} in list ${listId}`);
+    }
+  } catch (err) {
+    console.error('SendGrid enrollment exception:', err.message);
+    await slackAlert(`⚠️ *submit-to-close*: SendGrid enrollment exception for \`${email}\`: ${err.message}`);
+  }
+}
+
+// ── Main handler ──────────────────────────────────────────────────────────────
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -60,43 +103,53 @@ exports.handler = async (event) => {
   }
 
   const {
-    formType, firstName, lastName, company, firm, email, phone,
-    pms, unitCount, propertyName, propertyAddress, channel,
-    hasRentRoll, rentRollName, rentRollDriveUrl, rentRollRowCount,
+    formType,
+    firstName,
+    lastName,
+    company,
+    firm,
+    email,
+    phone,
+    pms,
+    unitCount,
+    propertyName,
+    propertyAddress,
+    channel,
+    hasRentRoll,
+    rentRollName,
+    rentRollDriveUrl,
+    rentRollRowCount,
   } = body;
 
-  const name = `${firstName || ''} ${lastName || ''}`.trim();
+  const name        = `${firstName || ''} ${lastName || ''}`.trim();
   const companyName = company || firm || '';
-  const authHeader = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
+  const authHeader  = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
 
   // Wrap everything so crashes also fire a Slack alert
   try {
-
-    // --- Build field maps split by scope ---
+    // ── Build field maps split by scope ───────────────────────────────────────
     const allCustomFields = {
       [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
-      [CF.pms]:                pms || null,
-      [CF.propertyName]:       propertyName || null,
+      [CF.pms]:                pms             || null,
+      [CF.propertyName]:       propertyName    || null,
       [CF.propertyAddress]:    propertyAddress || null,
-      [CF.conciergeChannel]:   channel || null,
+      [CF.conciergeChannel]:   channel         || null,
       [CF.conciergeRequested]: formType === 'concierge' ? 'Yes' : null,
-      [CF.totalUnits]:         unitCount || null,
+      [CF.totalUnits]:         unitCount       || null,
       [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
     };
 
-    const leadCustomFields = {};
+    const leadCustomFields    = {};
     const contactCustomFields = {};
-
     for (const [k, v] of Object.entries(allCustomFields)) {
       if (v === null) continue;
-      if (LEAD_SCOPED_CF.has(k)) leadCustomFields[k] = v;
+      if (LEAD_SCOPED_CF.has(k))    leadCustomFields[k]    = v;
       if (CONTACT_SCOPED_CF.has(k)) contactCustomFields[k] = v;
     }
 
-    // --- Search for existing lead by email ---
-    let existingLeadId = null;
+    // ── Search for existing lead by email ─────────────────────────────────────
+    let existingLeadId    = null;
     let existingContactId = null;
-
     if (email) {
       try {
         const searchRes = await fetch(
@@ -107,7 +160,7 @@ exports.handler = async (event) => {
         if (searchData.data && searchData.data.length > 0) {
           existingLeadId = searchData.data[0].id;
           const contacts = searchData.data[0].contacts || [];
-          const match = contacts.find(c =>
+          const match    = contacts.find(c =>
             (c.emails || []).some(e => e.email === email)
           );
           if (match) existingContactId = match.id;
@@ -152,6 +205,7 @@ exports.handler = async (event) => {
       }
 
       leadId = existingLeadId;
+
     } else {
       // Create new lead with contact
       const leadRes = await fetch('https://api.close.com/api/v1/lead/', {
@@ -168,6 +222,7 @@ exports.handler = async (event) => {
           ...leadCustomFields,
         }),
       });
+
       const lead = await leadRes.json();
       if (!leadRes.ok) {
         const detail = JSON.stringify(lead);
@@ -178,19 +233,19 @@ exports.handler = async (event) => {
       leadId = lead.id;
     }
 
-    // --- Note for kit downloads ---
+    // ── Note for kit downloads ────────────────────────────────────────────────
     if (formType === 'kit') {
       await fetch('https://api.close.com/api/v1/activity/note/', {
         method: 'POST',
         headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           lead_id: leadId,
-          note: `Kit downloaded via pmc.splitpay.com`,
+          note: 'Kit downloaded via pmc.splitpay.com',
         }),
       });
     }
 
-    // --- Opportunity ---
+    // ── Opportunity ───────────────────────────────────────────────────────────
     const oppValue = rentRollRowCount
       ? rentRollRowCount * 100
       : unitCount ? parseInt(unitCount, 10) * 100 : null;
@@ -199,13 +254,14 @@ exports.handler = async (event) => {
       method: 'POST',
       headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        lead_id: leadId,
-        status_type: 'active',
+        lead_id:      leadId,
+        status_type:  'active',
         status_label: 'Interested',
-        note: buildNote(body),
+        note:         buildNote(body),
         ...(oppValue ? { value: oppValue, value_period: 'annual' } : {}),
       }),
     });
+
     const opp = await oppRes.json();
     if (!oppRes.ok) {
       const detail = JSON.stringify(opp);
@@ -213,27 +269,41 @@ exports.handler = async (event) => {
       await slackAlert(`⚠️ *submit-to-close*: Opportunity creation failed for lead \`${leadId}\` (${email || 'unknown'})\n\`\`\`${detail}\`\`\``);
     }
 
+    // ── SendGrid list enrollment ──────────────────────────────────────────────
+    if (email) {
+      const listId = formType === 'concierge'
+        ? process.env.SENDGRID_CONCIERGE_LIST_ID
+        : process.env.SENDGRID_KIT_LIST_ID;
+
+      await enrollInSendGrid({ email, firstName, lastName, listId });
+    }
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, leadId, oppId: opp.id || null, wasExisting: !!existingLeadId }),
+      body: JSON.stringify({
+        success:     true,
+        leadId,
+        oppId:       opp.id || null,
+        wasExisting: !!existingLeadId,
+      }),
     };
 
   } catch (err) {
-    // Unhandled crash — alert so it never goes silent again
     console.error('Unhandled error in submit-to-close:', err);
     await slackAlert(`🚨 *submit-to-close*: Unhandled crash for \`${email || 'unknown'}\` (${formType || 'unknown form'})\n\`\`\`${err.message}\`\`\``);
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };
 
+// ── Note builder ──────────────────────────────────────────────────────────────
 function buildNote(data) {
   const lines = [`Form Type: ${data.formType}`];
   if (data.company || data.firm) lines.push(`Company: ${data.company || data.firm}`);
-  if (data.unitCount) lines.push(`Unit Count: ${data.unitCount}`);
-  if (data.pms) lines.push(`PMS: ${data.pms}`);
-  if (data.propertyName) lines.push(`Property: ${data.propertyName}`);
-  if (data.propertyAddress) lines.push(`Address: ${data.propertyAddress}`);
-  if (data.channel) lines.push(`Channel: ${data.channel}`);
+  if (data.unitCount)            lines.push(`Unit Count: ${data.unitCount}`);
+  if (data.pms)                  lines.push(`PMS: ${data.pms}`);
+  if (data.propertyName)         lines.push(`Property: ${data.propertyName}`);
+  if (data.propertyAddress)      lines.push(`Address: ${data.propertyAddress}`);
+  if (data.channel)              lines.push(`Channel: ${data.channel}`);
   if (data.hasRentRoll) {
     lines.push(`Rent Roll: ${data.rentRollName || 'Uploaded'}`);
     if (data.rentRollRowCount) lines.push(`Rent Roll Row Count: ${data.rentRollRowCount}`);

@@ -21,18 +21,14 @@
   to = "/.netlify/functions/send-kit-email"
   status = 200
 
-[[functions]]
-  name = "newsletter-send-15"
+[functions."newsletter-send-15"]
   schedule = "0 9 15 * *"
 
-[[functions]]
-  name = "newsletter-send-28"
+[functions."newsletter-send-28"]
   schedule = "0 9 28 * *"
 
-[[functions]]
-  name = "newsletter-send-01"
+[functions."newsletter-send-01"]
   schedule = "0 9 1 * *"
 
-[[functions]]
-  name = "newsletter-send-06"
+[functions."newsletter-send-06"]
   schedule = "0 9 6 * *"

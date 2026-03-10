@@ -11,7 +11,7 @@
   to = "/.netlify/functions/upload-to-drive"
   status = 200
 
-  [[redirects]]
+[[redirects]]
   from = "/api/submit-to-close"
   to = "/.netlify/functions/submit-to-close"
   status = 200
@@ -20,3 +20,15 @@
   from = "/api/send-kit-email"
   to = "/.netlify/functions/send-kit-email"
   status = 200
+
+[functions."newsletter-send-15"]
+  schedule = "0 9 15 * *"
+
+[functions."newsletter-send-28"]
+  schedule = "0 9 28 * *"
+
+[functions."newsletter-send-01"]
+  schedule = "0 9 1 * *"
+
+[functions."newsletter-send-06"]
+  schedule = "0 9 6 * *"

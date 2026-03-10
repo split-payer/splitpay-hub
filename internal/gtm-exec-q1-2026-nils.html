@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split Pay — GTM Executive Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #E8531A;
+    --yellow: #F7C948;
+    --teal: #00B2A9;
+    --dark: #0d1f2d;
+    --dark2: #1e3448;
+    --ink: #1a1a1a;
+    --ink2: #444;
+    --mid: #888;
+    --border: #e8e8e0;
+    --bg: #f5f5f0;
+    --white: #ffffff;
+    --green: #27ae60;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── PAGE ── */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 24px;
+  }
+
+  .header-left {}
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: #fff3ee;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.2px;
+    color: var(--ink);
+  }
+
+  .page-title span { color: var(--orange); }
+
+  .page-sub {
+    font-size: 14px;
+    color: var(--mid);
+    margin-top: 10px;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  .header-badge {
+    background: var(--dark);
+    border-radius: 14px;
+    padding: 18px 24px;
+    min-width: 220px;
+    text-align: right;
+  }
+
+  .header-badge .label { font-size: 10px; color: #5a7a90; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .header-badge .val { font-size: 22px; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
+  .header-badge .sub { font-size: 11px; color: #5a7a90; margin-top: 2px; }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-wrap {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 36px 32px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+
+  .flow-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.3px;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    position: relative;
+  }
+
+  .flow-step {
+    flex: 1;
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 20px 18px;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+
+  .flow-step.highlight { background: #fff8ee; border-color: #f0c030; }
+  .flow-step.teal { background: #f0fafa; border-color: #b0e0dc; }
+  .flow-step.dark-step { background: var(--dark2); border-color: var(--dark); }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    flex-shrink: 0;
+    color: var(--mid);
+    font-size: 18px;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    background: var(--orange);
+    border-radius: 50%;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .step-num.teal { background: var(--teal); }
+  .step-num.yellow { background: var(--yellow); color: var(--ink); }
+
+  .step-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+
+  .step-label.white { color: #fff; }
+
+  .step-body {
+    font-size: 11px;
+    color: var(--ink2);
+    line-height: 1.5;
+  }
+
+  .step-body.light { color: #8aacbf; }
+
+  .step-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 100px;
+    margin-top: 8px;
+  }
+
+  .step-tag.orange { background: var(--orange); color: white; }
+  .step-tag.teal { background: var(--teal); color: white; }
+  .step-tag.yellow { background: var(--yellow); color: #7a6000; }
+  .step-tag.green { background: var(--green); color: white; }
+  .step-tag.ghost { background: transparent; color: var(--mid); border: 1px solid var(--border); }
+
+  /* ── TWO COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .card.dark { background: var(--dark); border-color: var(--dark); }
+  .card.yellow-bg { background: #fffbec; border-color: #f0e090; }
+  .card.teal-bg { background: #f0fafa; border-color: #b0e0dc; }
+
+  .card-eyebrow {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .card-eyebrow.orange { color: var(--orange); }
+  .card-eyebrow.teal { color: var(--teal); }
+  .card-eyebrow.yellow { color: #b08800; }
+  .card-eyebrow.green { color: var(--green); }
+  .card-eyebrow.light { color: #5a7a90; }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+  }
+
+  .card-title.white { color: var(--white); }
+
+  .card-body {
+    font-size: 12.5px;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+
+  .card-body.light { color: #8aacbf; }
+
+  /* ── EMAIL SEQUENCE ── */
+  .email-sequence {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .seq-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .seq-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .seq-icon.orange { background: #fff3ee; }
+  .seq-icon.teal { background: #f0fafa; }
+  .seq-icon.dark { background: var(--dark); }
+  .seq-icon.yellow { background: #fffbec; }
+
+  .seq-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .seq-sub { font-size: 11px; color: var(--mid); margin-top: 1px; }
+  .seq-badge { margin-left: auto; }
+
+  .email-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f0;
+  }
+
+  .email-row:last-child { border-bottom: none; }
+
+  .email-day {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--orange);
+    background: #fff3ee;
+    padding: 3px 8px;
+    border-radius: 100px;
+    white-space: nowrap;
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 2px;
+    min-width: 44px;
+    text-align: center;
+  }
+
+  .email-day.teal { color: var(--teal); background: #f0fafa; }
+  .email-day.yellow { color: #b08800; background: #fffbec; }
+
+  .email-subject { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .email-desc { font-size: 11px; color: var(--mid); margin-top: 2px; }
+
+  /* ── MARKETING HUB ── */
+  .hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .hub-asset {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .hub-asset-icon { font-size: 20px; margin-bottom: 7px; }
+  .hub-asset-name { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .hub-asset-desc { font-size: 10.5px; color: var(--mid); line-height: 1.45; }
+
+  /* ── CLOSE CRM ── */
+  .pipeline-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 14px;
+  }
+
+  .pipe-stage {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    position: relative;
+  }
+
+  .pipe-stage.active { background: #fff8ee; border-color: #f0c030; }
+  .pipe-stage.won { background: #f0fff6; border-color: #a0dbb8; }
+  .pipe-stage.lost { background: #fff0f0; border-color: #f0b0b0; }
+
+  .pipe-stage-name { font-size: 10px; font-weight: 700; color: var(--mid); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .pipe-count { font-size: 20px; font-weight: 800; color: var(--ink); }
+  .pipe-count.won { color: var(--green); }
+  .pipe-count.lost { color: #e05050; }
+  .pipe-sub { font-size: 10px; color: var(--mid); margin-top: 2px; line-height: 1.4; }
+  .pipe-arrow { display: flex; align-items: center; color: #ccc; font-size: 14px; }
+
+  .smart-view {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sv-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sv-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+  .sv-desc { font-size: 11px; color: var(--mid); }
+  .sv-count { margin-left: auto; font-size: 12px; font-weight: 700; font-family: 'DM Mono', monospace; }
+
+  /* ── PARTNER PROGRAM ── */
+  .partner-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .partner-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .partner-num {
+    width: 24px;
+    height: 24px;
+    background: var(--teal);
+    border-radius: 50%;
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .partner-label { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .partner-body { font-size: 11.5px; color: var(--ink2); line-height: 1.5; }
+
+  /* ── INCENTIVE BOX ── */
+  .incentive-box {
+    background: linear-gradient(135deg, #0d1f2d 0%, #1e3448 100%);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .incentive-icon {
+    font-size: 40px;
+    flex-shrink: 0;
+  }
+
+  .incentive-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 5px;
+  }
+
+  .incentive-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.4px;
+    margin-bottom: 6px;
+  }
+
+  .incentive-body {
+    font-size: 12px;
+    color: #8aacbf;
+    line-height: 1.6;
+  }
+
+  /* ── SAMPLE EMAIL ── */
+  .email-mockup {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 11.5px;
+  }
+
+  .email-chrome {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .chrome-dots { display: flex; gap: 5px; }
+  .chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .chrome-field { flex: 1; background: white; border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 10.5px; color: var(--mid); font-family: 'DM Mono', monospace; }
+
+  .email-meta {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .email-meta-row {
+    display: flex;
+    gap: 8px;
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+
+  .email-meta-label { color: var(--mid); min-width: 36px; }
+  .email-meta-val { color: var(--ink); font-weight: 500; }
+
+  .email-body-preview {
+    padding: 14px 16px;
+    font-size: 11.5px;
+    color: var(--ink2);
+    line-height: 1.7;
+    border-left: 3px solid var(--yellow);
+    margin: 12px 16px;
+    background: #fffbec;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* ── DIVIDER ── */
+  .section-gap { margin-bottom: 40px; }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .doc-footer .logo { font-size: 14px; font-weight: 800; color: var(--orange); letter-spacing: -0.3px; }
+  .doc-footer .meta { font-size: 11px; color: var(--mid); }
+
+  /* ── CHIP ── */
+  .chip {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+  }
+
+  .chip.orange { background: var(--orange); color: white; }
+  .chip.teal { background: var(--teal); color: white; }
+  .chip.yellow { background: var(--yellow); color: #7a6000; }
+  .chip.green { background: #d4f5e5; color: #1a7a50; }
+  .chip.ghost { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+
+  ul.check-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  ul.check-list li {
+    font-size: 12px;
+    color: var(--ink2);
+    padding: 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  ul.check-list li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  /* ── LINKS ── */
+  a.ext-link {
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(232,83,26,0.3);
+    transition: border-color 0.15s;
+  }
+  a.ext-link:hover { border-color: var(--orange); }
+
+  a.ext-link.teal { color: var(--teal); border-color: rgba(0,178,169,0.3); }
+  a.ext-link.teal:hover { border-color: var(--teal); }
+
+  a.ext-link.white { color: white; border-color: rgba(255,255,255,0.3); }
+  a.ext-link.white:hover { border-color: white; }
+
+  /* ── TOP NAV ── */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,245,240,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 40px;
+    margin: -48px -40px 48px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .nav-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 8px;
+  }
+
+  .nav-link {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink2);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: white;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+  }
+
+  /* ── CHATBOT CTA ── */
+  .chatbot-cta {
+    background: linear-gradient(135deg, #0d1f2d 0%, #0a2e28 100%);
+    border-radius: 20px;
+    padding: 40px 44px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chatbot-cta::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(0,178,169,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .chatbot-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 300px; height: 200px;
+    background: radial-gradient(circle, rgba(247,201,72,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .cta-bot-avatar {
+    width: 72px; height: 72px;
+    background: rgba(0,178,169,0.15);
+    border: 1px solid rgba(0,178,169,0.3);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+
+  .cta-text { flex: 1; }
+  .cta-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+  .cta-title { font-size: 24px; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 8px; line-height: 1.2; }
+  .cta-body { font-size: 13px; color: #8aacbf; line-height: 1.6; max-width: 460px; }
+
+  .cta-prompts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    min-width: 260px;
+  }
+
+  .cta-prompt-label { font-size: 10px; font-weight: 700; color: #5a7a90; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+
+  .cta-prompt-btn {
+    display: block;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #cce0ee;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+    text-align: left;
+    line-height: 1.4;
+  }
+
+  .cta-prompt-btn:hover {
+    background: rgba(0,178,169,0.15);
+    border-color: rgba(0,178,169,0.4);
+    color: white;
+  }
+
+  .cta-prompt-btn::before { content: '→ '; color: var(--teal); font-weight: 700; }
+
+  .cta-main-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 100px;
+    text-decoration: none;
+    margin-top: 16px;
+    transition: background 0.15s;
+  }
+
+  .cta-main-btn:hover { background: #009a92; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ══ STICKY NAV ══ -->
+  <nav class="top-nav">
+    <span class="nav-label">Jump to</span>
+    <a class="nav-link" href="#s1">01 Traffic</a>
+    <a class="nav-link" href="#s2">02 Hub & Incentives</a>
+    <a class="nav-link" href="#s3">03 Emails</a>
+    <a class="nav-link" href="#s4">04 Partners</a>
+    <a class="nav-link" href="#s5">05 Close CRM</a>
+    <a class="nav-link" href="#s6">06 Stack</a>
+    <a class="nav-link" href="#s7">07 Info Architecture</a>
+    <a class="nav-link" href="#s8">08 AI Email</a>
+    <a class="nav-link" href="#s9">09 AI iMessage</a>
+    <a class="nav-link" href="#chatbot-cta" style="background:var(--teal);color:white;border-color:var(--teal);">🤖 Try Chatbot →</a>
+  </nav>
+
+  <!-- ══ HEADER ══ -->
+  <div class="header">
+    <div class="header-left">
+      <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" height="36" style="display:block;margin-bottom:20px;">
+      <div class="eyebrow">GTM Executive Summary</div>
+      <h1 class="page-title">PM Acquisition<br><span>Go-To-Market</span></h1>
+      <p class="page-sub">Bottoms-up strategy targeting on-site property managers — self-serve hub, warm outreach, concierge + partner program for corporate rollup.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="header-badge">
+        <div class="label">Addressable List</div>
+        <div class="val">50,000</div>
+        <div class="sub">validated PM email addresses</div>
+      </div>
+      <div class="header-badge">
+        <div class="label">Weekly Send Capacity</div>
+        <div class="val">5,000</div>
+        <div class="sub">emails / week via Instantly</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 1: TRAFFIC FLOW ══ -->
+  <div id="s1" class="section-title">01 — Traffic & Acquisition Flow</div>
+
+  <div class="flow-wrap section-gap">
+    <div class="flow-title">How we get PMs to <a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a></div>
+    <div class="flow-row">
+
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <div class="step-label">Cold Email (Instantly)</div>
+        <div class="step-body">50k validated PM contacts. Up to 5k emails/week. Subject: <em>"It works with your portal now."</em></div>
+        <div class="tag-row"><span class="chip orange">Instantly</span><span class="chip ghost">5k/wk</span></div>
+      </div>
+
+      <div class="flow-arrow">→</div>
+
+      <div class="flow-step highlight">
+        <div class="step-num yellow">2</div>
+        <div class="step-label">Warm Email — Existing Leads</div>
+        <div class="step-body">Re-engage landlords/PMs who considered us before. Angle: "We fixed the portal problem — no integration needed."</div>
+        <div class="tag-row"><span class="chip yellow">Re-engage</span><span class="chip ghost">Close CRM</span></div>
+      </div>
+
+      <div class="flow-arrow">→</div>
+
+      <div class="flow-step teal">
+        <div class="step-num teal">3</div>
+        <div class="step-label">Popular Addresses Trigger</div>
+        <div class="step-body">When 3+ active Split Pay renters share one building → outreach to that building's PM: <em>"We want to pay YOU."</em></div>
+        <div class="tag-row"><span class="chip teal">High-intent</span></div>
+      </div>
+
+      <div class="flow-arrow">→</div>
+
+      <div class="flow-step" style="background:#fff8ee;border-color:#f0c030;">
+        <div class="step-num yellow">4</div>
+        <div class="step-label">pmc.splitpay.com</div>
+        <div class="step-body">Self-serve marketing hub. Download kit, use concierge, explore assets. All tracked to Close CRM.</div>
+        <div class="tag-row"><span class="chip orange">Hub</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2: THE HUB + INCENTIVES ══ -->
+  <div id="s2" class="section-title">02 — The Hub & PM Incentives</div>
+
+  <div class="two-col section-gap">
+
+    <div class="card">
+      <div class="card-eyebrow orange">pmc.splitpay.com — Marketing Hub</div>
+      <div class="card-title">Everything a PM needs to launch</div>
+      <div class="card-body" style="margin-bottom:16px;">On-site staff get everything they need to promote Split Pay to their renters — no integration, no contract, nothing changes for them.</div>
+      <div class="hub-grid">
+        <div class="hub-asset">
+          <div class="hub-asset-icon">📄</div>
+          <div class="hub-asset-name">Resident Flyer</div>
+          <div class="hub-asset-desc">EN, ES & PT. Print-ready PDF.</div>
+        </div>
+        <div class="hub-asset">
+          <div class="hub-asset-icon">✉️</div>
+          <div class="hub-asset-name">Email Templates</div>
+          <div class="hub-asset-desc">5 ready-to-send for launch & reminders.</div>
+        </div>
+        <div class="hub-asset">
+          <div class="hub-asset-icon">💬</div>
+          <div class="hub-asset-name">SMS Scripts</div>
+          <div class="hub-asset-desc">Short rent-week blast scripts.</div>
+        </div>
+        <div class="hub-asset">
+          <div class="hub-asset-icon">🎬</div>
+          <div class="hub-asset-name">Ad Videos</div>
+          <div class="hub-asset-desc">Explainer + UGC ads to share.</div>
+        </div>
+        <div class="hub-asset">
+          <div class="hub-asset-icon">🤖</div>
+          <div class="hub-asset-name">AI Chatbot</div>
+          <div class="hub-asset-desc">Answers PM staff questions 24/7.</div>
+        </div>
+        <div class="hub-asset">
+          <div class="hub-asset-icon">📋</div>
+          <div class="hub-asset-name">Staff FAQ PDF</div>
+          <div class="hub-asset-desc">Internal answers for front-desk staff.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="incentive-box" style="margin-bottom:0;flex:1;align-items:flex-start;">
+        <div class="incentive-icon">🎁</div>
+        <div>
+          <div class="incentive-label">PM Direct Incentive</div>
+          <div class="incentive-title">$100 Amazon Gift Card</div>
+          <div class="incentive-body">Sent automatically to the property manager when the first resident in their building gets approved on Split Pay. No hoops — just share the flyer and earn.</div>
+        </div>
+      </div>
+
+      <div class="card teal-bg">
+        <div class="card-eyebrow teal">● Split Pay Concierge</div>
+        <div class="card-title">We contact your renters for you</div>
+        <div class="card-body">PM submits a rent roll → we send personalized email or SMS invitations to every resident on their behalf. PM does nothing else.
+          <ul class="check-list" style="margin-top:8px;">
+            <li>Renter contact data captured for marketing team (Iterable)</li>
+            <li>PM gets credit — framed as a service they're offering</li>
+            <li>Confirmed via confirmation email to PM</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3: EMAIL SEQUENCES ══ -->
+  <div id="s3" class="section-title">03 — Email Sequences & Touchpoints</div>
+
+  <div class="two-col section-gap">
+
+    <!-- Kit Download Sequence -->
+    <div class="email-sequence">
+      <div class="seq-header">
+        <div class="seq-icon orange">📩</div>
+        <div>
+          <div class="seq-name">Kit Download Sequence</div>
+          <div class="seq-sub">Triggered: PM downloads the Starter Kit</div>
+        </div>
+        <div class="seq-badge"><span class="chip orange">SendGrid</span></div>
+      </div>
+      <div class="email-row">
+        <div class="email-day">Day 0</div>
+        <div>
+          <div class="email-subject">Your Split Pay Starter Kit is here 🏠</div>
+          <div class="email-desc">Kit email with all assets attached. Signed by Nils. Concierge CTA.</div>
+        </div>
+      </div>
+      <div class="email-row">
+        <div class="email-day">Day 3</div>
+        <div>
+          <div class="email-subject">"Have you had a chance to share those flyers?"</div>
+          <div class="email-desc">Soft follow-up. Offer help. Remind of $100 gift card.</div>
+        </div>
+      </div>
+      <div class="email-row">
+        <div class="email-day">Day 7</div>
+        <div>
+          <div class="email-subject">Rent week is coming — your residents are ready</div>
+          <div class="email-desc">Urgency nudge. Link back to hub. FAQ objections addressed.</div>
+        </div>
+      </div>
+      <div class="email-row">
+        <div class="email-day">Day 14</div>
+        <div>
+          <div class="email-subject">Quick check-in from Nils</div>
+          <div class="email-desc">Personal tone. Offer a call or concierge. Last push.</div>
+        </div>
+      </div>
+      <div class="email-row">
+        <div class="email-day">Monthly</div>
+        <div>
+          <div class="email-subject">What's new at Split Pay this month</div>
+          <div class="email-desc">Hub updates, new assets, top resident ads. Ongoing nurture.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concierge Sequence -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="email-sequence" style="margin-bottom:0;">
+        <div class="seq-header">
+          <div class="seq-icon teal">🎯</div>
+          <div>
+            <div class="seq-name">Concierge Sequence</div>
+            <div class="seq-sub">Triggered: PM submits a property</div>
+          </div>
+          <div class="seq-badge"><span class="chip teal">SendGrid</span></div>
+        </div>
+        <div class="email-row">
+          <div class="email-day teal">Day 0</div>
+          <div>
+            <div class="email-subject">We're on it — your residents at [Property] are next</div>
+            <div class="email-desc">Confirmation email. Property details. What happens next steps.</div>
+          </div>
+        </div>
+        <div class="email-row">
+          <div class="email-day teal">Day 2</div>
+          <div>
+            <div class="email-subject">"Outreach is live — here's what to expect"</div>
+            <div class="email-desc">Status update. Encourage submitting more properties.</div>
+          </div>
+        </div>
+        <div class="email-row">
+          <div class="email-day teal">Day 7</div>
+          <div>
+            <div class="email-subject">First residents are signing up at [Property]</div>
+            <div class="email-desc">Social proof update. $100 gift card reminder. Ask for referral.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cold Email Sample -->
+      <div class="card">
+        <div class="card-eyebrow orange">Sample — Cold Email (Instantly)</div>
+        <div class="email-mockup">
+          <div class="email-chrome">
+            <div class="chrome-dots">
+              <div class="chrome-dot" style="background:#ff5f57;"></div>
+              <div class="chrome-dot" style="background:#ffbd2e;"></div>
+              <div class="chrome-dot" style="background:#28c940;"></div>
+            </div>
+            <div class="chrome-field"><a href="mailto:nils@splitpay.com" class="ext-link">nils@splitpay.com</a> → sarah@propertyco.com</div>
+          </div>
+          <div style="padding:14px 16px;">
+            <div class="email-meta-row"><span class="email-meta-label">Sub:</span><span class="email-meta-val" style="font-weight:600;">Works with your portal now — no integration</span></div>
+          </div>
+          <div class="email-body-preview">
+            Hi Sarah,<br><br>
+            I run BD at Split Pay — we let renters split their rent into two payments. Works directly with your existing building portal via ACH, so <strong>nothing changes for you</strong>.<br><br>
+            We have residents in your building already using it. Thought you'd want to know — and there's a <strong>$100 Amazon gift card</strong> in it for you when the first resident gets approved.<br><br>
+            Worth 2 minutes? → <span style="color:var(--orange);font-weight:600;">pmc.splitpay.com</span>
+          </div>
+          <div style="padding:10px 16px 14px;display:flex;align-items:center;gap:8px;">
+            <span class="chip ghost">~120 words</span>
+            <span class="chip orange">$100 gift card hook</span>
+            <span class="chip yellow">Popular address trigger</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4: PARTNER PROGRAM ══ -->
+  <div id="s4" class="section-title">04 — Partner Program (Corporate Rollup)</div>
+
+  <div class="two-col section-gap">
+    <div class="card dark">
+      <div class="card-eyebrow light">Corporate → Regional → Local</div>
+      <div class="card-title white">The PMC Org Structure</div>
+      <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#152a3a;border-radius:10px;padding:14px 16px;border:1px solid #2a4a64;">
+          <div style="font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Target Now</div>
+          <div style="font-size:14px;font-weight:700;color:white;">🏢 Local Office / On-Site Staff</div>
+          <div style="font-size:11.5px;color:#8aacbf;margin-top:4px;line-height:1.5;">Property managers on the floor. They handle resident comms, rent collection headaches. Direct <a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a> audience.</div>
+          <div class="tag-row"><span class="chip orange">Cold email</span><span class="chip yellow">Kit download</span><span class="chip teal">Concierge</span></div>
+        </div>
+        <div style="background:#152a3a;border-radius:10px;padding:14px 16px;border:1px solid #2a4a64;opacity:0.7;">
+          <div style="font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Future</div>
+          <div style="font-size:14px;font-weight:700;color:white;">🏙️ Regional Office</div>
+          <div style="font-size:11.5px;color:#8aacbf;margin-top:4px;">Once 2+ local offices in a region are active → regional outreach for endorsement.</div>
+        </div>
+        <div style="background:#152a3a;border-radius:10px;padding:14px 16px;border:1px solid #2a4a64;opacity:0.5;">
+          <div style="font-size:10px;color:#5a7a90;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">End Goal</div>
+          <div style="font-size:14px;font-weight:700;color:white;">🏦 Corporate HQ</div>
+          <div style="font-size:11.5px;color:#8aacbf;margin-top:4px;">Top-down partnership deal. Revenue share. "Your teams at X, Y, Z are already using this."</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card teal-bg">
+        <div class="card-eyebrow teal">🎯 Partner Kickoff Trigger</div>
+        <div class="card-title">Popular Addresses</div>
+        <div class="card-body">When Split Pay detects <strong>3+ active renters</strong> in one building, we reach out to that building's PM proactively.<br><br>Angle: <em>"We've been paying your renters — now we want to pay <strong>you</strong>."</em><br><br>This is the warmest possible cold outreach — we have proof of demand before we even knock.</div>
+        <div class="tag-row" style="margin-top:12px;"><span class="chip teal">High-conversion</span><span class="chip green">$100 gift card</span></div>
+      </div>
+
+      <div class="card yellow-bg">
+        <div class="card-eyebrow yellow">💰 Revenue Share (Corporate)</div>
+        <div class="card-title">Partnership Program</div>
+        <div class="card-body">For corporate offices that agree to endorse Split Pay across their portfolio:
+          <ul class="check-list">
+            <li>Revenue share per approved renter in their portfolio</li>
+            <li>Formal partnership agreement</li>
+            <li>Managed as <em>Opportunity Type: Rev-Share</em> in Close</li>
+            <li>Tracked separately from individual PM leads</li>
+          </ul>
+        </div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid #f0e090;">
+          <div style="font-size:10px;font-weight:700;color:#b08800;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Partner Portal</div>
+          <a href="https://pmc.splitpay.com/partners" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #d4b800;border-radius:100px;padding:7px 14px;text-decoration:none;transition:all 0.15s;">
+            <span style="font-size:12px;font-weight:700;color:#b08800;">pmc.splitpay.com/partners</span>
+            <span style="font-size:10px;color:#b08800;font-weight:800;">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5: CLOSE CRM ══ -->
+  <div id="s5" class="section-title">05 — Close CRM — The Sales Team's Treasure Chest</div>
+
+  <div class="two-col section-gap">
+    <div class="card">
+      <div class="card-eyebrow orange">Pipeline Stages</div>
+      <div class="card-title" style="margin-bottom:18px;">Every PM is a Lead in Close</div>
+
+      <div class="pipeline-row">
+        <div class="pipe-stage">
+          <div class="pipe-stage-name">New</div>
+          <div class="pipe-count">∞</div>
+          <div class="pipe-sub">Instantly reply or hub form fill auto-creates lead</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-stage active">
+          <div class="pipe-stage-name">Contacted</div>
+          <div class="pipe-count">—</div>
+          <div class="pipe-sub">Email replied or hub visited via UTM</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-stage active">
+          <div class="pipe-stage-name">Engaged</div>
+          <div class="pipe-count">—</div>
+          <div class="pipe-sub">Kit downloaded or Concierge submitted</div>
+        </div>
+      </div>
+      <div class="pipeline-row">
+        <div class="pipe-stage won">
+          <div class="pipe-stage-name">Won ✓</div>
+          <div class="pipe-count won">$</div>
+          <div class="pipe-sub">First renter approved → gift card triggered</div>
+        </div>
+        <div class="pipe-arrow" style="opacity:0;"></div>
+        <div class="pipe-stage" style="flex:2;">
+          <div class="pipe-stage-name">Concierge Requested</div>
+          <div class="pipe-count">—</div>
+          <div class="pipe-sub">Concierge form submitted → high-priority follow-up</div>
+        </div>
+        <div class="pipe-arrow" style="opacity:0;"></div>
+        <div class="pipe-stage lost">
+          <div class="pipe-stage-name">Lost</div>
+          <div class="pipe-count lost">✗</div>
+          <div class="pipe-sub">Unsubscribed or explicitly declined</div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border);">
+        <div style="font-size:11px;font-weight:700;color:var(--mid);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em;">What auto-creates a Lead + Opportunity</div>
+        <ul class="check-list">
+          <li>Instantly email reply → Lead created, stage: Contacted</li>
+          <li>Kit download form (<a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a>) → Lead + Opp: Interested</li>
+          <li>Concierge submission → Lead + Opp: Concierge Requested</li>
+          <li>Hub UTM visit match → Lead updated, stage advanced</li>
+          <li>Renter approved at property → stage → Won</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card">
+        <div class="card-eyebrow orange">Smart Views — Actionable Lists</div>
+        <div class="card-title" style="margin-bottom:14px;">What the sales team acts on</div>
+
+        <div class="smart-view">
+          <div class="sv-dot" style="background:#E8531A;"></div>
+          <div>
+            <div class="sv-name">🔥 Popular Address Leads</div>
+            <div class="sv-desc">Buildings with 3+ active renters — no PM yet</div>
+          </div>
+          <div class="sv-count" style="color:var(--orange);">→ Outreach</div>
+        </div>
+        <div class="smart-view">
+          <div class="sv-dot" style="background:var(--teal);"></div>
+          <div>
+            <div class="sv-name">📋 Concierge Pending</div>
+            <div class="sv-desc">Submitted but rent roll not yet processed</div>
+          </div>
+          <div class="sv-count" style="color:var(--teal);">→ Follow up</div>
+        </div>
+        <div class="smart-view">
+          <div class="sv-dot" style="background:var(--yellow);"></div>
+          <div>
+            <div class="sv-name">📥 Kit Downloaded, No Reply</div>
+            <div class="sv-desc">Downloaded kit but no email reply or Calendly</div>
+          </div>
+          <div class="sv-count" style="color:#b08800);">→ Chase</div>
+        </div>
+        <div class="smart-view">
+          <div class="sv-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="sv-name">🏢 Corporate Rollup Ready</div>
+            <div class="sv-desc">2+ local leads share same corporate parent</div>
+          </div>
+          <div class="sv-count" style="color:var(--green);">→ Partner</div>
+        </div>
+        <div class="smart-view">
+          <div class="sv-dot" style="background:#aaa;"></div>
+          <div>
+            <div class="sv-name">♻️ Re-Engage Queue</div>
+            <div class="sv-desc">Warm leads, no activity in 30+ days</div>
+          </div>
+          <div class="sv-count" style="color:#888;">→ Nurture</div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#fffbec;border-color:#f0e090;">
+        <div class="card-eyebrow yellow">Lead Fields Tracked in Close</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px;">
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;background:white;border-radius:6px;border:1px solid var(--border);">📍 Lead Source</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;background:white;border-radius:6px;border:1px solid var(--border);">🏢 Corporate Parent</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;background:white;border-radius:6px;border:1px solid var(--border);">🏠 PMS Used</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;background:white;border-radius:6px;border:1px solid var(--border);">👥 Renter Count</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;background:white;border-radius:6px;border:1px solid var(--border);">📋 Concierge Submitted</div>
+          <div style="font-size:11px;color:var(--ink2);padding:5px 8px;background:white;border-radius:6px;border:1px solid var(--border);">📩 Kit Downloaded</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6: TOOLS STACK ══ -->
+  <div id="s6" class="section-title">06 — Tools & Stack Overview</div>
+
+  <div class="three-col section-gap">
+    <div class="card">
+      <div class="card-eyebrow orange">Outreach</div>
+      <ul class="check-list">
+        <li><strong>Instantly</strong> — cold email, 5k/wk</li>
+        <li><strong>Close CRM</strong> — warm sequences, reply management</li>
+        <li><strong>Sendblue</strong> — iMessage/SMS sequences (upcoming)</li>
+        <li>Reply-to: <a href="mailto:pm-support@splitpay.com" class="ext-link">pm-support@splitpay.com</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow teal">Hub & Emails</div>
+      <ul class="check-list">
+        <li><strong>pmc.splitpay.com</strong> — Netlify + GitHub</li>
+        <li><strong>SendGrid</strong> — transactional emails</li>
+        <li><strong>Clarity</strong> — hub session analytics</li>
+        <li><strong>Slack</strong> — real-time form alerts</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow yellow">Data & Enrichment</div>
+      <ul class="check-list">
+        <li><strong>Clay</strong> — pre-import enrichment</li>
+        <li><strong>Iterable</strong> — renter-side lifecycle</li>
+        <li><strong>Close CRM</strong> — PM lead + opportunity data</li>
+        <li>UTM tracking on all hub links</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7: INFORMATION ARCHITECTURE & SINGLE SOURCE OF TRUTH ══ -->
+  <div id="s7" class="section-title">07 — Information Architecture & Single Source of Truth</div>
+
+  <div class="flow-wrap section-gap">
+    <div class="flow-title">How program information flows — update once, deploy everywhere</div>
+    <p style="font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.6;">All product details, pricing, eligibility rules, and messaging live in <strong>one place</strong> — the GitHub repo. When anything changes (fee structure, eligibility criteria, talking points), a single update propagates to every channel automatically.</p>
+
+    <!-- Central source -->
+    <div style="display:flex;justify-content:center;margin-bottom:20px;">
+      <div style="background:var(--dark);border-radius:14px;padding:20px 32px;text-align:center;min-width:300px;">
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--yellow);margin-bottom:6px;">📦 Single Source of Truth</div>
+        <div style="font-size:16px;font-weight:800;color:white;margin-bottom:4px;">GitHub Repo</div>
+        <div style="font-size:12px;color:#8aacbf;"><a href="https://github.com/split-payer/splitpay-hub" target="_blank" class="ext-link">split-payer/splitpay-hub</a></div>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <span class="chip teal">Program details</span>
+          <span class="chip yellow">FAQ answers</span>
+          <span class="chip orange">Pricing / fees</span>
+          <span class="chip ghost">Chatbot system prompt</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrow down -->
+    <div style="text-align:center;font-size:22px;color:var(--mid);margin-bottom:20px;">↓ commit to main → Netlify auto-deploys in ~30s</div>
+
+    <!-- Channels that update -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+      <div class="flow-step teal" style="text-align:center;">
+        <div style="font-size:22px;margin-bottom:8px;">🤖</div>
+        <div class="step-label" style="text-align:center;">AI Chatbot</div>
+        <div class="step-body">System prompt pulls from repo. Update once → chatbot answers correctly everywhere it's deployed.</div>
+        <div class="tag-row" style="justify-content:center;"><span class="chip teal">Live</span></div>
+      </div>
+      <div class="flow-step highlight" style="text-align:center;">
+        <div style="font-size:22px;margin-bottom:8px;">🌐</div>
+        <div class="step-label" style="text-align:center;">pmc.splitpay.com Hub</div>
+        <div class="step-body">FAQs, asset descriptions, pricing shown on page — all sourced from repo files.</div>
+        <div class="tag-row" style="justify-content:center;"><span class="chip yellow">Live</span></div>
+      </div>
+      <div class="flow-step" style="text-align:center;">
+        <div style="font-size:22px;margin-bottom:8px;">📩</div>
+        <div class="step-label" style="text-align:center;">Email Templates</div>
+        <div class="step-body">Kit + concierge emails reference standard copy. Update template → re-deploy → new sends reflect change.</div>
+        <div class="tag-row" style="justify-content:center;"><span class="chip orange">Live</span></div>
+      </div>
+      <div class="flow-step" style="text-align:center;background:#f0fff6;border-color:#a0dbb8;">
+        <div style="font-size:22px;margin-bottom:8px;">📋</div>
+        <div class="step-label" style="text-align:center;">Staff FAQ PDF</div>
+        <div class="step-body">Downloadable PDF on hub regenerates from source content. Always current when downloaded.</div>
+        <div class="tag-row" style="justify-content:center;"><span class="chip green">Live</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:#fff8ee;border:1px solid #f0e090;border-radius:10px;padding:14px 20px;">
+      <p style="font-size:12.5px;color:var(--ink2);line-height:1.6;"><strong>Example:</strong> If the PM gift card changes from $100 → $150, or the resident fee changes from $9.99 → $12.99 — update one file in GitHub, push to main, and within 30 seconds the chatbot, the hub page, the FAQ PDF, and all outgoing email copy are correct. No manual updates across channels.</p>
+    </div>
+  </div>
+
+  <!-- Chatbot info structure detail -->
+  <div class="two-col section-gap">
+    <div class="card">
+      <div class="card-eyebrow teal">🤖 Chatbot — What It Knows</div>
+      <div class="card-title">The AI is trained on PM reality</div>
+      <div class="card-body" style="margin-bottom:14px;">The chatbot on <a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a> is primed with real questions that renters ask property managers. It knows exactly what on-site staff need to say.</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--bg);border-radius:8px;padding:10px 14px;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--teal);margin-bottom:4px;">Knows about</div>
+          <ul class="check-list" style="margin-top:0;">
+            <li>How Split Pay works with any PM portal via ACH</li>
+            <li>Pricing: $9.99 + 1.5%/month — free for PMs</li>
+            <li>Cashflow approval, ~50% approval rate, no credit check</li>
+            <li>Same-day launch, no integration, no contract</li>
+            <li>$100 Amazon gift card for first PM conversion</li>
+            <li>Concierge service and how to submit a property</li>
+            <li>How missed payments are handled (Split Pay's responsibility)</li>
+          </ul>
+        </div>
+        <div style="background:#fff8ee;border:1px solid #f0e090;border-radius:8px;padding:10px 14px;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#b08800;margin-bottom:4px;">Lead capture built in</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.5;">After 2 exchanges, chatbot prompts visitor for name, email, phone → looks up or creates lead in Close CRM automatically. <em>(Coming soon)</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card dark">
+      <div class="card-eyebrow light">📁 Repo Structure</div>
+      <div class="card-title white" style="margin-bottom:16px;">What lives where</div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;color:#8aacbf;line-height:2;">
+        <div style="color:var(--yellow);">splitpay-hub/</div>
+        <div style="padding-left:16px;color:white;">index.html <span style="color:#5a7a90;">← hub page</span></div>
+        <div style="padding-left:16px;color:white;">netlify/functions/</div>
+        <div style="padding-left:32px;">submit-to-close.js <span style="color:#5a7a90;">← CRM bridge</span></div>
+        <div style="padding-left:32px;">send-kit-email.js <span style="color:#5a7a90;">← kit email</span></div>
+        <div style="padding-left:32px;">send-concierge-email.js</div>
+        <div style="padding-left:16px;color:white;">assets/</div>
+        <div style="padding-left:32px;">logos/ <span style="color:#5a7a90;">← brand assets</span></div>
+        <div style="padding-left:32px;">pdfs/ <span style="color:#5a7a90;">← flyers, FAQ</span></div>
+        <div style="padding-left:16px;color:white;">data/</div>
+        <div style="padding-left:32px;color:var(--teal);">chatbot-prompt.js <span style="color:#5a7a90;">← ✏️ edit here</span></div>
+        <div style="padding-left:32px;color:var(--teal);">faq-content.json <span style="color:#5a7a90;">← ✏️ edit here</span></div>
+        <div style="padding-left:32px;color:var(--teal);">program-details.json <span style="color:#5a7a90;">← ✏️ edit here</span></div>
+      </div>
+      <div style="margin-top:14px;background:#152a3a;border-radius:8px;padding:10px 14px;font-size:11.5px;color:#8aacbf;line-height:1.6;">
+        Editing any <span style="color:var(--teal);">teal file</span> and pushing to <code style="color:var(--yellow);">main</code> triggers a Netlify deploy. All channels that reference that data update in ~30 seconds.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8: NEXT UP — AI COLD EMAIL REPLIES ══ -->
+  <div id="s8" class="section-title">08 — Next Up: AI Auto-Reply to Cold Emails</div>
+
+  <div class="two-col section-gap">
+    <div class="card" style="border-left:3px solid var(--orange);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="background:#fff3ee;border-radius:8px;padding:8px 10px;font-size:20px;">📧</div>
+        <div>
+          <div class="card-eyebrow orange" style="margin-bottom:2px;">Instantly → Claude AI → Close</div>
+          <div class="card-title" style="margin-bottom:0;">AI replies to cold email responses</div>
+        </div>
+        <span class="chip" style="background:#fff3ee;color:var(--orange);border:1px solid #f0c0a0;margin-left:auto;white-space:nowrap;">🚧 Coming Soon</span>
+      </div>
+      <div class="card-body" style="margin-bottom:16px;">When a PM replies to a cold email — whether curious, skeptical, or asking questions — Claude reads the reply and responds with a relevant, personalized answer. No human needed for initial qualification.</div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="flow-step" style="padding:12px 16px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div class="step-num" style="margin-bottom:0;flex-shrink:0;">1</div>
+            <div>
+              <div class="step-label">PM replies to Instantly cold email</div>
+              <div class="step-body">Any reply — "how does this work?", "what does it cost?", "we use AppFolio" — triggers the AI flow.</div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;color:var(--mid);font-size:14px;">↓</div>
+        <div class="flow-step highlight" style="padding:12px 16px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div class="step-num yellow" style="margin-bottom:0;flex-shrink:0;">2</div>
+            <div>
+              <div class="step-label">Claude reads reply + context</div>
+              <div class="step-body">Knows the PM's name, property, prior email thread. Pulls current product info from the single source of truth.</div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;color:var(--mid);font-size:14px;">↓</div>
+        <div class="flow-step teal" style="padding:12px 16px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div class="step-num teal" style="margin-bottom:0;flex-shrink:0;">3</div>
+            <div>
+              <div class="step-label">Sends personalized reply</div>
+              <div class="step-body">Answers question, handles objection, or routes to hub / Calendly. Signed as Nils. Logs to Close.</div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;color:var(--mid);font-size:14px;">↓</div>
+        <div class="flow-step" style="padding:12px 16px;background:#f0fff6;border-color:#a0dbb8;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div class="step-num" style="margin-bottom:0;flex-shrink:0;background:var(--green);">4</div>
+            <div>
+              <div class="step-label">Human reviews + takes over if hot</div>
+              <div class="step-body">Slack alert fires for high-intent replies. Nils or sales team steps in for warm handoffs. Close stage advanced.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <!-- Sample AI reply -->
+      <div class="card">
+        <div class="card-eyebrow orange">Sample AI Reply</div>
+        <div class="email-mockup">
+          <div class="email-chrome">
+            <div class="chrome-dots">
+              <div class="chrome-dot" style="background:#ff5f57;"></div>
+              <div class="chrome-dot" style="background:#ffbd2e;"></div>
+              <div class="chrome-dot" style="background:#28c940;"></div>
+            </div>
+            <div class="chrome-field"><a href="mailto:nils@splitpay.com" class="ext-link">nils@splitpay.com</a> → sarah@propertyco.com</div>
+          </div>
+          <div style="padding:10px 16px 4px;">
+            <div style="font-size:10.5px;color:var(--mid);font-family:'DM Mono',monospace;padding:4px 0;border-bottom:1px solid var(--border);margin-bottom:8px;">PM replied: <em style="color:var(--ink2);">"We use Yardi — does this actually work with it?"</em></div>
+          </div>
+          <div class="email-body-preview" style="margin-top:0;">
+            Hi Sarah — yes, Yardi works great. Split Pay processes through ACH so it arrives in your Yardi portal exactly like any other rent payment. <strong>Nothing changes on your end.</strong><br><br>
+            Takes 2 minutes to get started — here's everything: <span style="color:var(--orange);font-weight:600;">pmc.splitpay.com</span><br><br>
+            Worth a quick call? Happy to walk you through it.
+          </div>
+          <div style="padding:10px 16px 14px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="chip orange">AI-generated</span>
+            <span class="chip ghost">Objection handled</span>
+            <span class="chip teal">Hub linked</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card yellow-bg">
+        <div class="card-eyebrow yellow">Guardrails</div>
+        <div class="card-title" style="font-size:14px;">What AI will & won't do</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+          <div>
+            <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">✓ AI handles</div>
+            <ul class="check-list" style="margin-top:0;">
+              <li>PMS compatibility questions</li>
+              <li>Pricing / fee questions</li>
+              <li>Approval rate / process</li>
+              <li>Objections: cost, complexity</li>
+              <li>Routing to hub or Calendly</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">→ Human takes over</div>
+            <ul class="check-list" style="margin-top:0;">
+              <li style="color:var(--ink2);">Wants a call / demo booked</li>
+              <li style="color:var(--ink2);">Pricing negotiation / corp deal</li>
+              <li style="color:var(--ink2);">High-intent (asks "how do I start")</li>
+              <li style="color:var(--ink2);">Complaint or escalation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 9: NEXT UP — AI SENDBLUE iMESSAGE REPLIES ══ -->
+  <div id="s9" class="section-title">09 — Next Up: AI Auto-Reply to iMessages (Sendblue)</div>
+
+  <div class="two-col section-gap">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <div class="card dark" style="border-left:3px solid var(--teal);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <div style="background:#152a3a;border-radius:8px;padding:8px 10px;font-size:20px;">💬</div>
+          <div>
+            <div class="card-eyebrow teal" style="margin-bottom:2px;">Sendblue → Claude AI → Close</div>
+            <div class="card-title white" style="margin-bottom:0;">AI replies to iMessage responses</div>
+          </div>
+          <span class="chip teal" style="margin-left:auto;white-space:nowrap;">🚧 Coming Soon</span>
+        </div>
+        <div class="card-body light" style="margin-bottom:16px;">PMs who reply to Sendblue iMessage sequences get an instant, intelligent response — same knowledge base as the email AI, tuned for SMS brevity.</div>
+        <ul class="check-list">
+          <li style="color:#8aacbf;">PM replies to iMessage sequence → Claude reads reply</li>
+          <li style="color:#8aacbf;">Responds in <strong style="color:white;">under 160 chars</strong> — natural SMS tone</li>
+          <li style="color:#8aacbf;">Handles: "what is this?", "not interested", "how much?"</li>
+          <li style="color:#8aacbf;">Drops hub link for interested replies</li>
+          <li style="color:#8aacbf;">Slack alert for hot replies → sales team takes over</li>
+          <li style="color:#8aacbf;">All conversations logged to Close lead</li>
+        </ul>
+      </div>
+
+      <div class="card teal-bg">
+        <div class="card-eyebrow teal">Sendblue Sequence (Planned)</div>
+        <div class="card-title" style="margin-bottom:14px;">iMessage outreach flow</div>
+        <div class="email-row" style="padding:8px 0;">
+          <div class="email-day teal">Day 1</div>
+          <div>
+            <div class="email-subject">"Hey [Name] — we work with your portal, no setup needed"</div>
+            <div class="email-desc">Intro iMessage. Short. Hub link. Gift card mention.</div>
+          </div>
+        </div>
+        <div class="email-row" style="padding:8px 0;">
+          <div class="email-day teal">Day 4</div>
+          <div>
+            <div class="email-subject">"Renters in your building are already splitting rent with us"</div>
+            <div class="email-desc">Social proof angle. Popular address version available.</div>
+          </div>
+        </div>
+        <div class="email-row" style="padding:8px 0;border-bottom:none;">
+          <div class="email-day teal">Day 9</div>
+          <div>
+            <div class="email-subject">"Last one — $100 gift card is still yours if you're curious"</div>
+            <div class="email-desc">Final nudge. Incentive-led. Easy opt-out.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- iMessage mockup -->
+    <div class="card" style="background:#f5f5f5;">
+      <div class="card-eyebrow" style="color:#666;">iMessage Conversation Preview</div>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;">
+
+        <!-- Outbound -->
+        <div style="display:flex;justify-content:flex-end;">
+          <div style="background:#007AFF;color:white;border-radius:18px 18px 4px 18px;padding:10px 14px;max-width:72%;font-size:12.5px;line-height:1.5;">
+            Hey Jessica — quick one: we help renters split rent into 2 payments. Works directly with your portal via ACH. Nothing changes for you. $100 gift card when first resident signs up. Worth a look? <a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a>
+          </div>
+        </div>
+
+        <!-- Inbound reply -->
+        <div style="display:flex;justify-content:flex-start;">
+          <div style="background:white;border:1px solid #ddd;color:var(--ink);border-radius:18px 18px 18px 4px;padding:10px 14px;max-width:72%;font-size:12.5px;line-height:1.5;">
+            We use RealPage — does it work with that?
+          </div>
+        </div>
+
+        <!-- AI reply -->
+        <div style="display:flex;justify-content:flex-end;">
+          <div style="background:#007AFF;color:white;border-radius:18px 18px 4px 18px;padding:10px 14px;max-width:72%;font-size:12.5px;line-height:1.5;">
+            Yes! RealPage works — payments route through ACH exactly like normal. Takes 2 min to get started: <a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a> 🎁
+          </div>
+        </div>
+
+        <!-- Inbound 2 -->
+        <div style="display:flex;justify-content:flex-start;">
+          <div style="background:white;border:1px solid #ddd;color:var(--ink);border-radius:18px 18px 18px 4px;padding:10px 14px;max-width:72%;font-size:12.5px;line-height:1.5;">
+            Ok interesting. What's the $100 thing?
+          </div>
+        </div>
+
+        <!-- AI reply 2 -->
+        <div style="display:flex;justify-content:flex-end;">
+          <div style="background:#007AFF;color:white;border-radius:18px 18px 4px 18px;padding:10px 14px;max-width:72%;font-size:12.5px;line-height:1.5;">
+            We send you a $100 Amazon gift card when the first resident in your building gets approved on Split Pay. No strings — just share the flyer. Want me to send you one?
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;margin-top:4px;">
+          <span class="chip" style="background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;font-size:10px;">🤖 AI-generated · Slack alert fired → sales review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CHATBOT CTA ══ -->
+  <div id="chatbot-cta" class="section-title">Try It — Ask the Split Pay AI</div>
+
+  <div class="chatbot-cta section-gap">
+    <div class="cta-inner">
+      <div class="cta-bot-avatar">🤖</div>
+      <div class="cta-text">
+        <div class="cta-eyebrow">● Live on <a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a></div>
+        <div class="cta-title">Try asking it<br>something difficult</div>
+        <div class="cta-body">The chatbot knows everything in this document — product details, pricing, PMS compatibility, the partner program, and how to handle objections. See how it handles a tough partnership or integration question.</div>
+        <a href="https://pmc.splitpay.com/#chat" target="_blank" class="cta-main-btn">Open the chatbot → <a href="https://pmc.splitpay.com" target="_blank" class="ext-link">pmc.splitpay.com</a></a>
+      </div>
+      <div class="cta-prompts">
+        <div class="cta-prompt-label">Suggested hard questions</div>
+        <a href="https://pmc.splitpay.com/#chat" target="_blank" class="cta-prompt-btn">"We have a corporate rev-share deal with Flex — why should we switch?"</a>
+        <a href="https://pmc.splitpay.com/#chat" target="_blank" class="cta-prompt-btn">"What happens if a renter misses their second payment?"</a>
+        <a href="https://pmc.splitpay.com/#chat" target="_blank" class="cta-prompt-btn">"We manage 400 units across 12 properties — how does the partner program work for us?"</a>
+        <a href="https://pmc.splitpay.com/#chat" target="_blank" class="cta-prompt-btn">"Does Split Pay show up differently in our Yardi ledger?"</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" height="22" style="display:block;opacity:0.7;">
+    <div class="meta">pmc.splitpay.com · GTM Summary · March 2026 · Nils Decker — Head of Business Development</div>
+  </div>
+
+</div>
+</body>
+</html>

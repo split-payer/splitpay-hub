@@ -180,6 +180,35 @@ function buildWelcomeHtml({ name, companyName, refLink, refDisplay }) {
       </td>
     </tr>
 
+
+    <!-- Hub cross-sell -->
+    <tr>
+      <td style="padding:20px 32px 0;">
+        <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:#1a1a1a;">Make the most of your partnership</p>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e8e8e0;border-radius:12px;overflow:hidden;">
+          <tr>
+            <td width="33%" valign="top" style="padding:16px 18px;border-right:1px solid #e8e8e0;">
+              <p style="margin:0 0 5px;font-size:16px;">📄</p>
+              <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a1a1a;">Starter Kit</p>
+              <p style="margin:0 0 10px;font-size:11px;color:#666;line-height:1.45;">Flyers, email templates &amp; SMS scripts ready to share.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#E8531A;color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:100px;text-decoration:none;">Download kit →</a>
+            </td>
+            <td width="33%" valign="top" style="padding:16px 18px;border-right:1px solid #e8e8e0;">
+              <p style="margin:0 0 5px;font-size:16px;">🤖</p>
+              <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a1a1a;">Concierge</p>
+              <p style="margin:0 0 10px;font-size:11px;color:#666;line-height:1.45;">We contact every resident on your behalf. Done for you.</p>
+              <a href="https://pmc.splitpay.com/#concierge" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:100px;text-decoration:none;">Try Concierge →</a>
+            </td>
+            <td width="33%" valign="top" style="padding:16px 18px;">
+              <p style="margin:0 0 5px;font-size:16px;">🏠</p>
+              <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a1a1a;">Marketing Hub</p>
+              <p style="margin:0 0 10px;font-size:11px;color:#666;line-height:1.45;">Videos, logos, staff FAQ &amp; more — everything in one place.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:100px;text-decoration:none;">Visit hub →</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
     <!-- Signature -->
     <tr>
       <td style="padding:28px 32px 24px;">
@@ -233,6 +262,13 @@ REVENUE TIERS
 Tiers upgrade automatically — no action needed from you.
 
 Questions? Just reply or call me at +1 774-358-6955.
+
+---
+MARKETING RESOURCES FOR PARTNERS
+📄 Starter Kit (flyers, templates, SMS scripts): https://pmc.splitpay.com
+🤖 Concierge (we contact your residents for you): https://pmc.splitpay.com/#concierge
+🏠 Full marketing hub: https://pmc.splitpay.com
+---
 
 Nils Decker
 Head of Business Development · Split Pay
@@ -330,6 +366,35 @@ function buildMonthlyHtml({ name, companyName, refLink, refDisplay }) {
       </td>
     </tr>
 
+
+    <!-- Hub cross-sell -->
+    <tr>
+      <td style="padding:20px 32px 0;">
+        <p style="margin:0 0 12px;font-size:13px;font-weight:700;color:#1a1a1a;">Make the most of your partnership</p>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e8e8e0;border-radius:12px;overflow:hidden;">
+          <tr>
+            <td width="33%" valign="top" style="padding:16px 18px;border-right:1px solid #e8e8e0;">
+              <p style="margin:0 0 5px;font-size:16px;">📄</p>
+              <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a1a1a;">Starter Kit</p>
+              <p style="margin:0 0 10px;font-size:11px;color:#666;line-height:1.45;">Flyers, email templates &amp; SMS scripts ready to share.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#E8531A;color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:100px;text-decoration:none;">Download kit →</a>
+            </td>
+            <td width="33%" valign="top" style="padding:16px 18px;border-right:1px solid #e8e8e0;">
+              <p style="margin:0 0 5px;font-size:16px;">🤖</p>
+              <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a1a1a;">Concierge</p>
+              <p style="margin:0 0 10px;font-size:11px;color:#666;line-height:1.45;">We contact every resident on your behalf. Done for you.</p>
+              <a href="https://pmc.splitpay.com/#concierge" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:100px;text-decoration:none;">Try Concierge →</a>
+            </td>
+            <td width="33%" valign="top" style="padding:16px 18px;">
+              <p style="margin:0 0 5px;font-size:16px;">🏠</p>
+              <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a1a1a;">Marketing Hub</p>
+              <p style="margin:0 0 10px;font-size:11px;color:#666;line-height:1.45;">Videos, logos, staff FAQ &amp; more — everything in one place.</p>
+              <a href="https://pmc.splitpay.com" style="display:inline-block;background:#1a1a1a;color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:100px;text-decoration:none;">Visit hub →</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
     <!-- Signature -->
     <tr>
       <td style="padding:28px 32px 24px;">
@@ -380,6 +445,13 @@ TIERS (auto-upgrade):
 - 101+ → $5/resident/month
 
 Any questions, just reply.
+
+---
+MARKETING RESOURCES FOR PARTNERS
+📄 Starter Kit (flyers, templates, SMS scripts): https://pmc.splitpay.com
+🤖 Concierge (we contact your residents for you): https://pmc.splitpay.com/#concierge
+🏠 Full marketing hub: https://pmc.splitpay.com
+---
 
 Nils Decker
 Head of Business Development · Split Pay

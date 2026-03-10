@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Program — Split Pay</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:#F56B3F;
+    --orange-dark:#d4522a;
+    --yellow:#fae182;
+    --yellow-bg:#fef9e6;
+    --cream:#F2F0EB;
+    --black:#0E0E0E;
+    --near-black:#292929;
+    --near-black-mid:#3d3d3d;
+    --dark:#1C1C1E;
+    --gray:#6B6B6B;
+    --gray-light:#AEAEB2;
+    --white:#FFFFFF;
+    --off-white:#FAFAF8;
+    --border:rgba(0,0,0,0.09);
+    --teal:#43BDAE;
+    --teal-bg:rgba(67,189,174,0.1);
+    --teal-dark:#35a096;
+    /* partner-specific */
+    --forest:#1a3d20;
+    --forest-mid:#2a5c32;
+    --forest-light:#3a7a44;
+    --forest-border:rgba(255,255,255,0.07);
+    --green-cream:#EEF4EF;
+  }
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes slideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--near-black);background:var(--white);-webkit-font-smoothing:antialiased;}
+
+  /* ── NAV (matches hub — white, same structure) ── */
+  nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;gap:24px;}
+  .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+  .nav-partner-pill{display:inline-flex;align-items:center;gap:5px;background:var(--green-cream);border:1px solid rgba(26,61,32,0.12);padding:4px 10px;border-radius:100px;font-size:11px;font-weight:700;color:var(--forest-light);letter-spacing:0.06em;text-transform:uppercase;margin-left:2px;}
+  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);}
+  .nav-links a{text-decoration:none;color:inherit;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--near-black);}
+  .nav-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+  .btn-book{background:transparent;color:var(--near-black);border:1.5px solid rgba(0,0,0,0.2);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-book:hover{border-color:var(--near-black);}
+  .btn-kit{background:var(--orange);color:var(--white);border:none;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-kit:hover{opacity:0.85;}
+
+  /* ── SHARED ── */
+  .section{padding:112px 56px;position:relative;overflow:hidden;}
+  .container{max-width:1080px;margin:0 auto;}
+  .container-sm{max-width:740px;margin:0 auto;}
+  .eyebrow{display:inline-block;font-size:11px;font-weight:700;color:var(--near-black);letter-spacing:0.1em;text-transform:uppercase;background:var(--yellow);padding:4px 12px;border-radius:100px;margin-bottom:20px;}
+  h2.display{font-size:clamp(34px,4vw,56px);font-weight:800;letter-spacing:-1.5px;line-height:1.08;margin-bottom:18px;color:var(--near-black);}
+  .lead{font-size:18px;color:var(--gray);line-height:1.7;letter-spacing:-0.1px;margin-bottom:64px;}
+  .btn-orange{background:var(--orange);color:var(--white);border:none;padding:16px 32px;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity 0.2s;font-family:inherit;}
+  .btn-orange:hover{opacity:0.85;}
+  .btn-ghost{background:transparent;color:var(--near-black);border:1.5px solid rgba(0,0,0,0.25);padding:15px 28px;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;transition:background 0.2s;font-family:inherit;}
+  .btn-ghost:hover{background:rgba(0,0,0,0.05);}
+
+  /* ── HERO ── */
+  .hero{background:var(--forest);padding:120px 56px 100px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(58,122,68,0.35) 0%,transparent 70%);pointer-events:none;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);padding:6px 16px;border-radius:100px;margin-bottom:40px;letter-spacing:0.02em;}
+  .hero h1{font-size:clamp(48px,6.5vw,88px);font-weight:800;line-height:1.02;letter-spacing:-2.5px;max-width:800px;margin:0 auto 24px;color:var(--white);}
+  .hero h1 em{font-style:normal;color:var(--yellow);}
+  .hero-sub{font-size:19px;color:rgba(255,255,255,0.55);max-width:520px;margin:0 auto 52px;line-height:1.6;letter-spacing:-0.1px;}
+  .hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+  .hero-note{font-size:13px;color:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;gap:6px;}
+  .hero-note::before{content:'';width:6px;height:6px;border-radius:50%;background:#4caf50;display:block;}
+  .btn-hero-primary{background:var(--orange);color:var(--white);border:none;padding:16px 32px;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity 0.2s;font-family:inherit;}
+  .btn-hero-primary:hover{opacity:0.85;}
+  .btn-hero-ghost{background:transparent;color:rgba(255,255,255,0.7);border:1.5px solid rgba(255,255,255,0.2);padding:15px 28px;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:inherit;}
+  .btn-hero-ghost:hover{border-color:rgba(255,255,255,0.45);color:var(--white);}
+
+  /* ── EARNINGS CALCULATOR ── */
+  .calc-section{background:var(--near-black);padding:112px 56px;}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  .calc-card{background:rgba(26,61,32,0.5);border:1px solid rgba(255,255,255,0.07);border-radius:24px;padding:40px;}
+  .calc-output-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+  .calc-output-amount{font-size:64px;font-weight:800;letter-spacing:-3px;color:var(--yellow);line-height:1;margin-bottom:4px;}
+  .calc-output-caption{font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:36px;}
+  .slider-label-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+  .slider-lbl{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+  .slider-val{font-size:16px;font-weight:800;color:var(--white);}
+  input[type=range]{width:100%;height:4px;-webkit-appearance:none;background:rgba(255,255,255,0.1);border-radius:2px;outline:none;cursor:pointer;margin-bottom:32px;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--yellow);border-radius:50%;box-shadow:0 2px 8px rgba(250,225,130,0.4);}
+  .tier-rows{display:flex;flex-direction:column;gap:8px;}
+  .tier-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px 16px;transition:all 0.2s;}
+  .tier-row.active{background:rgba(250,225,130,0.07);border-color:rgba(250,225,130,0.2);}
+  .tier-row-left{display:flex;align-items:center;gap:10px;}
+  .tier-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .tier-name{font-size:14px;font-weight:600;color:rgba(255,255,255,0.4);}
+  .tier-row.active .tier-name{color:var(--yellow);}
+  .tier-units{font-size:11px;color:#444;margin-top:1px;}
+  .tier-rate{font-size:14px;font-weight:700;color:rgba(255,255,255,0.3);}
+  .tier-row.active .tier-rate{color:var(--yellow);}
+
+  /* ── TIERS ── */
+  .tiers-section{background:var(--green-cream);}
+  .tiers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(26,61,32,0.1);border-radius:24px;overflow:hidden;border:1px solid rgba(26,61,32,0.1);}
+  .tier-card{background:var(--white);padding:40px 36px;display:flex;flex-direction:column;transition:background 0.2s;position:relative;}
+  .tier-card:hover{background:#fafdf8;}
+  .tier-card.featured{background:var(--forest);}
+  .tier-card.featured:hover{background:var(--forest-mid);}
+  .tier-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:20px;width:fit-content;}
+  .badge-growth{background:var(--green-cream);color:#5a8a60;}
+  .tier-card.featured .badge-growth{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.35);}
+  .badge-local{background:rgba(245,107,63,0.1);color:var(--orange);}
+  .badge-regional{background:var(--yellow-bg);color:#a07800;}
+  .badge-national{background:var(--teal-bg);color:var(--teal-dark);}
+  .tier-card-name{font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px;color:var(--near-black);}
+  .tier-card.featured .tier-card-name{color:var(--white);}
+  .tier-card-units{font-size:13px;color:var(--gray);margin-bottom:28px;}
+  .tier-card.featured .tier-card-units{color:rgba(255,255,255,0.4);}
+  .rate-amount{font-size:44px;font-weight:800;letter-spacing:-2px;line-height:1;color:var(--near-black);}
+  .tier-card.featured .rate-amount{color:var(--yellow);}
+  .rate-label{font-size:12px;color:var(--gray);margin-top:4px;margin-bottom:28px;}
+  .tier-card.featured .rate-label{color:rgba(255,255,255,0.4);}
+  .no-rev-label{font-size:15px;font-weight:700;color:var(--gray-light);margin-bottom:28px;}
+  .tier-features{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .tier-features li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--gray);line-height:1.5;}
+  .tier-card.featured .tier-features li{color:rgba(255,255,255,0.5);}
+  .tier-features li::before{content:'✓';font-size:11px;font-weight:700;color:var(--forest-light);flex-shrink:0;margin-top:2px;}
+  .tier-card.featured .tier-features li::before{color:var(--yellow);}
+  .most-common-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--yellow);color:#7a5f00;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;}
+  .tiers-note{text-align:center;font-size:14px;color:var(--gray);margin-top:28px;}
+  .tiers-note strong{color:var(--near-black);}
+
+  /* ── HOW IT WORKS ── */
+  .how{background:var(--white);}
+  .steps-list{display:flex;flex-direction:column;}
+  .step-row{display:flex;align-items:flex-start;gap:36px;padding:36px 0;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .step-row:last-child{border-bottom:none;}
+  .step-n{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:0.05em;width:32px;flex-shrink:0;padding-top:5px;}
+  .step-body h3{font-size:19px;font-weight:700;letter-spacing:-0.4px;margin-bottom:5px;}
+  .step-body p{font-size:15px;color:var(--gray);line-height:1.6;}
+  .step-tag{display:inline-block;margin-top:12px;background:var(--green-cream);color:#5a8a60;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:4px 12px;border-radius:100px;}
+
+  /* ── PAYOUT ── */
+  .payout-section{background:var(--cream);}
+  .payout-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+  .payout-example{background:var(--white);border:1px solid var(--border);border-radius:24px;padding:40px;}
+  .payout-example-lbl{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:24px;}
+  .payout-row-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);}
+  .payout-row-item:last-of-type{border-bottom:none;}
+  .prow-label{font-size:14px;color:var(--gray);}
+  .prow-val{font-size:14px;font-weight:600;color:var(--near-black);}
+  .payout-total-block{margin-top:20px;background:var(--forest);border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .ptotal-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+  .ptotal-amount{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:var(--yellow);}
+  .pdetails{list-style:none;display:flex;flex-direction:column;gap:20px;}
+  .pdetails li{display:flex;gap:16px;align-items:flex-start;}
+  .pdetail-icon{width:40px;height:40px;background:var(--green-cream);border:1px solid rgba(26,61,32,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .pdetail-text strong{display:block;font-size:15px;font-weight:700;letter-spacing:-0.2px;margin-bottom:3px;}
+  .pdetail-text span{font-size:14px;color:var(--gray);line-height:1.55;}
+
+  /* ── ZERO FRICTION ── */
+  .zero{background:var(--forest);}
+  .zero h2.display{color:var(--white);}
+  .zero .lead{color:rgba(255,255,255,0.45);}
+  .no-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);}
+  .no-item{padding:32px 36px;background:rgba(255,255,255,0.03);}
+  .no-item:hover{background:rgba(255,255,255,0.05);}
+  .no-item-icon{font-size:22px;margin-bottom:12px;}
+  .no-text{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.5;}
+
+  /* ── GIFT STRIP ── */
+  .gift-strip{background:var(--yellow);padding:72px 56px;text-align:center;}
+  .gift-strip-inner{display:inline-flex;align-items:center;gap:16px;background:rgba(0,0,0,0.07);border-radius:20px;padding:20px 32px;margin-top:8px;}
+  .gift-amount{font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--near-black);}
+  .gift-desc{text-align:left;font-size:14px;color:rgba(41,41,41,0.7);line-height:1.5;max-width:200px;}
+
+  /* ── FORM ── */
+  .form-section{background:var(--white);padding:112px 56px;}
+  .form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1080px;margin:0 auto;}
+  .form-card{background:var(--cream);border-radius:24px;padding:48px;}
+  .form-card h3{font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px;}
+  .form-card>p{font-size:14px;color:var(--gray);margin-bottom:28px;}
+  .mform{display:flex;flex-direction:column;gap:12px;}
+  .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .mform input,.mform select{width:100%;padding:13px 18px;border:1.5px solid rgba(0,0,0,0.12);border-radius:14px;font-size:14px;font-family:inherit;outline:none;background:var(--white);color:var(--near-black);transition:border-color 0.2s;}
+  .mform input:focus,.mform select:focus{border-color:var(--near-black);}
+  .mform select{color:var(--gray);}
+  .msub{background:var(--orange);color:var(--white);border:none;padding:15px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.2s;margin-top:4px;width:100%;}
+  .msub:hover{opacity:0.85;}
+  .mfooter{font-size:12px;color:var(--gray-light);text-align:center;margin-top:10px;}
+
+  /* ── FINAL CTA ── */
+  .final{background:var(--near-black);text-align:center;padding:128px 56px;}
+  .final h2{font-size:clamp(34px,5vw,64px);font-weight:800;color:var(--white);letter-spacing:-2px;line-height:1.08;max-width:680px;margin:0 auto 52px;}
+  .final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .btn-final-p{background:var(--orange);color:var(--white);border:none;padding:16px 32px;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer;transition:opacity 0.2s;font-family:inherit;}
+  .btn-final-p:hover{opacity:0.85;}
+  .btn-final-g{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,0.25);padding:15px 28px;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;transition:border-color 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-final-g:hover{border-color:rgba(255,255,255,0.5);}
+
+  /* ── FOOTER ── */
+  footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);padding:40px 56px;display:flex;align-items:center;justify-content:space-between;}
+  .footer-logo{display:flex;align-items:center;gap:10px;}
+  .footer-links{display:flex;gap:28px;}
+  .footer-links a{font-size:13px;color:#555;text-decoration:none;}
+  .footer-copy{font-size:12px;color:#444;}
+
+  #toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--near-black);color:var(--white);padding:12px 24px;border-radius:100px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity 0.25s;pointer-events:none;border:1px solid rgba(255,255,255,0.1);}
+
+  @media(max-width:768px){
+    nav{padding:0 20px;}.nav-links{display:none;}
+    .section,.calc-section,.gift-strip,.form-section,.final{padding:80px 24px;}
+    .hero{padding:88px 24px 72px;}
+    .calc-grid,.payout-grid,.form-wrap{grid-template-columns:1fr;gap:40px;}
+    .tiers-grid{grid-template-columns:1fr 1fr;}
+    .no-list{grid-template-columns:1fr;}
+    footer{flex-direction:column;gap:16px;text-align:center;}
+    .mrow{grid-template-columns:1fr;}
+  }
+  @media(max-width:540px){.tiers-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="368 0 1000 1000" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+      <mask id="nm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#nm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#ng1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#ng2)"/>
+      </g>
+      <defs>
+        <linearGradient id="ng1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="ng2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
+    <span style="font-size:16px;font-weight:700;letter-spacing:-0.4px;color:var(--near-black);">Split Pay</span>
+    <span class="nav-partner-pill">Partners</span>
+  </div>
+  <div class="nav-links">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#tiers">Tiers</a>
+    <a href="#apply">Apply</a>
+  </div>
+  <div class="nav-actions">
+    <a href="https://pmc.splitpay.com" class="btn-book">Marketing Hub</a>
+    <a href="#apply" class="btn-kit">Apply now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Split Pay Partner Program</div>
+  <h1>Less work.<br><em>More revenue.</em></h1>
+  <p class="hero-sub">Earn a recurring monthly payment for every resident you refer to Split Pay — automatically, with zero integration or operational changes required.</p>
+  <div class="hero-buttons">
+    <button class="btn-hero-primary" onclick="scrollTo('apply')">Apply now</button>
+    <button class="btn-hero-ghost" onclick="scrollTo('how-it-works')">See how it works →</button>
+  </div>
+  <p class="hero-note">No contract. No integration. Nothing changes on your end.</p>
+</div>
+
+<!-- EARNINGS CALCULATOR -->
+<section class="calc-section">
+  <div class="container">
+    <div class="calc-grid">
+      <div>
+        <div class="eyebrow" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);">Earnings Calculator</div>
+        <h2 class="display" style="color:var(--white);">See what you'd earn.</h2>
+        <p class="lead" style="color:#8A8A8E;margin-bottom:40px;">Drag the slider to your estimated active renter count. When you hit a new tier, your rate applies to every active renter — not just the new ones above the threshold.</p>
+        <div style="background:rgba(26,61,32,0.6);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px 32px;">
+          <p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.65;">A <strong style="color:rgba(255,255,255,0.7);">Regional Partner</strong> with 75 active renters earns <strong style="color:var(--yellow);">$300/month</strong> — automatically, every month, with no ongoing work required.</p>
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <div class="calc-output-label">Your estimated monthly earnings</div>
+        <div class="calc-output-amount" id="earningsDisplay">$150</div>
+        <div class="calc-output-caption" id="earningsCaption">Local Partner · 50 active renters · $3/mo each</div>
+        <div class="slider-label-row">
+          <span class="slider-lbl">Active renters</span>
+          <span class="slider-val" id="renterCount">50</span>
+        </div>
+        <input type="range" id="renterSlider" min="0" max="300" value="50" step="5">
+        <div class="tier-rows">
+          <div class="tier-row" id="tr-growth">
+            <div class="tier-row-left">
+              <div class="tier-dot" style="background:#3a3a3a;"></div>
+              <div><div class="tier-name">Growth</div><div class="tier-units">0 – 20 renters</div></div>
+            </div>
+            <div class="tier-rate">—</div>
+          </div>
+          <div class="tier-row active" id="tr-local">
+            <div class="tier-row-left">
+              <div class="tier-dot" style="background:var(--orange);"></div>
+              <div><div class="tier-name">Local Partner</div><div class="tier-units">21 – 50 renters</div></div>
+            </div>
+            <div class="tier-rate">$3 / mo</div>
+          </div>
+          <div class="tier-row" id="tr-regional">
+            <div class="tier-row-left">
+              <div class="tier-dot" style="background:var(--yellow);"></div>
+              <div><div class="tier-name">Regional Partner</div><div class="tier-units">51 – 100 renters</div></div>
+            </div>
+            <div class="tier-rate">$4 / mo</div>
+          </div>
+          <div class="tier-row" id="tr-national">
+            <div class="tier-row-left">
+              <div class="tier-dot" style="background:var(--teal);"></div>
+              <div><div class="tier-name">National Partner</div><div class="tier-units">101+ renters</div></div>
+            </div>
+            <div class="tier-rate">$5 / mo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="section tiers-section" id="tiers">
+  <div class="container">
+    <div class="eyebrow">Partner Tiers</div>
+    <h2 class="display">The more you refer,<br>the more you earn per renter.</h2>
+    <p class="lead">Tiers upgrade automatically. Hit a threshold and your rate applies to every active renter — not just the ones above the line.</p>
+    <div class="tiers-grid">
+      <div class="tier-card">
+        <div class="tier-badge badge-growth">Growth</div>
+        <div class="tier-card-name">Growth</div>
+        <div class="tier-card-units">0 – 20 active renters</div>
+        <div class="no-rev-label">No rev-share yet</div>
+        <ul class="tier-features">
+          <li>Partner badge &amp; materials</li>
+          <li>Custom referral link</li>
+          <li>Marketing hub access</li>
+          <li>$100 gift card on first activation</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-badge badge-local">Local Partner</div>
+        <div class="tier-card-name">Local</div>
+        <div class="tier-card-units">21 – 50 active renters</div>
+        <div class="rate-amount">$3</div>
+        <div class="rate-label">per active renter / month</div>
+        <ul class="tier-features">
+          <li>Everything in Growth</li>
+          <li>Monthly ACH payout</li>
+          <li>Partner dashboard</li>
+        </ul>
+      </div>
+      <div class="tier-card featured">
+        <div class="most-common-tag">Most common</div>
+        <div class="tier-badge badge-regional">Regional Partner</div>
+        <div class="tier-card-name">Regional</div>
+        <div class="tier-card-units">51 – 100 active renters</div>
+        <div class="rate-amount">$4</div>
+        <div class="rate-label">per active renter / month</div>
+        <ul class="tier-features">
+          <li>Everything in Local</li>
+          <li>Priority support</li>
+          <li>Co-branded materials</li>
+          <li>Dedicated account contact</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-badge badge-national">National Partner</div>
+        <div class="tier-card-name">National</div>
+        <div class="tier-card-units">101+ active renters</div>
+        <div class="rate-amount">$5</div>
+        <div class="rate-label">per active renter / month</div>
+        <ul class="tier-features">
+          <li>Everything in Regional</li>
+          <li>Custom QR per property</li>
+          <li>Quarterly business review</li>
+          <li>Custom landing page URL</li>
+        </ul>
+      </div>
+    </div>
+    <p class="tiers-note">Tiers upgrade <strong>automatically</strong> when you hit the threshold — no application or approval needed. Rate adjusts on the next billing cycle.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how" id="how-it-works">
+  <div class="container-sm">
+    <div class="eyebrow">How it works</div>
+    <h2 class="display">Three steps.<br>Then it runs itself.</h2>
+    <p class="lead" style="margin-bottom:0;">No technical setup. No ongoing work. Share once, earn every month.</p>
+    <div class="steps-list" style="margin-top:48px;">
+      <div class="step-row">
+        <div class="step-n">01</div>
+        <div class="step-body">
+          <h3>Get your unique referral link</h3>
+          <p>Apply below and we'll send you a custom link tied to your portfolio. Every resident who signs up through your link is attributed to you — automatically.</p>
+          <span class="step-tag">Takes 2 minutes</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">02</div>
+        <div class="step-body">
+          <h3>Share it with your residents</h3>
+          <p>Email it, print it, drop it in a portal message. We provide ready-made flyers, email templates, and SMS scripts. Residents apply in minutes — no credit check, ~50% approval rate.</p>
+          <span class="step-tag">Materials provided</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-n">03</div>
+        <div class="step-body">
+          <h3>Earn every month, automatically</h3>
+          <p>Rev-share is calculated on the 1st of each month and paid via ACH on the 5th. As more residents activate, your tier — and your per-renter rate — upgrades automatically.</p>
+          <span class="step-tag">ACH on the 5th</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYOUT EXPLAINER -->
+<section class="section payout-section">
+  <div class="container">
+    <div class="payout-grid">
+      <div>
+        <div class="eyebrow">Payout details</div>
+        <h2 class="display">Simple math.<br>Real money.</h2>
+        <p class="lead" style="margin-bottom:40px;">Calculated monthly, paid via ACH. No invoicing, no approvals — just a deposit on the 5th.</p>
+        <ul class="pdetails">
+          <li>
+            <div class="pdetail-icon">📅</div>
+            <div class="pdetail-text"><strong>Monthly reconciliation</strong><span>Calculated on the 1st for the prior month. ACH by the 5th. No invoicing needed from you.</span></div>
+          </li>
+          <li>
+            <div class="pdetail-icon">📈</div>
+            <div class="pdetail-text"><strong>Retroactive tier upgrades</strong><span>Cross a threshold and your new rate applies to your full active renter count — including everyone below the threshold.</span></div>
+          </li>
+          <li>
+            <div class="pdetail-icon">🔗</div>
+            <div class="pdetail-text"><strong>Attribution by referral link</strong><span>Anyone who signs up through your link is permanently attributed to you, regardless of which property they live in.</span></div>
+          </li>
+          <li>
+            <div class="pdetail-icon">🔒</div>
+            <div class="pdetail-text"><strong>No contract required</strong><span>Join, share your link, and start earning. Cancel at any time — accrued payments are always honored.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="payout-example">
+        <div class="payout-example-lbl">Example payout — Regional Partner</div>
+        <div class="payout-row-item"><span class="prow-label">Active renters</span><span class="prow-val">75</span></div>
+        <div class="payout-row-item"><span class="prow-label">Tier</span><span class="prow-val">Regional Partner</span></div>
+        <div class="payout-row-item"><span class="prow-label">Rate</span><span class="prow-val">$4 / renter / mo</span></div>
+        <div class="payout-row-item"><span class="prow-label">Rate applied to</span><span class="prow-val">All 75 renters</span></div>
+        <div class="payout-row-item"><span class="prow-label">Calculation</span><span class="prow-val">75 × $4.00</span></div>
+        <div class="payout-total-block">
+          <span class="ptotal-label">Monthly payout</span>
+          <span class="ptotal-amount">$300</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZERO FRICTION -->
+<section class="section zero">
+  <div class="container">
+    <div class="eyebrow" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);">Zero friction</div>
+    <h2 class="display">Nothing changes<br>on your end.</h2>
+    <p class="lead">Split Pay works with your existing portal via ACH — no integration, no contract, no accounting changes required.</p>
+    <div class="no-list">
+      <div class="no-item"><div class="no-item-icon">🔌</div><div class="no-text">No integration with your PMS required</div></div>
+      <div class="no-item"><div class="no-item-icon">📝</div><div class="no-text">No contract or legal agreement to sign</div></div>
+      <div class="no-item"><div class="no-item-icon">💳</div><div class="no-text">No cost to you — residents pay a small fee</div></div>
+      <div class="no-item"><div class="no-item-icon">🗓️</div><div class="no-text">Your due dates and policies stay the same</div></div>
+      <div class="no-item"><div class="no-item-icon">🏦</div><div class="no-text">Payments appear as standard ACH in your PMS</div></div>
+      <div class="no-item"><div class="no-item-icon">⚡</div><div class="no-text">Same-day launch — live the day you share</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- $100 GIFT CARD -->
+<div class="gift-strip">
+  <div class="container-sm">
+    <div class="eyebrow">First activation bonus</div>
+    <h2 class="display">$100 on us, from day one.</h2>
+    <p class="lead" style="margin-bottom:28px;">Even before you hit the rev-share threshold — when your first resident activates Split Pay through your link, you get a $100 Amazon gift card. No minimum renter count required.</p>
+    <div class="gift-strip-inner">
+      <div class="gift-amount">$100</div>
+      <div class="gift-desc">Amazon gift card sent when your first resident activates Split Pay through your link</div>
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION FORM -->
+<section class="form-section" id="apply">
+  <div class="form-wrap">
+    <div>
+      <div class="eyebrow">Apply now</div>
+      <h2 class="display">Start earning<br>this month.</h2>
+      <p class="lead" style="margin-bottom:40px;">Fill in your details and we'll send your referral link within one business day. No integration, no contracts, nothing changes on your end.</p>
+      <div style="background:var(--green-cream);border:1px solid rgba(26,61,32,0.1);border-radius:20px;padding:28px 32px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5a8a60;margin-bottom:14px;">What you get immediately</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--near-black);"><span style="color:var(--forest-light);font-weight:700;font-size:12px;">✓</span>Custom referral link sent within 1 business day</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--near-black);"><span style="color:var(--forest-light);font-weight:700;font-size:12px;">✓</span>Full marketing hub — flyers, emails, SMS scripts</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--near-black);"><span style="color:var(--forest-light);font-weight:700;font-size:12px;">✓</span>$100 gift card when your first resident activates</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--near-black);"><span style="color:var(--forest-light);font-weight:700;font-size:12px;">✓</span>Rev-share begins automatically at 21 active renters</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-card">
+      <h3>Partner application</h3>
+      <p>We'll send your referral link within one business day.</p>
+      <form class="mform" onsubmit="submitPartnerForm(event)">
+        <div class="mrow">
+          <input type="text" id="pfFirst" placeholder="First name" required>
+          <input type="text" id="pfLast" placeholder="Last name" required>
+        </div>
+        <input type="email" id="pfEmail" placeholder="Email address" required>
+        <input type="tel" id="pfPhone" placeholder="Phone number">
+        <input type="text" id="pfCompany" placeholder="Company or your name" required>
+        <div style="position:relative;">
+          <input type="text" id="pfAddress" placeholder="Property address" autocomplete="off" required style="width:100%;box-sizing:border-box;">
+        </div>
+        <input type="url" id="pfWebsite" placeholder="Property or company website (optional)">
+        <input type="number" id="pfUnits" placeholder="Estimated number of units" min="1" required>
+        <button type="submit" class="msub" id="pfSubmit">Apply &amp; get my referral link →</button>
+        <div class="mfooter">No commitment required. We'll be in touch within 1 business day.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final">
+  <h2>Already have the kit?<br>Just apply and share.</h2>
+  <div class="final-btns">
+    <button class="btn-final-p" onclick="scrollTo('apply')">Apply now</button>
+    <a href="https://pmc.splitpay.com" class="btn-final-g">Back to marketing hub →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="368 0 1000 1000" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+      <mask id="fm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#fm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#fg1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#fg2)"/>
+      </g>
+      <defs>
+        <linearGradient id="fg1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="fg2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
+    <span style="font-size:14px;font-weight:700;color:var(--white);">Split Pay</span>
+  </div>
+  <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="/cdn-cgi/l/email-protection#7e1017120d3e0d0e12170a0e1f07501d1113">Contact</a></div>
+  <div class="footer-copy">© 2025 Split Pay · Powered by Rent App</div>
+</footer>
+
+<!-- ── Chatbot float ─────────────────────────────────────────────────── -->
+<div id="chatFloat" style="position:fixed;bottom:24px;right:24px;z-index:8000;display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+  <div id="chatWindow" style="display:none;width:340px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);border:1px solid #e8e8e0;overflow:hidden;flex-direction:column;">
+    <div style="background:#1a3d20;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:8px;height:8px;background:#4ade80;border-radius:50%;"></div>
+        <span style="font-size:13px;font-weight:700;color:#fff;">Split Pay Partner Support</span>
+      </div>
+      <button onclick="toggleChat()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:15px;line-height:1;font-family:inherit;">&#x2715;</button>
+    </div>
+    <div id="chatMessages" style="padding:16px;height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:#f9f9f7;">
+      <div style="display:flex;gap:8px;align-items:flex-start;">
+        <div style="width:24px;height:24px;background:#1a3d20;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;">&#127807;</div>
+        <div style="background:#fff;border:1px solid #e8e8e0;border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.6;color:#1a1a1a;">Hi! Ask me anything about the Split Pay Partner Program &#8212; how tiers work, payouts, referral links, or anything else.</div>
+      </div>
+    </div>
+    <div style="padding:12px 14px;border-top:1px solid #e8e8e0;background:#fff;display:flex;gap:8px;">
+      <input id="chatInput" type="text" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendPartnerChat()" style="flex:1;padding:9px 13px;border:1px solid rgba(0,0,0,0.12);border-radius:100px;font-size:13px;font-family:inherit;outline:none;background:#f9f9f7;" onfocus="this.style.borderColor='#1a3d20'" onblur="this.style.borderColor='rgba(0,0,0,0.12)'">
+      <button onclick="sendPartnerChat()" style="background:#1a3d20;color:#fff;border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <button onclick="toggleChat()" style="width:52px;height:52px;background:#1a3d20;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(26,61,32,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14a1 1 0 011 1v9a1 1 0 01-1 1H7l-4 3V5a1 1 0 011-1z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<div id="toast">✓ Application submitted — we'll be in touch!</div>
+
+<!-- Success screen shown after submission -->
+<div id="refSuccess" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:20px;padding:40px;max-width:480px;width:90%;text-align:center;">
+    <div style="font-size:36px;margin-bottom:12px;">🎉</div>
+    <h2 style="font-size:22px;font-weight:800;color:#1a1a1a;margin:0 0 8px;">You're in, <span id="refFirstName"></span>.</h2>
+    <p style="font-size:14px;color:#666;margin:0 0 24px;line-height:1.6;">We'll confirm within 1 business day. Here's your referral link — you can start sharing it right away.</p>
+    <div style="background:#f5f5f0;border-radius:12px;padding:16px 20px;margin-bottom:20px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:6px;">Your referral link</div>
+      <div id="refLinkDisplay" style="font-size:13px;font-weight:700;color:#1a3d20;word-break:break-all;margin-bottom:12px;"></div>
+      <button onclick="copyRefLink()" id="copyBtn" style="background:#1a3d20;color:#fff;border:none;border-radius:100px;padding:8px 20px;font-size:12px;font-weight:700;cursor:pointer;">Copy link</button>
+    </div>
+    <p style="font-size:12px;color:#aaa;margin:0 0 20px;">Share this with residents or post it anywhere. Every signup through your link is tracked to you.</p>
+    <button onclick="document.getElementById('refSuccess').style.display='none'" style="background:none;border:none;color:#999;font-size:13px;cursor:pointer;text-decoration:underline;">Close</button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── Smooth scroll ────────────────────────────────────────────────────────
+  function scrollTo(id) {
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  }
+
+  // ── Earnings calculator ──────────────────────────────────────────────────
+  const slider = document.getElementById('renterSlider');
+  const tierIds = ['tr-growth','tr-local','tr-regional','tr-national'];
+
+  function updateCalc() {
+    const n = parseInt(slider.value);
+    document.getElementById('renterCount').textContent = n;
+    let earnings=0, label='Growth', rate=0, active='tr-growth';
+    if      (n<=20)  {earnings=0;   label='Growth';           rate=0; active='tr-growth';}
+    else if (n<=50)  {earnings=n*3; label='Local Partner';    rate=3; active='tr-local';}
+    else if (n<=100) {earnings=n*4; label='Regional Partner'; rate=4; active='tr-regional';}
+    else             {earnings=n*5; label='National Partner'; rate=5; active='tr-national';}
+
+    document.getElementById('earningsDisplay').textContent = earnings===0 ? '—' : '$'+earnings.toLocaleString();
+    document.getElementById('earningsCaption').textContent = earnings===0
+      ? label+' · '+n+' active renters · Rev-share unlocks at 21'
+      : label+' · '+n+' active renters · $'+rate+'/mo each';
+
+    const pct = (n/300*100).toFixed(1);
+    slider.style.background = `linear-gradient(to right,var(--yellow) 0%,var(--yellow) ${pct}%,rgba(255,255,255,0.1) ${pct}%)`;
+
+    tierIds.forEach(id => document.getElementById(id).classList.remove('active'));
+    document.getElementById(active).classList.add('active');
+  }
+  slider.addEventListener('input', updateCalc);
+  updateCalc();
+
+  // ── Ref link generation ──────────────────────────────────────────────────
+  function makeSlug(company) {
+    return company
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')   // strip special chars
+      .trim()
+      .replace(/\s+/g, '-')            // spaces to dashes
+      .replace(/-+/g, '-')             // collapse multiple dashes
+      .slice(0, 24);                   // max 24 chars
+  }
+
+  function makeRef(company) {
+    const slug = makeSlug(company) || 'partner';
+    const rand = Math.random().toString(36).slice(2, 6); // 4-char random
+    return slug + '-' + rand;
+  }
+
+  let generatedRef = '';
+
+  function copyRefLink() {
+    const url = 'https://pmc.splitpay.com/?ref=' + generatedRef;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => btn.textContent = 'Copy link', 2000);
+    });
+  }
+
+  // ── Form submit ──────────────────────────────────────────────────────────
+  function submitPartnerForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('pfSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const firstName  = document.getElementById('pfFirst').value.trim();
+    const company    = document.getElementById('pfCompany').value.trim();
+    generatedRef     = makeRef(company);
+
+    const payload = {
+      formType:        'partner',
+      firstName,
+      lastName:        document.getElementById('pfLast').value.trim(),
+      email:           document.getElementById('pfEmail').value.trim(),
+      phone:           document.getElementById('pfPhone').value.trim(),
+      company,
+      propertyAddress: document.getElementById('pfAddress').value.trim(),
+      website:         document.getElementById('pfWebsite').value.trim(),
+      portfolioSize:   document.getElementById('pfUnits').value,
+      refSlug:         generatedRef,  // store in Close so you can reconcile
+    };
+
+    // TODO: uncomment when submit-to-close handles formType:'partner'
+    // fetch('/.netlify/functions/submit-to-close', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(payload),
+    // });
+    console.log('Partner application payload:', payload);
+
+    setTimeout(() => {
+      btn.textContent = '✓ Application received';
+      // Show success modal with ref link
+      document.getElementById('refFirstName').textContent = firstName || 'there';
+      document.getElementById('refLinkDisplay').textContent = 'pmc.splitpay.com/?ref=' + generatedRef;
+      const modal = document.getElementById('refSuccess');
+      modal.style.display = 'flex';
+    }, 700);
+  }
+
+  // ── Google Maps Places Autocomplete ─────────────────────────────────────
+  // Key is fetched from Netlify function to keep it out of the repo
+  async function initMaps() {
+    try {
+      const res = await fetch('/.netlify/functions/maps-key');
+      if (!res.ok) return; // fail silently — address field still works as plain text
+      const { key } = await res.json();
+      if (!key) return;
+
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initAutocomplete`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    } catch(err) {
+      console.warn('Maps autocomplete unavailable:', err);
+    }
+  }
+
+  window.initAutocomplete = function() {
+    const input = document.getElementById('pfAddress');
+    const ac = new google.maps.places.Autocomplete(input, {
+      types: ['address'],
+      componentRestrictions: { country: 'us' },
+      fields: ['formatted_address'],
+    });
+    ac.addListener('place_changed', () => {
+      const place = ac.getPlace();
+      if (place.formatted_address) {
+        input.value = place.formatted_address;
+      }
+    });
+  };
+
+  initMaps();
+
+  // ── Chatbot ──────────────────────────────────────────────────────────────
+  const PARTNER_SYSTEM_PROMPT = `You are the Split Pay Partner Program assistant, embedded on pmc.splitpay.com/partners. Answer questions from property managers about the partner program. Be concise: 2-4 sentences max. Never use bullet points. Warm and direct tone.
+
+SPLIT PAY BASICS:
+Split Pay lets residents split rent into two ACH payments per month. Works with all major property management portals (Yardi, AppFolio, RealPage, Buildium, etc.) — no integration required. Free for property managers always. Residents pay $9.99 + 1.5% of rent per month. No credit check — cashflow-based approval, ~50% approval rate. Same-day launch. SOC 2 compliant. 550K+ accounts, $100M+ processed, all 50 states.
+
+PARTNER PROGRAM TIERS (based on active renters using Split Pay at your properties):
+- Growth: 0-20 active renters — no rev-share yet, but you're in the program. You receive a $100 Amazon gift card when your first resident activates.
+- Local Partner: 21-50 active renters — $3 per active renter per month
+- Regional Partner: 51-100 active renters — $4 per active renter per month  
+- National Partner: 101+ active renters — $5 per active renter per month
+Tiers upgrade automatically — the new rate applies to ALL your active renters, not just the ones above the threshold. No approval gate needed.
+
+PAYOUTS:
+Monthly ACH direct deposit, paid around the 5th of each month for the prior month. No invoicing required from you. Example: 75 active renters = Regional tier = $4 x 75 = $300/month.
+
+REFERRAL LINKS:
+Every partner gets a unique referral link (format: pmc.splitpay.com/?ref=your-slug). Any resident who signs up through your link is permanently attributed to you. Links are generated automatically when you apply and sent within 1 business day.
+
+$100 GIFT CARD:
+All partners receive a $100 Amazon gift card when the first resident at their property activates Split Pay — regardless of tier. This is a one-time incentive on top of any rev-share.
+
+WHAT CHANGES FOR THE PROPERTY MANAGER:
+Nothing. Split Pay works directly with existing portals via ACH. No integration, no contract, no accounting changes. Just share your referral link with residents.
+
+MISSED PAYMENTS:
+Split Pay handles missed payment recovery. We do not reverse rent payments already made through your PMS. Your portal always reflects full payment received.
+
+APPLYING:
+Apply at pmc.splitpay.com/partners. Fill in your details and referral link is generated immediately — we confirm within 1 business day.
+
+CONTACT: support@splitpay.com or 1 (877) 749-3592, Mon-Fri 8AM-8PM ET. Nils Decker heads Business Development: nils@splitpay.com, +1-774-358-6955.
+
+If someone asks about applying, direct them to scroll up and fill out the form on this page. If they ask about Split Pay basics (not the partner program), you can answer those too.`;
+
+  const partnerChatHistory = [];
+  let chatOpen = false;
+
+  function toggleChat() {
+    chatOpen = !chatOpen;
+    const win = document.getElementById('chatWindow');
+    win.style.display = chatOpen ? 'flex' : 'none';
+    if (chatOpen) document.getElementById('chatInput').focus();
+  }
+
+  function appendChatMsg(text, isBot) {
+    const msgs = document.getElementById('chatMessages');
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;gap:8px;align-items:flex-start;' + (isBot ? '' : 'flex-direction:row-reverse;');
+    const avatar = document.createElement('div');
+    avatar.style.cssText = 'width:24px;height:24px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;';
+    avatar.style.background = isBot ? '#1a3d20' : '#e8e8e0';
+    avatar.textContent = isBot ? String.fromCodePoint(127807) : 'You';
+    avatar.style.fontSize = isBot ? '11px' : '9px';
+    avatar.style.fontWeight = '700';
+    avatar.style.color = isBot ? '#fff' : '#666';
+    const bubble = document.createElement('div');
+    bubble.style.cssText = isBot
+      ? 'background:#fff;border:1px solid #e8e8e0;border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.6;color:#1a1a1a;max-width:85%;'
+      : 'background:#1a3d20;border-radius:12px 4px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.6;color:#fff;max-width:85%;';
+    bubble.textContent = text;
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  async function sendPartnerChat() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    appendChatMsg(text, false);
+    partnerChatHistory.push({ role: 'user', content: text });
+
+    const thinking = document.createElement('div');
+    thinking.id = 'chatThinking';
+    thinking.style.cssText = 'font-size:12px;color:#999;padding:4px 8px;';
+    thinking.textContent = 'Thinking...';
+    document.getElementById('chatMessages').appendChild(thinking);
+
+    try {
+      const res = await fetch('/.netlify/functions/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system: PARTNER_SYSTEM_PROMPT,
+          messages: partnerChatHistory,
+        }),
+      });
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || 'Sorry, something went wrong.';
+      partnerChatHistory.push({ role: 'assistant', content: reply });
+      const t = document.getElementById('chatThinking');
+      if (t) t.remove();
+      appendChatMsg(reply, true);
+    } catch(err) {
+      const t = document.getElementById('chatThinking');
+      if (t) t.remove();
+      appendChatMsg('Sorry, something went wrong. Email nils@splitpay.com directly.', true);
+    }
+  }
+
+</script>

@@ -230,6 +230,28 @@ exports.handler = async (event) => {
     };
     await slackAlert(alertLines[formType] || `📋 *Form submit* (${formType}): ${email}`);
 
+    // ── 8. Partner welcome email ──────────────────────────────────────────
+    if (formType === 'partner' && email) {
+      try {
+        const siteUrl = process.env.URL || 'https://pmc.splitpay.com';
+        await fetch(`${siteUrl}/.netlify/functions/send-partner-email`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            emailType: 'welcome',
+            firstName,
+            email,
+            company: companyName,
+            refSlug,
+          }),
+        });
+        console.log(`send-partner-email: welcome queued for ${email}`);
+      } catch (err) {
+        console.error('send-partner-email call failed:', err.message);
+        // non-fatal — lead is already saved
+      }
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify({ success: true, leadId, oppId: opp.id || null, wasExisting: !!existingLeadId }),

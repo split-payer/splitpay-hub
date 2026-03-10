@@ -32,6 +32,15 @@
   to = "/.netlify/functions/ref-redirect"
   status = 200
 
+# Partner welcome + monthly reminder email function
+[[redirects]]
+  from = "/api/send-partner-email"
+  to = "/.netlify/functions/send-partner-email"
+  status = 200
+
+[functions."partner-reminder"]
+  schedule = "0 14 20 * *"   # 20th of each month, 9 AM ET
+
 [functions."newsletter-send-15"]
   schedule = "0 9 15 * *"
 

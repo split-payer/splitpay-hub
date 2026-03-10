@@ -242,11 +242,11 @@
   <div class="nav-links">
     <a href="#how-it-works">How It Works</a>
     <a href="#tiers">Tiers</a>
-    <a href="#apply">Apply</a>
+    <a href="#apply" onclick="event.preventDefault();scrollToSection('apply')">Apply</a>
   </div>
   <div class="nav-actions">
     <a href="https://pmc.splitpay.com" class="btn-book">Marketing Hub</a>
-    <a href="#apply" class="btn-kit">Apply now</a>
+    <a href="#apply" onclick="event.preventDefault();scrollToSection('apply')" class="btn-kit">Apply now</a>
   </div>
 </nav>
 
@@ -256,8 +256,8 @@
   <h1>Less work.<br><em>More revenue.</em></h1>
   <p class="hero-sub">Earn a recurring monthly payment for every resident you refer to Split Pay — automatically, with zero integration or operational changes required.</p>
   <div class="hero-buttons">
-    <button class="btn-hero-primary" onclick="scrollTo('apply')">Apply now</button>
-    <button class="btn-hero-ghost" onclick="scrollTo('how-it-works')">See how it works →</button>
+    <button class="btn-hero-primary" onclick="scrollToSection('apply')">Apply now</button>
+    <button class="btn-hero-ghost" onclick="scrollToSection('how-it-works')">See how it works →</button>
   </div>
   <p class="hero-note">No contract. No integration. Nothing changes on your end.</p>
 </div>
@@ -521,7 +521,7 @@
         <div style="position:relative;">
           <input type="text" id="pfAddress" placeholder="Property address" autocomplete="off" required style="width:100%;box-sizing:border-box;">
         </div>
-        <input type="url" id="pfWebsite" placeholder="Property or company website (optional)">
+        <input type="text" id="pfWebsite" placeholder="Property or company website (optional)">
         <input type="number" id="pfUnits" placeholder="Estimated number of units" min="1" required>
         <button type="submit" class="msub" id="pfSubmit">Apply &amp; get my referral link →</button>
         <div class="mfooter">No commitment required. We'll be in touch within 1 business day.</div>
@@ -534,7 +534,7 @@
 <div class="final">
   <h2>Already have the kit?<br>Just apply and share.</h2>
   <div class="final-btns">
-    <button class="btn-final-p" onclick="scrollTo('apply')">Apply now</button>
+    <button class="btn-final-p" onclick="scrollToSection('apply')">Apply now</button>
     <a href="https://pmc.splitpay.com" class="btn-final-g">Back to marketing hub →</a>
   </div>
 </div>
@@ -607,7 +607,7 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Smooth scroll ────────────────────────────────────────────────────────
-  function scrollTo(id) {
+  function scrollToSection(id) {
     document.getElementById(id).scrollIntoView({behavior:'smooth'});
   }
 
@@ -667,7 +667,7 @@
   }
 
   // ── Form submit ──────────────────────────────────────────────────────────
-  function submitPartnerForm(e) {
+  async function submitPartnerForm(e) {
     e.preventDefault();
     const btn = document.getElementById('pfSubmit');
     btn.disabled = true;
@@ -690,22 +690,24 @@
       refSlug:         generatedRef,  // store in Close so you can reconcile
     };
 
-    // TODO: uncomment when submit-to-close handles formType:'partner'
-    // fetch('/.netlify/functions/submit-to-close', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(payload),
-    // });
     console.log('Partner application payload:', payload);
 
-    setTimeout(() => {
-      btn.textContent = '✓ Application received';
-      // Show success modal with ref link
-      document.getElementById('refFirstName').textContent = firstName || 'there';
-      document.getElementById('refLinkDisplay').textContent = 'pmc.splitpay.com/?ref=' + generatedRef;
-      const modal = document.getElementById('refSuccess');
-      modal.style.display = 'flex';
-    }, 700);
+    try {
+      await fetch('/.netlify/functions/submit-to-close', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    } catch(err) {
+      console.error('Close submission error:', err);
+      // fail silently — still show success to user
+    }
+
+    btn.textContent = '✓ Application received';
+    document.getElementById('refFirstName').textContent = firstName || 'there';
+    document.getElementById('refLinkDisplay').textContent = 'pmc.splitpay.com/?ref=' + generatedRef;
+    const modal = document.getElementById('refSuccess');
+    modal.style.display = 'flex';
   }
 
   // ── Google Maps Places Autocomplete ─────────────────────────────────────
@@ -843,7 +845,7 @@ If someone asks about applying, direct them to scroll up and fill out the form o
     } catch(err) {
       const t = document.getElementById('chatThinking');
       if (t) t.remove();
-      appendChatMsg('Sorry, something went wrong. Email nils@splitpay.com directly.', true);
+      appendChatMsg('Sorry, something went wrong. Email pm-support@splitpay.com directly.', true);
     }
   }
 

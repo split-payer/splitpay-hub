@@ -1,13 +1,16 @@
 // netlify/functions/submit-to-close.js
+
+// ── Custom Field IDs (Lead-scoped) ────────────────────────────────────────────
 const CF = {
-  leadSource:         'cf_EOQPBnrrysvnIKFiTN7yANCjTULX8zvYoICmsiaeQA0', // Lead Source (lead-scoped, choices)
-  pms:                'cf_Jr0LDrn6Nj1pxvMyKQtq6p9TF7nsWwHKMcmRj9SsX7m', // PMS (lead-scoped, choices)
+  leadSource:         'cf_EOQPBnrrysvnIKFiTN7yANCjTULX8zvYoICmsiaeQA0',
+  pms:                'cf_Jr0LDrn6Nj1pxvMyKQtq6p9TF7nsWwHKMcmRj9SsX7m',
   propertyName:       'cf_BugPKaXenAmkMdymXvrwMBR9jcNLII5EBLuoR5HF85J',
   propertyAddress:    'cf_vltfxti7afKgf3mnhoodIOulv2wcMytEqfDMfqZtXPB',
   conciergeChannel:   'cf_JXm6UvEEHIwkXySm3XQdeMTrjUgv25gnvkeSFZdU5Go',
   conciergeRequested: 'cf_IqQ1s9ZshyYPq60cEdSGPTVGV3zcFrrqyK0wXvw8nkm',
   totalUnits:         'cf_5HP7O9bC0L2Evm71ibnEOMg3VcuedBmj7w0Xq78sfOL',
   kitDownloaded:      'cf_PACYZMcqEhj64C9CodO5VKS7sVcmly92zDwZcHuvJCH',
+  // partnerRefSlug: 'cf_REPLACE_WITH_REAL_ID',  // TODO: add after creating in Close
 };
 
 async function slackAlert(message) {
@@ -19,7 +22,9 @@ async function slackAlert(message) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: message }),
     });
-  } catch (err) { console.error('Slack alert failed:', err); }
+  } catch (err) {
+    console.error('Slack alert failed:', err);
+  }
 }
 
 async function enrollInSendGrid({ email, firstName, lastName, listId }) {
@@ -58,21 +63,26 @@ exports.handler = async (event) => {
   }
 
   let body;
-  try { body = JSON.parse(event.body); }
-  catch { return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
+  try {
+    body = JSON.parse(event.body);
+  } catch {
+    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) };
+  }
 
   const {
     formType, firstName, lastName, company, firm, email, phone,
     pms, unitCount, propertyName, propertyAddress, channel,
     hasRentRoll, rentRollName, rentRollDriveUrl, rentRollRowCount,
+    // partner-specific
+    portfolioSize, website, refSlug,
   } = body;
 
-  const name        = `${firstName || ''} ${lastName || ''}`.trim();
+  const name = `${firstName || ''} ${lastName || ''}`.trim();
   const companyName = company || firm || '';
-  const authHeader  = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
+  const authHeader = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
 
   try {
-    // ── Search for existing lead by email ───────────────────────────────────
+    // ── 1. Search for existing lead by email ──────────────────────────────
     let existingLeadId = null;
     if (email) {
       try {
@@ -82,28 +92,34 @@ exports.handler = async (event) => {
         );
         const searchData = await searchRes.json();
         if (searchData.data && searchData.data.length > 0) existingLeadId = searchData.data[0].id;
-      } catch (err) { console.error('Lead search error:', err); }
+      } catch (err) {
+        console.error('Lead search error:', err);
+      }
     }
 
-    // ── Build custom fields
-    // IMPORTANT: Close API requires custom fields nested under "custom": {}
-    // Spreading them at the top level causes silent failure.
+    // ── 2. Build custom fields ────────────────────────────────────────────
+    const leadSourceMap = {
+      kit:       'PMC Kit Download',
+      concierge: 'PMC Concierge',
+      partner:   'PMC Partner Application',
+    };
+
     const customFieldValues = {
-      [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
+      [CF.leadSource]:         leadSourceMap[formType] || formType,
       [CF.pms]:                pms || null,
       [CF.propertyName]:       propertyName || null,
       [CF.propertyAddress]:    propertyAddress || null,
       [CF.conciergeChannel]:   channel || null,
       [CF.conciergeRequested]: formType === 'concierge' ? 'Yes' : null,
-      [CF.totalUnits]:         unitCount || null,
+      [CF.totalUnits]:         unitCount || portfolioSize || null,
       [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
+      // CF.partnerRefSlug: refSlug || null,  // TODO: uncomment once CF ID added above
     };
     Object.keys(customFieldValues).forEach((k) => {
       if (customFieldValues[k] === null) delete customFieldValues[k];
     });
 
-    // ── Create or update lead ───────────────────────────────────────────────
-    // All custom fields are Lead-scoped — send directly to /lead/
+    // ── 3. Create or update lead ──────────────────────────────────────────
     let leadId;
     if (existingLeadId) {
       const updateRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
@@ -119,7 +135,7 @@ exports.handler = async (event) => {
         console.error('Lead update failed:', detail);
         await slackAlert(`⚠️ *submit-to-close*: Lead update failed for \`${email || 'unknown'}\`\n\`\`\`${detail}\`\`\``);
       } else {
-        console.log(`Close: updated lead ${existingLeadId} with custom fields`);
+        console.log(`Close: updated lead ${existingLeadId}`);
       }
       leadId = existingLeadId;
     } else {
@@ -144,11 +160,11 @@ exports.handler = async (event) => {
         await slackAlert(`🚨 *submit-to-close*: Lead creation failed for \`${email || 'unknown'}\` (${formType})\n\`\`\`${detail}\`\`\``);
         return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
       }
-      console.log(`Close: created lead ${lead.id} with custom fields`);
+      console.log(`Close: created lead ${lead.id}`);
       leadId = lead.id;
     }
 
-    // ── Note for kit downloads ──────────────────────────────────────────────
+    // ── 4. Activity note ──────────────────────────────────────────────────
     if (formType === 'kit') {
       await fetch('https://api.close.com/api/v1/activity/note/', {
         method: 'POST',
@@ -157,15 +173,12 @@ exports.handler = async (event) => {
       });
     }
 
-    // ── Opportunity ─────────────────────────────────────────────────────────
-    // Only create if no existing opp on this lead has the same note (same
-    // form type + company + unit count + PMS). This allows two opps for two
-    // different buildings but prevents duplicates from repeated submits.
+    // ── 5. Opportunity ────────────────────────────────────────────────────
     const oppNote = buildNote(body);
-    const oppValue = rentRollRowCount
-      ? rentRollRowCount * 100
-      : unitCount ? parseInt(unitCount, 10) * 100
-      : null;
+    const oppValue = rentRollRowCount ? rentRollRowCount * 100
+                   : unitCount ? parseInt(unitCount, 10) * 100
+                   : portfolioSize ? parseInt(portfolioSize, 10) * 100
+                   : null;
 
     let opp = { id: null };
     let dupOpp = false;
@@ -181,7 +194,7 @@ exports.handler = async (event) => {
     }
 
     if (dupOpp) {
-      console.log(`Close: duplicate opp skipped for lead ${leadId} (same note already exists)`);
+      console.log(`Close: duplicate opp skipped for lead ${leadId}`);
     } else {
       const oppRes = await fetch('https://api.close.com/api/v1/opportunity/', {
         method: 'POST',
@@ -202,14 +215,22 @@ exports.handler = async (event) => {
       }
     }
 
-    // ── SendGrid enrollment ─────────────────────────────────────────────────
-    if (email) {
+    // ── 6. SendGrid enrollment ────────────────────────────────────────────
+    if (email && formType !== 'partner') {
       const primaryListId = formType === 'concierge'
         ? process.env.SENDGRID_CONCIERGE_LIST_ID
         : process.env.SENDGRID_KIT_LIST_ID;
       await enrollInSendGrid({ email, firstName, lastName, listId: primaryListId });
       await enrollInSendGrid({ email, firstName, lastName, listId: process.env.SENDGRID_NEWSLETTER_LIST_ID });
     }
+
+    // ── 7. Slack alert ────────────────────────────────────────────────────
+    const alertLines = {
+      kit:       `📥 *Kit download*: ${name || email} (${companyName || '—'})`,
+      concierge: `🏠 *Concierge*: ${name || email} — ${propertyName || propertyAddress || '—'}`,
+      partner:   `🤝 *Partner application*: ${name || email} (${companyName || '—'}) · ref: \`${refSlug || '—'}\``,
+    };
+    await slackAlert(alertLines[formType] || `📋 *Form submit* (${formType}): ${email}`);
 
     return {
       statusCode: 200,
@@ -218,19 +239,22 @@ exports.handler = async (event) => {
 
   } catch (err) {
     console.error('Unhandled error in submit-to-close:', err);
-    await slackAlert(`🚨 *submit-to-close*: Unhandled crash for \`${email || 'unknown'}\` (${formType || 'unknown form'})\n\`\`\`${err.message}\`\`\``);
+    await slackAlert(`🚨 *submit-to-close*: Unhandled crash for \`${email || 'unknown'}\` (${formType || 'unknown'})\n\`\`\`${err.message}\`\`\``);
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };
 
 function buildNote(data) {
   const lines = [`Form Type: ${data.formType}`];
-  if (data.company || data.firm)  lines.push(`Company: ${data.company || data.firm}`);
-  if (data.unitCount)             lines.push(`Unit Count: ${data.unitCount}`);
-  if (data.pms)                   lines.push(`PMS: ${data.pms}`);
-  if (data.propertyName)          lines.push(`Property: ${data.propertyName}`);
-  if (data.propertyAddress)       lines.push(`Address: ${data.propertyAddress}`);
-  if (data.channel)               lines.push(`Channel: ${data.channel}`);
+  if (data.company || data.firm) lines.push(`Company: ${data.company || data.firm}`);
+  if (data.unitCount) lines.push(`Unit Count: ${data.unitCount}`);
+  if (data.portfolioSize) lines.push(`Portfolio Size: ${data.portfolioSize}`);
+  if (data.pms) lines.push(`PMS: ${data.pms}`);
+  if (data.propertyName) lines.push(`Property: ${data.propertyName}`);
+  if (data.propertyAddress) lines.push(`Address: ${data.propertyAddress}`);
+  if (data.website) lines.push(`Website: ${data.website}`);
+  if (data.refSlug) lines.push(`Referral Slug: ${data.refSlug}`);
+  if (data.channel) lines.push(`Channel: ${data.channel}`);
   if (data.hasRentRoll) {
     lines.push(`Rent Roll: ${data.rentRollName || 'Uploaded'}`);
     if (data.rentRollRowCount) lines.push(`Rent Roll Row Count: ${data.rentRollRowCount}`);

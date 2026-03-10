@@ -164,9 +164,10 @@ exports.handler = async (event) => {
             name,
             emails: email ? [{ type: 'work', email }] : [],
             phones: phone ? [{ type: 'mobile', phone }] : [],
+            custom: contactCustomFields,
           }],
           status: 'New Lead',
-          custom: customFieldValues,
+          custom: leadCustomFields,
         }),
       });
       const lead = await leadRes.json();
@@ -176,7 +177,7 @@ exports.handler = async (event) => {
         await slackAlert(`🚨 *submit-to-close*: Lead creation failed for \`${email || 'unknown'}\` (${formType})\n\`\`\`${detail}\`\`\``);
         return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
       }
-      console.log(`Close: created lead ${lead.id} with custom fields`);
+      console.log(`Close: created lead ${lead.id} with scoped custom fields`);
       leadId = lead.id;
     }
 

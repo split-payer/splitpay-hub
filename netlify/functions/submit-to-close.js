@@ -4,8 +4,8 @@
 const CF = {
   leadSource:         'cf_EOQPBnrrysvnIKFiTN7yANCjTULX8zvYoICmsiaeQA0',
   pms:                'cf_Jr0LDrn6Nj1pxvMyKQtq6p9TF7nsWwHKMcmRj9SsX7m',
-  propertyName:       'cf_BugPKaXenAmkMdymXvrwMBR9jcNLII5EBLuoR5HF85J',
-  propertyAddress:    'cf_vltfxti7afKgf3mnhoodIOulv2wcMytEqfDMfqZtXPB',
+  // propertyName is Contact-scoped — removed from lead payload
+  // propertyAddress is Contact-scoped — removed from lead payload
   conciergeChannel:   'cf_JXm6UvEEHIwkXySm3XQdeMTrjUgv25gnvkeSFZdU5Go',
   conciergeRequested: 'cf_IqQ1s9ZshyYPq60cEdSGPTVGV3zcFrrqyK0wXvw8nkm',
   totalUnits:         'cf_5HP7O9bC0L2Evm71ibnEOMg3VcuedBmj7w0Xq78sfOL',
@@ -107,8 +107,6 @@ exports.handler = async (event) => {
     const customFieldValues = {
       [CF.leadSource]:         leadSourceMap[formType] || formType,
       [CF.pms]:                pms || null,
-      [CF.propertyName]:       propertyName || null,
-      [CF.propertyAddress]:    propertyAddress || null,
       [CF.conciergeChannel]:   channel || null,
       [CF.conciergeRequested]: formType === 'concierge' ? 'Yes' : null,
       [CF.totalUnits]:         unitCount || portfolioSize || null,

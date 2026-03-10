@@ -10,7 +10,7 @@ const CF = {
   conciergeRequested: 'cf_IqQ1s9ZshyYPq60cEdSGPTVGV3zcFrrqyK0wXvw8nkm',
   totalUnits:         'cf_5HP7O9bC0L2Evm71ibnEOMg3VcuedBmj7w0Xq78sfOL',
   kitDownloaded:      'cf_PACYZMcqEhj64C9CodO5VKS7sVcmly92zDwZcHuvJCH',
-  // partnerRefSlug: 'cf_REPLACE_WITH_REAL_ID',  // TODO: add after creating in Close
+  partnerRefSlug: 'cf_5NfIAJEjrKVL6v4pJqk4Ql9MRZUl2Ut8tMLDJOQ0SdK',
 };
 
 async function slackAlert(message) {
@@ -113,7 +113,7 @@ exports.handler = async (event) => {
       [CF.conciergeRequested]: formType === 'concierge' ? 'Yes' : null,
       [CF.totalUnits]:         unitCount || portfolioSize || null,
       [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
-      // CF.partnerRefSlug: refSlug || null,  // TODO: uncomment once CF ID added above
+      [CF.partnerRefSlug]: refSlug || null,
     };
     Object.keys(customFieldValues).forEach((k) => {
       if (customFieldValues[k] === null) delete customFieldValues[k];

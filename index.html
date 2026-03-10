@@ -1479,7 +1479,7 @@ async function sendChat(type){
   history.push({role:'user',content:msg});
   const typing=appendTyping(messagesEl);
   try{
-    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:CHAT_SYSTEM,messages:history})});
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({context:CHAT_SYSTEM,messages:history})});
     const data=await res.json();
     const reply=data.content?.[0]?.text||'Sorry, I had trouble with that.';
     typing.remove();appendMsg(messagesEl,'bot',reply);
@@ -1494,7 +1494,8 @@ function appendMsg(container,role,text){
   const bubble=document.createElement('div');
   bubble.style.cssText=`background:${isBot?'var(--white)':'var(--orange)'};color:${isBot?'var(--near-black)':'white'};border:${isBot?'1.5px solid var(--border)':'none'};border-radius:${isBot?'4px 16px 16px 16px':'16px 4px 16px 16px'};padding:${container.id==='inlineChatMessages'?'14px 18px':'10px 14px'};font-size:${container.id==='inlineChatMessages'?'14':'13'}px;line-height:1.65;max-width:${isBot?'480':'80%'}px;white-space:pre-wrap;`;
   if(isBot){
-    const cleaned=text.replace('##SHOW_CONCIERGE_LINK##','');
+    const linked=text.replace(/<LINK href="([^"]+)">([^<]+)<\/LINK>/g,'<a href="$1" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:underline;">$2</a>');
+    const cleaned=linked.replace('##SHOW_CONCIERGE_LINK##','');
     bubble.innerHTML=cleaned;
     if(text.includes('##SHOW_CONCIERGE_LINK##')){
       const btn=document.createElement('button');

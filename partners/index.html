@@ -816,7 +816,12 @@
     bubble.style.cssText = isBot
       ? 'background:#fff;border:1px solid #e8e8e0;border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.6;color:#1a1a1a;max-width:85%;'
       : 'background:#1a3d20;border-radius:12px 4px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.6;color:#fff;max-width:85%;';
+      if (isBot) {
+    const linked = text.replace(/<LINK href="([^"]+)">([^<]+)<\/LINK>/g, '<a href="$1" target="_blank" rel="noopener" style="color:#E8531A;text-decoration:underline;">$2</a>');
+    bubble.innerHTML = linked;
+  } else {
     bubble.textContent = text;
+  }
     row.appendChild(avatar);
     row.appendChild(bubble);
     msgs.appendChild(row);
@@ -842,7 +847,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          system: PARTNER_SYSTEM_PROMPT,
+          context: PARTNER_SYSTEM_PROMPT,
           messages: partnerChatHistory,
         }),
       });

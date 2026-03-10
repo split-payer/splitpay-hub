@@ -52,3 +52,8 @@
 
 [functions."newsletter-send-06"]
   schedule = "0 9 6 * *"
+
+[[headers]]
+  for = "/internal/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

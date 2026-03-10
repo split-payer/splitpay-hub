@@ -21,6 +21,17 @@
   to = "/.netlify/functions/send-kit-email"
   status = 200
 
+[[redirects]]
+  from = "/api/maps-key"
+  to = "/.netlify/functions/maps-key"
+  status = 200
+
+# Renter referral links — pmc.splitpay.com/go?ref=[slug] → rent.app/go
+[[redirects]]
+  from = "/go"
+  to = "/.netlify/functions/ref-redirect"
+  status = 200
+
 [functions."newsletter-send-15"]
   schedule = "0 9 15 * *"
 

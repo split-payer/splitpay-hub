@@ -658,7 +658,7 @@
   let generatedRef = '';
 
   function copyRefLink() {
-    const url = 'https://pmc.splitpay.com/?ref=' + generatedRef;
+    const url = 'https://pmc.splitpay.com/go?ref=' + generatedRef;
     navigator.clipboard.writeText(url).then(() => {
       const btn = document.getElementById('copyBtn');
       btn.textContent = '✓ Copied!';
@@ -705,7 +705,7 @@
 
     btn.textContent = '✓ Application received';
     document.getElementById('refFirstName').textContent = firstName || 'there';
-    document.getElementById('refLinkDisplay').textContent = 'pmc.splitpay.com/?ref=' + generatedRef;
+    document.getElementById('refLinkDisplay').textContent = 'pmc.splitpay.com/go?ref=' + generatedRef;
     const modal = document.getElementById('refSuccess');
     modal.style.display = 'flex';
   }
@@ -763,7 +763,7 @@ PAYOUTS:
 Monthly ACH direct deposit, paid around the 5th of each month for the prior month. No invoicing required from you. Example: 75 active renters = Regional tier = $4 x 75 = $300/month.
 
 REFERRAL LINKS:
-Every partner gets a unique referral link (format: pmc.splitpay.com/?ref=your-slug). Any resident who signs up through your link is permanently attributed to you. Links are generated automatically when you apply and sent within 1 business day.
+Every partner gets a unique referral link (format: pmc.splitpay.com/go?ref=your-slug). Any resident who signs up through your link is permanently attributed to you. Links are generated automatically when you apply and sent within 1 business day.
 
 $100 GIFT CARD:
 All partners receive a $100 Amazon gift card when the first resident at their property activates Split Pay — regardless of tier. This is a one-time incentive on top of any rev-share.

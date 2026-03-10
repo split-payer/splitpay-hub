@@ -135,7 +135,7 @@ exports.handler = async (event) => {
         headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           ...(companyName ? { name: companyName } : {}),
-          ...customFields,
+          custom: customFields,
         }),
       });
       if (!updateRes.ok) {
@@ -156,7 +156,7 @@ exports.handler = async (event) => {
             phones: phone ? [{ type: 'mobile', phone }] : [],
           }],
           status: 'New Lead',
-          ...customFields,
+          custom: customFields,
         }),
       });
       const lead = await leadRes.json();

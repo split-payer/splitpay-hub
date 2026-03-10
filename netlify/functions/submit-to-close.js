@@ -164,7 +164,6 @@ exports.handler = async (event) => {
             name,
             emails: email ? [{ type: 'work', email }] : [],
             phones: phone ? [{ type: 'mobile', phone }] : [],
-            custom: contactCustomFields,
           }],
           status: 'New Lead',
           custom: leadCustomFields,
@@ -179,6 +178,23 @@ exports.handler = async (event) => {
       }
       console.log(`Close: created lead ${lead.id} with scoped custom fields`);
       leadId = lead.id;
+
+      // Update contact-scoped fields on the newly created contact
+      if (Object.keys(contactCustomFields).length > 0) {
+        try {
+          const contactId = lead.contacts?.[0]?.id;
+          if (contactId) {
+            await fetch(`https://api.close.com/api/v1/contact/${contactId}/`, {
+              method: 'PUT',
+              headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify({ custom: contactCustomFields }),
+            });
+            console.log(`Close: updated new contact ${contactId} with contact-scoped custom fields`);
+          }
+        } catch (err) {
+          console.error('New contact custom field update failed:', err.message);
+        }
+      }
     }
 
     // ── Note for kit downloads ──────────────────────────────────────────────

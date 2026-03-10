@@ -1132,24 +1132,23 @@ async function submitDL() {
     email:         email,
     phone:         document.getElementById('dl-phone').value.trim(),
   };
-  try {
-    await fetch('/.netlify/functions/submit-to-close', {
+  // Fire both in parallel — don't block success screen on CRM write
+  const [closeResult] = await Promise.allSettled([
+    fetch('/.netlify/functions/submit-to-close', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(payload),
-    });
-  } catch (err) {
-    console.error('Close submission error:', err);
-    btn.disabled = false; btn.textContent = 'Download Now';
-  }
-  try {
-    await fetch('/.netlify/functions/send-kit-email', {
+    }),
+    fetch('/.netlify/functions/send-kit-email', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ firstName: first, email: email }),
-    });
-  } catch (err) {
-    console.error('Email send error:', err);
+    }),
+  ]);
+  if (closeResult.status === 'rejected') {
+    console.error('Close submission error:', closeResult.reason);
+    btn.disabled = false; btn.textContent = 'Download Now';
+    return;
   }
   showDLScreen(2);
 }

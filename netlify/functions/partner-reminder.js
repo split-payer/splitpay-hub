@@ -44,7 +44,7 @@ exports.handler = async () => {
   for (const contact of contacts) {
     const email = contact.email;
     const firstName = contact.first_name || '';
-    const refSlug = contact.custom_fields?.partner_ref_slug || '';
+    const refSlug = contact.custom_fields?.e1_T || '';  // e1_T = partner_ref_slug field ID
 
     if (!email) { failed++; continue; }
 

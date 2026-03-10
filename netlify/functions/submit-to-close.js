@@ -27,17 +27,21 @@ async function slackAlert(message) {
   }
 }
 
-async function enrollInSendGrid({ email, firstName, lastName, listId }) {
+async function enrollInSendGrid({ email, firstName, lastName, listId, customFields }) {
   const sgKey = process.env.SENDGRID_API_KEY;
   if (!sgKey) { console.warn('SENDGRID_API_KEY not set — skipping'); return; }
   if (!email || !listId) { console.warn('enrollInSendGrid: missing email or listId — skipping'); return; }
   try {
+    const contact = { email, first_name: firstName || '', last_name: lastName || '' };
+    if (customFields && Object.keys(customFields).length > 0) {
+      contact.custom_fields = customFields;
+    }
     const res = await fetch('https://api.sendgrid.com/v3/marketing/contacts', {
       method: 'PUT',
       headers: { Authorization: `Bearer ${sgKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         list_ids: [listId],
-        contacts: [{ email, first_name: firstName || '', last_name: lastName || '' }],
+        contacts: [contact],
       }),
     });
     if (!res.ok) {
@@ -214,12 +218,21 @@ exports.handler = async (event) => {
     }
 
     // ── 6. SendGrid enrollment ────────────────────────────────────────────
-    if (email && formType !== 'partner') {
-      const primaryListId = formType === 'concierge'
-        ? process.env.SENDGRID_CONCIERGE_LIST_ID
-        : process.env.SENDGRID_KIT_LIST_ID;
-      await enrollInSendGrid({ email, firstName, lastName, listId: primaryListId });
-      await enrollInSendGrid({ email, firstName, lastName, listId: process.env.SENDGRID_NEWSLETTER_LIST_ID });
+    if (email) {
+      if (formType === 'partner') {
+        // Enroll in Partners list with ref slug as custom field
+        await enrollInSendGrid({
+          email, firstName, lastName,
+          listId: process.env.SENDGRID_PARTNER_LIST_ID,
+          customFields: { e1_T: refSlug || '' },  // e1_T = partner_ref_slug field ID
+        });
+      } else {
+        const primaryListId = formType === 'concierge'
+          ? process.env.SENDGRID_CONCIERGE_LIST_ID
+          : process.env.SENDGRID_KIT_LIST_ID;
+        await enrollInSendGrid({ email, firstName, lastName, listId: primaryListId });
+        await enrollInSendGrid({ email, firstName, lastName, listId: process.env.SENDGRID_NEWSLETTER_LIST_ID });
+      }
     }
 
     // ── 7. Slack alert ────────────────────────────────────────────────────

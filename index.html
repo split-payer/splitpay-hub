@@ -136,31 +136,6 @@
   .stat-num{font-size:56px;font-weight:800;letter-spacing:-2.5px;color:var(--near-black);}
   .stat-label{font-size:13px;color:rgba(41,41,41,0.6);margin-top:6px;}
   .pms-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:44px;}
-
-  /* ── Channel toggle v2 ── */
-  .c-ch-toggles{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-  .c-ch-btn{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:14px;border:1.5px solid var(--border);background:var(--cream);cursor:pointer;transition:all 0.18s;user-select:none;}
-  .c-ch-btn:hover{border-color:#bbb;}
-  .c-ch-btn.active{border-color:#00B2A9;background:#f0faf9;}
-  .c-ch-icon{font-size:20px;flex-shrink:0;}
-  .c-ch-text{flex:1;}
-  .c-ch-title{font-size:14px;font-weight:700;color:var(--near-black);margin-bottom:2px;}
-  .c-ch-desc{font-size:12px;color:var(--muted);line-height:1.4;}
-  .c-ch-check{width:22px;height:22px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.18s;background:#fff;}
-  .c-ch-btn.active .c-ch-check{background:#00B2A9;border-color:#00B2A9;}
-  .c-ch-info{border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:4px;}
-  .c-ch-info-row{display:flex;align-items:flex-start;gap:12px;padding:11px 15px;background:#fafaf8;transition:background 0.15s;}
-  .c-ch-info-row+.c-ch-info-row{border-top:1px solid var(--border);}
-  .c-ch-info-row.active{background:#f7fffe;}
-  .c-ch-info-both{background:#f0faf9 !important;}
-  .c-ch-info-dot{width:8px;height:8px;border-radius:50%;background:#ddd;margin-top:4px;flex-shrink:0;transition:background 0.15s;}
-  .c-ch-info-row.active .c-ch-info-dot{background:#00B2A9;}
-  .c-ch-info-label{font-size:12px;font-weight:700;color:var(--near-black);margin-bottom:1px;}
-  .c-ch-info-val{font-size:11px;color:var(--muted);line-height:1.4;}
-  /* PMS compat */
-  .c-pms-compat{display:none;align-items:center;gap:10px;background:#F0FBF4;border:1px solid #B6E8C8;border-radius:10px;padding:10px 14px;font-size:13px;color:#1A7A3E;font-weight:600;margin-top:8px;}
-  .c-pms-compat.visible{display:flex;}
-
   .pms-chip{background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.1);border-radius:100px;padding:9px 20px;font-size:13px;font-weight:600;color:var(--near-black);}
 
   .faq-section{background:var(--white);}
@@ -392,49 +367,7 @@
     .c-preview-side{display:none;}.c-row,.c-row-3{grid-template-columns:1fr;}
     .concierge-section{padding:80px 24px;}
   }
-
-/* ─── TOP ADS SECTION ─── */
-.ads-section{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 0;}
-.ads-inner{max-width:860px;margin:0 auto;padding:0 32px;}
-.ads-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;}
-.ads-eyebrow{font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--orange);margin-bottom:5px;}
-.ads-title{font-size:20px;font-weight:800;color:var(--near-black);letter-spacing:-0.3px;}
-.ads-sub{font-size:13px;color:#666;margin-top:4px;line-height:1.5;max-width:420px;}
-.btn-browse{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--near-black);text-decoration:none;border:1px solid var(--border);padding:8px 16px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-top:4px;}
-.shelf-wrap{position:relative;}
-.shelf{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;}
-.shelf::-webkit-scrollbar{display:none;}
-.shelf-wrap::after{content:'';position:absolute;right:0;top:0;bottom:4px;width:80px;background:linear-gradient(to right,transparent,#ffffff);pointer-events:none;}
-.video-card{flex:0 0 210px;scroll-snap-align:start;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow 0.2s,transform 0.2s;}
-.video-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.09);transform:translateY(-2px);}
-.video-thumb{position:relative;width:100%;padding-top:177.78%;background:#111;overflow:hidden;}
-.video-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
-.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#1e2e3d 0%,#0d1f2d 100%);gap:10px;}
-.placeholder-icon{width:40px;height:40px;background:rgba(247,201,72,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;}
-.placeholder-icon svg{width:18px;height:18px;fill:#F7C948;margin-left:3px;}
-.placeholder-label{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.06em;}
-.platform-badge{position:absolute;top:8px;left:8px;display:inline-flex;align-items:center;gap:4px;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);border-radius:100px;padding:3px 8px;font-size:10px;font-weight:700;color:#fff;}
-.platform-badge svg{width:10px;height:10px;fill:currentColor;flex-shrink:0;}
-.rank-badge{position:absolute;top:8px;right:8px;background:#F7C948;color:#7a6000;font-size:9px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;padding:3px 7px;border-radius:100px;}
-.video-body{padding:12px;}
-.video-title{font-size:12px;font-weight:700;color:var(--near-black);margin-bottom:3px;line-height:1.35;}
-.video-meta{font-size:11px;color:#aaa;margin-bottom:10px;}
-.video-actions{display:flex;gap:6px;}
-.btn-dl{display:inline-flex;align-items:center;gap:4px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:6px 11px;border-radius:100px;text-decoration:none;white-space:nowrap;}
-.btn-link{display:inline-flex;align-items:center;gap:4px;background:#fff;color:var(--near-black);font-size:10px;font-weight:700;padding:6px 11px;border-radius:100px;text-decoration:none;border:1px solid var(--border);white-space:nowrap;cursor:pointer;font-family:inherit;}
-.btn-dl svg,.btn-link svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
-.shelf-dots{display:flex;gap:5px;justify-content:center;margin-top:18px;}
-.shelf-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background 0.2s,width 0.2s;}
-.shelf-dot.active{background:var(--orange);width:18px;border-radius:3px;}
-.ads-footer-note{margin-top:16px;font-size:11px;color:#ccc;text-align:center;}
 </style>
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vt2pxn0hm2");
-</script>
 </head>
 <body>
 
@@ -541,7 +474,6 @@
       </div>
     </div>
     <p class="grid-note">All materials are property-manager safe and policy neutral.</p>
-
     <div style="margin-top:24px;text-align:center;padding:16px 24px;background:rgba(67,189,174,0.07);border:1.5px solid rgba(67,189,174,0.2);border-radius:14px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:8px;">
         <div style="width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0;"></div>
@@ -552,25 +484,6 @@
     </div>
   </div>
 </section>
-
-<!-- ═══════════════ TOP ADS SECTION ═══════════════ -->
-<div class="ads-section">
-  <div class="ads-inner">
-    <div class="ads-header">
-      <div>
-        <div class="ads-eyebrow">⚡ Updated monthly</div>
-        <div class="ads-title">This month's top resident ads</div>
-        <div class="ads-sub">Our best-performing UGC videos — download to attach to your emails, or copy the link to drop straight into a message.</div>
-      </div>
-      <a href="#" id="adsBrowseBtn" class="btn-browse">Full library →</a>
-    </div>
-    <div class="shelf-wrap">
-      <div class="shelf" id="adsShelf"></div>
-    </div>
-    <div class="shelf-dots" id="adsDots"></div>
-    <p class="ads-footer-note">Updated every month · <a href="#" id="adsLibraryLink" style="color:#aaa;">Browse full library in Drive →</a></p>
-  </div>
-</div>
 
 <!-- HOW IT WORKS -->
 <section class="section how" id="how-it-works">
@@ -816,7 +729,7 @@
         <input type="email" id="dl-email" placeholder="Work email">
         <input type="tel" id="dl-phone" placeholder="Mobile phone number">
         <label class="mcheck"><input type="checkbox" checked> Send me monthly Rent Week Support updates</label>
-        <button class="msub" id="dlSubmitBtn" onclick="this.disabled=true;this.textContent='Sending…';submitDL()">Download Now</button>
+        <button class="msub" id="dlSubmitBtn" style="transition:opacity 0.2s;" onclick="this.disabled=true;this.textContent='Sending…';submitDL()">Download Now</button>
         <p class="mfooter">We only send operational updates related to Split Pay.</p>
       </div>
     </div>
@@ -1059,19 +972,6 @@
             <input type="number" id="cUnitCount" placeholder="e.g. 500" min="1"/>
             <div class="c-field-hint">Helps us estimate reach.</div>
           </div>
-          <div class="c-field">
-            <label>Property Management Software <span class="req">*</span></label>
-            <select id="cPmsSelect" onchange="cCheckPMS()">
-              <option disabled selected value="">Select your PMS</option>
-              <optgroup label="Most Common"><option>AppFolio</option><option>Buildium</option><option>DoorLoop</option><option>Entrata</option><option>MRI Software</option><option>RealPage</option><option>ResMan</option><option>Yardi</option></optgroup>
-              <optgroup label="Also Compatible"><option>Avail</option><option>Bilt</option><option>Hemlane</option><option>Innago</option><option>Livly</option><option>Rent Manager</option><option>RentCafe</option><option>RentRedi</option><option>TenantCloud</option><option>TurboTenant</option></optgroup>
-              <option value="other">Other / Not listed</option>
-            </select>
-            <div class="c-pms-compat" id="cPmsCompat">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.25" stroke="#27AE60" stroke-width="1.5"/><polyline points="4.5,8.5 7,11 11.5,5.5" stroke="#27AE60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span id="cPmsCompatText">Compatible — Split Pay works with your portal.</span>
-            </div>
-          </div>
           <div class="c-step-nav">
             <span></span>
             <div class="c-nav-right"><span class="c-step-counter">1 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
@@ -1098,43 +998,13 @@
         <div class="c-step" id="cstep2">
           <div class="c-step-eyebrow">Step 3 of 5</div>
           <div class="c-step-title">How should we reach residents?</div>
-          <div class="c-step-sub">Both is recommended — deselect any channel you'd prefer to skip.</div>
-          <div class="c-ch-toggles">
-            <div class="c-ch-btn active" id="cChEmail" onclick="cToggleChannel('email')">
-              <div class="c-ch-icon">✉️</div>
-              <div class="c-ch-text">
-                <div class="c-ch-title">Email</div>
-                <div class="c-ch-desc">Branded invitation with a CTA button</div>
-              </div>
-              <div class="c-ch-check" id="cChEmailCheck">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="2,5 4,7.5 8,2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="c-ch-btn active" id="cChSms" onclick="cToggleChannel('sms')">
-              <div class="c-ch-icon">💬</div>
-              <div class="c-ch-text">
-                <div class="c-ch-title">SMS</div>
-                <div class="c-ch-desc">~98% open rate, instant delivery</div>
-              </div>
-              <div class="c-ch-check" id="cChSmsCheck">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="2,5 4,7.5 8,2.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
+          <div class="c-step-sub">Choose your channel. The preview updates live on the right.</div>
+          <div class="c-channel-toggle">
+            <button class="c-channel-btn active" id="cChEmail" onclick="cSetChannel('email')">✉ Email</button>
+            <button class="c-channel-btn" id="cChSms" onclick="cSetChannel('sms')">💬 SMS</button>
+            <button class="c-channel-btn" id="cChBoth" onclick="cSetChannel('both')">⚡ Both</button>
           </div>
-          <div class="c-ch-info">
-            <div class="c-ch-info-row active" id="cInfoEmail">
-              <div class="c-ch-info-dot"></div>
-              <div><div class="c-ch-info-label">Email</div><div class="c-ch-info-val">Branded look, higher engagement, includes a CTA button</div></div>
-            </div>
-            <div class="c-ch-info-row active" id="cInfoSms">
-              <div class="c-ch-info-dot"></div>
-              <div><div class="c-ch-info-label">SMS</div><div class="c-ch-info-val">Highest open rate (~98%), instant delivery</div></div>
-            </div>
-            <div class="c-ch-info-row c-ch-info-both" id="cInfoBoth">
-              <div class="c-ch-info-dot" style="background:#00B2A9;"></div>
-              <div><div class="c-ch-info-label" style="color:#00B2A9;">Both — recommended</div><div class="c-ch-info-val">Maximum reach. Email + SMS together drive the most sign-ups.</div></div>
-            </div>
-          </div>
+          <div class="c-info-box"><b>Email</b> — Branded look, higher engagement, includes a CTA button.<br/><b>SMS</b> — Highest open rate (~98%), instant delivery.<br/><b>Both</b> — Maximum reach. Recommended for best results.</div>
           <div class="c-step-nav">
             <button class="c-btn-back" onclick="cPrevStep()">← Back</button>
             <div class="c-nav-right"><span class="c-step-counter">3 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
@@ -1245,10 +1115,13 @@ function openCal(){calModal.classList.add('open');document.body.style.overflow='
 function closeCal(){calModal.classList.remove('open');document.body.style.overflow='';}
 
 async function submitDL() {
+  const btn = document.getElementById('dlSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
   const first = document.getElementById('dl-first').value.trim();
   const last  = document.getElementById('dl-last').value.trim();
   const email = document.getElementById('dl-email').value.trim();
-  if (!first || !email) { alert('Please fill in at least your first name and email.'); return; }
+  if (!first || !email) { alert('Please fill in at least your first name and email.'); btn.disabled = false; btn.textContent = 'Download Now'; return; }
   const payload = {
     formType:      'kit',
     firstName:     first,
@@ -1267,6 +1140,7 @@ async function submitDL() {
     });
   } catch (err) {
     console.error('Close submission error:', err);
+    btn.disabled = false; btn.textContent = 'Download Now';
   }
   try {
     await fetch('/.netlify/functions/send-kit-email', {
@@ -1499,21 +1373,7 @@ function closeFAQModal(){document.getElementById('faqModal').classList.remove('o
 function downloadFAQPDF(){
   const css=`*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}body{font-family:Arial,Helvetica,sans-serif;background:white;font-size:13px;line-height:1.5;}a{color:inherit;text-decoration:none;}.page{max-width:740px;margin:0 auto;}.hdr{background:#1C1C1E;padding:22px 32px;display:flex;align-items:center;justify-content:space-between;}.hdr-l{display:flex;align-items:center;gap:10px;}.hdr-logo{width:32px;height:32px;background:#F56B3F;border-radius:8px;text-align:center;line-height:32px;font-weight:800;font-size:12px;color:white;flex-shrink:0;}.hdr-name{font-size:15px;font-weight:800;color:white;}.hdr-r{text-align:right;}.hdr-title{font-size:13px;font-weight:800;color:white;}.hdr-sub{font-size:11px;color:#888;margin-top:2px;}.body{padding:24px 32px 40px;}@media print{body{background:white;}@page{margin:0.45in;size:letter;}}`;
   const hdr=`<div class="hdr"><div class="hdr-l"><div class="hdr-logo">SP</div><div><div class="hdr-name">Split Pay</div></div></div><div class="hdr-r"><div class="hdr-title">Staff FAQ Sheet</div><div class="hdr-sub">For leasing agents &amp; property management staff</div></div></div>`;
-  const doc=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Split Pay Staff FAQ</title><style>${css}</style></head><body><div class="page">${hdr}<div class="body">${buildFAQHTML(true)}</div></div><script>window.onload=function(){window.print();}<\/script>
-  // Auto-open chat if ?chat=open in URL (used in email "Questions?" links)
-  (function() {
-    if (window.location.search.includes('chat=open')) {
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          toggleFloat();
-          var input = document.getElementById('floatChatInput');
-          if (input) input.focus();
-        }, 400);
-      });
-    }
-  })();
-
-</body></html>`;
+  const doc=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Split Pay Staff FAQ</title><style>${css}</style></head><body><div class="page">${hdr}<div class="body">${buildFAQHTML(true)}</div></div><script>window.onload=function(){window.print();}<\/script></body></html>`;
   const w=window.open('','_blank','width=800,height=900');
   w.document.open();w.document.write(doc);w.document.close();
 }
@@ -1583,84 +1443,37 @@ function downloadFlexPDF(){
 /* ═══════════════════════════
    CHAT
 ═══════════════════════════ */
-const CHAT_SYSTEM=`You are the Split Pay assistant on pmc.splitpay.com, a site for property managers. You may also be speaking with a renter who found this chat — handle both gracefully.
+const CHAT_SYSTEM=`You are the Split Pay assistant on a property manager support website (pmc.splitpay.com). Your job is to answer questions from property managers about Split Pay clearly and accurately.
 
-RESPONSE STYLE:
-- Keep each response to 2-4 sentences max. Be conversational, not encyclopedic.
-- After answering, ask ONE curious follow-up question to learn more about their situation or nudge toward a next step.
-- Never use headers or bullet lists. Write in plain flowing sentences.
-- Be warm, confident, and subtly promotional — you believe in this product.
-- If a response genuinely needs more detail, split it into 2 short messages separated by the exact token ##NEXT_BUBBLE## — never write walls of text.
-
-PROPERTY MANAGER FACTS:
-- Split Pay lets residents split rent into two payments: one on the due date, one ~2 weeks later
-- Residents apply at rent.app/go — takes minutes, no PM approval or integration needed
+Key facts:
+- Split Pay lets residents divide monthly rent into two payments: one on the due date, one ~2 weeks later
+- Residents apply at rent.app/go — takes minutes. No landlord/PM approval needed.
 - Residents get a virtual ACH account and routing number to enter in their existing portal
-- Works with any ACH-compatible PMS: Yardi, Entrata, AppFolio, RealPage, MRI, Buildium, DoorLoop, ResMan, RentCafe, Rent Manager, Avail, Hemlane, Innago, RentRedi, TurboTenant, and 40+ more
+- Works with any ACH-compatible PMS: Yardi, Entrata, AppFolio, RealPage, MRI Software, Buildium, DoorLoop, ResMan, RentCafe, Rent Manager, Avail, Hemlane, Innago, RentRedi, TurboTenant, and 40+ more
 - No PMS integration required. No contracts. No cost to property managers.
-- Payments appear as standard ACH — indistinguishable from any other bank account
-- If a resident misses a payment, Split Pay handles recovery — not the PM's concern
+- Payments appear as standard ACH in the PMS — indistinguishable from any other bank account
+- If a resident misses a payment, Split Pay handles recovery. We do not reverse rent payments already made through the PMS. This is between the resident and Split Pay — not the property manager's concern.
 - Entrata requires 1-3 day micro-deposit verification for new bank accounts
 - Residents build credit (Equifax + Experian) automatically at no cost
+- All resident servicing handled by Split Pay — not the property manager
 - For direct resident questions, refer them to rent.app/go
 
-SPLIT PAY VS. FLEX (if asked):
-- Split Pay: cash flow-based approval, no credit check, ~50% qualify, $9.99 + 1.5%/month, no PM contract, same-day launch, zero PM workflow changes
-- Flex: credit check required, ~20% qualify, $14.99 + 1%/month, requires PM contract and integration, takes weeks to launch
-- Comparison PDF: https://pmc.splitpay.com/splitpay-vs-flex.pdf
+Split Pay vs. Flex (if asked to compare):
+- Split Pay uses cash flow-based approval (no credit check) — up to ~50% of residents qualify. Flex uses credit checks — only ~20% qualify.
+- Split Pay requires no PM partnership or contract — residents can start same day. Flex requires a PM contract and integration, taking weeks to launch.
+- Split Pay costs residents $9.99 + 1.5% of rent/month. Flex costs $14.99 + 1% of rent/month.
+- Split Pay has zero operational impact on the PM — no integration, no accounting changes, no reconciliation. Flex requires integration and changes to PM workflows.
+- A detailed comparison PDF is available at: https://pmc.splitpay.com/splitpay-vs-flex.pdf
 
-CONCIERGE:
-- Free tool: PMs upload their rent roll, Split Pay sends personalized invitations to every resident by email, SMS, or both — takes 5 minutes
-- If someone asks how to reach residents, invite them, or send bulk outreach, say: "Yes! Use the Split Pay Concierge — click the button below to open it." Then end with: ##SHOW_CONCIERGE_LINK##
-
-RENTER FAQ KNOWLEDGE (for renters who find this chat, or PMs asking what residents will ask):
-Q: How long does a rent payment take / how quickly will my building receive it?
-A: Split Pay sends the full payment to the building on the scheduled date. It settles in the landlord's account within 3-5 business days via standard ACH.
-
-Q: Can I schedule payments in advance / can you process it later?
-A: All scheduling happens in the resident portal, not in Split Pay. Residents can schedule in advance through their portal. The second Split Pay payment can be moved up to 4 calendar days early once the first processes.
-
-Q: Why didn't my payment go through / what happens if it fails?
-A: Split Pay charges the debit card when the portal sends the request (1-3 days after scheduled date). If it fails, Split Pay notifies immediately and retries same day if funded before 2:45 PM ET. Otherwise, the resident reschedules through the portal.
-
-Q: How do I schedule a rent payment?
-A: All scheduling is done in the resident portal — not in Split Pay. The date entered in Split Pay is for informational purposes only.
-
-Q: How do I set up my first payment / set up Split Pay with my portal?
-A: After approval, residents connect their Split Pay virtual account via Plaid (search "Rent App") or by manually entering the virtual account and routing numbers. Use "Evolve Bank and Trust" as the bank name if asked.
-
-Q: How do my monthly payments work with Split Pay?
-A: Each month, the resident pays the first portion on rent day (Split Pay covers the full rent to the building immediately), then pays the second portion ~2 weeks later. It's either a 50/50 equal split or a partial split based on the approved amount.
-
-Q: When does Split Pay take the first payment / when will my payment be processed?
-A: Payments before 6:30 AM ET process the same business day; after that they process the next business day. Weekends and holidays shift to the next business day. Schedule at least one business day before the due date.
-
-Q: Is there a grace period for the first payment?
-A: If the first payment fails, Split Pay retries same day if funded before 2:45 PM ET. No formal grace period — keep the debit card funded from the scheduled date.
-
-Q: Can I make a full or non-Split Pay payment with my virtual account?
-A: No. Residents using a portal can only pay via Split Pay through that virtual account.
-
-Q: My payment already failed and I get paid later today — what can I do?
-A: Fund the debit card before 2:45 PM ET and Split Pay will automatically retry the same day.
-
-Q: Is there a fee for using Split Pay?
-A: Yes — $9.99 + 1.5% of rent per month, added to the first payment. A $15 late fee applies if the second payment is 15+ days overdue.
-
-Q: I scheduled the wrong type of payment — how do I fix it?
-A: Click "Move Out" for the address in the Split Pay app (this only resets the payment method, not the lease), then complete onboarding again and choose "I pay through a resident portal." Note: this requires reapplying for Split Pay.
-
-Q: Can I cancel or change a payment / pause Split Pay?
-A: All payment changes must be made in the resident portal. To pause or cancel Split Pay, change the payment method in the portal.
-
-Q: Will Split Pay overdraft my bank account?
-A: That's determined by the debit card provider and bank — Split Pay has no control over overdraft decisions.
+Split Pay Concierge:
+- The Concierge is a free tool that lets property managers upload their rent roll and have Split Pay send personalized invitations to every resident by email, SMS, or both
+- It takes about 5 minutes and is available to any property manager at no cost
+- If someone asks how to reach residents directly, invite residents, send bulk invitations, or use the Concierge, tell them: "Yes! Use the Split Pay Concierge — click the button below to open it." Then end your reply with the exact string: ##SHOW_CONCIERGE_LINK##
+- You can also mention the Concierge is available after filling out the "Get the Kit" form on this page
 
 Keep answers concise, factual, and reassuring. Never imply Split Pay guarantees payment.`;
 
 const inlineHistory=[],floatHistory=[];
-let inlineLeadCaptured=false,floatLeadCaptured=false;
-let inlineAiCount=0,floatAiCount=0;
 async function sendChat(type){
   const isInline=type==='inline';
   const inputEl=document.getElementById(isInline?'inlineChatInput':'floatChatInput');
@@ -1669,82 +1482,16 @@ async function sendChat(type){
   const msg=inputEl.value.trim();if(!msg)return;
   inputEl.value='';
   appendMsg(messagesEl,'user',msg);
-  const aiCount=isInline?inlineAiCount:floatAiCount;
-  const leadCaptured=isInline?inlineLeadCaptured:floatLeadCaptured;
-  if(aiCount>=2&&!leadCaptured){
-    if(isInline)inlineLeadCaptured=true;else floatLeadCaptured=true;
-    extractAndSaveLead(msg,[...history]).catch(()=>{});
-  }
   history.push({role:'user',content:msg});
   const typing=appendTyping(messagesEl);
   try{
     const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:CHAT_SYSTEM,messages:history})});
     const data=await res.json();
     const reply=data.content?.[0]?.text||'Sorry, I had trouble with that.';
-    typing.remove();
-    await appendMsgMulti(messagesEl,'bot',reply);
+    typing.remove();appendMsg(messagesEl,'bot',reply);
     history.push({role:'assistant',content:reply});
-    if(isInline)inlineAiCount++;else floatAiCount++;
-    const newCount=isInline?inlineAiCount:floatAiCount;
-    const alreadyCaptured=isInline?inlineLeadCaptured:floatLeadCaptured;
-    if(newCount===2&&!alreadyCaptured){
-      setTimeout(()=>{appendMsg(messagesEl,'bot','Quick one before we continue — what\'s your name, email, and company name? And roughly how many units do you manage?');},800);
-    }
   }catch(e){typing.remove();appendMsg(messagesEl,'bot','Sorry, I\'m having trouble connecting. Please try again in a moment.');}
 }
-
-async function extractAndSaveLead(msg,historySnapshot){
-  const extractRes=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-    system:`You are a CRM assistant. Given a chat history and the user's last message, return ONLY a JSON object with these keys:
-- firstName (string|null)
-- lastName (string|null)
-- email (string|null)
-- companyName (string|null): their property management company name if mentioned
-- unitCount (integer|null)
-- pms (string|null): property management software mentioned (e.g. Yardi, AppFolio, Buildium, RealPage, etc.)
-- usesFlexProvider (string|null): whether they currently use Flex or another flexible rent provider - return "Yes", "No", or null if not mentioned
-- chatSummary (string): 1-3 sentence sales-ready summary of the conversation — what they asked about, their situation, PMS if mentioned, any buying signals. Written for a sales rep about to call them.
-No markdown, no explanation, just the JSON object.`,
-    messages:[...historySnapshot.slice(-6),{role:'user',content:msg}]
-  })});
-  const extractData=await extractRes.json();
-  const raw=(extractData.content?.[0]?.text||'{}').replace(/```json|```/g,'').trim();
-  let parsed={};
-  try{parsed=JSON.parse(raw);}catch(e){return;}
-  if(!parsed.email&&!parsed.firstName)return;
-  await fetch('/.netlify/functions/submit-to-close',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      formType:'chat',
-      firstName:parsed.firstName||'',
-      lastName:parsed.lastName||'',
-      email:parsed.email||'',
-      unitCount:parsed.unitCount||null,
-      companyName:parsed.companyName||null,
-      pms:parsed.pms||null,
-      chatSummary:parsed.chatSummary||null,
-    })
-  });
-}
-
-function mdToHtml(t){
-  if(!t)return '';
-  return t
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,'<em>$1</em>')
-    .replace(/^### (.+)$/gm,'<strong>$1</strong>')
-    .replace(/^## (.+)$/gm,'<strong>$1</strong>')
-    .replace(/^# (.+)$/gm,'<strong>$1</strong>')
-    .replace(/^[-•] (.+)$/gm,'• $1')
-    .replace(/\n/g,'<br>');
-}
-function appendMsgMulti(container,role,bubbles){
-  const arr=Array.isArray(bubbles)?bubbles:[bubbles];
-  arr.forEach(b=>appendMsg(container,role,b));
-}
-
 function appendMsg(container,role,text){
   const isBot=role==='bot';
   const div=document.createElement('div');
@@ -1753,8 +1500,8 @@ function appendMsg(container,role,text){
   const bubble=document.createElement('div');
   bubble.style.cssText=`background:${isBot?'var(--white)':'var(--orange)'};color:${isBot?'var(--near-black)':'white'};border:${isBot?'1.5px solid var(--border)':'none'};border-radius:${isBot?'4px 16px 16px 16px':'16px 4px 16px 16px'};padding:${container.id==='inlineChatMessages'?'14px 18px':'10px 14px'};font-size:${container.id==='inlineChatMessages'?'14':'13'}px;line-height:1.65;max-width:${isBot?'480':'80%'}px;white-space:pre-wrap;`;
   if(isBot){
-    const cleaned=text.replace('##SHOW_CONCIERGE_LINK##','').replace(/##NEXT_BUBBLE##/g,'');
-    bubble.innerHTML=mdToHtml(cleaned);
+    const cleaned=text.replace('##SHOW_CONCIERGE_LINK##','');
+    bubble.innerHTML=cleaned;
     if(text.includes('##SHOW_CONCIERGE_LINK##')){
       const btn=document.createElement('button');
       btn.textContent='✦ Open Split Pay Concierge →';
@@ -1786,7 +1533,7 @@ function showToast(msg='✓ Copied'){const t=document.getElementById('toast');t.
 /* ═══════════════════════════
    CONCIERGE
 ═══════════════════════════ */
-let cStep=0;const cTotalSteps=5;let cChannel='both',cPreviewTab='email',cFile=null,cColumnMap={};
+let cStep=0;const cTotalSteps=5;let cChannel='email',cPreviewTab='email',cFile=null,cColumnMap={};
 function openConcierge(){
   const o=document.getElementById('conciergeOverlay');
   o.classList.add('open');document.body.style.overflow='hidden';
@@ -1815,8 +1562,7 @@ function cNextStep(){
     const email=document.getElementById('cPmEmail').value.trim();
     const phone=document.getElementById('cPmPhone').value.trim();
     const uc=document.getElementById('cUnitCount').value.trim();
-    const pms=document.getElementById('cPmsSelect').value;
-    if(!fn||!ln||!firm||!email||!phone||!uc||!pms){alert('Please fill in all required fields.');return;}
+    if(!fn||!ln||!firm||!email||!phone||!uc){alert('Please fill in all required fields.');return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('cEmailErr').textContent='Please enter a valid email.';return;}
   }
   if(cStep===1){
@@ -1830,35 +1576,11 @@ function cNextStep(){
   if(cStep<cTotalSteps-1)cGoToStep(cStep+1);
 }
 function cPrevStep(){if(cStep>0)cGoToStep(cStep-1);}
-let cEmailOn=true,cSmsOn=true;
-function cToggleChannel(ch){
-  if(ch==='email'&&!cSmsOn)return;
-  if(ch==='sms'&&!cEmailOn)return;
-  if(ch==='email'){cEmailOn=!cEmailOn;}else{cSmsOn=!cSmsOn;}
-  document.getElementById('cChEmail').classList.toggle('active',cEmailOn);
-  document.getElementById('cChSms').classList.toggle('active',cSmsOn);
-  document.getElementById('cInfoEmail').classList.toggle('active',cEmailOn);
-  document.getElementById('cInfoSms').classList.toggle('active',cSmsOn);
-  const bothRow=document.getElementById('cInfoBoth');
-  if(cEmailOn&&cSmsOn){bothRow.style.background='#f0faf9';bothRow.querySelector('.c-ch-info-dot').style.background='#00B2A9';}
-  else{bothRow.style.background='';bothRow.querySelector('.c-ch-info-dot').style.background='#ddd';}
-  cChannel=cEmailOn&&cSmsOn?'both':cEmailOn?'email':'sms';
-  if(!cEmailOn)cSwitchTab('sms');else cSwitchTab('email');
+function cSetChannel(ch){
+  cChannel=ch;
+  ['email','sms','both'].forEach(c=>{document.getElementById('cCh'+c.charAt(0).toUpperCase()+c.slice(1)).classList.toggle('active',c===ch);});
+  if(ch==='sms')cSwitchTab('sms');else cSwitchTab('email');
   cUpdatePreview();
-}
-function cCheckPMS(){
-  const s=document.getElementById('cPmsSelect');
-  const box=document.getElementById('cPmsCompat');
-  const txt=document.getElementById('cPmsCompatText');
-  if(s.value&&s.value!=='other'){
-    txt.textContent='Compatible — Split Pay works with '+s.options[s.selectedIndex].text+'.';
-    box.classList.add('visible');
-  } else if(s.value==='other'){
-    txt.textContent='Compatible — Split Pay works with any ACH-compatible portal.';
-    box.classList.add('visible');
-  } else {
-    box.classList.remove('visible');
-  }
 }
 function cSwitchTab(tab){
   cPreviewTab=tab;
@@ -1997,7 +1719,6 @@ async function cSubmitForm() {
     email:           document.getElementById('cPmEmail').value.trim(),
     phone:           document.getElementById('cPmPhone').value.trim(),
     unitCount:       document.getElementById('cUnitCount').value.trim(),
-    pms:             document.getElementById('cPmsSelect').value,
     propertyName:    document.getElementById('cPropName').value.trim(),
     propertyAddress: [
       document.getElementById('cStreet').value.trim(),
@@ -2019,6 +1740,7 @@ async function cSubmitForm() {
     });
   } catch (err) {
     console.error('Close submission error:', err);
+    btn.disabled = false; btn.textContent = 'Submit ✦';
   }
   try {
     await fetch('/.netlify/functions/send-concierge-email', {
@@ -2026,20 +1748,16 @@ async function cSubmitForm() {
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({
         firstName:       payload.firstName,
-        lastName:        payload.lastName,
-        firm:            payload.firm,
-        phone:           payload.phone,
         email:           payload.email,
         propertyName:    payload.propertyName,
         propertyAddress: payload.propertyAddress,
         channel:         payload.channel,
         unitCount:       payload.rentRollRowCount || payload.unitCount,
-        portfolioUnits:  payload.unitCount,
-        pms:             payload.pms,
       }),
     });
   } catch (err) {
     console.error('Concierge email error:', err);
+    btn.disabled = false; btn.textContent = 'Submit ✦';
   }
   document.getElementById('cModalBody').style.display = 'none';
   document.getElementById('cSuccessScreen').classList.add('visible');
@@ -2082,86 +1800,6 @@ function cAddAnotherProperty(){
   cGoToStep(1);
   cUpdatePreview();
 }
-
-/* ═══════════ TOP ADS ═══════════ */
-async function initTopAds(){
-  let ads=[];
-  try{
-    const r=await fetch('/ads.json');
-    if(r.ok){const d=await r.json();ads=d.ads||[];if(d.libraryUrl){document.getElementById('adsBrowseBtn').href=d.libraryUrl;document.getElementById('adsLibraryLink').href=d.libraryUrl;}}
-  }catch(e){console.warn('ads.json not found');}
-  const shelf=document.getElementById('adsShelf');
-  const dotsEl=document.getElementById('adsDots');
-  if(!shelf||!ads.length)return;
-  const ICONS={
-    tiktok:`<svg viewBox="0 0 24 24"><path d="M19.6 3h-3.2v12.3a2.8 2.8 0 1 1-2.8-2.8c.3 0 .5 0 .8.1V9.3a6 6 0 0 0-.8-.1 6.1 6.1 0 1 0 6.1 6.1V8.7a9.4 9.4 0 0 0 5.5 1.8V7.3A5.7 5.7 0 0 1 19.6 3z"/></svg>`,
-    youtube:`<svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>`,
-    instagram:`<svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.6 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.3 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9C.3 21.3 2.7 23.7 7.1 23.9 8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg>`,
-  };
-  shelf.innerHTML=ads.map((ad,i)=>{
-    const icon=ICONS[ad.platform]||'';
-    const rankBadge=ad.rank?`<div class="rank-badge">#${ad.rank} this month</div>`:'';
-    const dlUrl=ad.fileId?`https://drive.google.com/uc?export=download&id=${ad.fileId}`:'#';
-    const viewUrl=ad.fileId?`https://drive.google.com/file/d/${ad.fileId}/view`:'#';
-    return `<div class="video-card">
-      <div class="video-thumb">
-        <div class="video-placeholder">
-          <div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          <span class="placeholder-label">Video preview</span>
-        </div>
-        ${ad.platform?`<div class="platform-badge">${icon}${ad.platform.charAt(0).toUpperCase()+ad.platform.slice(1)}</div>`:''}
-        ${rankBadge}
-      </div>
-      <div class="video-body">
-        <div class="video-title">${ad.title}</div>
-        <div class="video-meta">${[ad.type,ad.duration,ad.views].filter(Boolean).join(' · ')}</div>
-        <div class="video-actions">
-          <a href="${dlUrl}" target="_blank" class="btn-dl">
-            <svg viewBox="0 0 24 24"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/></svg>
-            Download
-          </a>
-          <button class="btn-link" onclick="copyAdLink(this,'${viewUrl}')">
-            <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            Copy link
-          </button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-  dotsEl.innerHTML=ads.map((_,i)=>`<div class="shelf-dot${i===0?' active':''}" data-i="${i}"></div>`).join('');
-  const dots=Array.from(dotsEl.querySelectorAll('.shelf-dot'));
-  const cards=Array.from(shelf.querySelectorAll('.video-card'));
-  dots.forEach((dot,i)=>dot.addEventListener('click',()=>cards[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'})));
-  shelf.addEventListener('scroll',()=>{
-    let closest=0,minDist=Infinity;
-    cards.forEach((c,i)=>{const d=Math.abs(c.getBoundingClientRect().left-shelf.getBoundingClientRect().left);if(d<minDist){minDist=d;closest=i;}});
-    dots.forEach((d,i)=>d.classList.toggle('active',i===closest));
-  });
-}
-function copyAdLink(btn,url){
-  navigator.clipboard.writeText(url).then(()=>{
-    const orig=btn.innerHTML;
-    btn.textContent='✓ Copied!';btn.style.color='#00a67e';btn.style.borderColor='#00a67e';
-    setTimeout(()=>{btn.innerHTML=orig;btn.style.color='';btn.style.borderColor='';},1800);
-  });
-}
-initTopAds();
-
-  // Auto-open chat if ?chat=open in URL
-  (function() {
-    if (window.location.search.includes('chat=open')) {
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          var w = document.getElementById('floatWindow');
-          if (w && (w.style.display === 'none' || w.style.display === '')) {
-            toggleFloat();
-          }
-          var input = document.getElementById('floatChatInput');
-          if (input) input.focus();
-        }, 600);
-      });
-    }
-  })();
 </script>
 </body>
 </html>

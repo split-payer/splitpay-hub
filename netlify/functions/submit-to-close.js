@@ -1,5 +1,4 @@
 // netlify/functions/submit-to-close.js
-
 const CF = {
   leadSource:         'cf_yABHaHWbML9hNEy77Mu4QlWthjf3LXLkSobSkEgFgVO',
   pms:                'cf_gTwvG5VGF2RZhgzu1mUvQri0QiBM5FpPtOLj2SFcRj1',
@@ -11,7 +10,6 @@ const CF = {
   kitDownloaded:      'cf_PACYZMcqEhj64C9CodO5VKS7sVcmly92zDwZcHuvJCH',
 };
 
-// ── Slack alerting ───────────────────────────────────────────────────────────
 async function slackAlert(message) {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!webhookUrl) return;
@@ -21,29 +19,17 @@ async function slackAlert(message) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: message }),
     });
-  } catch (err) {
-    console.error('Slack alert failed:', err);
-  }
+  } catch (err) { console.error('Slack alert failed:', err); }
 }
 
-// ── SendGrid: enroll contact in a single list ────────────────────────────────
 async function enrollInSendGrid({ email, firstName, lastName, listId }) {
   const sgKey = process.env.SENDGRID_API_KEY;
-  if (!sgKey) {
-    console.warn('SENDGRID_API_KEY not set — skipping SendGrid enrollment');
-    return;
-  }
-  if (!email || !listId) {
-    console.warn('enrollInSendGrid: missing email or listId — skipping');
-    return;
-  }
+  if (!sgKey) { console.warn('SENDGRID_API_KEY not set — skipping'); return; }
+  if (!email || !listId) { console.warn('enrollInSendGrid: missing email or listId — skipping'); return; }
   try {
     const res = await fetch('https://api.sendgrid.com/v3/marketing/contacts', {
       method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${sgKey}`,
-        'Content-Type': 'application/json',
-      },
+      headers: { Authorization: `Bearer ${sgKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         list_ids: [listId],
         contacts: [{ email, first_name: firstName || '', last_name: lastName || '' }],
@@ -62,24 +48,18 @@ async function enrollInSendGrid({ email, firstName, lastName, listId }) {
   }
 }
 
-// ── Main handler ─────────────────────────────────────────────────────────────
 exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
+  if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
 
   const CLOSE_API_KEY = process.env.CLOSE_API_KEY;
   if (!CLOSE_API_KEY) {
-    await slackAlert('🚨 *submit-to-close*: Missing CLOSE_API_KEY environment variable.');
+    await slackAlert('🚨 *submit-to-close*: Missing CLOSE_API_KEY');
     return { statusCode: 500, body: JSON.stringify({ error: 'Missing CLOSE_API_KEY' }) };
   }
 
   let body;
-  try {
-    body = JSON.parse(event.body);
-  } catch {
-    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) };
-  }
+  try { body = JSON.parse(event.body); }
+  catch { return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
 
   const {
     formType, firstName, lastName, company, firm, email, phone,
@@ -92,8 +72,7 @@ exports.handler = async (event) => {
   const authHeader  = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
 
   try {
-
-    // ── Search for existing lead by email ──────────────────────────────────
+    // ── Search for existing lead by email ───────────────────────────────────
     let existingLeadId = null;
     if (email) {
       try {
@@ -102,16 +81,14 @@ exports.handler = async (event) => {
           { headers: { Authorization: authHeader, Accept: 'application/json' } }
         );
         const searchData = await searchRes.json();
-        if (searchData.data && searchData.data.length > 0) {
-          existingLeadId = searchData.data[0].id;
-        }
-      } catch (err) {
-        console.error('Lead search error:', err);
-      }
+        if (searchData.data && searchData.data.length > 0) existingLeadId = searchData.data[0].id;
+      } catch (err) { console.error('Lead search error:', err); }
     }
 
-    // ── Build custom fields ────────────────────────────────────────────────
-    const customFields = {
+    // ── Build custom fields
+    // IMPORTANT: Close API requires custom fields nested under "custom": {}
+    // Spreading them at the top level causes silent failure.
+    const customFieldValues = {
       [CF.leadSource]:         formType === 'kit' ? 'PMC Kit Download' : 'PMC Concierge',
       [CF.pms]:                pms || null,
       [CF.propertyName]:       propertyName || null,
@@ -121,27 +98,27 @@ exports.handler = async (event) => {
       [CF.totalUnits]:         unitCount || null,
       [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
     };
-
-    Object.keys(customFields).forEach((k) => {
-      if (customFields[k] === null) delete customFields[k];
+    Object.keys(customFieldValues).forEach((k) => {
+      if (customFieldValues[k] === null) delete customFieldValues[k];
     });
 
-    // ── Create or update lead ──────────────────────────────────────────────
+    // ── Create or update lead ───────────────────────────────────────────────
     let leadId;
-
     if (existingLeadId) {
       const updateRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
         method: 'PUT',
         headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           ...(companyName ? { name: companyName } : {}),
-          custom: customFields,
+          custom: customFieldValues,
         }),
       });
       if (!updateRes.ok) {
         const detail = await updateRes.text();
         console.error('Lead update failed:', detail);
         await slackAlert(`⚠️ *submit-to-close*: Lead update failed for \`${email || 'unknown'}\`\n\`\`\`${detail}\`\`\``);
+      } else {
+        console.log(`Close: updated lead ${existingLeadId} with custom fields`);
       }
       leadId = existingLeadId;
     } else {
@@ -156,7 +133,7 @@ exports.handler = async (event) => {
             phones: phone ? [{ type: 'mobile', phone }] : [],
           }],
           status: 'New Lead',
-          custom: customFields,
+          custom: customFieldValues,
         }),
       });
       const lead = await leadRes.json();
@@ -166,10 +143,11 @@ exports.handler = async (event) => {
         await slackAlert(`🚨 *submit-to-close*: Lead creation failed for \`${email || 'unknown'}\` (${formType})\n\`\`\`${detail}\`\`\``);
         return { statusCode: 502, body: JSON.stringify({ error: 'Close API error', detail: lead }) };
       }
+      console.log(`Close: created lead ${lead.id} with custom fields`);
       leadId = lead.id;
     }
 
-    // ── Note for kit downloads ─────────────────────────────────────────────
+    // ── Note for kit downloads ──────────────────────────────────────────────
     if (formType === 'kit') {
       await fetch('https://api.close.com/api/v1/activity/note/', {
         method: 'POST',
@@ -178,39 +156,57 @@ exports.handler = async (event) => {
       });
     }
 
-    // ── Opportunity ────────────────────────────────────────────────────────
+    // ── Opportunity ─────────────────────────────────────────────────────────
+    // Only create if no existing opp on this lead has the same note (same
+    // form type + company + unit count + PMS). This allows two opps for two
+    // different buildings but prevents duplicates from repeated submits.
+    const oppNote = buildNote(body);
     const oppValue = rentRollRowCount
       ? rentRollRowCount * 100
-      : unitCount ? parseInt(unitCount, 10) * 100 : null;
+      : unitCount ? parseInt(unitCount, 10) * 100
+      : null;
 
-    const oppRes = await fetch('https://api.close.com/api/v1/opportunity/', {
-      method: 'POST',
-      headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        lead_id: leadId,
-        status_type: 'active',
-        status_label: 'Interested',
-        note: buildNote(body),
-        ...(oppValue ? { value: oppValue, value_period: 'annual' } : {}),
-      }),
-    });
-    const opp = await oppRes.json();
-    if (!oppRes.ok) {
-      const detail = JSON.stringify(opp);
-      console.error('Opportunity creation failed:', detail);
-      await slackAlert(`⚠️ *submit-to-close*: Opportunity creation failed for lead \`${leadId}\` (${email || 'unknown'})\n\`\`\`${detail}\`\`\``);
+    let opp = { id: null };
+    let dupOpp = false;
+    try {
+      const existingOppsRes = await fetch(
+        `https://api.close.com/api/v1/opportunity/?lead_id=${leadId}&_limit=20`,
+        { headers: { Authorization: authHeader, Accept: 'application/json' } }
+      );
+      const existingOpps = await existingOppsRes.json();
+      dupOpp = (existingOpps.data || []).some((o) => o.note === oppNote);
+    } catch (err) {
+      console.error('Opp dedup check failed:', err.message);
     }
 
-    // ── SendGrid list enrollment ───────────────────────────────────────────
+    if (dupOpp) {
+      console.log(`Close: duplicate opp skipped for lead ${leadId} (same note already exists)`);
+    } else {
+      const oppRes = await fetch('https://api.close.com/api/v1/opportunity/', {
+        method: 'POST',
+        headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          lead_id: leadId,
+          status_type: 'active',
+          status_label: 'Interested',
+          note: oppNote,
+          ...(oppValue ? { value: oppValue, value_period: 'annual' } : {}),
+        }),
+      });
+      opp = await oppRes.json();
+      if (!oppRes.ok) {
+        const detail = JSON.stringify(opp);
+        console.error('Opportunity creation failed:', detail);
+        await slackAlert(`⚠️ *submit-to-close*: Opportunity creation failed for lead \`${leadId}\`\n\`\`\`${detail}\`\`\``);
+      }
+    }
+
+    // ── SendGrid enrollment ─────────────────────────────────────────────────
     if (email) {
-      // Primary list: Kit Downloads or Concierge Submissions
       const primaryListId = formType === 'concierge'
         ? process.env.SENDGRID_CONCIERGE_LIST_ID
         : process.env.SENDGRID_KIT_LIST_ID;
-
       await enrollInSendGrid({ email, firstName, lastName, listId: primaryListId });
-
-      // Always also enroll in Newsletter Subscribers
       await enrollInSendGrid({ email, firstName, lastName, listId: process.env.SENDGRID_NEWSLETTER_LIST_ID });
     }
 
@@ -226,15 +222,14 @@ exports.handler = async (event) => {
   }
 };
 
-// ── Note builder ─────────────────────────────────────────────────────────────
 function buildNote(data) {
   const lines = [`Form Type: ${data.formType}`];
-  if (data.company || data.firm) lines.push(`Company: ${data.company || data.firm}`);
-  if (data.unitCount)            lines.push(`Unit Count: ${data.unitCount}`);
-  if (data.pms)                  lines.push(`PMS: ${data.pms}`);
-  if (data.propertyName)         lines.push(`Property: ${data.propertyName}`);
-  if (data.propertyAddress)      lines.push(`Address: ${data.propertyAddress}`);
-  if (data.channel)              lines.push(`Channel: ${data.channel}`);
+  if (data.company || data.firm)  lines.push(`Company: ${data.company || data.firm}`);
+  if (data.unitCount)             lines.push(`Unit Count: ${data.unitCount}`);
+  if (data.pms)                   lines.push(`PMS: ${data.pms}`);
+  if (data.propertyName)          lines.push(`Property: ${data.propertyName}`);
+  if (data.propertyAddress)       lines.push(`Address: ${data.propertyAddress}`);
+  if (data.channel)               lines.push(`Channel: ${data.channel}`);
   if (data.hasRentRoll) {
     lines.push(`Rent Roll: ${data.rentRollName || 'Uploaded'}`);
     if (data.rentRollRowCount) lines.push(`Rent Roll Row Count: ${data.rentRollRowCount}`);

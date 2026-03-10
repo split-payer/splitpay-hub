@@ -102,6 +102,17 @@ exports.handler = async (event) => {
       if (customFieldValues[k] === null) delete customFieldValues[k];
     });
 
+    // ── Split custom fields by scope ────────────────────────────────────────
+    // leadSource and pms are Contact-scoped in Close — must be sent to /contact/
+    // All other custom fields are Lead-scoped.
+    const contactScopedKeys = [CF.leadSource, CF.pms];
+    const leadCustomFields    = {};
+    const contactCustomFields = {};
+    Object.entries(customFieldValues).forEach(([k, v]) => {
+      if (contactScopedKeys.includes(k)) contactCustomFields[k] = v;
+      else leadCustomFields[k] = v;
+    });
+
     // ── Create or update lead ───────────────────────────────────────────────
     let leadId;
     if (existingLeadId) {
@@ -110,7 +121,7 @@ exports.handler = async (event) => {
         headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           ...(companyName ? { name: companyName } : {}),
-          custom: customFieldValues,
+          custom: leadCustomFields,
         }),
       });
       if (!updateRes.ok) {
@@ -118,8 +129,30 @@ exports.handler = async (event) => {
         console.error('Lead update failed:', detail);
         await slackAlert(`⚠️ *submit-to-close*: Lead update failed for \`${email || 'unknown'}\`\n\`\`\`${detail}\`\`\``);
       } else {
-        console.log(`Close: updated lead ${existingLeadId} with custom fields`);
+        console.log(`Close: updated lead ${existingLeadId} with lead-scoped custom fields`);
       }
+
+      // Update contact-scoped fields on the first contact
+      if (Object.keys(contactCustomFields).length > 0) {
+        try {
+          const leadDetailRes = await fetch(`https://api.close.com/api/v1/lead/${existingLeadId}/`, {
+            headers: { Authorization: authHeader, Accept: 'application/json' },
+          });
+          const leadDetail = await leadDetailRes.json();
+          const contactId = leadDetail.contacts?.[0]?.id;
+          if (contactId) {
+            await fetch(`https://api.close.com/api/v1/contact/${contactId}/`, {
+              method: 'PUT',
+              headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify({ custom: contactCustomFields }),
+            });
+            console.log(`Close: updated contact ${contactId} with contact-scoped custom fields`);
+          }
+        } catch (err) {
+          console.error('Contact custom field update failed:', err.message);
+        }
+      }
+
       leadId = existingLeadId;
     } else {
       const leadRes = await fetch('https://api.close.com/api/v1/lead/', {

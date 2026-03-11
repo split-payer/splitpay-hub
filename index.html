@@ -1126,7 +1126,7 @@
 <div id="toast">✓ Copied</div>
 
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"> <script>
 /* ═══════════════════════════
    GET THE KIT MODAL
 ═══════════════════════════ */
@@ -1795,6 +1795,20 @@ function cAddAnotherProperty(){
   cGoToStep(1);
   cUpdatePreview();
 }
-</script>
+// ── #chat hash → auto-open float widget ──────────────────────────
+(function () {
+  function openChatIfHash() {
+    if (window.location.hash === '#chat') {
+      const win = document.getElementById('floatWindow');
+      if (win && win.style.display === 'none') {
+        toggleFloat();
+      }
+    }
+  }
+  // On page load
+  openChatIfHash();
+  // On hash change (e.g. navigating to /#chat from a link)
+  window.addEventListener('hashchange', openChatIfHash);
+})();
 </body>
 </html>

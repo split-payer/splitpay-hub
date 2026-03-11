@@ -1799,16 +1799,19 @@ function cAddAnotherProperty(){
 (function () {
   function openChatIfHash() {
     if (window.location.hash === '#chat') {
-      const win = document.getElementById('floatWindow');
-      if (win && win.style.display === 'none') {
-        win.style.display = 'flex';
+      var w = document.getElementById('floatWindow');
+      if (w && (w.style.display === 'none' || w.style.display === '')) {
+        toggleFloat();
       }
+      var inp = document.getElementById('floatChatInput');
+      if (inp) inp.focus();
     }
   }
-  // On page load — defer until after page paint
-  setTimeout(openChatIfHash, 300);
-  // On hash change (e.g. navigating to /#chat from a link)
+  window.addEventListener('load', function () {
+    setTimeout(openChatIfHash, 600);
+  });
   window.addEventListener('hashchange', openChatIfHash);
 })();
+</script>
 </body>
 </html>

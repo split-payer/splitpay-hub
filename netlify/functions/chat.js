@@ -45,13 +45,21 @@ exports.handler = async function (event) {
       if (emailMatch) {
         const detectedEmail = emailMatch[0];
 
-        // Extract name
+        // Extract first/last name
         const nameMatch = allUserText.match(/(?:my name is|i'm|i am)\s+([A-Z][a-z]+(?: [A-Z][a-z]+)?)/i);
-        const detectedName = nameMatch ? nameMatch[1] : '';
+        const detectedName = nameMatch ? nameMatch[1].trim() : '';
 
-        // Extract company — look for common patterns
-        const companyMatch = allUserText.match(/(?:manage|own|at|from|with|company(?:\s+is)?(?:\s+called)?|called|property(?:\s+is)?(?:\s+called)?)\s+([A-Z][A-Za-z0-9\s&'.-]{2,40}?)(?:\.|,|$)/i);
+        // Extract company — look for explicit company/property patterns only
+        const companyMatch = allUserText.match(/(?:company(?:\s+is)?(?:\s+called)?|property(?:\s+(?:management\s+)?is)?(?:\s+called)?|manage(?:ment)?\s+(?:company\s+)?(?:called\s+)?|work(?:ing)?\s+(?:for|at)\s+|with\s+)([A-Z][A-Za-z0-9\s&'.-]{2,40}?)(?:\s*[,.]|\s*$)/i);
         const detectedCompany = companyMatch ? companyMatch[1].trim() : '';
+
+        // Extract unit count — look for numbers near "door/unit/apartment" mentions
+        const unitMatch = allUserText.match(/(?:about|around|roughly|~)?\s*(\d[\d,]*)\s*(?:units?|doors?|apartments?|homes?|properties)/i);
+        const detectedUnits = unitMatch ? parseInt(unitMatch[1].replace(/,/g, '')) : null;
+
+        // Extract PMS — look for known PMS names
+        const PMS_LIST = ['Entrata','Yardi','AppFolio','RealPage','Buildium','ResMan','MRI','Rent Manager','Propertyware','TenantCloud','DoorLoop','Hemlane','Rentec'];
+        const detectedPms = PMS_LIST.find(p => allUserText.toLowerCase().includes(p.toLowerCase())) || '';
 
         // Build chat transcript for Close note
         const transcript = (body.messages || []).map(m =>
@@ -70,6 +78,8 @@ exports.handler = async function (event) {
               lastName: detectedName.split(' ').slice(1).join(' ') || '',
               email: detectedEmail,
               company: detectedCompany,
+              pms: detectedPms,
+              unitCount: detectedUnits,
               chatNote,
             }),
           });

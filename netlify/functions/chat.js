@@ -6,7 +6,7 @@ function linkifyBareUrls(text) {
     /(https?:\/\/[^\s<>".,!?]+|(?<![/@\w])(?:pmc\.splitpay\.com|rent\.app\/go|splitpay\.com)(?:\/[^\s<>".,!?]*)?)/gi,
     (url) => {
       const href = url.startsWith('http') ? url : 'https://' + url;
-      return '<a href="' + href + '" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;font-weight:600;">' + url + '</a>';
+      return '<a href="' + href + '" style="color:inherit;text-decoration:underline;font-weight:600;">' + url + '</a>';
     }
   );
 }
@@ -47,18 +47,22 @@ exports.handler = async function (event) {
         const nameMatch = allUserText.match(/(?:my name is|i'm|i am)\s+([A-Z][a-z]+(?: [A-Z][a-z]+)?)/i);
         const detectedName = nameMatch ? nameMatch[1] : '';
         const closeUrl = 'https://' + event.headers.host + '/api/submit-to-close';
-        fetch(closeUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            formType: 'chat',
-            firstName: detectedName.split(' ')[0] || '',
-            lastName: detectedName.split(' ').slice(1).join(' ') || '',
-            email: detectedEmail,
-            company: '',
-            leadSource: 'PMC Chat',
-          }),
-        }).catch(e => console.error('Close lead error:', e));
+        try {
+          await fetch(closeUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              formType: 'chat',
+              firstName: detectedName.split(' ')[0] || '',
+              lastName: detectedName.split(' ').slice(1).join(' ') || '',
+              email: detectedEmail,
+              company: '',
+              leadSource: 'PMC Chat',
+            }),
+          });
+        } catch (e) {
+          console.error('Close lead error:', e);
+        }
       }
 
       // Strip any ##SAVE_LEAD## token if model emitted it

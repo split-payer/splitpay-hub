@@ -1504,7 +1504,7 @@ function appendMsg(container,role,text){
       btn.onclick=openConcierge;
       bubble.appendChild(btn);
     }
-  } else { bubble.textContent=text; }
+  } else { bubble.innerHTML=text; }
   div.appendChild(bubble);container.appendChild(div);
   container.scrollTop=container.scrollHeight;return div;
 }

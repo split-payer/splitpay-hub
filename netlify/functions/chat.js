@@ -69,7 +69,8 @@ exports.handler = async function (event) {
             leadSource: 'PMC Chat',
           }),
         }).catch(e => console.error('Close lead error:', e));
-        text = text.replace(/##SAVE_LEAD\|[^#]*##\n?/g, '').trim();
+        // Strip token from visible text
+        text = text.replace(/##SAVE_LEAD[^#]*##\n?/g, '').trim();
       }
 
       text = linkifyBareUrls(text);

@@ -47,6 +47,31 @@ exports.handler = async function (event) {
 
     if (data.content && data.content[0] && data.content[0].text) {
       let text = data.content[0].text;
+
+      // Extract ##SAVE_LEAD## token and fire to Close
+      const leadMatch = text.match(/##SAVE_LEAD\|([^#]*)##/);
+      if (leadMatch) {
+        const params = {};
+        leadMatch[1].split('|').forEach(pair => {
+          const [k, ...rest] = pair.split('=');
+          if (k) params[k] = rest.join('=');
+        });
+        const closeUrl = 'https://' + event.headers.host + '/api/submit-to-close';
+        fetch(closeUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            formType: 'chat',
+            firstName: (params.name || '').split(' ')[0] || '',
+            lastName: (params.name || '').split(' ').slice(1).join(' ') || '',
+            email: params.email || '',
+            company: params.company || '',
+            leadSource: 'PMC Chat',
+          }),
+        }).catch(e => console.error('Close lead error:', e));
+        text = text.replace(/##SAVE_LEAD\|[^#]*##\n?/g, '').trim();
+      }
+
       text = linkifyBareUrls(text);
       data.content[0].text = text;
     }

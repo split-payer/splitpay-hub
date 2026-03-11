@@ -37,7 +37,7 @@ exports.handler = async function (event) {
     if (data.content && data.content[0] && data.content[0].text) {
       let text = data.content[0].text;
 
-      // Detect email directly from user messages — don't rely on model emitting token
+      // Detect email directly from user messages — no model cooperation needed
       const allUserText = (body.messages || [])
         .filter(m => m.role === 'user')
         .map(m => m.content).join(' ');
@@ -60,30 +60,9 @@ exports.handler = async function (event) {
           }),
         }).catch(e => console.error('Close lead error:', e));
       }
-      // Strip any ##SAVE_LEAD## token if model did emit it
+
+      // Strip any ##SAVE_LEAD## token if model emitted it
       text = text.replace(/##SAVE_LEAD[^#]*##\n?/g, '').trim();
-```
-
----
-
-**File 2: `netlify/functions/system-prompt.js`**
-
-**Change 1** — find:
-```
-- Partner interest → "Apply at pmc.splitpay.com/partners — your referral link is generated immediately."
-```
-Replace with:
-```
-- Partner interest → "You can apply right on the partners page — scroll down to the form at pmc.splitpay.com/partners#apply. Your referral link is sent within one business day."
-```
-
-**Change 2** — find:
-```
-Apply at pmc.splitpay.com/partners.
-```
-Replace with:
-```
-Apply at pmc.splitpay.com/partners#apply.
       text = linkifyBareUrls(text);
       data.content[0].text = text;
     }

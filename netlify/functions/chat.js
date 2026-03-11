@@ -44,8 +44,21 @@ exports.handler = async function (event) {
       const emailMatch = allUserText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
       if (emailMatch) {
         const detectedEmail = emailMatch[0];
+
+        // Extract name
         const nameMatch = allUserText.match(/(?:my name is|i'm|i am)\s+([A-Z][a-z]+(?: [A-Z][a-z]+)?)/i);
         const detectedName = nameMatch ? nameMatch[1] : '';
+
+        // Extract company — look for common patterns
+        const companyMatch = allUserText.match(/(?:manage|own|at|from|with|company(?:\s+is)?(?:\s+called)?|called|property(?:\s+is)?(?:\s+called)?)\s+([A-Z][A-Za-z0-9\s&'.-]{2,40}?)(?:\.|,|$)/i);
+        const detectedCompany = companyMatch ? companyMatch[1].trim() : '';
+
+        // Build chat transcript for Close note
+        const transcript = (body.messages || []).map(m =>
+          (m.role === 'user' ? 'PM: ' : 'Bot: ') + m.content
+        ).join('\n');
+        const chatNote = `Chat via pmc.splitpay.com\n\n${transcript}`;
+
         const closeUrl = 'https://' + event.headers.host + '/api/submit-to-close';
         try {
           await fetch(closeUrl, {
@@ -56,8 +69,8 @@ exports.handler = async function (event) {
               firstName: detectedName.split(' ')[0] || '',
               lastName: detectedName.split(' ').slice(1).join(' ') || '',
               email: detectedEmail,
-              company: '',
-              leadSource: 'PMC Chat',
+              company: detectedCompany,
+              chatNote,
             }),
           });
         } catch (e) {

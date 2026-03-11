@@ -79,6 +79,8 @@ exports.handler = async (event) => {
     hasRentRoll, rentRollName, rentRollDriveUrl, rentRollRowCount,
     // partner-specific
     portfolioSize, website, refSlug,
+    // chat-specific
+    chatNote,
   } = body;
 
   const name = `${firstName || ''} ${lastName || ''}`.trim();
@@ -168,6 +170,13 @@ exports.handler = async (event) => {
     }
 
     // ── 4. Activity note ──────────────────────────────────────────────────
+    if (formType === 'chat' && chatNote) {
+      await fetch('https://api.close.com/api/v1/activity/note/', {
+        method: 'POST',
+        headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ lead_id: leadId, note: chatNote }),
+      });
+    }
     if (formType === 'kit') {
       await fetch('https://api.close.com/api/v1/activity/note/', {
         method: 'POST',

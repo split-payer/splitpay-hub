@@ -36,6 +36,20 @@ exports.handler = async function (event) {
     const data = await response.json();
     if (data.content && data.content[0] && data.content[0].text) {
       let text = data.content[0].text;
+
+      // Detect email in any user message — don't rely on model to emit token
+      const allUserText = (body.messages || [])
+        .filter(m => m.role === 'user')
+        .map(m => m.content).join(' ');
+      const emailMatch = allUserText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+      if (emailMatch && !text.includes('##SAVE_LEAD')) {
+        const detectedEmail = emailMatch[0];
+        // Try to extract name and company from conversation
+        const nameMatch = allUserText.match(/(?:my name is|i'm|i am)\s+([A-Z][a-z]+(?: [A-Z][a-z]+)?)/i);
+        const name = nameMatch ? nameMatch[1] : '';
+        text += `\n##SAVE_LEAD|name=${name}|email=${detectedEmail}|company=##`;
+      }
+
       const leadMatch = text.match(/##SAVE_LEAD\|([^#]*)##/);
       if (leadMatch) {
         const params = {};

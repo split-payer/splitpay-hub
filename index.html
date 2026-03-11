@@ -1497,6 +1497,7 @@ function appendMsg(container,role,text){
     const linked=text.replace(/<LINK href="([^"]+)">([^<]+)<\/LINK>/g,'<a href="$1" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:underline;">$2</a>');
     const cleaned=linked.replace('##SHOW_CONCIERGE_LINK##','');
     bubble.innerHTML=cleaned;
+bubble.querySelectorAll('a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();window.location.href=a.getAttribute('href');});});
     if(text.includes('##SHOW_CONCIERGE_LINK##')){
       const btn=document.createElement('button');
       btn.textContent='✦ Open Split Pay Concierge →';
@@ -1504,7 +1505,7 @@ function appendMsg(container,role,text){
       btn.onclick=openConcierge;
       bubble.appendChild(btn);
     }
-  } else { bubble.innerHTML=text; }
+  } else { bubble.innerHTML=text; bubble.querySelectorAll('a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();window.location.href=a.getAttribute('href');});});}
   div.appendChild(bubble);container.appendChild(div);
   container.scrollTop=container.scrollHeight;return div;
 }

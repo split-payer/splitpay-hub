@@ -106,6 +106,7 @@ exports.handler = async (event) => {
       kit:       'PMC Kit Download',
       concierge: 'PMC Concierge',
       partner:   'PMC Partner Application',
+      chat:      'PMC Chat',
     };
 
     const customFieldValues = {

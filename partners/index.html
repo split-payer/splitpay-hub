@@ -818,7 +818,7 @@
       : 'background:#1a3d20;border-radius:12px 4px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.6;color:#fff;max-width:85%;';
       if (isBot) {
     const linked = text.replace(/<LINK href="([^"]+)">([^<]+)<\/LINK>/g, '<a href="$1" target="_blank" rel="noopener" style="color:#E8531A;text-decoration:underline;">$2</a>');
-    bubble.innerHTML = linked;
+    bubble.innerHTML = linked;bubble.querySelectorAll('a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();window.location.href=a.getAttribute('href');});});
   } else {
     bubble.textContent = text;
   }

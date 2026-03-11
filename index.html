@@ -1806,7 +1806,7 @@ function cAddAnotherProperty(){
     }
   }
   // On page load — defer until after page paint
-  setTimeout(openChatIfHash, 0);
+  setTimeout(openChatIfHash, 300);
   // On hash change (e.g. navigating to /#chat from a link)
   window.addEventListener('hashchange', openChatIfHash);
 })();

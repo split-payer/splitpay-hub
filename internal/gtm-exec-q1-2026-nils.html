@@ -1609,6 +1609,205 @@
     color: var(--mid);
   }
 
+
+  /* ══ SCENARIO CALCULATOR ══ */
+  .calc-wrap {
+    background: var(--dark);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .calc-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--yellow), var(--teal), #4ade80);
+  }
+
+  .calc-header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid #1e3a52;
+  }
+
+  .calc-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .calc-sub {
+    font-size: 11px;
+    color: #5a7a90;
+  }
+
+  .calc-body {
+    padding: 24px 28px;
+  }
+
+  /* Slider rows */
+  .calc-sliders {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 32px;
+    margin-bottom: 24px;
+  }
+
+  .calc-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .calc-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .calc-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #aac4d8;
+    letter-spacing: 0.03em;
+  }
+
+  .calc-value {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    min-width: 52px;
+    text-align: right;
+  }
+
+  .calc-value.orange { color: var(--orange); }
+  .calc-value.yellow { color: var(--yellow); }
+  .calc-value.teal   { color: var(--teal); }
+  .calc-value.green  { color: #4ade80; }
+
+  /* Range input styling */
+  input[type="range"].calc-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #2a4a64;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"].calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--orange);
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(232,83,26,0.2);
+    transition: box-shadow 0.15s;
+  }
+
+  input[type="range"].calc-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 5px rgba(232,83,26,0.3);
+  }
+
+  input[type="range"].calc-slider.yellow-thumb::-webkit-slider-thumb { background: var(--yellow); box-shadow: 0 0 0 3px rgba(247,201,72,0.2); }
+  input[type="range"].calc-slider.teal-thumb::-webkit-slider-thumb   { background: var(--teal);   box-shadow: 0 0 0 3px rgba(0,178,169,0.2); }
+  input[type="range"].calc-slider.green-thumb::-webkit-slider-thumb  { background: #4ade80;       box-shadow: 0 0 0 3px rgba(74,222,128,0.2); }
+
+  /* Results grid */
+  .calc-results {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: #1e3a52;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .calc-result-cell {
+    background: #0f2133;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .calc-result-cell.highlight {
+    background: #0d2918;
+  }
+
+  .crc-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #5a7a90;
+  }
+
+  .crc-value {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .crc-value.green { color: #4ade80; }
+
+  .crc-sub {
+    font-size: 10px;
+    color: #3a5a74;
+  }
+
+  /* Funnel flow bar */
+  .calc-funnel-bar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 0 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .calc-funnel-bar::-webkit-scrollbar { display: none; }
+
+  .cfb-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .cfb-num {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+
+  .cfb-label {
+    font-size: 9px;
+    color: #5a7a90;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .cfb-arrow {
+    color: #2a4a64;
+    font-size: 14px;
+    flex-shrink: 0;
+    padding-bottom: 10px;
+  }
+
 </style>
 </head>
 <body>
@@ -2584,6 +2783,209 @@
 
     </div>
   </div>
+
+
+  <!-- ══ SCENARIO CALCULATOR ══ -->
+  <div class="calc-wrap section-gap">
+    <div class="calc-header">
+      <div class="calc-title">🎛 Scenario calculator</div>
+      <div class="calc-sub">Drag sliders to model your own assumptions — results update live</div>
+    </div>
+    <div class="calc-body">
+
+      <div class="calc-sliders">
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">📬 PMs contacted</span>
+            <span class="calc-value orange" id="cv-contacted">50,000</span>
+          </div>
+          <input type="range" class="calc-slider" id="sl-contacted"
+            min="1000" max="300000" step="1000" value="50000"
+            oninput="calcUpdate()">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">📩 Avg. units per PM</span>
+            <span class="calc-value orange" id="cv-units">150</span>
+          </div>
+          <input type="range" class="calc-slider" id="sl-units"
+            min="10" max="500" step="10" value="150"
+            oninput="calcUpdate()">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">💬 Response rate</span>
+            <span class="calc-value yellow" id="cv-response">5%</span>
+          </div>
+          <input type="range" class="calc-slider yellow-thumb" id="sl-response"
+            min="1" max="30" step="1" value="5"
+            oninput="calcUpdate()">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">📣 Promote to residents</span>
+            <span class="calc-value yellow" id="cv-promote">25%</span>
+          </div>
+          <input type="range" class="calc-slider yellow-thumb" id="sl-promote"
+            min="1" max="80" step="1" value="25"
+            oninput="calcUpdate()">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">📋 Residents apply</span>
+            <span class="calc-value teal" id="cv-apply">10%</span>
+          </div>
+          <input type="range" class="calc-slider teal-thumb" id="sl-apply"
+            min="1" max="50" step="1" value="10"
+            oninput="calcUpdate()">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">✅ Approval rate</span>
+            <span class="calc-value teal" id="cv-approval">50%</span>
+          </div>
+          <input type="range" class="calc-slider teal-thumb" id="sl-approval"
+            min="5" max="90" step="5" value="50"
+            oninput="calcUpdate()">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">⚡ Activate within 90d</span>
+            <span class="calc-value green" id="cv-activate">70%</span>
+          </div>
+          <input type="range" class="calc-slider green-thumb" id="sl-activate"
+            min="10" max="100" step="5" value="70"
+            oninput="calcUpdate()">
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-row-top">
+            <span class="calc-label">💰 ARPU / mo</span>
+            <span class="calc-value green" id="cv-arpu">$38</span>
+          </div>
+          <input type="range" class="calc-slider green-thumb" id="sl-arpu"
+            min="10" max="100" step="1" value="38"
+            oninput="calcUpdate()">
+        </div>
+
+      </div>
+
+      <!-- Funnel bar -->
+      <div class="calc-funnel-bar" id="calc-funnel">
+        <div class="cfb-step"><div class="cfb-num" id="cfb-contacted">50,000</div><div class="cfb-label">contacted</div></div>
+        <div class="cfb-arrow">→</div>
+        <div class="cfb-step"><div class="cfb-num" id="cfb-respond">2,500</div><div class="cfb-label">respond</div></div>
+        <div class="cfb-arrow">→</div>
+        <div class="cfb-step"><div class="cfb-num" id="cfb-promote">625</div><div class="cfb-label">promote</div></div>
+        <div class="cfb-arrow">→</div>
+        <div class="cfb-step"><div class="cfb-num" id="cfb-residents">93,750</div><div class="cfb-label">residents reached</div></div>
+        <div class="cfb-arrow">→</div>
+        <div class="cfb-step"><div class="cfb-num" id="cfb-apply">9,375</div><div class="cfb-label">apply</div></div>
+        <div class="cfb-arrow">→</div>
+        <div class="cfb-step"><div class="cfb-num" id="cfb-approved">4,688</div><div class="cfb-label">approved</div></div>
+        <div class="cfb-arrow">→</div>
+        <div class="cfb-step"><div class="cfb-num" id="cfb-active" style="color:#4ade80;">3,281</div><div class="cfb-label">active users</div></div>
+      </div>
+
+      <!-- Results strip -->
+      <div class="calc-results">
+        <div class="calc-result-cell">
+          <div class="crc-label">Active users</div>
+          <div class="crc-value" id="cr-users">3,281</div>
+          <div class="crc-sub">within 90 days</div>
+        </div>
+        <div class="calc-result-cell">
+          <div class="crc-label">MRR</div>
+          <div class="crc-value" id="cr-mrr">$124.7K</div>
+          <div class="crc-sub">monthly rev.</div>
+        </div>
+        <div class="calc-result-cell">
+          <div class="crc-label">ARR</div>
+          <div class="crc-value" id="cr-arr">$1.50M</div>
+          <div class="crc-sub">annualised</div>
+        </div>
+        <div class="calc-result-cell highlight">
+          <div class="crc-label">Rev / PM contact</div>
+          <div class="crc-value green" id="cr-per-pm">$2.49</div>
+          <div class="crc-sub">MRR per contact</div>
+        </div>
+        <div class="calc-result-cell highlight">
+          <div class="crc-label">LTV (12mo)</div>
+          <div class="crc-value green" id="cr-ltv">$1.50M</div>
+          <div class="crc-sub">no churn assumed</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  function fmt(n) {
+    if (n >= 1e6)  return '$' + (n/1e6).toFixed(2) + 'M';
+    if (n >= 1e3)  return '$' + (n/1e3).toFixed(1) + 'K';
+    return '$' + Math.round(n).toLocaleString();
+  }
+  function fmtN(n) {
+    if (n >= 1e6)  return (n/1e6).toFixed(2) + 'M';
+    if (n >= 1e3)  return Math.round(n/100)*100 >= 1000 ? (n/1000).toFixed(n>=10000?0:1) + 'K' : n.toLocaleString();
+    return Math.round(n).toLocaleString();
+  }
+
+  function calcUpdate() {
+    const contacted = +document.getElementById('sl-contacted').value;
+    const units     = +document.getElementById('sl-units').value;
+    const response  = +document.getElementById('sl-response').value / 100;
+    const promote   = +document.getElementById('sl-promote').value / 100;
+    const apply     = +document.getElementById('sl-apply').value / 100;
+    const approval  = +document.getElementById('sl-approval').value / 100;
+    const activate  = +document.getElementById('sl-activate').value / 100;
+    const arpu      = +document.getElementById('sl-arpu').value;
+
+    // Labels
+    document.getElementById('cv-contacted').textContent = contacted.toLocaleString();
+    document.getElementById('cv-units').textContent     = units.toLocaleString();
+    document.getElementById('cv-response').textContent  = Math.round(response*100) + '%';
+    document.getElementById('cv-promote').textContent   = Math.round(promote*100) + '%';
+    document.getElementById('cv-apply').textContent     = Math.round(apply*100) + '%';
+    document.getElementById('cv-approval').textContent  = Math.round(approval*100) + '%';
+    document.getElementById('cv-activate').textContent  = Math.round(activate*100) + '%';
+    document.getElementById('cv-arpu').textContent      = '$' + arpu;
+
+    // Funnel math
+    const respond   = contacted * response;
+    const nPromote  = respond * promote;
+    const residents = nPromote * units;
+    const nApply    = residents * apply;
+    const approved  = nApply * approval;
+    const active    = approved * activate;
+    const mrr       = active * arpu;
+    const arr       = mrr * 12;
+    const perPM     = mrr / contacted;
+
+    // Funnel bar
+    document.getElementById('cfb-contacted').textContent = fmtN(contacted);
+    document.getElementById('cfb-respond').textContent   = fmtN(respond);
+    document.getElementById('cfb-promote').textContent   = fmtN(nPromote);
+    document.getElementById('cfb-residents').textContent = fmtN(residents);
+    document.getElementById('cfb-apply').textContent     = fmtN(nApply);
+    document.getElementById('cfb-approved').textContent  = fmtN(approved);
+    document.getElementById('cfb-active').textContent    = fmtN(active);
+
+    // Results
+    document.getElementById('cr-users').textContent  = Math.round(active).toLocaleString();
+    document.getElementById('cr-mrr').textContent    = fmt(mrr);
+    document.getElementById('cr-arr').textContent    = fmt(arr);
+    document.getElementById('cr-per-pm').textContent = perPM >= 1 ? '$' + perPM.toFixed(2) : '<$1';
+    document.getElementById('cr-ltv').textContent    = fmt(arr);
+  }
+  </script>
 
   <!-- Revenue build-up table -->
   <div style="font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px;" class="section-gap">Revenue scenario analysis — 50K PM list</div>

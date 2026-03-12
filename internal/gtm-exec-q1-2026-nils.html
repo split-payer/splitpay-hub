@@ -992,19 +992,662 @@
     margin-bottom: 40px;
   }
 
+
+  /* ══ STATIC HERO ══ */
+  .static-hero {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .static-hero .hero-eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    background: #fff3ee;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+
+  .static-hero .hero-title {
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .static-hero .hero-title span { color: var(--orange); }
+
+  .static-hero .hero-sub {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 540px;
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+
+  .static-hero .hero-meta {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .static-hero .hero-chip {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mid);
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+
+  /* ══ ADDRESSABLE MARKET SECTION ══ */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .market-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 20px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .market-card.primary { border-color: #f0c030; background: #fffcf0; }
+  .market-card.secondary { border-color: #b0e0dc; background: #f0fafa; }
+
+  .market-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .market-card.primary::before { background: var(--yellow); }
+  .market-card.secondary::before { background: var(--teal); }
+  .market-card.dim::before { background: var(--border); }
+
+  .mc-eyebrow {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  .mc-number {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .mc-number.orange { color: var(--orange); }
+  .mc-number.teal { color: var(--teal); }
+
+  .mc-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .mc-desc {
+    font-size: 11px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .mc-tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+  }
+
+  .mc-tag.live { background: #e8f5ee; color: #1a7a50; }
+  .mc-tag.target { background: #fff3ee; color: var(--orange); }
+  .mc-tag.future { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+
+  .market-note {
+    font-size: 11px;
+    color: var(--mid);
+    padding: 10px 14px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    line-height: 1.6;
+  }
+
+
+  /* ══ CONFIDENTIAL BANNER ══ */
+  .confidential-bar {
+    background: var(--dark);
+    color: #5a7a90;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 8px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .confidential-bar .conf-dot {
+    width: 5px; height: 5px;
+    background: #E8531A;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ══ LOGO HEADER ══ */
+  .logo-header {
+    padding: 24px 40px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ══ FUNNEL MATH SECTION ══ */
+  .funnel-wrap {
+    background: var(--dark);
+    border-radius: 20px;
+    padding: 36px 36px 32px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .funnel-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--yellow), var(--teal));
+  }
+
+  .funnel-eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  .funnel-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+
+  .funnel-sub {
+    font-size: 12px;
+    color: #5a7a90;
+    margin-bottom: 28px;
+  }
+
+  .funnel-steps {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .funnel-step {
+    flex: 1;
+    position: relative;
+  }
+
+  .funnel-box {
+    background: #152a3a;
+    border: 1px solid #2a4a64;
+    border-radius: 14px;
+    padding: 18px 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .funnel-box.highlight {
+    background: #1a3a20;
+    border-color: #2a6a40;
+  }
+
+  .funnel-step-num {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #5a7a90;
+    margin-bottom: 8px;
+  }
+
+  .funnel-number {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 4px;
+    color: var(--white);
+  }
+
+  .funnel-number.orange { color: var(--orange); }
+  .funnel-number.yellow { color: var(--yellow); }
+  .funnel-number.teal { color: var(--teal); }
+  .funnel-number.green { color: #4ade80; }
+
+  .funnel-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .funnel-desc {
+    font-size: 10.5px;
+    color: #5a7a90;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .funnel-rate {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 100px;
+    background: rgba(247,201,72,0.15);
+    color: var(--yellow);
+    letter-spacing: 0.04em;
+  }
+
+  .funnel-rate.green-rate {
+    background: rgba(74,222,128,0.15);
+    color: #4ade80;
+  }
+
+  .funnel-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    flex-shrink: 0;
+    color: #2a4a64;
+    font-size: 20px;
+    padding-top: 20px;
+  }
+
+  .funnel-result {
+    margin-top: 16px;
+    background: linear-gradient(135deg, #1a3a20, #152a3a);
+    border: 1px solid #2a6a40;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .funnel-result-num {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #4ade80;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .funnel-result-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .funnel-result-body {
+    font-size: 11.5px;
+    color: #5a7a90;
+    line-height: 1.5;
+  }
+
+  .funnel-note {
+    margin-top: 10px;
+    font-size: 10.5px;
+    color: #2a4a64;
+    font-style: italic;
+  }
+
+
+  /* ══ UNIT ECONOMICS TAB ══ */
+
+  /* Revenue impact ticker */
+  .rev-ticker {
+    background: var(--dark);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background-color: #2a4a64;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .rev-ticker::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--yellow), var(--teal), #4ade80);
+  }
+
+  .rev-cell {
+    background: var(--dark);
+    padding: 20px 24px;
+  }
+
+  .rev-cell-eyebrow {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #5a7a90;
+    margin-bottom: 8px;
+  }
+
+  .rev-cell-num {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .rev-cell-num.orange { color: var(--orange); }
+  .rev-cell-num.yellow { color: var(--yellow); }
+  .rev-cell-num.teal { color: var(--teal); }
+  .rev-cell-num.green { color: #4ade80; }
+
+  .rev-cell-label {
+    font-size: 11px;
+    color: #aac4d8;
+    line-height: 1.4;
+  }
+
+  /* Funnel flow (horizontal) */
+  .econ-funnel {
+    display: grid;
+    grid-template-columns: 1fr 32px 1fr 32px 1fr 32px 1fr 32px 1fr;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+
+  .econ-step {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 16px;
+    position: relative;
+  }
+
+  .econ-step.active { border-color: #4ade80; background: #f0fef4; }
+  .econ-step.input  { border-color: #f0c030; background: #fffcf0; }
+
+  .es-num {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 6px;
+  }
+
+  .es-value {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--ink);
+    margin-bottom: 3px;
+    line-height: 1;
+  }
+
+  .es-value.orange { color: var(--orange); }
+  .es-value.green  { color: #16a34a; }
+
+  .es-label { font-size: 11px; font-weight: 700; color: var(--ink); margin-bottom: 5px; line-height: 1.3; }
+  .es-note  { font-size: 10px; color: var(--mid); line-height: 1.4; }
+
+  .es-rate {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(247,201,72,0.2);
+    color: #7a5a00;
+  }
+
+  .es-rate.green-rate {
+    background: rgba(74,222,128,0.2);
+    color: #16a34a;
+  }
+
+  .econ-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d0d0c8;
+    font-size: 18px;
+  }
+
+  /* Revenue build-up */
+  .rev-buildup {
+    background: var(--dark);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .rev-buildup-header {
+    padding: 20px 28px 16px;
+    border-bottom: 1px solid #1e3a52;
+  }
+
+  .rev-buildup-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+
+  .rev-buildup-sub {
+    font-size: 11px;
+    color: #5a7a90;
+  }
+
+  .rev-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 28px;
+    border-bottom: 1px solid #1a3248;
+    gap: 16px;
+  }
+
+  .rev-row:last-child { border-bottom: none; }
+  .rev-row.total { background: #0d1f2d; }
+
+  .rev-row-label {
+    flex: 1;
+    font-size: 12px;
+    color: #aac4d8;
+    line-height: 1.4;
+  }
+
+  .rev-row-label strong { color: var(--white); }
+
+  .rev-row-calc {
+    font-size: 11px;
+    color: #5a7a90;
+    white-space: nowrap;
+    font-family: monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .rev-row-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--white);
+    white-space: nowrap;
+    min-width: 90px;
+    text-align: right;
+  }
+
+  .rev-row-val.green { color: #4ade80; }
+  .rev-row-val.yellow { color: var(--yellow); }
+  .rev-row-val.dim { color: #5a7a90; font-weight: 600; font-size: 12px; }
+
+  /* Scenario switcher */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .scenario-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scenario-card.base { border-top: 3px solid var(--yellow); }
+  .scenario-card.bull { border-top: 3px solid #4ade80; }
+  .scenario-card.cons { border-top: 3px solid #94a3b8; }
+
+  .sc-tag {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .sc-tag.base { color: #7a5a00; }
+  .sc-tag.bull { color: #16a34a; }
+  .sc-tag.cons { color: #64748b; }
+
+  .sc-arpu { font-size: 11px; color: var(--mid); margin-bottom: 12px; }
+
+  .sc-num {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--ink);
+    margin-bottom: 3px;
+    line-height: 1;
+  }
+
+  .sc-label { font-size: 11px; color: var(--mid); margin-bottom: 12px; }
+
+  .sc-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 12px 0;
+  }
+
+  .sc-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--mid);
+    margin-bottom: 4px;
+  }
+
+  .sc-row span:last-child { font-weight: 700; color: var(--ink); }
+
+  .sc-mrr {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-top: 10px;
+  }
+
+  .sc-arr {
+    font-size: 11px;
+    color: var(--mid);
+  }
+
 </style>
 </head>
 <body>
+
+<!-- ══ CONFIDENTIAL BANNER ══ -->
+<div class="confidential-bar">
+  <div class="conf-dot"></div>
+  Private &amp; Confidential — Internal use only. Do not share externally.
+  <div class="conf-dot"></div>
+</div>
+
+<!-- ══ LOGO HEADER ══ -->
+<div class="logo-header">
+  <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" height="30" style="display:block;" />
+</div>
 
 <div class="page">
 
   <!-- ══ STICKY NAV ══ -->
 
 
+
+  <!-- ══ STATIC HERO ══ -->
+  <div class="static-hero">
+    <div class="hero-eyebrow">GTM Executive Summary</div>
+    <h1 class="hero-title">PM Acquisition<br><span>Go-To-Market</span></h1>
+    <p class="hero-sub">Bottoms-up strategy targeting on-site property managers — self-serve hub, warm outreach, concierge + partner program for corporate rollup.</p>
+    <div class="hero-meta">
+      <span class="hero-chip">📍 Q1 2026</span>
+      <span class="hero-chip">50,000 PM contacts</span>
+      <span class="hero-chip">Instantly · Close · pmc.splitpay.com</span>
+    </div>
+  </div>
+
   <!-- ══ TAB SWITCHER ══ -->
   <div class="tab-area">
   <div class="tab-switcher">
     <button class="tab-btn active" onclick="switchTab('overview', this)">📋 Project Overview</button>
+    <button class="tab-btn" onclick="switchTab('econ', this)">💰 Unit Economics</button>
     <button class="tab-btn" onclick="switchTab('timeline', this)">🗓 Project Timeline</button>
   </div>
   </div><!-- /tab-area -->
@@ -1012,6 +1655,7 @@
   <div id="tab-overview" class="tab-pane active">
   <nav class="top-nav">
     <span class="nav-label">Jump to</span>
+    <a class="nav-link" href="#s0">00 Market</a>
     <a class="nav-link" href="#s1">01 Traffic</a>
     <a class="nav-link" href="#s2">02 Hub & Incentives</a>
     <a class="nav-link" href="#s3">03 Emails</a>
@@ -1024,27 +1668,50 @@
   </nav>
 
 
-  <!-- ══ HEADER ══ -->
-  <div class="header">
-    <div class="header-left">
-      <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" height="36" style="display:block;margin-bottom:20px;">
-      <div class="eyebrow">GTM Executive Summary</div>
-      <h1 class="page-title">PM Acquisition<br><span>Go-To-Market</span></h1>
-      <p class="page-sub">Bottoms-up strategy targeting on-site property managers — self-serve hub, warm outreach, concierge + partner program for corporate rollup.</p>
+
+  <!-- ══ SECTION 0: ADDRESSABLE MARKET ══ -->
+  <div id="s0" class="section-title">00 — Addressable Market</div>
+
+  <div class="market-grid section-gap" style="margin-bottom:12px;">
+
+    <div class="market-card primary">
+      <div class="mc-eyebrow">Available today</div>
+      <div class="mc-number orange">50K</div>
+      <div class="mc-label">PM contacts in hand</div>
+      <div class="mc-desc">Renter-sourced emails from Split Pay signups — landlords and on-site managers whose tenants are already using the product. High signal.</div>
+      <div><span class="mc-tag live">✓ Live in Instantly</span></div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="header-badge">
-        <div class="label">Addressable List</div>
-        <div class="val">50,000</div>
-        <div class="sub">validated PM email addresses</div>
-      </div>
-      <div class="header-badge">
-        <div class="label">Weekly Send Capacity</div>
-        <div class="val">5,000</div>
-        <div class="sub">emails / week via Instantly</div>
-      </div>
+
+    <div class="market-card secondary">
+      <div class="mc-eyebrow">Primary TAM</div>
+      <div class="mc-number teal">~245K</div>
+      <div class="mc-label">Residential PM companies (US)</div>
+      <div class="mc-desc">IBISWorld 2025: 245,484 residential property management businesses. Our primary outbound target — local office staff who can self-serve via pmc.splitpay.com.</div>
+      <div><span class="mc-tag target">→ Instantly campaign</span></div>
     </div>
+
+    <div class="market-card">
+      <div class="mc-eyebrow">Extended TAM</div>
+      <div class="mc-number">~1.5M</div>
+      <div class="mc-label">Licensed Realtors (US)</div>
+      <div class="mc-desc">NAR Feb 2025: 1,515,837 licensed Realtors. Many manage rentals or refer tenants — adjacency play once core PM motion is proven.</div>
+      <div><span class="mc-tag future">◦ Future channel</span></div>
+    </div>
+
+    <div class="market-card">
+      <div class="mc-eyebrow">Extended TAM</div>
+      <div class="mc-number">~330K</div>
+      <div class="mc-label">All PM companies (incl. commercial)</div>
+      <div class="mc-desc">IBISWorld 2024: 330,395 total property management companies including commercial, HOA, and community association managers.</div>
+      <div><span class="mc-tag future">◦ Corporate expansion</span></div>
+    </div>
+
   </div>
+
+  <div class="market-note section-gap">
+    💡 <strong>Why start with the 50K:</strong> These are warm — renters gave us their landlord's contact info. We already know Split Pay works in their building. Average approval rate of ~50% means even a single renter signup is a proof point we can lead with.
+  </div>
+
 
   <!-- ══ SECTION 1: TRAFFIC FLOW ══ -->
   <div id="s1" class="section-title">01 — Traffic & Acquisition Flow</div>
@@ -1831,7 +2498,244 @@
 
   </div><!-- /tab-overview -->
 
-  <div id="tab-timeline" class="tab-pane">
+  
+<!-- ══ TAB: UNIT ECONOMICS ══ -->
+<div id="tab-econ" class="tab-pane">
+
+  <div class="section-title">💰 Unit Economics & Revenue Impact</div>
+
+  <!-- KPI ticker -->
+  <div class="rev-ticker">
+    <div class="rev-cell">
+      <div class="rev-cell-eyebrow">Avg. rent on platform</div>
+      <div class="rev-cell-num orange">~$1,867</div>
+      <div class="rev-cell-label">avg. monthly rent paid<br><span style="color:#2a4a64;font-size:10px;">current platform average</span></div>
+    </div>
+    <div class="rev-cell">
+      <div class="rev-cell-eyebrow">Fee structure</div>
+      <div class="rev-cell-num yellow">$9.99<span style="font-size:16px;font-weight:700;"> + 1.5%</span></div>
+      <div class="rev-cell-label">flat fee + % of rent paid<br><span style="color:#2a4a64;font-size:10px;">paid by resident, not PM</span></div>
+    </div>
+    <div class="rev-cell">
+      <div class="rev-cell-eyebrow">Avg. revenue per user/mo</div>
+      <div class="rev-cell-num teal">$38</div>
+      <div class="rev-cell-label">$9.99 + 1.5% × ~$1,867 avg. rent<br><span style="color:#2a4a64;font-size:10px;">current platform average</span></div>
+    </div>
+    <div class="rev-cell">
+      <div class="rev-cell-eyebrow">Approval rate advantage</div>
+      <div class="rev-cell-num green">2.5×</div>
+      <div class="rev-cell-label">vs. Flex (~50% vs ~20%)<br><span style="color:#2a4a64;font-size:10px;">cashflow vs. credit check</span></div>
+    </div>
+  </div>
+
+  <!-- Funnel flow -->
+  <div class="card section-gap" style="padding:24px 28px 20px;">
+    <div style="font-size:13px;font-weight:800;color:var(--ink);margin-bottom:4px;">From one PM contact → revenue</div>
+    <div style="font-size:11px;color:var(--mid);margin-bottom:20px;">Industry avg: 100–200 units/manager · Using 150 as midpoint <span style="color:#bbb;">· iPropertyManagement</span></div>
+
+    <div class="econ-funnel">
+
+      <div class="econ-step input">
+        <div class="es-num">Step 1</div>
+        <div class="es-value orange">1</div>
+        <div class="es-label">PM reached</div>
+        <div class="es-note">Cold email or iMessage outreach via Instantly / Sendblue</div>
+      </div>
+
+      <div class="econ-arrow">→</div>
+
+      <div class="econ-step">
+        <div class="es-num">Step 2</div>
+        <div class="es-value">150</div>
+        <div class="es-label">Residents in building</div>
+        <div class="es-note">PM shares flyer or forwards outreach</div>
+        <span class="es-rate">100–200 avg.</span>
+      </div>
+
+      <div class="econ-arrow">→</div>
+
+      <div class="econ-step">
+        <div class="es-num">Step 3</div>
+        <div class="es-value">38</div>
+        <div class="es-label">Residents sign up</div>
+        <div class="es-note">~25% signup rate — free to try, no credit check</div>
+        <span class="es-rate">25% signup</span>
+      </div>
+
+      <div class="econ-arrow">→</div>
+
+      <div class="econ-step">
+        <div class="es-num">Step 4</div>
+        <div class="es-value">19</div>
+        <div class="es-label">Approved users</div>
+        <div class="es-note">Cashflow approval, no credit check</div>
+        <span class="es-rate green-rate">~50% approved</span>
+      </div>
+
+      <div class="econ-arrow">→</div>
+
+      <div class="econ-step active">
+        <div class="es-num">Revenue</div>
+        <div class="es-value green">$494</div>
+        <div class="es-label">MRR per PM contact</div>
+        <div class="es-note">19 approved × 70% activate × $38</div>
+        <span class="es-rate green-rate">$5,928/yr</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Revenue build-up table -->
+  <div style="font-size:13px;font-weight:800;color:var(--ink);margin-bottom:6px;" class="section-gap">Revenue scenario analysis — 50K PM list</div>
+  <div style="font-size:11px;color:var(--mid);margin-bottom:16px;">Five conversion gates. Cold/warm outreach response rates are low even with a strong offer — modeled conservatively at each step.</div>
+
+  <!-- Shared assumption pills -->
+  <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--mid);">📬 <strong style="color:var(--ink);">50,000</strong> PM contacts</div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--mid);">🏠 <strong style="color:var(--ink);">150</strong> avg. units/PM</div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--mid);">✅ <strong style="color:var(--ink);">50%</strong> cashflow approval</div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--mid);">⚡ <strong style="color:var(--ink);">70%</strong> activate within 90 days</div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--mid);">💰 <strong style="color:var(--ink);">$38</strong> ARPU/mo</div>
+  </div>
+
+  <div class="scenario-grid">
+
+    <!-- BEAR -->
+    <div class="scenario-card cons">
+      <div class="sc-tag cons">🐻 Bear case</div>
+      <div class="sc-arpu">3% respond · 20% promote · 5% of residents apply</div>
+      <div class="rev-buildup" style="margin-bottom:14px;border-radius:10px;">
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Respond to outreach</div>
+          <div class="rev-row-calc">50K × 3%</div>
+          <div class="rev-row-val" style="font-size:13px;">1,500</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Actively promote</div>
+          <div class="rev-row-calc">1,500 × 20%</div>
+          <div class="rev-row-val" style="font-size:13px;">300</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Residents reached</div>
+          <div class="rev-row-calc">300 × 150</div>
+          <div class="rev-row-val" style="font-size:13px;">45,000</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Apply for Split Pay</div>
+          <div class="rev-row-calc">45,000 × 5%</div>
+          <div class="rev-row-val" style="font-size:13px;">2,250</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Approved</div>
+          <div class="rev-row-calc">2,250 × 50%</div>
+          <div class="rev-row-val" style="font-size:13px;">1,125</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;background:#1a2a1a;">
+          <div class="rev-row-label" style="color:#aac4d8;"><strong style="color:#4ade80;">Active within 90 days</strong></div>
+          <div class="rev-row-calc">1,125 × 70%</div>
+          <div class="rev-row-val" style="font-size:13px;color:#4ade80;">788</div>
+        </div>
+      </div>
+      <hr class="sc-divider">
+      <div class="sc-row"><span>MRR</span><span>$29.9K</span></div>
+      <div class="sc-row"><span>ARR</span><span>$359K</span></div>
+      <div class="sc-mrr" style="color:#64748b;font-size:20px;">$29.9K MRR</div>
+    </div>
+
+    <!-- BASE -->
+    <div class="scenario-card base">
+      <div class="sc-tag base">⭐ Base case</div>
+      <div class="sc-arpu">5% respond · 25% promote · 10% of residents apply</div>
+      <div class="rev-buildup" style="margin-bottom:14px;border-radius:10px;">
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Respond to outreach</div>
+          <div class="rev-row-calc">50K × 5%</div>
+          <div class="rev-row-val" style="font-size:13px;">2,500</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Actively promote</div>
+          <div class="rev-row-calc">2,500 × 25%</div>
+          <div class="rev-row-val" style="font-size:13px;">625</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Residents reached</div>
+          <div class="rev-row-calc">625 × 150</div>
+          <div class="rev-row-val" style="font-size:13px;">93,750</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Apply for Split Pay</div>
+          <div class="rev-row-calc">93,750 × 10%</div>
+          <div class="rev-row-val" style="font-size:13px;">9,375</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Approved</div>
+          <div class="rev-row-calc">9,375 × 50%</div>
+          <div class="rev-row-val" style="font-size:13px;">4,688</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;background:#1a2a1a;">
+          <div class="rev-row-label" style="color:#aac4d8;"><strong style="color:#4ade80;">Active within 90 days</strong></div>
+          <div class="rev-row-calc">4,688 × 70%</div>
+          <div class="rev-row-val" style="font-size:13px;color:#4ade80;">3,281</div>
+        </div>
+      </div>
+      <hr class="sc-divider">
+      <div class="sc-row"><span>MRR</span><span>$124.7K</span></div>
+      <div class="sc-row"><span>ARR</span><span>$1.50M</span></div>
+      <div class="sc-mrr" style="font-size:20px;">$124.7K MRR</div>
+    </div>
+
+    <!-- BULL -->
+    <div class="scenario-card bull">
+      <div class="sc-tag bull">🚀 Bull case</div>
+      <div class="sc-arpu">10% respond · 50% promote · 20% of residents apply</div>
+      <div class="rev-buildup" style="margin-bottom:14px;border-radius:10px;">
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Respond to outreach</div>
+          <div class="rev-row-calc">50K × 10%</div>
+          <div class="rev-row-val" style="font-size:13px;">5,000</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Actively promote</div>
+          <div class="rev-row-calc">5,000 × 50%</div>
+          <div class="rev-row-val" style="font-size:13px;">2,500</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Residents reached</div>
+          <div class="rev-row-calc">2,500 × 150</div>
+          <div class="rev-row-val" style="font-size:13px;">375,000</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Apply for Split Pay</div>
+          <div class="rev-row-calc">375,000 × 20%</div>
+          <div class="rev-row-val" style="font-size:13px;">75,000</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;">
+          <div class="rev-row-label">Approved</div>
+          <div class="rev-row-calc">75,000 × 50%</div>
+          <div class="rev-row-val" style="font-size:13px;">37,500</div>
+        </div>
+        <div class="rev-row" style="padding:9px 16px;background:#1a2a1a;">
+          <div class="rev-row-label" style="color:#aac4d8;"><strong style="color:#4ade80;">Active within 90 days</strong></div>
+          <div class="rev-row-calc">37,500 × 70%</div>
+          <div class="rev-row-val" style="font-size:13px;color:#4ade80;">26,250</div>
+        </div>
+      </div>
+      <hr class="sc-divider">
+      <div class="sc-row"><span>MRR</span><span>$997.5K</span></div>
+      <div class="sc-row"><span>ARR</span><span>$11.97M</span></div>
+      <div class="sc-mrr" style="color:#16a34a;font-size:20px;">$997.5K MRR</div>
+    </div>
+
+  </div>
+
+    <!-- Footer note -->
+  <div style="font-size:10.5px;color:var(--mid);padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:10px;line-height:1.7;">
+    📌 <strong>Assumptions:</strong> $38 ARPU/user/mo = $9.99 flat + 1.5% of ~$1,867 avg. monthly rent · Fee paid by resident, not PM · 150 units/PM (industry midpoint) · Five gates: outreach response → PM promotes → resident applies (5/10/20%) → 50% cashflow approval → 70% activate within 90 days · 50K is warm renter-sourced list · Churn not modeled.
+  </div>
+
+</div><!-- /tab-econ -->
+
+<div id="tab-timeline" class="tab-pane">
   <!-- ══ SECTION 10: PROJECT TIMELINE / DAILY LOG ══ -->
   <div id="s10" class="section-title">10 — Project Timeline &amp; Daily Progress</div>
 
@@ -1932,14 +2836,14 @@
       <!-- ─ PHASE 2: Cold Outreach ─ -->
       <div class="tl-phase-label" style="margin-top:32px;">Phase 2 — Cold Outreach (Instantly)</div>
 
-      <div class="tl-item today">
-        <div class="tl-dot today"></div>
+      <div class="tl-item next">
+        <div class="tl-dot next"></div>
         <div class="tl-content">
-          <div class="tl-date">Mar 12 — Today</div>
+          <div class="tl-date">Mar 13 — Up Next</div>
           <div class="tl-item-title">Launch Instantly cold email campaign</div>
           <div class="tl-item-body">50,000-contact PM list. 160 warmed sending accounts. 4-email sequence over 14 days, driving to pmc.splitpay.com. Reply-to: pm-support@o.splitpay.com. Close native integration for reply sync.</div>
           <div class="tl-tags">
-            <span class="tl-tag orange">In progress</span>
+            <span class="tl-tag next-tag">Next up</span>
             <span class="tl-tag ghost">50k contacts</span>
             <span class="tl-tag ghost">160 accounts</span>
           </div>

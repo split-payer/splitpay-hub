@@ -46,7 +46,8 @@ exports.handler = async function (event) {
         const detectedEmail = emailMatch[0];
 
         // Extract first/last name
-        const nameMatch = allUserText.match(/(?:my name is|i'm|i am)\s+([A-Z][a-z]+(?: [A-Z][a-z]+)?)/i);
+        const nameMatch = allUserText.match(/(?:my name is|i'?m|i am)\s+([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)?)/i)
+          || allUserText.match(/^([A-Z][a-z]+(?: [A-Z][a-z]+)?)[\s,.!?]*$/m);
         const detectedName = nameMatch ? nameMatch[1].trim() : '';
         const phoneMatch = allUserText.match(/(\+?1?\s?[\.\-]?\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4})/);
         const detectedPhone = phoneMatch ? phoneMatch[1].replace(/\s/g, '') : null;

@@ -202,7 +202,9 @@ exports.handler = async (event) => {
         { headers: { Authorization: authHeader, Accept: 'application/json' } }
       );
       const existingOpps = await existingOppsRes.json();
-      dupOpp = (existingOpps.data || []).some((o) => o.note === oppNote);
+      dupOpp = formType === 'chat'
+  ? (existingOpps.data || []).some((o) => o.note && o.note.startsWith('Form Type: chat'))
+  : (existingOpps.data || []).some((o) => o.note === oppNote);
     } catch (err) {
       console.error('Opp dedup check failed:', err.message);
     }

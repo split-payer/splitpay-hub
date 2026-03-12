@@ -75,7 +75,7 @@ exports.handler = async (event) => {
   }
 
   const {
-    formType, firstName, lastName, company, firm, email, phone,
+    formType, firstName, lastName, fullName, company, firm, email, phone,
     pms, unitCount, propertyName, propertyAddress, channel,
     hasRentRoll, rentRollName, rentRollDriveUrl, rentRollRowCount,
     // partner-specific
@@ -84,7 +84,7 @@ exports.handler = async (event) => {
     chatNote, flexUser,
   } = body;
 
-  const name = `${firstName || ''} ${lastName || ''}`.trim();
+  const name = fullName || `${firstName || ''} ${lastName || ''}`.trim();
   const companyName = company || firm || '';
   const authHeader = 'Basic ' + Buffer.from(`${CLOSE_API_KEY}:`).toString('base64');
 

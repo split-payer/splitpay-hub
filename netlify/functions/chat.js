@@ -48,6 +48,8 @@ exports.handler = async function (event) {
         // Extract first/last name
         const nameMatch = allUserText.match(/(?:my name is|i'm|i am)\s+([A-Z][a-z]+(?: [A-Z][a-z]+)?)/i);
         const detectedName = nameMatch ? nameMatch[1].trim() : '';
+        const phoneMatch = allUserText.match(/(\+?1?\s?[\.\-]?\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4})/);
+        const detectedPhone = phoneMatch ? phoneMatch[1].replace(/\s/g, '') : null;
 
         // Extract company — look for explicit company/property patterns only
         const emailCompanyMatch = allUserText.match(new RegExp(detectedEmail.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[,\\s-]+([A-Za-z0-9][A-Za-z0-9\\s&\'\.\\-]{2,40}?)(?:\\s*(?:ok|sure|bye|yes|no|thanks|great|got it|sounds|perfect)[^a-z]|\\s*[.,]|\\s*$)', 'i'));
@@ -73,6 +75,7 @@ exports.handler = async function (event) {
               formType: 'chat',
               firstName: detectedName.split(' ')[0] || '',
               lastName: detectedName.split(' ').slice(1).join(' ') || '',
+              fullName: detectedName || '',
               email: detectedEmail,
               company: detectedCompany,
               pms: detectedPms,

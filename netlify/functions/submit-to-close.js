@@ -11,6 +11,7 @@ const CF = {
   totalUnits:         'cf_5HP7O9bC0L2Evm71ibnEOMg3VcuedBmj7w0Xq78sfOL',
   kitDownloaded:      'cf_PACYZMcqEhj64C9CodO5VKS7sVcmly92zDwZcHuvJCH',
   partnerRefSlug: 'cf_5NfIAJEjrKVL6v4pJqk4Ql9MRZUl2Ut8tMLDJOQ0SdK',
+currentFlexUser: 'cf_QkURdO0XIJp0CWgf9sSdVMqaJLHLOqGlaYFUSa0mWMw',
 };
 
 async function slackAlert(message) {
@@ -80,7 +81,7 @@ exports.handler = async (event) => {
     // partner-specific
     portfolioSize, website, refSlug,
     // chat-specific
-    chatNote,
+    chatNote, flexUser,
   } = body;
 
   const name = `${firstName || ''} ${lastName || ''}`.trim();
@@ -119,6 +120,7 @@ exports.handler = async (event) => {
       [CF.totalUnits]:         unitCount || portfolioSize || null,
       [CF.kitDownloaded]:      formType === 'kit' ? 'Yes' : null,
       [CF.partnerRefSlug]: refSlug || null,
+      [CF.currentFlexUser]: flexUser === 'Yes' ? 'Yes' : flexUser === 'No' ? 'No' : null,
     };
     Object.keys(customFieldValues).forEach((k) => {
       if (customFieldValues[k] === null) delete customFieldValues[k];

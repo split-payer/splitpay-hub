@@ -60,6 +60,9 @@ exports.handler = async function (event) {
         // Extract PMS — look for known PMS names
         const PMS_LIST = ['Entrata','Yardi','AppFolio','RealPage','Buildium','ResMan','MRI','Rent Manager','Propertyware','TenantCloud','DoorLoop','Hemlane','Rentec'];
         const detectedPms = PMS_LIST.find(p => allUserText.toLowerCase().includes(p.toLowerCase())) || '';
+        const flexYes = /\b(?:yes|using|use|we use|already use|currently use)[^\n.]{0,30}flex\b|\bflex[^\n.]{0,30}(?:yes|we do|currently|already)\b/i.test(allUserText);
+        const flexNo = /\b(?:no|not|don'?t|do not|not using|never)[^\n.]{0,30}flex\b|\bflex[^\n.]{0,30}(?:no|not|don'?t)\b/i.test(allUserText);
+        const detectedFlex = flexYes ? 'Yes' : flexNo ? 'No' : null;
 
         const closeUrl = 'https://' + event.headers.host + '/api/submit-to-close';
         try {
@@ -73,6 +76,7 @@ exports.handler = async function (event) {
               email: detectedEmail,
               company: detectedCompany,
               pms: detectedPms,
+              flexUser: detectedFlex,
               unitCount: detectedUnits,
             }),
           });

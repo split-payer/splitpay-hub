@@ -52,7 +52,6 @@ exports.handler = async function (event) {
         // Extract company — look for explicit company/property patterns only
         const emailCompanyMatch = allUserText.match(new RegExp(detectedEmail.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[,\\s-]+([A-Za-z0-9][A-Za-z0-9\\s&\'\.\\-]{2,50}?)(?:\\s*[.,]|\\s*$)', 'i'));
         const detectedCompany = emailCompanyMatch ? emailCompanyMatch[1].trim() : '';
-        const detectedCompany = companyMatch ? companyMatch[1].trim() : '';
 
         // Extract unit count — look for numbers near "door/unit/apartment" mentions
         const unitMatch = allUserText.match(/(?:about|around|roughly|~)?\s*(\d[\d,]*)\s*(?:units?|doors?|apartments?|homes?|properties)/i);

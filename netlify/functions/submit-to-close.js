@@ -211,6 +211,17 @@ exports.handler = async (event) => {
 
     if (dupOpp) {
       console.log(`Close: duplicate opp skipped for lead ${leadId}`);
+      if (formType === 'chat' && oppValue) {
+        const existingChatOpp = (existingOpps.data || []).find((o) => o.note && o.note.startsWith('Form Type: chat'));
+        if (existingChatOpp && (!existingChatOpp.value || existingChatOpp.value === 0)) {
+          await fetch(`https://api.close.com/api/v1/opportunity/${existingChatOpp.id}/`, {
+            method: 'PUT',
+            headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ value: oppValue, value_period: 'annual', note: oppNote }),
+          });
+          console.log(`Close: updated chat opp value to ${oppValue}`);
+        }
+      }
     } else {
       const oppRes = await fetch('https://api.close.com/api/v1/opportunity/', {
         method: 'POST',

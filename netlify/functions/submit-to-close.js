@@ -195,7 +195,8 @@ exports.handler = async (event) => {
                    : null;
 
     let opp = { id: null };
-    let dupOpp = false;
+    let existingOpps = { data: [] };
+let dupOpp = false;
     try {
       const existingOppsRes = await fetch(
         `https://api.close.com/api/v1/opportunity/?lead_id=${leadId}&_limit=20`,

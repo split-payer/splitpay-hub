@@ -707,7 +707,7 @@
     <div style="background:var(--near-black);padding:20px 22px;display:flex;align-items:center;gap:12px;">
       <div style="width:32px;height:32px;background:rgba(245,107,63,0.2);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#F56B3F" stroke-width="1.5"/><path d="M6 7.5C6 6.12 7.12 5 8.5 5S11 6.12 11 7.5c0 1.16-.78 2.14-1.84 2.43L9 10v1.5" stroke="#F56B3F" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="14" r="0.75" fill="#F56B3F"/></svg></div>
       <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--white);">Split Pay Assistant</div><div style="font-size:11px;color:#666;display:flex;align-items:center;gap:5px;margin-top:2px;"><span style="width:5px;height:5px;border-radius:50%;background:#34C759;display:block;"></span>Online</div></div>
-      <button onclick="toggleFloat()" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:inherit;">✕</button>
+      <button id="floatExpandBtn" onclick="toggleFloatExpand()" title="Expand" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;font-family:inherit;margin-right:4px;">⤢</button><button onclick="toggleFloat()" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:inherit;">✕</button>
     </div>
     <div id="floatChatMessages" style="padding:18px;height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:var(--off-white);">
       <div style="display:flex;gap:8px;align-items:flex-start;">
@@ -716,7 +716,7 @@
       </div>
     </div>
     <div style="padding:12px 14px;border-top:1.5px solid var(--border);background:var(--white);display:flex;gap:8px;">
-      <input id="floatChatInput" type="text" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendChat('float')" style="flex:1;padding:10px 14px;border:1.5px solid rgba(0,0,0,0.12);border-radius:100px;font-size:13px;font-family:inherit;outline:none;background:var(--cream);" onfocus="this.style.borderColor='var(--near-black)'" onblur="this.style.borderColor='rgba(0,0,0,0.12)'">
+      <textarea id="floatChatInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat('float');}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';" style="flex:1;padding:10px 14px;border:1.5px solid rgba(0,0,0,0.12);border-radius:16px;font-size:13px;font-family:inherit;outline:none;background:var(--cream);resize:none;overflow:hidden;min-height:36px;max-height:120px;line-height:1.5;box-sizing:border-box;" onfocus="this.style.borderColor='var(--near-black)'" onblur="this.style.borderColor='rgba(0,0,0,0.12)'"></textarea>
       <button onclick="sendChat('float')" style="background:var(--orange);color:var(--white);border:none;width:36px;height:36px;border-radius:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
@@ -1518,7 +1518,8 @@ function appendTyping(container){
   div.innerHTML=`<div style="width:24px;height:24px;background:var(--near-black);border-radius:6px;flex-shrink:0;"></div><div style="background:var(--white);border:1.5px solid var(--border);border-radius:4px 16px 16px 16px;padding:12px 16px;display:flex;gap:4px;align-items:center;">${[0,160,320].map(d=>`<span style="width:6px;height:6px;border-radius:50%;background:var(--gray);display:block;animation:blink 1.2s ${d}ms infinite;"></span>`).join('')}</div>`;
   container.appendChild(div);container.scrollTop=container.scrollHeight;return div;
 }
-function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';}
+function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';if(isHidden){setTimeout(()=>{document.getElementById('floatChatInput').focus();},50);}}
+function toggleFloatExpand(){const w=document.getElementById('floatWindow');const msgs=document.getElementById('floatChatMessages');const btn=document.getElementById('floatExpandBtn');const expanded=w.getAttribute('data-expanded')==='1';if(expanded){w.style.width='360px';msgs.style.height='280px';btn.textContent='⤢';btn.title='Expand';w.setAttribute('data-expanded','0');}else{w.style.width='520px';msgs.style.height='520px';btn.textContent='⤡';btn.title='Collapse';w.setAttribute('data-expanded','1');}}
 
 /* ═══════════════════════════
    FAQ ACCORDION

@@ -53,11 +53,12 @@ exports.handler = async function (event) {
         const detectedPhone = phoneMatch ? phoneMatch[1].replace(/\s/g, '') : null;
 
         // Extract company — look for explicit company/property patterns only
-        const emailCompanyMatch = allUserText.match(new RegExp(detectedEmail.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[,\\s-]+([A-Za-z0-9][A-Za-z0-9\\s&\'\.\\-]{2,40}?)(?:\\s*(?:ok|sure|bye|yes|no|thanks|great|got it|sounds|perfect)[^a-z]|\\s*[.,]|\\s*$)', 'i'));
+        const emailCompanyMatch = allUserText.match(new RegExp(detectedEmail.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[,\\s-]+([A-Za-z0-9][A-Za-z0-9\\s&\'\.\\-]{2,40}?)(?=\\s*(?:ok|sure|bye|yes|no|thanks|great|got it|sounds|perfect|\\d+\\s*(?:doors?|units?)|[.,]|$))', 'i'));
         const detectedCompany = emailCompanyMatch ? emailCompanyMatch[1].trim() : '';
 
         // Extract unit count — look for numbers near "door/unit/apartment" mentions
-        const unitMatch = allUserText.match(/(?:about|around|roughly|~)?\s*(\d[\d,]*)\s*(?:units?|doors?|apartments?|homes?|properties)/i);
+        const unitMatch = allUserText.match(/(?:about|around|roughly|~)?\s*(\d[\d,]*)\s*(?:units?|doors?|apartments?|homes?|properties)/i)
+          || allUserText.match(/(\d+)\s*doors?[,\s]/i);
         const detectedUnits = unitMatch ? parseInt(unitMatch[1].replace(/,/g, '')) : null;
 
         // Extract PMS — look for known PMS names

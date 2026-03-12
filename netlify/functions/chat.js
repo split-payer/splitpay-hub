@@ -50,7 +50,7 @@ exports.handler = async function (event) {
         const detectedName = nameMatch ? nameMatch[1].trim() : '';
 
         // Extract company — look for explicit company/property patterns only
-        const emailCompanyMatch = allUserText.match(new RegExp(detectedEmail.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[,\\s-]+([A-Za-z0-9][A-Za-z0-9\\s&\'\.\\-]{2,50}?)(?:\\s*[.,]|\\s*$)', 'i'));
+        const emailCompanyMatch = allUserText.match(new RegExp(detectedEmail.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '[,\\s-]+([A-Za-z0-9][A-Za-z0-9\\s&\'\.\\-]{2,40}?)(?:\\s*(?:ok|sure|bye|yes|no|thanks|great|got it|sounds|perfect)[^a-z]|\\s*[.,]|\\s*$)', 'i'));
         const detectedCompany = emailCompanyMatch ? emailCompanyMatch[1].trim() : '';
 
         // Extract unit count — look for numbers near "door/unit/apartment" mentions
@@ -60,12 +60,6 @@ exports.handler = async function (event) {
         // Extract PMS — look for known PMS names
         const PMS_LIST = ['Entrata','Yardi','AppFolio','RealPage','Buildium','ResMan','MRI','Rent Manager','Propertyware','TenantCloud','DoorLoop','Hemlane','Rentec'];
         const detectedPms = PMS_LIST.find(p => allUserText.toLowerCase().includes(p.toLowerCase())) || '';
-
-        // Build chat transcript for Close note
-        const transcript = (body.messages || []).map(m =>
-          (m.role === 'user' ? 'PM: ' : 'Bot: ') + m.content
-        ).join('\n');
-        const chatNote = `Chat via pmc.splitpay.com\n\n${transcript}`;
 
         const closeUrl = 'https://' + event.headers.host + '/api/submit-to-close';
         try {
@@ -80,7 +74,6 @@ exports.handler = async function (event) {
               company: detectedCompany,
               pms: detectedPms,
               unitCount: detectedUnits,
-              chatNote,
             }),
           });
         } catch (e) {

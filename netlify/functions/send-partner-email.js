@@ -170,7 +170,7 @@ function buildWelcomeHtml({ name, companyName, refLink, refDisplay }) {
           <tr><td style="padding:20px 24px;">
             <p style="margin:0 0 4px;font-size:11px;font-weight:700;color:#8ab88f;letter-spacing:0.07em;text-transform:uppercase;">Revenue tiers</p>
             <p style="margin:0;font-size:13px;color:#d4e8d4;line-height:1.7;">
-              <strong style="color:#fae182;">Growth</strong> (0–20 residents) · Partnership badge + $100 gift card on first activation<br>
+              <strong style="color:#fae182;">Growth</strong> (0–20 residents) · Partnership badge + $100 gift card when your first resident uses Split Pay<br>
               <strong style="color:#fae182;">Local Partner</strong> (21–50) · $3/resident/month<br>
               <strong style="color:#fae182;">Regional Partner</strong> (51–100) · $4/resident/month<br>
               <strong style="color:#fae182;">National Partner</strong> (101+) · $5/resident/month

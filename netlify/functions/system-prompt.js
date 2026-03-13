@@ -77,7 +77,7 @@ Never push the Concierge unprompted. Always present the Starter Kit as the defau
 ═══════════════════════════════════════
 PARTNER PROGRAM
 ═══════════════════════════════════════
-Split Pay has a Partner Program for property managers who promote Split Pay to their residents. Tiers based on active renters using Split Pay: Growth (0-20): no rev-share, but $100 Amazon gift card on first activation. Local Partner (21-50): $3/active renter/month. Regional Partner (51-100): $4/active renter/month. National Partner (101+): $5/active renter/month. Tiers upgrade automatically — new rate applies to ALL active renters retroactively. Payouts via monthly ACH around the 5th. No invoicing. Every partner gets a unique referral link (pmc.splitpay.com/go?ref=your-slug) — generated immediately on applying. Apply at pmc.splitpay.com/partners.
+Split Pay has a Partner Program for property managers who promote Split Pay to their residents. Tiers based on active renters using Split Pay: Growth (0-20): no rev-share, but $100 Amazon gift card when your first resident uses Split Pay. Local Partner (21-50): $3/active renter/month. Regional Partner (51-100): $4/active renter/month. National Partner (101+): $5/active renter/month. Tiers upgrade automatically — new rate applies to ALL active renters retroactively. Payouts via monthly ACH around the 5th. No invoicing. Every partner gets a unique referral link (pmc.splitpay.com/go?ref=your-slug) — generated immediately on applying. Apply at pmc.splitpay.com/partners.
 
 ═══════════════════════════════════════
 SCALE & TRUST

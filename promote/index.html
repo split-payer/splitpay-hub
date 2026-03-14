@@ -32,7 +32,7 @@
   }
 
   /* ─── NAV — matches pmc.splitpay.com ─── */
-  .site-nav {
+  nav {
     background: var(--white);
     border-bottom: 1px solid var(--border);
     padding: 0 40px;
@@ -44,53 +44,50 @@
     top: 0;
     z-index: 100;
   }
-  .site-nav-logo {
+  .nav-logo {
     display: flex; align-items: center; gap: 10px;
-    text-decoration: none; flex-shrink: 0;
+    flex-shrink: 0; cursor: pointer;
   }
-  .site-nav-logo img { height: 30px; display: block; }
-  .site-nav-links {
+  .nav-links {
     display: flex; align-items: center; gap: 32px;
     position: absolute; left: 50%; transform: translateX(-50%);
   }
-  .site-nav-links a {
+  .nav-links a {
     font-size: 14px; font-weight: 500; color: #555;
     text-decoration: none; white-space: nowrap;
   }
-  .site-nav-links a:hover { color: var(--near-black); }
-  .site-nav-links a.active { font-weight: 700; color: var(--near-black); }
-  .site-nav-right { display: flex; align-items: center; gap: 10px; }
-  .nav-btn-ghost {
+  .nav-links a:hover { color: var(--near-black); }
+  .nav-links a[href="/promote"] { font-weight: 700; color: var(--near-black); }
+  .nav-actions { display: flex; align-items: center; gap: 10px; }
+  .btn-book {
     font-size: 13px; font-weight: 600; color: var(--near-black);
     border: 1.5px solid rgba(0,0,0,0.18); border-radius: 100px;
-    padding: 7px 18px; text-decoration: none; background: transparent;
+    padding: 7px 18px; background: transparent; cursor: pointer;
+    font-family: inherit; white-space: nowrap;
+  }
+  .btn-book:hover { background: var(--cream); }
+  .btn-kit {
+    font-size: 13px; font-weight: 700; color: var(--white);
+    background: var(--orange); border: none; border-radius: 100px;
+    padding: 8px 18px; cursor: pointer; font-family: inherit;
     white-space: nowrap;
   }
-  .nav-btn-ghost:hover { background: var(--cream); }
-  .nav-btn-orange {
-    font-size: 13px; font-weight: 700; color: var(--white);
-    background: var(--orange); border-radius: 100px;
-    padding: 8px 18px; text-decoration: none; white-space: nowrap;
-    border: none;
-  }
-  .nav-btn-orange:hover { opacity: 0.9; }
+  .btn-kit:hover { opacity: 0.9; }
 
-  /* ─── FOOTER — minimal, matches pmc.splitpay.com ─── */
-  .site-footer {
+  /* ─── FOOTER — matches pmc.splitpay.com ─── */
+  footer {
     background: var(--near-black);
-    padding: 24px 40px;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
   }
-  .site-footer-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 20px; flex-wrap: wrap;
-  }
-  .footer-brand { text-decoration: none; }
-  .footer-link {
-    font-size: 13px; color: rgba(255,255,255,0.45);
-    text-decoration: none;
-  }
-  .footer-link:hover { color: rgba(255,255,255,0.8); }
+  .footer-links { display: flex; align-items: center; gap: 24px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; }
+  .footer-links a:hover { color: rgba(255,255,255,0.8); }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
 
   /* ─── HERO ─── */
   .hero {
@@ -688,24 +685,35 @@
 </head>
 <body>
 
-<!-- NAV — unified across all pmc.splitpay.com pages -->
-<nav class="site-nav">
-  <a class="site-nav-logo" href="https://pmc.splitpay.com">
-    <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" />
-  </a>
-  <div class="site-nav-links">
-    <a href="/promote" class="active">How to Promote</a>
-    <a href="https://pmc.splitpay.com">Get the Kit</a>
-    <a href="https://pmc.splitpay.com/partners">Partner Program</a>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="368 0 1000 1000" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+      <mask id="nm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#nm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#ng1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#ng2)"/>
+      </g>
+      <defs>
+        <linearGradient id="ng1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="ng2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
+    <span style="font-size:16px;font-weight:700;letter-spacing:-0.4px;color:var(--near-black);">Split Pay</span>
   </div>
-  <div class="site-nav-right">
-    <a href="https://calendly.com/rent-app/onboarding" class="nav-btn-ghost">Book a meeting</a>
-    <a href="https://pmc.splitpay.com/#kit" class="nav-btn-orange">Get the Kit</a>
+  <div class="nav-links">
+    <a href="/">Get the Kit</a>
+    <a href="/promote">How to Promote</a>
+    <a href="/partners">Partner Program</a>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-book" onclick="openCal()">Book a meeting</button>
+    <button class="btn-kit" onclick="openDL()">Get the Kit</button>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="hero" id="top">
+<div class="hero">
   <div class="hero-eyebrow">📣 PM Resident Outreach Guide</div>
   <h1>How to get residents<br>using <span>Split Pay</span></h1>
   <p class="hero-sub">A step-by-step playbook. Pick your effort level — 15 minutes or all-in. Either way, residents win.</p>
@@ -1252,34 +1260,36 @@
 </div>
 
 <!-- FOOTER — matches pmc.splitpay.com / partners -->
-<footer class="site-footer">
-  <div class="site-footer-inner">
-    <a href="https://pmc.splitpay.com" class="footer-brand">
-      <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" style="height:26px;display:block;" />
-    </a>
-    <div style="display:flex;align-items:center;gap:28px;">
-      <a href="https://pmc.splitpay.com/privacy" class="footer-link">Privacy</a>
-      <a href="https://pmc.splitpay.com/terms" class="footer-link">Terms</a>
-      <a href="/cdn-cgi/l/email-protection#ed9e989d9d829f99ad9e9d8184999d8c94c38e8280" class="footer-link">Contact</a>
-      <a href="https://pmc.splitpay.com/partners" class="footer-link">Partner Program</a>
-    </div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.25);">© 2025 Split Pay</div>
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="368 0 1000 1000" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+      <mask id="fm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#fm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#fg1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#fg2)"/>
+      </g>
+      <defs>
+        <linearGradient id="fg1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="fg2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
   </div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+    <a href="/partners">Partner Program</a>
+  </div>
+  <div class="footer-copy">© 2026 Split Pay · Powered by Rent App</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // ── TAB SWITCHING ──
   function switchTab(id, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
-    if (btn) btn.classList.add('active');
-    // scroll to tabs bar
-    document.querySelector('.tabs-bar').scrollIntoView({behavior:'smooth', block:'start'});
-  }
-  function switchTabByName(id) {
-    const btn = document.querySelector(`.tab-btn[onclick*="${id}"]`);
-    switchTab(id, btn);
+    btn.classList.add('active');
   }
 
   // ── TIER-AWARE CALCULATOR ──
@@ -1379,4 +1389,161 @@
       aVal.textContent = '$' + annual.toLocaleString();
       mSub.style.color = 'rgba(255,255,255,0.45)';
       mSub.textContent = residents + ' residents × $' + tier.rate + '/mo';
-      aSub.style.color = 'rgba(255,255,25
+      aSub.style.color = 'rgba(255,255,255,0.45)';
+      aSub.textContent = '$' + monthly.toLocaleString() + '/mo × 12 months';
+    }
+  }
+
+  // ── SESSION STORAGE — persist chat history across page navigations ──
+  const SESSION_KEY = 'sp_chat_history';
+  function loadHistory() {
+    try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || '[]'); } catch { return []; }
+  }
+  function saveHistory(h) {
+    try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(h.slice(-40))); } catch {}
+  }
+
+  // ── FLOAT CHAT WIDGET ──
+  const floatHistory = loadHistory();
+
+  function toggleFloat() {
+    const w = document.getElementById('floatWindow');
+    const isOpen = w.style.display === 'flex';
+    w.style.display = isOpen ? 'none' : 'flex';
+    if (!isOpen) {
+      document.getElementById('floatChatInput').focus();
+      if (floatHistory.length === 0) {
+        appendFloatMsg('bot', 'Hi! I can help you promote Split Pay to your residents, answer questions about how it works, or walk you through the partner program. What's on your mind?');
+      }
+    }
+  }
+
+  function appendFloatMsg(role, text) {
+    const wrap = document.getElementById('floatChatMessages');
+    const isBot = role === 'bot';
+    const d = document.createElement('div');
+    d.style.cssText = 'display:flex;gap:8px;align-items:flex-start;' + (isBot ? '' : 'justify-content:flex-end;');
+    if (isBot) {
+      d.innerHTML = '<div style="width:24px;height:24px;background:var(--near-black);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="white" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div><div style="background:var(--white);border:1.5px solid var(--border);border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.65;color:var(--near-black);max-width:240px;">' + text + '</div>';
+    } else {
+      d.innerHTML = '<div style="background:var(--orange);border-radius:12px 4px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.65;color:#fff;max-width:240px;">' + text + '</div>';
+    }
+    wrap.appendChild(d);
+    wrap.scrollTop = wrap.scrollHeight;
+  }
+
+  async function sendFloat() {
+    const input = document.getElementById('floatChatInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+    appendFloatMsg('user', msg);
+    floatHistory.push({role:'user', content:msg});
+    const typing = document.createElement('div');
+    typing.id = 'floatTyping';
+    typing.style.cssText = 'font-size:12px;color:var(--muted);padding:4px 0;';
+    typing.textContent = '...';
+    document.getElementById('floatChatMessages').appendChild(typing);
+    try {
+      const res = await fetch('/api/chat', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          messages: floatHistory,
+          context: 'User is on ' + window.location.pathname + ' — How to Promote Split Pay page'
+        })
+      });
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || 'Sorry, I had trouble with that.';
+      document.getElementById('floatTyping')?.remove();
+      appendFloatMsg('bot', reply);
+      floatHistory.push({role:'assistant', content:reply});
+      saveHistory(floatHistory);
+    } catch(e) {
+      document.getElementById('floatTyping')?.remove();
+      appendFloatMsg('bot', 'Sorry, having trouble connecting. Try again in a moment.');
+    }
+  }
+
+  function openCal() { window.location.href = 'https://calendly.com/rent-app/onboarding'; }
+  function openDL()  { window.location.href = '/'; }
+
+  // init
+  calcSimple();
+</script>
+
+<!-- FLOAT CHAT WIDGET -->
+<style>
+  #floatWidget { position:fixed; bottom:24px; right:24px; z-index:9999; }
+  #floatBtn {
+    width:52px; height:52px; border-radius:50%;
+    background:var(--orange); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 20px rgba(245,107,63,0.4);
+    transition:transform 0.2s, box-shadow 0.2s;
+  }
+  #floatBtn:hover { transform:scale(1.08); box-shadow:0 6px 28px rgba(245,107,63,0.5); }
+  #floatBtn svg { width:22px; height:22px; fill:white; }
+  #floatWindow {
+    display:none; flex-direction:column;
+    position:absolute; bottom:64px; right:0;
+    width:300px; height:400px;
+    background:var(--white); border-radius:16px;
+    border:1.5px solid var(--border);
+    box-shadow:0 8px 40px rgba(0,0,0,0.15);
+    overflow:hidden;
+  }
+  #floatHeader {
+    background:var(--near-black); padding:14px 16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  #floatChatMessages {
+    flex:1; overflow-y:auto; padding:16px;
+    display:flex; flex-direction:column; gap:12px;
+    background:var(--cream);
+  }
+  #floatInputRow {
+    padding:10px 12px; border-top:1px solid var(--border);
+    display:flex; gap:8px; background:var(--white);
+  }
+  #floatChatInput {
+    flex:1; padding:9px 14px; border:1.5px solid rgba(0,0,0,0.12);
+    border-radius:100px; font-size:13px; font-family:inherit;
+    outline:none; background:var(--cream);
+  }
+  #floatChatInput:focus { border-color:var(--near-black); }
+  #floatSendBtn {
+    width:34px; height:34px; border-radius:50%;
+    background:var(--orange); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  #floatSendBtn svg { width:14px; height:14px; fill:none; stroke:white; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+</style>
+
+<div id="floatWidget">
+  <div id="floatWindow">
+    <div id="floatHeader">
+      <div style="width:28px;height:28px;background:rgba(245,107,63,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="#F56B3F" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="#F56B3F" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="#F56B3F" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--white);">Split Pay Assistant</div>
+        <div style="font-size:11px;color:#666;display:flex;align-items:center;gap:4px;margin-top:1px;"><span style="width:5px;height:5px;border-radius:50%;background:#34C759;display:block;"></span>Online</div>
+      </div>
+      <button onclick="toggleFloat()" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div id="floatChatMessages"></div>
+    <div id="floatInputRow">
+      <input id="floatChatInput" type="text" placeholder="Ask anything…" onkeydown="if(event.key==='Enter')sendFloat()">
+      <button id="floatSendBtn" onclick="sendFloat()">
+        <svg viewBox="0 0 16 16"><path d="M2 8h12M8 2l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+  <button id="floatBtn" onclick="toggleFloat()" aria-label="Chat with Split Pay">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+</body>
+</html>

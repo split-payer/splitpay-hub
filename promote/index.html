@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Promote Split Pay — pmc.splitpay.com/promote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;0,9..40,900;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F56B3F;
+    --yellow: #fae182;
+    --teal: #43BDAE;
+    --near-black: #292929;
+    --white: #FFFFFF;
+    --cream: #F2F0EB;
+    --border: rgba(0,0,0,0.09);
+    --dark-card: #1a2332;
+    --dark-card-2: #0f1923;
+    --green: #3DDC97;
+    --muted: #888;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--near-black);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAV — matches pmc.splitpay.com ─── */
+  .site-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .site-nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .site-nav-logo img { height: 30px; display: block; }
+  .site-nav-links {
+    display: flex; align-items: center; gap: 32px;
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
+  .site-nav-links a {
+    font-size: 14px; font-weight: 500; color: #555;
+    text-decoration: none; white-space: nowrap;
+  }
+  .site-nav-links a:hover { color: var(--near-black); }
+  .site-nav-links a.active { font-weight: 700; color: var(--near-black); }
+  .site-nav-right { display: flex; align-items: center; gap: 10px; }
+  .nav-btn-ghost {
+    font-size: 13px; font-weight: 600; color: var(--near-black);
+    border: 1.5px solid rgba(0,0,0,0.18); border-radius: 100px;
+    padding: 7px 18px; text-decoration: none; background: transparent;
+    white-space: nowrap;
+  }
+  .nav-btn-ghost:hover { background: var(--cream); }
+  .nav-btn-orange {
+    font-size: 13px; font-weight: 700; color: var(--white);
+    background: var(--orange); border-radius: 100px;
+    padding: 8px 18px; text-decoration: none; white-space: nowrap;
+    border: none;
+  }
+  .nav-btn-orange:hover { opacity: 0.9; }
+
+  /* ─── FOOTER — minimal, matches pmc.splitpay.com ─── */
+  .site-footer {
+    background: var(--near-black);
+    padding: 24px 40px;
+  }
+  .site-footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .footer-brand { text-decoration: none; }
+  .footer-link {
+    font-size: 13px; color: rgba(255,255,255,0.45);
+    text-decoration: none;
+  }
+  .footer-link:hover { color: rgba(255,255,255,0.8); }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--dark-card-2);
+    padding: 56px 32px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(245,107,63,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(245,107,63,0.15);
+    border: 1px solid rgba(245,107,63,0.3);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 11px; font-weight: 700; color: var(--orange);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: var(--orange); }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  /* stat pills in hero */
+  .hero-stats {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 8px 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .stat-pill-val { font-size: 16px; font-weight: 800; color: var(--white); }
+  .stat-pill-label { font-size: 12px; color: rgba(255,255,255,0.45); }
+  .stat-pill-val.orange { color: var(--orange); }
+  .stat-pill-val.teal { color: var(--teal); }
+  .stat-pill-val.yellow { color: var(--yellow); }
+
+  /* ─── TABS ─── */
+  .tabs-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    position: sticky;
+    top: 60px;
+    z-index: 99;
+  }
+  .tab-btn {
+    padding: 16px 32px;
+    font-size: 14px; font-weight: 700;
+    color: var(--muted);
+    background: none; border: none; cursor: pointer;
+    border-bottom: 3px solid transparent;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.15s, border-color 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tab-btn.active {
+    color: var(--near-black);
+    border-bottom-color: var(--orange);
+  }
+  .tab-btn .tab-badge {
+    font-size: 9px; font-weight: 800;
+    padding: 2px 7px; border-radius: 100px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .tab-btn.active .tab-badge.easy { background: var(--yellow); color: #7a5500; }
+  .tab-btn.active .tab-badge.pro  { background: var(--teal); color: #fff; }
+  .tab-btn .tab-badge.easy { background: #f0ede4; color: #888; }
+  .tab-btn .tab-badge.pro  { background: #e8f7f5; color: #888; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ─── SECTION WRAPPERS ─── */
+  .section {
+    padding: 48px 32px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-full {
+    padding: 48px 0;
+  }
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .section-eyebrow {
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 6px;
+  }
+  .section-eyebrow.teal { color: var(--teal); }
+  .section-title {
+    font-size: 24px; font-weight: 800;
+    letter-spacing: -0.5px; margin-bottom: 6px;
+  }
+  .section-sub {
+    font-size: 14px; color: var(--muted);
+    line-height: 1.6; margin-bottom: 28px;
+  }
+
+  /* ─── STEPS (Quick Start) ─── */
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+
+  .step-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 24px 24px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .step-card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    transform: translateY(-1px);
+  }
+  .step-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  }
+  .step-card.orange::before { background: var(--orange); }
+  .step-card.yellow::before { background: var(--yellow); }
+  .step-card.teal::before { background: var(--teal); }
+
+  .step-num {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; flex-shrink: 0;
+  }
+  .step-num.orange { background: rgba(245,107,63,0.12); color: var(--orange); }
+  .step-num.yellow { background: rgba(250,225,130,0.25); color: #8a6000; }
+  .step-num.teal   { background: rgba(67,189,174,0.12); color: var(--teal); }
+
+  .step-body { flex: 1; }
+  .step-title {
+    font-size: 16px; font-weight: 800;
+    margin-bottom: 5px; letter-spacing: -0.3px;
+  }
+  .step-desc {
+    font-size: 13px; color: #555; line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  /* checklist inside step */
+  .checklist { display: flex; flex-direction: column; gap: 7px; }
+  .checklist-item {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: 13px; color: var(--near-black); line-height: 1.5;
+  }
+  .check-icon {
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+    font-size: 10px;
+  }
+  .check-icon.orange { background: rgba(245,107,63,0.12); color: var(--orange); }
+  .check-icon.yellow { background: rgba(250,225,130,0.25); color: #8a6000; }
+  .check-icon.teal   { background: rgba(67,189,174,0.12); color: var(--teal); }
+
+  .step-time-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--cream); border-radius: 100px;
+    padding: 4px 10px; font-size: 11px; font-weight: 700;
+    color: var(--muted); margin-bottom: 10px;
+  }
+
+  .step-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--orange); color: var(--white);
+    font-size: 12px; font-weight: 700;
+    padding: 8px 16px; border-radius: 100px;
+    text-decoration: none; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 4px;
+  }
+  .step-cta.ghost {
+    background: transparent; color: var(--near-black);
+    border: 1.5px solid rgba(0,0,0,0.15);
+  }
+  .step-cta.teal-btn { background: var(--teal); }
+
+  /* ─── GIFT CARD CALLOUT ─── */
+  .gift-card-strip {
+    background: var(--dark-card);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex; align-items: center; gap: 20px;
+    margin-bottom: 32px;
+    position: relative; overflow: hidden;
+  }
+  .gift-card-strip::before {
+    content: '';
+    position: absolute; right: 0; top: 0; bottom: 0; width: 200px;
+    background: linear-gradient(to left, rgba(245,107,63,0.12), transparent);
+    pointer-events: none;
+  }
+  .gift-icon {
+    font-size: 40px; flex-shrink: 0;
+  }
+  .gift-text-wrap { flex: 1; }
+  .gift-eyebrow {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 4px;
+  }
+  .gift-amount {
+    font-size: 28px; font-weight: 900; color: var(--white);
+    letter-spacing: -1px; margin-bottom: 3px;
+  }
+  .gift-amount span { color: var(--yellow); }
+  .gift-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+  /* ─── TEMPLATE CARDS ─── */
+  .template-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .template-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .template-type {
+    display: inline-block;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 100px; margin-bottom: 10px;
+  }
+  .template-type.email { background: rgba(245,107,63,0.1); color: var(--orange); }
+  .template-type.sms   { background: rgba(67,189,174,0.1); color: var(--teal); }
+  .template-type.print { background: rgba(250,225,130,0.3); color: #8a6000; }
+  .template-preview {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px; color: #555; line-height: 1.6;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .template-preview strong { color: var(--near-black); font-style: normal; }
+  .template-actions { display: flex; gap: 8px; }
+  .btn-copy {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 700;
+    padding: 6px 12px; border-radius: 100px;
+    background: var(--near-black); color: var(--white);
+    border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-preview {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 700;
+    padding: 6px 12px; border-radius: 100px;
+    background: transparent; color: var(--muted);
+    border: 1.5px solid var(--border); cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px; background: var(--border);
+    margin: 0;
+  }
+
+  /* ─── ADVANCED: CHANNEL CARDS ─── */
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .channel-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    transition: box-shadow 0.2s;
+  }
+  .channel-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .channel-icon {
+    font-size: 28px; margin-bottom: 12px;
+  }
+  .channel-name {
+    font-size: 15px; font-weight: 800; margin-bottom: 5px;
+  }
+  .channel-timing {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 100px;
+    margin-bottom: 10px;
+  }
+  .channel-timing.fast { background: rgba(61,220,151,0.12); color: #1a9160; }
+  .channel-timing.medium { background: rgba(250,225,130,0.3); color: #8a6000; }
+  .channel-desc { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 14px; }
+  .channel-steps { display: flex; flex-direction: column; gap: 5px; }
+  .channel-step {
+    font-size: 12px; color: var(--near-black);
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .channel-step-num {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--cream); color: var(--muted);
+    font-size: 9px; font-weight: 800;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ─── TIMING SCHEDULE ─── */
+  .timeline {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .timeline-header {
+    background: var(--dark-card);
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .timeline-header h3 { font-size: 14px; font-weight: 800; color: var(--white); }
+  .timeline-header span { font-size: 12px; color: rgba(255,255,255,0.4); }
+  .timeline-row {
+    display: flex; align-items: flex-start;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    gap: 20px;
+  }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-day {
+    font-size: 11px; font-weight: 800;
+    width: 60px; flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .timeline-day.d0 { color: var(--orange); }
+  .timeline-day.d2 { color: var(--teal); }
+  .timeline-day.d5 { color: var(--yellow); }
+  .timeline-day.d30 { color: rgba(255,255,255,0.5); }
+  .timeline-content { flex: 1; }
+  .timeline-action { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .timeline-detail { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .timeline-channel {
+    display: flex; gap: 6px; margin-top: 6px;
+  }
+  .channel-tag {
+    font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 100px;
+  }
+  .channel-tag.email { background: rgba(245,107,63,0.1); color: var(--orange); }
+  .channel-tag.sms   { background: rgba(67,189,174,0.1); color: var(--teal); }
+  .channel-tag.print { background: rgba(250,225,130,0.3); color: #8a6000; }
+
+  /* ─── CALCULATOR ─── */
+  .calc-section {
+    background: #292929;
+    padding: 48px 0;
+  }
+  .calc-inner {
+    max-width: 900px; margin: 0 auto; padding: 0 32px;
+  }
+  .calc-header { margin-bottom: 32px; }
+  .calc-header .section-eyebrow { color: var(--yellow); }
+  .calc-header .section-title { color: var(--white); }
+  .calc-header .section-sub { color: rgba(255,255,255,0.5); margin-bottom: 0; font-style: italic; }
+
+  .calc-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .calc-inputs {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .calc-inputs h4 {
+    font-size: 12px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); margin-bottom: 20px;
+  }
+
+  .slider-row { margin-bottom: 20px; }
+  .slider-label {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+  }
+  .slider-label span { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .slider-val {
+    font-size: 15px; font-weight: 800; color: var(--white);
+    font-family: 'DM Mono', monospace;
+  }
+  .slider-val.orange { color: var(--orange); }
+  .slider-val.teal { color: var(--teal); }
+  .slider-val.yellow { color: var(--yellow); }
+
+  input[type="range"] {
+    width: 100%; height: 4px;
+    -webkit-appearance: none; appearance: none;
+    background: rgba(255,255,255,0.2);
+    border-radius: 100px; outline: none; cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--yellow); cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+  input[type="range"].teal-slider::-webkit-slider-thumb { background: var(--teal); }
+  input[type="range"].yellow-slider::-webkit-slider-thumb { background: var(--yellow); }
+
+  .calc-outputs {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+
+  .output-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .output-card.highlight {
+    background: rgba(245,107,63,0.12);
+    border-color: rgba(245,107,63,0.25);
+  }
+  .output-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    margin-bottom: 6px;
+  }
+  .output-label.orange { color: var(--orange); }
+  .output-val {
+    font-size: 36px; font-weight: 900; color: var(--white);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: -1px; line-height: 1;
+    margin-bottom: 5px;
+  }
+  .output-val.orange { color: var(--orange); }
+  .output-val.teal   { color: var(--teal); }
+  .output-sub {
+    font-size: 12px; color: rgba(255,255,255,0.35);
+  }
+
+  .funnel-row {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .funnel-steps {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,0.4);
+    flex-wrap: wrap;
+  }
+  .funnel-steps .num { color: var(--white); font-weight: 700; }
+  .funnel-steps .arrow { color: rgba(255,255,255,0.2); }
+  .funnel-note {
+    font-size: 11px; color: rgba(255,255,255,0.25);
+    font-style: italic;
+  }
+
+  /* ─── CONCIERGE CTA ─── */
+  .cta-strip {
+    background: var(--orange);
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .cta-strip h2 {
+    font-size: 28px; font-weight: 900;
+    color: var(--white); letter-spacing: -0.8px;
+    margin-bottom: 8px;
+  }
+  .cta-strip p {
+    font-size: 15px; color: rgba(255,255,255,0.75);
+    margin-bottom: 24px;
+  }
+  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--white); color: var(--orange);
+    font-size: 14px; font-weight: 800;
+    padding: 12px 24px; border-radius: 100px;
+    text-decoration: none;
+  }
+  .cta-btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--white);
+    font-size: 14px; font-weight: 700;
+    padding: 12px 24px; border-radius: 100px;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+
+  /* ─── ADOPTION TIPS GRID ─── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .tip-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .tip-card-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .tip-emoji { font-size: 22px; }
+  .tip-title { font-size: 14px; font-weight: 800; }
+  .tip-body { font-size: 12px; color: #555; line-height: 1.65; }
+
+  /* impact bar inside tip */
+  .impact-bar {
+    display: flex; align-items: center; gap: 8px; margin-top: 10px;
+  }
+  .impact-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .impact-dots { display: flex; gap: 3px; }
+  .impact-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border);
+  }
+  .impact-dot.filled { background: var(--orange); }
+
+  /* ─── DO / DON'T ─── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .do-card, .dont-card {
+    border-radius: 14px; padding: 20px;
+  }
+  .do-card {
+    background: rgba(61,220,151,0.07);
+    border: 1.5px solid rgba(61,220,151,0.2);
+  }
+  .dont-card {
+    background: rgba(245,107,63,0.06);
+    border: 1.5px solid rgba(245,107,63,0.15);
+  }
+  .do-dont-header {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 800; margin-bottom: 12px;
+  }
+  .do-card .do-dont-header { color: #1a9160; }
+  .dont-card .do-dont-header { color: var(--orange); }
+  .do-dont-list { display: flex; flex-direction: column; gap: 7px; }
+  .do-dont-item { font-size: 12px; color: var(--near-black); line-height: 1.5; display: flex; gap: 7px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .template-grid, .channel-grid, .do-dont, .tips-grid, .calc-layout { grid-template-columns: 1fr; }
+    .calc-layout { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV — unified across all pmc.splitpay.com pages -->
+<nav class="site-nav">
+  <a class="site-nav-logo" href="https://pmc.splitpay.com">
+    <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" />
+  </a>
+  <div class="site-nav-links">
+    <a href="/promote" class="active">How to Promote</a>
+    <a href="https://pmc.splitpay.com">Get the Kit</a>
+    <a href="https://pmc.splitpay.com/partners">Partner Program</a>
+  </div>
+  <div class="site-nav-right">
+    <a href="https://calendly.com/rent-app/onboarding" class="nav-btn-ghost">Book a meeting</a>
+    <a href="https://pmc.splitpay.com/#kit" class="nav-btn-orange">Get the Kit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-eyebrow">📣 PM Resident Outreach Guide</div>
+  <h1>How to get residents<br>using <span>Split Pay</span></h1>
+  <p class="hero-sub">A step-by-step playbook. Pick your effort level — 15 minutes or all-in. Either way, residents win.</p>
+  <div class="hero-stats">
+    <div class="stat-pill">
+      <span class="stat-pill-val orange">~50%</span>
+      <span class="stat-pill-label">of residents qualify</span>
+    </div>
+    <div class="stat-pill">
+      <span class="stat-pill-val yellow">$100</span>
+      <span class="stat-pill-label">gift card — first user</span>
+    </div>
+    <div class="stat-pill">
+      <span class="stat-pill-val teal">0 min</span>
+      <span class="stat-pill-label">setup for you</span>
+    </div>
+    <div class="stat-pill">
+      <span class="stat-pill-val" style="color:#fff">Free</span>
+      <span class="stat-pill-label">for property managers</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="switchTab('quickstart', this)">
+    ⚡ Quick Start <span class="tab-badge easy">15 min</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('advanced', this)">
+    🚀 Maximize Adoption <span class="tab-badge pro">Advanced</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('calculator', this)">
+    📊 Earnings Calculator
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB 1: QUICK START
+══════════════════════════════════════ -->
+<div id="tab-quickstart" class="tab-panel active">
+
+  <!-- Gift card callout -->
+  <div class="section">
+    <div class="gift-card-strip">
+      <div class="gift-icon">🎁</div>
+      <div class="gift-text-wrap">
+        <div class="gift-eyebrow">Your referral bonus</div>
+        <div class="gift-amount"><span>$100</span> Amazon Gift Card</div>
+        <div class="gift-desc">You get this when the first resident in your building <strong style="color:rgba(255,255,255,0.7);">uses</strong> Split Pay. Not per resident — one time, per building. Easy win.</div>
+      </div>
+      <div style="text-align:right; flex-shrink:0;">
+        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:4px;">ALREADY HAVE IT?</div>
+        <a href="#" style="font-size:12px;font-weight:700;color:var(--teal);text-decoration:none;">Track your status →</a>
+      </div>
+    </div>
+
+    <div class="section-eyebrow">3 steps · 15 minutes</div>
+    <div class="section-title">The minimum that actually works</div>
+    <div class="section-sub">Do just these three things and residents will find Split Pay. No integrations. Nothing changes for you.</div>
+
+    <div class="steps">
+
+      <!-- Step 1 -->
+      <div class="step-card orange">
+        <div class="step-num orange">1</div>
+        <div class="step-body">
+          <div class="step-time-badge">⏱ 3 minutes</div>
+          <div class="step-title">Pick a flyer and send it</div>
+          <div class="step-desc">One email to your residents. That's it. We have pre-written copy in English, Spanish & Portuguese — just pick one and hit send from your usual tool (Gmail, Entrata, AppFolio, etc.)</div>
+          <div class="checklist">
+            <div class="checklist-item">
+              <div class="check-icon orange">✓</div>
+              Go to the hub → download the PDF flyer
+            </div>
+            <div class="checklist-item">
+              <div class="check-icon orange">✓</div>
+              Attach it to an email to all residents
+            </div>
+            <div class="checklist-item">
+              <div class="check-icon orange">✓</div>
+              Use the subject line: <em style="color:#888">"New option for paying rent"</em>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+            <a href="https://pmc.splitpay.com" class="step-cta">Get Flyer →</a>
+            <a href="https://pmc.splitpay.com" class="step-cta ghost">Copy Email Template</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card yellow">
+        <div class="step-num yellow">2</div>
+        <div class="step-body">
+          <div class="step-time-badge">⏱ 2 minutes</div>
+          <div class="step-title">Send one follow-up 3 days later</div>
+          <div class="step-desc">Most residents need a nudge. One short reminder (we wrote it for you) doubles the response rate. Takes 2 minutes to copy and send.</div>
+          <div class="checklist">
+            <div class="checklist-item">
+              <div class="check-icon yellow">✓</div>
+              Copy the Day 3 reminder template below
+            </div>
+            <div class="checklist-item">
+              <div class="check-icon yellow">✓</div>
+              Send from your usual email or text tool
+            </div>
+          </div>
+
+          <!-- Template preview inline -->
+          <div style="background:var(--cream);border-radius:10px;padding:14px 16px;margin-top:12px;font-size:12px;color:#555;line-height:1.7;">
+            <div style="font-weight:700;font-size:11px;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.06em;">📬 Day 3 Reminder — Copy &amp; Paste</div>
+            <div><strong>Subject:</strong> Quick reminder — Split your rent in two</div>
+            <div style="margin-top:6px;">Hi [first name],<br>Just a reminder that Split Pay is available for your unit — split your rent into two payments, no credit check, takes 5 minutes to apply. <a href="#" style="color:var(--orange);">rent.app/go</a></div>
+          </div>
+          <div style="margin-top:12px;">
+            <button class="btn-copy" onclick="this.textContent='✓ Copied!'">📋 Copy Template</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card teal">
+        <div class="step-num teal">3</div>
+        <div class="step-body">
+          <div class="step-time-badge">⏱ 5 minutes · optional but recommended</div>
+          <div class="step-title">Print one flyer and post it</div>
+          <div class="step-desc">A physical flyer in the lobby, mailroom, or laundry room catches residents who don't read email. One print, one tape, done.</div>
+          <div class="checklist">
+            <div class="checklist-item">
+              <div class="check-icon teal">✓</div>
+              Print the flyer (any printer, any size)
+            </div>
+            <div class="checklist-item">
+              <div class="check-icon teal">✓</div>
+              Post it near the mailboxes, elevator, or front door
+            </div>
+            <div class="checklist-item">
+              <div class="check-icon teal">✓</div>
+              The QR code takes residents directly to the signup page
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+            <a href="https://pmc.splitpay.com" class="step-cta teal-btn">Download Print Flyer →</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /steps -->
+
+    <!-- "That's really all you need" callout -->
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:20px 24px;margin-top:24px;display:flex;align-items:center;gap:16px;">
+      <div style="font-size:28px;flex-shrink:0;">✅</div>
+      <div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:3px;">That's it. You're done.</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;">Nothing changes in your portal. No contracts. No setup. Residents who sign up get a virtual bank account — they pay through your existing system just like always.</div>
+      </div>
+    </div>
+
+    <!-- Concierge shortcut -->
+    <div style="background:var(--dark-card);border-radius:14px;padding:20px 24px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;">● SKIP ALL OF THIS</div>
+        <div style="font-size:15px;font-weight:800;color:var(--white);margin-bottom:4px;">Use Split Pay Concierge instead</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5;">Upload your rent roll. We send personalized invitations to every resident — email, SMS, or both. Takes 5 minutes.</div>
+      </div>
+      <a href="https://pmc.splitpay.com/#concierge" class="step-cta teal-btn" style="white-space:nowrap;">Open Concierge →</a>
+    </div>
+
+  </div><!-- /section -->
+
+</div><!-- /tab-quickstart -->
+
+
+<!-- ══════════════════════════════════════
+     TAB 2: MAXIMIZE ADOPTION
+══════════════════════════════════════ -->
+<div id="tab-advanced" class="tab-panel">
+  <div class="section">
+
+    <div class="section-eyebrow teal">Advanced playbook · max adoption</div>
+    <div class="section-title">Every channel, every touchpoint</div>
+    <div class="section-sub">Property managers who combine email + SMS + physical signage see 3–5× more sign-ups than email alone.</div>
+
+    <!-- Channels -->
+    <div class="channel-grid">
+      <div class="channel-card">
+        <div class="channel-icon">✉️</div>
+        <div class="channel-name">Email blast</div>
+        <div class="channel-timing fast">Highest reach</div>
+        <div class="channel-desc">Reaches everyone at once. Works through your existing property email tool or Gmail.</div>
+        <div class="channel-steps">
+          <div class="channel-step"><div class="channel-step-num">1</div>Copy template from hub</div>
+          <div class="channel-step"><div class="channel-step-num">2</div>Add residents as BCC or use your portal</div>
+          <div class="channel-step"><div class="channel-step-num">3</div>Follow up on Day 3 + Day 7</div>
+        </div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">💬</div>
+        <div class="channel-name">SMS / text</div>
+        <div class="channel-timing fast">Highest open rate</div>
+        <div class="channel-desc">Texts get 98% open rate vs ~22% email. Best for late-notice and high-urgency moments.</div>
+        <div class="channel-steps">
+          <div class="channel-step"><div class="channel-step-num">1</div>Copy 1-sentence SMS script from hub</div>
+          <div class="channel-step"><div class="channel-step-num">2</div>Send from your phone or property texting tool</div>
+          <div class="channel-step"><div class="channel-step-num">3</div>Include rent.app/go link</div>
+        </div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">🖨️</div>
+        <div class="channel-name">Physical flyer</div>
+        <div class="channel-timing medium">Passive reach</div>
+        <div class="channel-desc">Catches residents who miss email. Works 24/7 in high-traffic spots.</div>
+        <div class="channel-steps">
+          <div class="channel-step"><div class="channel-step-num">1</div>Print flyer (PDF from hub)</div>
+          <div class="channel-step"><div class="channel-step-num">2</div>Post in lobby, mailroom, elevator, laundry</div>
+          <div class="channel-step"><div class="channel-step-num">3</div>Refresh monthly</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timing schedule -->
+    <div class="timeline">
+      <div class="timeline-header">
+        <h3>📅 Recommended outreach schedule</h3>
+        <span>Rent week cadence</span>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-day d0">Day 0<br><span style="font-weight:400;color:rgba(0,0,0,0.3);font-size:10px;">1st of month</span></div>
+        <div class="timeline-content">
+          <div class="timeline-action">Launch email + flyer goes up</div>
+          <div class="timeline-detail">Send the intro email. Print and post the lobby flyer. If using Concierge, launch resident invitations.</div>
+          <div class="timeline-channel">
+            <span class="channel-tag email">Email</span>
+            <span class="channel-tag print">Print</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-day d2">Day 3</div>
+        <div class="timeline-content">
+          <div class="timeline-action">Short reminder text</div>
+          <div class="timeline-detail">1 sentence. Friendly nudge. "Still available if you missed it." Include direct link.</div>
+          <div class="timeline-channel">
+            <span class="channel-tag sms">SMS</span>
+            <span class="channel-tag email">Email</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-day d5">Day 7</div>
+        <div class="timeline-content">
+          <div class="timeline-action">Last call — monthly</div>
+          <div class="timeline-detail">Optional but effective. "Last reminder this month" framing creates urgency.</div>
+          <div class="timeline-channel">
+            <span class="channel-tag email">Email</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-day d30" style="color:var(--muted)">Monthly</div>
+        <div class="timeline-content">
+          <div class="timeline-action">Repeat for new residents</div>
+          <div class="timeline-detail">Include Split Pay in your move-in packet. New residents should hear about it on day 1.</div>
+          <div class="timeline-channel">
+            <span class="channel-tag print">Print</span>
+            <span class="channel-tag email">Email</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tips grid -->
+    <div class="section-eyebrow" style="margin-top:8px;">Proven tactics</div>
+    <div class="section-title" style="margin-bottom:20px;">What works best</div>
+    <div class="tips-grid" style="margin-bottom:28px;">
+      <div class="tip-card">
+        <div class="tip-card-header">
+          <div class="tip-emoji">📅</div>
+          <div class="tip-title">Time it around rent week</div>
+        </div>
+        <div class="tip-body">The best time to send is 3–5 days before the 1st. Residents are already thinking about rent. Urgency is natural, not forced.</div>
+        <div class="impact-bar">
+          <div class="impact-label">Impact</div>
+          <div class="impact-dots">
+            <div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-header">
+          <div class="tip-emoji">🌍</div>
+          <div class="tip-title">Use Spanish & Portuguese too</div>
+        </div>
+        <div class="tip-body">The flyer comes in EN, ES & PT. If your building has non-English speaking residents, sending in their language can 2× your sign-up rate for that group.</div>
+        <div class="impact-bar">
+          <div class="impact-label">Impact</div>
+          <div class="impact-dots">
+            <div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-header">
+          <div class="tip-emoji">🏠</div>
+          <div class="tip-title">Add it to your move-in packet</div>
+        </div>
+        <div class="tip-body">New residents are the most receptive — they're already setting everything up. Including Split Pay in your welcome materials takes zero ongoing effort.</div>
+        <div class="impact-bar">
+          <div class="impact-label">Impact</div>
+          <div class="impact-dots">
+            <div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot"></div><div class="impact-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-header">
+          <div class="tip-emoji">💬</div>
+          <div class="tip-title">Train your leasing team</div>
+        </div>
+        <div class="tip-body">If someone asks "can I split rent?" — your team should know the answer is yes. Download the Staff FAQ sheet so everyone's aligned.</div>
+        <div class="impact-bar">
+          <div class="impact-label">Impact</div>
+          <div class="impact-dots">
+            <div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot filled"></div><div class="impact-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Do / Don't -->
+    <div class="section-eyebrow">Watch out for</div>
+    <div class="section-title" style="margin-bottom:20px;">Do's and don'ts</div>
+    <div class="do-dont">
+      <div class="do-card">
+        <div class="do-dont-header">✅ Do this</div>
+        <div class="do-dont-list">
+          <div class="do-dont-item"><span>→</span> Keep the message short and benefit-focused</div>
+          <div class="do-dont-item"><span>→</span> Say it's free for them to try (no contract)</div>
+          <div class="do-dont-item"><span>→</span> Mention the 5-minute application</div>
+          <div class="do-dont-item"><span>→</span> Make clear nothing changes in their portal</div>
+          <div class="do-dont-item"><span>→</span> Follow up — once is rarely enough</div>
+        </div>
+      </div>
+      <div class="dont-card">
+        <div class="do-dont-header">❌ Avoid this</div>
+        <div class="do-dont-list">
+          <div class="do-dont-item"><span>→</span> Don't oversell — just inform, residents decide</div>
+          <div class="do-dont-item"><span>→</span> Don't say Split Pay "guarantees" or "covers" rent</div>
+          <div class="do-dont-item"><span>→</span> Don't say all residents will qualify (~50% do)</div>
+          <div class="do-dont-item"><span>→</span> Don't bury the link — make rent.app/go prominent</div>
+          <div class="do-dont-item"><span>→</span> Don't forget to send it to new move-ins</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concierge CTA -->
+    <div style="background:var(--dark-card);border-radius:14px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;">● AUTOMATE EVERYTHING</div>
+        <div style="font-size:16px;font-weight:800;color:var(--white);margin-bottom:5px;">Let us handle resident outreach</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5;max-width:400px;">Upload your rent roll and Split Pay Concierge sends personalized invitations to every resident — by email, SMS, or both. 5 minutes, set and forget.</div>
+      </div>
+      <a href="https://pmc.splitpay.com/#concierge" class="step-cta teal-btn" style="padding:12px 24px;font-size:14px;white-space:nowrap;">Open Concierge →</a>
+    </div>
+
+  </div>
+</div><!-- /tab-advanced -->
+
+
+<!-- ══════════════════════════════════════
+     TAB 3: CALCULATOR
+══════════════════════════════════════ -->
+<div id="tab-calculator" class="tab-panel">
+  <div class="calc-section">
+    <div class="calc-inner">
+
+      <div class="calc-header">
+        <div class="section-eyebrow" style="color:var(--teal);">💰 Earnings Estimator</div>
+        <div class="section-title" style="color:var(--white);">How much could you make?</div>
+        <div class="section-sub">Drag the slider. Your tier upgrades automatically — and the rate applies to <em>every</em> resident, not just the new ones.</div>
+      </div>
+
+      <!-- Tier ladder -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;" id="c-tier-ladder">
+        <!-- Growth -->
+        <div id="tier-growth" class="tier-rung" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;transition:all 0.25s;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:6px;">Growth</div>
+          <div style="font-size:11px;color:#ccc;margin-bottom:8px;">0–20 residents</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:900;color:#ddd;">—</div>
+          <div style="font-size:10px;color:#bbb;margin-top:4px;">$100 gift card only</div>
+        </div>
+        <!-- Local -->
+        <div id="tier-local" class="tier-rung" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;transition:all 0.25s;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:6px;">Local Partner</div>
+          <div style="font-size:11px;color:#ccc;margin-bottom:8px;">21–50 residents</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:900;color:#ccc;">$3<span style="font-size:13px;font-weight:600;">/mo</span></div>
+          <div style="font-size:10px;color:#bbb;margin-top:4px;">per resident</div>
+        </div>
+        <!-- Regional -->
+        <div id="tier-regional" class="tier-rung" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;transition:all 0.25s;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:6px;">Regional Partner</div>
+          <div style="font-size:11px;color:#ccc;margin-bottom:8px;">51–100 residents</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:900;color:#ccc;">$4<span style="font-size:13px;font-weight:600;">/mo</span></div>
+          <div style="font-size:10px;color:#bbb;margin-top:4px;">per resident</div>
+        </div>
+        <!-- National -->
+        <div id="tier-national" class="tier-rung" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;transition:all 0.25s;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#bbb;margin-bottom:6px;">National Partner</div>
+          <div style="font-size:11px;color:#ccc;margin-bottom:8px;">101+ residents</div>
+          <div style="font-family:'DM Mono',monospace;font-size:22px;font-weight:900;color:#ccc;">$5<span style="font-size:13px;font-weight:600;">/mo</span></div>
+          <div style="font-size:10px;color:#bbb;margin-top:4px;">per resident</div>
+        </div>
+      </div>
+
+      <!-- Big slider -->
+      <div style="background:#1a3d20;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:28px 36px;margin-bottom:24px;">
+
+        <!-- Resident count + tier badge -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.45);margin-bottom:4px;">Residents using Split Pay</div>
+            <div style="display:flex;align-items:baseline;gap:10px;">
+              <div style="font-family:'DM Mono',monospace;font-size:56px;font-weight:900;color:var(--white);letter-spacing:-3px;line-height:1;" id="c-residents">25</div>
+              <div style="font-size:14px;color:rgba(255,255,255,0.35);">residents</div>
+            </div>
+          </div>
+          <!-- Tier badge -->
+          <div id="c-tier-badge" style="text-align:right;">
+            <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px;">Current tier</div>
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:100px;font-size:14px;font-weight:800;transition:all 0.25s;" id="c-tier-pill">
+              <span id="c-tier-name">Local Partner</span>
+              <span id="c-tier-rate" style="font-family:'DM Mono',monospace;font-size:16px;">$3/mo</span>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:5px;" id="c-next-tier">Reach 51 residents → unlock $4/mo</div>
+          </div>
+        </div>
+
+        <input type="range" id="s-residents" min="1" max="500" value="25" step="1"
+          style="width:100%;margin-bottom:10px;" oninput="calcSimple()">
+
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.25);font-weight:600;">
+          <span>1 resident</span>
+          <span>500 residents</span>
+        </div>
+
+        <!-- Threshold hint -->
+        <div id="c-threshold-hint" style="margin-top:14px;padding:10px 16px;border-radius:10px;background:rgba(250,225,130,0.12);border:1px solid rgba(250,225,130,0.25);font-size:12px;color:rgba(250,225,130,0.85);display:none;">
+          🔓 Reach <strong style="color:var(--yellow);">21 residents</strong> to unlock Local Partner earnings — you're close!
+        </div>
+      </div>
+
+      <!-- Output cards -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:24px;">
+
+        <!-- Gift card — always on -->
+        <div style="background:rgba(245,107,63,0.12);border:1px solid rgba(245,107,63,0.25);border-radius:16px;padding:22px 24px;">
+          <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;">🎁 One-time bonus</div>
+          <div style="font-family:'DM Mono',monospace;font-size:38px;font-weight:900;color:var(--orange);letter-spacing:-1.5px;line-height:1;margin-bottom:6px;">$100</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5;">Amazon gift card when your first resident <strong style="color:rgba(255,255,255,0.75);">uses</strong> Split Pay. Per building.</div>
+        </div>
+
+        <!-- Monthly — dynamic -->
+        <div id="c-monthly-card" style="border-radius:16px;padding:22px 24px;transition:all 0.3s;background:rgba(67,189,174,0.1);border:1px solid rgba(67,189,174,0.25);">
+          <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;color:var(--teal);" id="c-monthly-label">📊 Monthly earnings</div>
+          <div style="font-family:'DM Mono',monospace;font-size:38px;font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:6px;color:var(--teal);" id="c-monthly-val">$75</div>
+          <div style="font-size:12px;line-height:1.5;color:rgba(255,255,255,0.45);" id="c-monthly-sub">25 residents × $3/mo</div>
+        </div>
+
+        <!-- Annual — dynamic -->
+        <div id="c-annual-card" style="border-radius:16px;padding:22px 24px;transition:all 0.3s;background:rgba(67,189,174,0.07);border:1px solid rgba(67,189,174,0.18);">
+          <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;color:var(--teal);" id="c-annual-label">📅 Annual earnings</div>
+          <div style="font-family:'DM Mono',monospace;font-size:38px;font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:6px;color:var(--teal);" id="c-annual-val">$900</div>
+          <div style="font-size:12px;line-height:1.5;color:rgba(255,255,255,0.45);" id="c-annual-sub">$75/mo × 12 months</div>
+        </div>
+
+      </div>
+
+      <!-- Partner CTA -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;">● Split Pay Partner Program</div>
+          <div style="font-size:16px;font-weight:800;color:var(--white);margin-bottom:5px;">Earn $3–5 per active resident, every month</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5;max-width:420px;">Tiers upgrade automatically. Hit a threshold and your rate applies to <em>every</em> resident — not just the ones above the line.</div>
+        </div>
+        <a href="https://pmc.splitpay.com/partners" style="display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:var(--white);font-size:14px;font-weight:800;padding:12px 24px;border-radius:100px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Apply to be a Partner →</a>
+      </div>
+
+      <div style="margin-top:14px;font-size:11px;color:rgba(255,255,255,0.2);line-height:1.6;text-align:center;">
+        $100 gift card: one-time per building on first resident usage. Partner earnings unlock at 21 active residents. Rate applies to all active residents once tier threshold is reached. Residents pay their own fees — no cost to PM.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scenario cards — 200 unit baseline -->
+  <div class="section">
+    <div class="section-eyebrow teal">What's realistic?</div>
+    <div class="section-title">Typical outcomes by effort level</div>
+    <div class="section-sub">Based on a 200-unit building. How many residents use Split Pay depends on how actively you promote it.</div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+
+      <div style="background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:22px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">🐻 One email</div>
+        <div style="font-size:12px;color:#999;margin-bottom:14px;">Send flyer once, nothing else</div>
+        <div style="font-size:28px;font-weight:900;color:var(--near-black);letter-spacing:-1px;margin-bottom:3px;">2–5%</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">of residents sign up</div>
+        <div style="font-size:13px;font-weight:700;color:var(--near-black);margin-bottom:8px;">200 units → ~4–10 residents</div>
+        <div style="font-size:12px;color:var(--muted);padding-top:8px;border-top:1px solid var(--border);">Below 21 threshold → <strong style="color:var(--orange);">$100 gift card only</strong></div>
+      </div>
+
+      <div style="background:var(--dark-card);border:1.5px solid rgba(67,189,174,0.3);border-radius:14px;padding:22px;position:relative;">
+        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--teal);color:var(--white);font-size:9px;font-weight:800;letter-spacing:0.06em;padding:3px 10px;border-radius:100px;text-transform:uppercase;white-space:nowrap;">Most common</div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:6px;">📊 Quick Start</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:14px;">Email + 1 follow-up + flyer posted</div>
+        <div style="font-size:28px;font-weight:900;color:var(--white);letter-spacing:-1px;margin-bottom:3px;">10–20%</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:12px;">of residents sign up</div>
+        <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:8px;">200 units → ~20–40 residents</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);padding-top:8px;border-top:1px solid rgba(255,255,255,0.08);">Local–Regional tier → <strong style="color:var(--teal);">$3–4/mo each</strong></div>
+      </div>
+
+      <div style="background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:22px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">🚀 Full playbook</div>
+        <div style="font-size:12px;color:#999;margin-bottom:14px;">Email + SMS + print + move-in packet</div>
+        <div style="font-size:28px;font-weight:900;color:var(--orange);letter-spacing:-1px;margin-bottom:3px;">25–40%</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">of residents sign up</div>
+        <div style="font-size:13px;font-weight:700;color:var(--near-black);margin-bottom:8px;">200 units → ~50–80 residents</div>
+        <div style="font-size:12px;color:var(--muted);padding-top:8px;border-top:1px solid var(--border);">Regional–National tier → <strong style="color:var(--orange);">$4–5/mo each</strong></div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /tab-calculator -->
+
+<!-- BOTTOM CTA -->
+<div class="cta-strip">
+  <h2>Ready? Start in 3 minutes.</h2>
+  <p>Download a flyer, send it to residents, done. Or use Concierge and we'll handle everything.</p>
+  <div class="cta-btns">
+    <a href="https://pmc.splitpay.com" class="cta-btn-primary">Get the Kit →</a>
+    <a href="https://pmc.splitpay.com/#concierge" class="cta-btn-secondary">Use Concierge →</a>
+  </div>
+</div>
+
+<!-- FOOTER — matches pmc.splitpay.com / partners -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <a href="https://pmc.splitpay.com" class="footer-brand">
+      <img src="https://pmc.splitpay.com/assets/logos/splitpay-logo-orange.png" alt="Split Pay" style="height:26px;display:block;" />
+    </a>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="https://pmc.splitpay.com/privacy" class="footer-link">Privacy</a>
+      <a href="https://pmc.splitpay.com/terms" class="footer-link">Terms</a>
+      <a href="/cdn-cgi/l/email-protection#ed9e989d9d829f99ad9e9d8184999d8c94c38e8280" class="footer-link">Contact</a>
+      <a href="https://pmc.splitpay.com/partners" class="footer-link">Partner Program</a>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.25);">© 2025 Split Pay</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── TAB SWITCHING ──
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    if (btn) btn.classList.add('active');
+    // scroll to tabs bar
+    document.querySelector('.tabs-bar').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function switchTabByName(id) {
+    const btn = document.querySelector(`.tab-btn[onclick*="${id}"]`);
+    switchTab(id, btn);
+  }
+
+  // ── TIER-AWARE CALCULATOR ──
+  const TIERS = [
+    { id: 'growth',   name: 'Growth',          min: 0,   max: 20,  rate: 0,  color: 'rgba(255,255,255,0.4)', bg: 'rgba(255,255,255,0.07)', border: 'rgba(255,255,255,0.15)' },
+    { id: 'local',    name: 'Local Partner',    min: 21,  max: 50,  rate: 3,  color: '#43BDAE',               bg: 'rgba(67,189,174,0.18)',  border: 'rgba(67,189,174,0.4)'  },
+    { id: 'regional', name: 'Regional Partner', min: 51,  max: 100, rate: 4,  color: '#fae182',               bg: 'rgba(250,225,130,0.18)', border: 'rgba(250,225,130,0.45)' },
+    { id: 'national', name: 'National Partner', min: 101, max: Infinity, rate: 5, color: '#F56B3F',           bg: 'rgba(245,107,63,0.18)', border: 'rgba(245,107,63,0.4)'  },
+  ];
+
+  function getTier(n) {
+    return TIERS.find(t => n >= t.min && n <= t.max) || TIERS[0];
+  }
+
+  function calcSimple() {
+    const residents = parseInt(document.getElementById('s-residents').value);
+    const tier = getTier(residents);
+
+    document.getElementById('c-residents').textContent = residents;
+
+    // ── Tier ladder highlight ──
+    TIERS.forEach(t => {
+      const el = document.getElementById('tier-' + t.id);
+      if (!el) return;
+      const isActive = t.id === tier.id;
+      el.style.background  = isActive ? t.bg    : 'rgba(255,255,255,0.04)';
+      el.style.borderColor = isActive ? t.border : 'rgba(255,255,255,0.08)';
+      el.style.transform   = isActive ? 'scale(1.04)' : 'scale(1)';
+      el.style.boxShadow   = isActive ? '0 4px 20px rgba(0,0,0,0.3)' : 'none';
+      el.style.opacity     = isActive ? '1' : '0.4';
+    });
+
+    // ── Tier badge pill ──
+    const pill     = document.getElementById('c-tier-pill');
+    const tierName = document.getElementById('c-tier-name');
+    const tierRate = document.getElementById('c-tier-rate');
+    const nextTier = document.getElementById('c-next-tier');
+
+    pill.style.background = tier.bg;
+    pill.style.border     = '1px solid ' + tier.border;
+    tierName.style.color  = tier.color;
+    tierRate.style.color  = tier.color;
+    tierName.textContent  = tier.name;
+    tierRate.textContent  = tier.rate > 0 ? '$' + tier.rate + '/mo' : '—';
+
+    const nextIdx = TIERS.indexOf(tier) + 1;
+    if (nextIdx < TIERS.length) {
+      const next = TIERS[nextIdx];
+      nextTier.textContent = 'Reach ' + next.min + ' residents → unlock $' + next.rate + '/mo each';
+      nextTier.style.color = 'rgba(255,255,255,0.25)';
+    } else {
+      nextTier.textContent = '🏆 National Partner — maximum rate';
+      nextTier.style.color = 'rgba(245,107,63,0.6)';
+    }
+
+    // ── Threshold hint ──
+    document.getElementById('c-threshold-hint').style.display = tier.rate === 0 ? 'block' : 'none';
+
+    // ── Output cards ──
+    const monthly = tier.rate > 0 ? residents * tier.rate : 0;
+    const annual  = monthly * 12;
+
+    const mCard  = document.getElementById('c-monthly-card');
+    const aCard  = document.getElementById('c-annual-card');
+    const mVal   = document.getElementById('c-monthly-val');
+    const aVal   = document.getElementById('c-annual-val');
+    const mSub   = document.getElementById('c-monthly-sub');
+    const aSub   = document.getElementById('c-annual-sub');
+    const mLabel = document.getElementById('c-monthly-label');
+    const aLabel = document.getElementById('c-annual-label');
+
+    if (tier.rate === 0) {
+      mCard.style.background  = 'rgba(255,255,255,0.04)';
+      mCard.style.borderColor = 'rgba(255,255,255,0.08)';
+      aCard.style.background  = 'rgba(255,255,255,0.04)';
+      aCard.style.borderColor = 'rgba(255,255,255,0.08)';
+      mVal.style.color  = 'rgba(255,255,255,0.18)';
+      aVal.style.color  = 'rgba(255,255,255,0.18)';
+      mLabel.style.color = 'rgba(255,255,255,0.3)';
+      aLabel.style.color = 'rgba(255,255,255,0.3)';
+      mVal.textContent = '—';
+      aVal.textContent = '—';
+      mSub.style.color = 'rgba(255,255,255,0.25)';
+      mSub.textContent = 'Unlocks at 21 residents';
+      aSub.style.color = 'rgba(255,255,255,0.25)';
+      aSub.textContent = 'Unlocks at 21 residents';
+    } else {
+      mCard.style.background  = tier.bg;
+      mCard.style.borderColor = tier.border;
+      aCard.style.background  = tier.bg;
+      aCard.style.borderColor = tier.border;
+      mVal.style.color  = tier.color;
+      aVal.style.color  = tier.color;
+      mLabel.style.color = tier.color;
+      aLabel.style.color = tier.color;
+      mVal.textContent = '$' + monthly.toLocaleString();
+      aVal.textContent = '$' + annual.toLocaleString();
+      mSub.style.color = 'rgba(255,255,255,0.45)';
+      mSub.textContent = residents + ' residents × $' + tier.rate + '/mo';
+      aSub.style.color = 'rgba(255,255,25

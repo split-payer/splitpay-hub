@@ -708,700 +708,143 @@ footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);
 </footer>
 
 <!-- FLOATING CHAT -->
-<div id="floatWidget" style="position:fixed;bottom:28px;right:28px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
-  <div id="floatWindow" style="display:none;width:360px;background:var(--white);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,0.18);overflow:hidden;border:1.5px solid var(--border);flex-direction:column;">
-    <div style="background:var(--near-black);padding:20px 22px;display:flex;align-items:center;gap:12px;">
-      <div style="width:32px;height:32px;background:rgba(245,107,63,0.2);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#F56B3F" stroke-width="1.5"/><path d="M6 7.5C6 6.12 7.12 5 8.5 5S11 6.12 11 7.5c0 1.16-.78 2.14-1.84 2.43L9 10v1.5" stroke="#F56B3F" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="14" r="0.75" fill="#F56B3F"/></svg></div>
-      <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--white);">Split Pay Assistant</div><div style="font-size:11px;color:#666;display:flex;align-items:center;gap:5px;margin-top:2px;"><span style="width:5px;height:5px;border-radius:50%;background:#34C759;display:block;"></span>Online</div></div>
-      <button id="floatExpandBtn" onclick="toggleFloatExpand()" title="Expand" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;font-family:inherit;margin-right:4px;">⤢</button><button onclick="toggleFloat()" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:inherit;">✕</button>
-    </div>
-    <div id="floatChatMessages" style="padding:18px;height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:var(--off-white);">
-      <div style="display:flex;gap:8px;align-items:flex-start;">
-        <div style="width:24px;height:24px;background:var(--near-black);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="white" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-        <div style="background:var(--white);border:1.5px solid var(--border);border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.65;color:var(--near-black);">Hi! Ask me anything about Split Pay — compatibility, how it works, what you need to do (spoiler: very little).</div>
+<!-- SPLIT PAY CHAT WIDGET -->
+<style>
+#sp-chat{position:fixed;bottom:28px;right:28px;z-index:99999;font-family:'DM Sans',-apple-system,sans-serif;}
+#sp-btn{width:48px;height:48px;border-radius:14px;background:#F56B3F;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(245,107,63,0.45);transition:transform .18s,box-shadow .18s;position:relative;}
+#sp-btn:hover{transform:scale(1.07);box-shadow:0 6px 22px rgba(245,107,63,0.55);}
+#sp-btn svg{width:22px;height:22px;fill:white;transition:opacity .15s,transform .15s;}
+#sp-btn .ico-chat{position:absolute;}
+#sp-btn .ico-close{position:absolute;opacity:0;transform:rotate(-90deg);}
+#sp-chat.open #sp-btn .ico-chat{opacity:0;transform:rotate(90deg);}
+#sp-chat.open #sp-btn .ico-close{opacity:1;transform:rotate(0);}
+#sp-badge{position:absolute;top:-5px;right:-5px;width:18px;height:18px;background:#ef4444;border-radius:50%;border:2px solid white;font-size:10px;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .2s,transform .2s;}
+#sp-badge.show{opacity:1;transform:scale(1);}
+#sp-win{position:absolute;bottom:62px;right:0;width:340px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.06);display:flex;flex-direction:column;overflow:hidden;transform:translateY(12px) scale(0.97);opacity:0;pointer-events:none;transition:transform .22s cubic-bezier(.34,1.4,.64,1),opacity .18s ease;max-height:520px;}
+#sp-chat.open #sp-win{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+#sp-head{background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#sp-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#F56B3F,#e8531a);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+#sp-head-text{flex:1;min-width:0;}
+#sp-head-name{font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.2;}
+#sp-head-status{font-size:11px;color:#888;display:flex;align-items:center;gap:4px;margin-top:1px;}
+#sp-online-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;flex-shrink:0;}
+#sp-head-close{background:none;border:none;cursor:pointer;color:#bbb;padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;}
+#sp-head-close:hover{color:#555;background:rgba(0,0,0,0.05);}
+#sp-head-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;}
+#sp-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f9f9f7;scroll-behavior:smooth;}
+#sp-msgs::-webkit-scrollbar{width:4px;}
+#sp-msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.12);border-radius:2px;}
+.sp-msg{display:flex;gap:8px;align-items:flex-end;animation:sp-pop .18s ease;}
+.sp-msg.bot{align-self:flex-start;}
+.sp-msg.user{align-self:flex-end;}
+@keyframes sp-pop{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.sp-bubble{padding:10px 14px;font-size:13px;line-height:1.6;max-width:260px;word-wrap:break-word;}
+.sp-msg.bot .sp-bubble{background:#fff;color:#1a1a1a;border-radius:4px 14px 14px 14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.06);}
+.sp-msg.user .sp-bubble{background:#F56B3F;color:#fff;border-radius:14px 4px 14px 14px;}
+.sp-msg.bot .sp-bubble a{color:#F56B3F;text-decoration:underline;}
+#sp-typing{display:none;align-items:flex-end;}
+#sp-typing.show{display:flex;}
+.sp-typing-bubble{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:4px 14px 14px 14px;padding:12px 16px;display:flex;gap:4px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.sp-dot{width:6px;height:6px;border-radius:50%;background:#ccc;animation:sp-blink 1.2s infinite;}
+.sp-dot:nth-child(2){animation-delay:.2s;}
+.sp-dot:nth-child(3){animation-delay:.4s;}
+@keyframes sp-blink{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sp-input-row{padding:10px 12px;border-top:1px solid rgba(0,0,0,0.07);display:flex;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;}
+#sp-input{flex:1;padding:9px 14px;border:1.5px solid rgba(0,0,0,0.11);border-radius:10px;font-size:13px;font-family:inherit;outline:none;resize:none;background:#f9f9f7;color:#1a1a1a;line-height:1.5;max-height:100px;overflow-y:auto;transition:border-color .15s;}
+#sp-input:focus{border-color:#F56B3F;background:#fff;}
+#sp-input::placeholder{color:#bbb;}
+#sp-send{width:34px;height:34px;border-radius:9px;background:#F56B3F;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s,transform .15s;}
+#sp-send:hover{opacity:.88;transform:scale(1.05);}
+#sp-send:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+#sp-send svg{width:15px;height:15px;fill:none;stroke:white;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<div id="sp-chat">
+  <div id="sp-win">
+    <div id="sp-head">
+      <div id="sp-avatar">💬</div>
+      <div id="sp-head-text">
+        <div id="sp-head-name">Split Pay Assistant</div>
+        <div id="sp-head-status"><span id="sp-online-dot"></span>Online · replies instantly</div>
       </div>
+      <button id="sp-head-close" onclick="spToggle()" aria-label="Close">
+        <svg viewBox="0 0 16 16"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+      </button>
     </div>
-    <div style="padding:12px 14px;border-top:1.5px solid var(--border);background:var(--white);display:flex;gap:8px;">
-      <textarea id="floatChatInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat('float');}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';" style="flex:1;padding:10px 14px;border:1.5px solid rgba(0,0,0,0.12);border-radius:16px;font-size:13px;font-family:inherit;outline:none;background:var(--cream);resize:none;overflow:hidden;min-height:36px;max-height:120px;line-height:1.5;box-sizing:border-box;" onfocus="this.style.borderColor='var(--near-black)'" onblur="this.style.borderColor='rgba(0,0,0,0.12)'"></textarea>
-      <button onclick="sendChat('float')" style="background:var(--orange);color:var(--white);border:none;width:36px;height:36px;border-radius:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div id="sp-msgs">
+      <div id="sp-typing"><div class="sp-typing-bubble"><span class="sp-dot"></span><span class="sp-dot"></span><span class="sp-dot"></span></div></div>
+    </div>
+    <div id="sp-input-row">
+      <textarea id="sp-input" placeholder="Ask anything…" rows="1"></textarea>
+      <button id="sp-send" onclick="spSend()" aria-label="Send"><svg viewBox="0 0 16 16"><path d="M2 8h12M8 2l6 6-6 6"/></svg></button>
     </div>
   </div>
-  <button onclick="toggleFloat()" style="width:56px;height:56px;background:var(--orange);border:none;border-radius:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(245,107,63,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14a1 1 0 011 1v9a1 1 0 01-1 1H7l-4 3V5a1 1 0 011-1z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <button id="sp-btn" onclick="spToggle()" aria-label="Chat with Split Pay">
+    <svg class="ico-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="ico-close" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="19" y1="5" x2="5" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <span id="sp-badge"></span>
   </button>
 </div>
-
-<!-- GET THE KIT MODAL -->
-<div class="overlay" id="dlModal">
-  <div class="modal-card">
-    <button class="modal-x" onclick="closeDL()">✕</button>
-    <div class="dl-screen active" id="dlScreen1">
-      <h2>Get the Rent Week Support Kit</h2>
-      <p>Tell us where to send it.</p>
-      <div class="mform">
-        <div class="mrow">
-          <input type="text" id="dl-first" placeholder="First name">
-          <input type="text" id="dl-last" placeholder="Last name">
-        </div>
-        <input type="text" id="dl-company" placeholder="Property management company">
-        <input type="number" id="dl-units" placeholder="Approximate unit count (e.g. 500)" min="1">
-        <select id="pmsSelect" onchange="checkPMS()">
-          <option disabled selected value="">Property management software</option>
-          <optgroup label="Most Common"><option>AppFolio</option><option>Buildium</option><option>DoorLoop</option><option>Entrata</option><option>MRI Software</option><option>RealPage</option><option>ResMan</option><option>Yardi</option></optgroup>
-          <optgroup label="Also Compatible"><option>Avail</option><option>Bilt</option><option>Hemlane</option><option>Innago</option><option>Livly</option><option>Rent Manager</option><option>RentCafe</option><option>RentRedi</option><option>TenantCloud</option><option>TurboTenant</option></optgroup>
-          <option value="other">Other / Not listed</option>
-        </select>
-        <div id="pmsCompat" style="display:none;align-items:center;gap:10px;background:#F0FBF4;border:1px solid #B6E8C8;border-radius:12px;padding:12px 16px;font-size:13px;color:#1A7A3E;font-weight:600;">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.25" stroke="#27AE60" stroke-width="1.5"/><polyline points="4.5,8.5 7,11 11.5,5.5" stroke="#27AE60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span id="pmsCompatText">Compatible — Split Pay works with your portal.</span>
-        </div>
-        <input type="email" id="dl-email" placeholder="Work email">
-        <input type="tel" id="dl-phone" placeholder="Mobile phone number">
-        <label class="mcheck"><input type="checkbox" checked> Send me monthly Rent Week Support updates</label>
-        <button class="msub" id="dlSubmitBtn" style="transition:opacity 0.2s;" onclick="this.disabled=true;this.textContent='Sending…';submitDL()">Download Now</button>
-        <p class="mfooter">We only send operational updates related to Split Pay.</p>
-      </div>
-    </div>
-    <div class="dl-screen" id="dlScreen2">
-      <div style="text-align:center;margin-bottom:28px;">
-        <div style="font-size:44px;margin-bottom:12px;">🎉</div>
-        <h2 style="margin-bottom:6px;">Your kit is on its way!</h2>
-        <p>Check your email — we've sent everything you need for rent week.</p>
-      </div>
-      <div class="upsell-box">
-        <div class="upsell-icon">✦</div>
-        <h3>Want to reach your residents directly?</h3>
-        <p>The Split Pay Concierge lets you upload your rent roll and we'll send personalized invitations to every resident — by email, SMS, or both. Takes about 5 minutes.</p>
-        <div class="upsell-features">
-          <div class="upsell-feature">Personalized per resident</div>
-          <div class="upsell-feature">Email, SMS, or both</div>
-          <div class="upsell-feature">Live preview</div>
-          <div class="upsell-feature">Free</div>
-        </div>
-        <button class="upsell-yes" onclick="goToConcierge()">Open the Split Pay Concierge →</button>
-        <button class="upsell-no" onclick="closeDL()">No thanks, just the kit</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CALENDLY MODAL -->
-<div class="overlay" id="calModal">
-  <div class="cal-card">
-    <div class="cal-header">
-      <div class="cal-header-text"><h2>Book a Meeting</h2><p>20 minutes · We'll walk you through how Split Pay works in your buildings.</p></div>
-      <button class="modal-x" style="position:static;margin-left:16px;flex-shrink:0;" onclick="closeCal()">✕</button>
-    </div>
-    <iframe src="https://calendly.com/rent-app/onboarding?embed_domain=pmc.splitpay.com&embed_type=Inline&hide_gdpr_banner=1" width="100%" height="100%" frameborder="0" style="flex:1;border:none;min-height:0;"></iframe>
-  </div>
-</div>
-
-<!-- FLYER MODAL -->
-<div class="overlay" id="flyerModal">
-  <div class="flyer-card">
-    <div class="flyer-header">
-      <div><h2>Resident Flyer</h2><p>Select language and illustration, then download the PDF.</p></div>
-      <button class="modal-x" style="position:static;margin-left:16px;flex-shrink:0;" onclick="closeFlyer()">✕</button>
-    </div>
-    <div class="flyer-body">
-      <div class="flyer-sidebar">
-        <div class="flyer-sidebar-section">
-          <h4>Language</h4>
-          <button class="lang-btn active" onclick="setLang('en',this)">🇺🇸 English</button>
-          <button class="lang-btn" onclick="setLang('es',this)">🇪🇸 Spanish</button>
-          <button class="lang-btn" onclick="setLang('pt',this)">🇧🇷 Portuguese</button>
-        </div>
-        <div class="flyer-sidebar-section">
-          <h4>Illustration</h4>
-          <button class="variant-btn active" onclick="setVariant('woman-phone',this)"><span class="variant-dot"></span>Woman · Phone</button>
-          <button class="variant-btn" onclick="setVariant('man-chair',this)"><span class="variant-dot"></span>Man · Chair</button>
-          <button class="variant-btn" onclick="setVariant('woman-cat',this)"><span class="variant-dot"></span>Woman · Laptop</button>
-          <button class="variant-btn" onclick="setVariant('headphones',this)"><span class="variant-dot"></span>Man · Headphones</button>
-        </div>
-      </div>
-      <div class="flyer-preview-pane">
-        <div class="flyer-iframe-wrap"><iframe id="flyerPreviewIframe" src="" allowfullscreen></iframe></div>
-        <div class="flyer-dl-row">
-          <button class="flyer-dl-btn" onclick="downloadFlyer()">⬇ Download PDF</button>
-          <button class="flyer-dl-ghost" onclick="closeFlyer()">Close</button>
-        </div>
-        <p style="font-size:12px;color:var(--gray-light);text-align:center;">Free for property managers. No editing required.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- EMAIL MODAL -->
-<div class="overlay" id="emailModal">
-  <div class="flyer-card">
-    <div class="flyer-header">
-      <div><h2>Resident Email Templates</h2><p>Select a template, preview it, then copy.</p></div>
-      <button class="modal-x" style="position:static;margin-left:16px;flex-shrink:0;" onclick="closeEmailModal()">✕</button>
-    </div>
-    <div class="flyer-body">
-      <div class="flyer-sidebar">
-        <div class="flyer-sidebar-section">
-          <h4>Template</h4>
-          <button class="variant-btn active" onclick="setEmailTemplate(0,this)"><span class="variant-dot"></span>Launch Announcement</button>
-          <button class="variant-btn" onclick="setEmailTemplate(1,this)"><span class="variant-dot"></span>Launch (Short)</button>
-          <button class="variant-btn" onclick="setEmailTemplate(2,this)"><span class="variant-dot"></span>Reminder 1 — Early</button>
-          <button class="variant-btn" onclick="setEmailTemplate(3,this)"><span class="variant-dot"></span>Reminder 2 — Urgent</button>
-          <button class="variant-btn" onclick="setEmailTemplate(4,this)"><span class="variant-dot"></span>Reminder 3 — Due Today</button>
-          <button class="variant-btn" onclick="setEmailTemplate(5,this)"><span class="variant-dot"></span>Post Rent Day</button>
-        </div>
-        <div class="flyer-sidebar-section" style="margin-top:auto;padding-top:16px;border-top:1px solid var(--border);">
-          <p style="font-size:12px;color:var(--gray);line-height:1.6;">Replace <strong style="color:var(--near-black);">{{property_name}}</strong> and <strong style="color:var(--near-black);">{{portal_link}}</strong> before sending.</p>
-        </div>
-      </div>
-      <div class="flyer-preview-pane" style="align-items:stretch;">
-        <div style="background:var(--white);border-radius:16px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06);">
-          <div style="background:#F5F5F7;padding:14px 22px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:6px;">
-            <div style="display:flex;gap:8px;align-items:baseline;"><span style="font-size:12px;color:var(--gray);width:40px;flex-shrink:0;">From:</span><span style="font-size:13px;color:var(--near-black);">The {{property_name}} Team</span></div>
-            <div style="display:flex;gap:8px;align-items:baseline;"><span style="font-size:12px;color:var(--gray);width:40px;flex-shrink:0;">Subj:</span><span id="emailSubjectDisplay" style="font-size:13px;font-weight:600;color:var(--near-black);"></span></div>
-          </div>
-          <div id="emailBodyDisplay" style="padding:28px;font-size:14px;line-height:1.8;color:var(--near-black);white-space:pre-wrap;max-height:420px;overflow-y:auto;"></div>
-        </div>
-        <div class="flyer-dl-row" style="margin-top:4px;">
-          <button class="flyer-dl-btn" onclick="copyEmail()">Copy Email Text</button>
-          <button class="flyer-dl-ghost" onclick="closeEmailModal()">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SMS MODAL -->
-<div class="overlay" id="smsModal">
-  <div class="flyer-card" style="max-width:680px;">
-    <div class="flyer-header">
-      <div><h2>SMS Scripts</h2><p>Short, mobile-ready messages. Tap to copy.</p></div>
-      <button class="modal-x" style="position:static;margin-left:16px;flex-shrink:0;" onclick="closeSMSModal()">✕</button>
-    </div>
-    <div class="flyer-body" style="flex-direction:column;overflow-y:auto;">
-      <div id="smsList" style="padding:28px;display:flex;flex-direction:column;gap:16px;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- VIDEO MODAL -->
-<div class="overlay" id="videoModal">
-  <div class="video-modal-card">
-    <div class="flyer-header">
-      <div><h2>Videos</h2><p>Click a video to play it.</p></div>
-      <button class="modal-x" style="position:static;margin-left:16px;flex-shrink:0;" onclick="closeVideoModal()">✕</button>
-    </div>
-    <div style="padding:20px 28px;border-bottom:1px solid var(--border);flex-shrink:0;">
-      <div class="video-tabs">
-        <button class="video-tab active" id="tabExplainer" onclick="switchVideoTab('explainer')">Explainer Video</button>
-        <button class="video-tab" id="tabAds" onclick="switchVideoTab('ads')">Ad Videos (15)</button>
-      </div>
-    </div>
-    <div id="videoContent" style="flex:1;overflow-y:auto;padding:28px;"></div>
-  </div>
-</div>
-
-<!-- DEMO VIDEO MODAL -->
-<div class="overlay" id="demoModal">
-  <div style="background:#000;border-radius:20px;width:95%;max-width:860px;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.4);overflow:hidden;">
-    <button onclick="closeDemoModal()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.12);border:none;color:white;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:10;font-family:inherit;">✕</button>
-    <div style="aspect-ratio:16/9;"><iframe id="demoIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="display:block;"></iframe></div>
-  </div>
-</div>
-
-<!-- LOGOS MODAL -->
-<div class="overlay" id="logosModal">
-  <div class="logos-card">
-    <div class="flyer-header">
-      <div><h2>Logos & Images</h2><p>Brand assets and app screenshots.</p></div>
-      <button class="modal-x" style="position:static;margin-left:16px;flex-shrink:0;" onclick="closeLogosModal()">✕</button>
-    </div>
-    <div style="padding:20px 28px;border-bottom:1px solid var(--border);flex-shrink:0;">
-      <div class="video-tabs">
-        <button class="video-tab active" id="tabLogos" onclick="switchLogosTab('logos')">Logos</button>
-        <button class="video-tab" id="tabScreenshots" onclick="switchLogosTab('screenshots')">App Screenshots</button>
-        <button class="video-tab" id="tabHowItWorks" onclick="switchLogosTab('howitworks')">How It Works</button>
-      </div>
-    </div>
-    <div id="logosContent" style="flex:1;overflow-y:auto;padding:28px;"></div>
-  </div>
-</div>
-
-<!-- FLEX COMPARISON MODAL -->
-<div class="overlay" id="flexModal">
-  <div class="faq-modal-card">
-    <div class="flyer-header">
-      <div><h2>Split Pay vs. Flex</h2><p>For property managers &amp; leasing staff. Print-ready.</p></div>
-      <div style="display:flex;gap:8px;align-items:center;margin-left:auto;">
-        <button onclick="downloadFlexPDF()" style="background:var(--orange);color:var(--white);border:none;padding:9px 20px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">⬇ Download PDF</button>
-        <button class="modal-x" style="position:static;flex-shrink:0;" onclick="closeFlexModal()">✕</button>
-      </div>
-    </div>
-    <div class="faq-modal-body" id="flexModalBody"></div>
-  </div>
-</div>
-
-<!-- FAQ MODAL -->
-<div class="overlay" id="faqModal">
-  <div class="faq-modal-card">
-    <div class="flyer-header">
-      <div><h2>Staff FAQ Sheet</h2><p>For leasing agents & property management staff. Print-ready.</p></div>
-      <div style="display:flex;gap:8px;align-items:center;margin-left:auto;">
-        <button onclick="downloadFAQPDF()" style="background:var(--orange);color:var(--white);border:none;padding:9px 20px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">⬇ Download PDF</button>
-        <button class="modal-x" style="position:static;flex-shrink:0;" onclick="closeFAQModal()">✕</button>
-      </div>
-    </div>
-    <div class="faq-modal-body" id="faqModalBody"></div>
-  </div>
-</div>
-
-<!-- CONCIERGE MODAL -->
-<div id="conciergeOverlay" onclick="handleConciergeOverlayClick(event)">
-  <div class="c-modal" id="cModal">
-    <div class="c-modal-header">
-      <div class="c-header-logo">
-        <div class="c-logo-mark">SP</div>
-        <span class="c-wordmark">Split Pay Concierge</span>
-        <span class="c-badge">BETA</span>
-      </div>
-      <button class="c-close-btn" onclick="closeConcierge()">✕</button>
-    </div>
-    <div class="c-progress-wrap"><div class="c-progress-fill" id="cProgressFill" style="width:0%"></div></div>
-    <div class="c-step-pills">
-      <div class="c-step-pill active" id="clbl0">About You</div>
-      <div class="c-step-pill" id="clbl1">Property</div>
-      <div class="c-step-pill" id="clbl2">Channel</div>
-      <div class="c-step-pill" id="clbl3">Rent Roll</div>
-      <div class="c-step-pill" id="clbl4">Confirm</div>
-    </div>
-    <div class="c-modal-body" id="cModalBody">
-      <div class="c-form-side" id="cFormSide">
-        <!-- Step 0 -->
-        <div class="c-step active" id="cstep0">
-          <div class="c-step-eyebrow">Step 1 of 5</div>
-          <div class="c-step-title">Let's start with you</div>
-          <div class="c-step-sub">Tell us who's sending the invitations.</div>
-          <div class="c-row">
-            <div class="c-field"><label>First Name <span class="req">*</span></label><input id="cFirstName" placeholder="First name" oninput="cUpdatePreview()"/></div>
-            <div class="c-field"><label>Last Name <span class="req">*</span></label><input id="cLastName" placeholder="Last name" oninput="cUpdatePreview()"/></div>
-          </div>
-          <div class="c-field"><label>Property Management Firm <span class="req">*</span></label><input id="cFirm" placeholder="Great Flats Inc." oninput="cUpdatePreview()"/></div>
-          <div class="c-field">
-            <label>Work Email <span class="req">*</span></label>
-            <input type="email" id="cPmEmail" placeholder="you@yourfirm.com" oninput="cLiveValidate('email')"/>
-            <div class="c-field-err" id="cEmailErr"></div>
-          </div>
-          <div class="c-field">
-            <label>Mobile Number <span class="req">*</span></label>
-            <input type="tel" id="cPmPhone" placeholder="+1 (555) 000-0000" oninput="cLiveValidate('phone')"/>
-            <div class="c-field-hint">Must be a mobile number — used to verify your submission.</div>
-            <div class="c-field-err" id="cPhoneErr"></div>
-          </div>
-          <div class="c-field">
-            <label>Approximate Unit Count <span class="req">*</span></label>
-            <input type="number" id="cUnitCount" placeholder="e.g. 500" min="1"/>
-            <div class="c-field-hint">Helps us estimate reach.</div>
-          </div>
-          <div class="c-step-nav">
-            <span></span>
-            <div class="c-nav-right"><span class="c-step-counter">1 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
-          </div>
-        </div>
-        <!-- Step 1 -->
-        <div class="c-step" id="cstep1">
-          <div class="c-step-eyebrow">Step 2 of 5</div>
-          <div class="c-step-title">About the property</div>
-          <div class="c-step-sub">This will appear in every invitation your residents receive.</div>
-          <div class="c-field"><label>Property Name <span class="req">*</span></label><input id="cPropName" placeholder="Sunset Ridge Apartments" oninput="cUpdatePreview()"/></div>
-          <div class="c-field"><label>Street Address <span class="req">*</span></label><input id="cStreet" placeholder="123 Main St." oninput="cUpdatePreview()"/></div>
-          <div class="c-row-3">
-            <div class="c-field"><label>City <span class="req">*</span></label><input id="cCity" placeholder="Brooklyn" oninput="cUpdatePreview()"/></div>
-            <div class="c-field"><label>State <span class="req">*</span></label><input id="cState" placeholder="NY" oninput="cUpdatePreview()"/></div>
-            <div class="c-field"><label>ZIP <span class="req">*</span></label><input id="cZip" placeholder="11201" oninput="cUpdatePreview()"/></div>
-          </div>
-          <div class="c-step-nav">
-            <button class="c-btn-back" onclick="cPrevStep()">← Back</button>
-            <div class="c-nav-right"><span class="c-step-counter">2 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
-          </div>
-        </div>
-        <!-- Step 2 -->
-        <div class="c-step" id="cstep2">
-          <div class="c-step-eyebrow">Step 3 of 5</div>
-          <div class="c-step-title">How should we reach residents?</div>
-          <div class="c-step-sub">Choose your channel. The preview updates live on the right.</div>
-          <div class="c-channel-toggle">
-            <button class="c-channel-btn active" id="cChEmail" onclick="cSetChannel('email')">✉ Email</button>
-            <button class="c-channel-btn" id="cChSms" onclick="cSetChannel('sms')">💬 SMS</button>
-            <button class="c-channel-btn" id="cChBoth" onclick="cSetChannel('both')">⚡ Both</button>
-          </div>
-          <div class="c-info-box"><b>Email</b> — Branded look, higher engagement, includes a CTA button.<br/><b>SMS</b> — Highest open rate (~98%), instant delivery.<br/><b>Both</b> — Maximum reach. Recommended for best results.</div>
-          <div class="c-step-nav">
-            <button class="c-btn-back" onclick="cPrevStep()">← Back</button>
-            <div class="c-nav-right"><span class="c-step-counter">3 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
-          </div>
-        </div>
-        <!-- Step 3 -->
-        <div class="c-step" id="cstep3">
-          <div class="c-step-eyebrow">Step 4 of 5</div>
-          <div class="c-step-title">Upload your rent roll</div>
-          <div class="c-step-sub">We'll use this to send personalized invitations to each of your residents.</div>
-          <button class="c-template-btn" onclick="cDownloadTemplate()">⬇ Download our template (CSV)</button>
-          <div class="c-upload-area" id="cUploadArea" onclick="document.getElementById('cFileInput').click()" ondragover="cHandleDrag(event,true)" ondragleave="cHandleDrag(event,false)" ondrop="cHandleDrop(event)">
-            <div class="c-upload-icon" id="cUploadIcon">📂</div>
-            <strong id="cUploadTitle">Click to upload or drag & drop</strong>
-            <p>Accepts .CSV or .XLSX</p>
-            <div class="c-file-name" id="cFileName"></div>
-            <input type="file" id="cFileInput" accept=".csv,.xlsx,.xls" onchange="cHandleFile(event)"/>
-          </div>
-          <div class="c-mapper" id="cMapper">
-            <div class="c-mapper-title">Map your columns</div>
-            <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Tell us which column maps to each required field.</p>
-            <div id="cMapperRows"></div>
-          </div>
-          <div class="c-step-nav">
-            <button class="c-btn-back" onclick="cPrevStep()">← Back</button>
-            <div class="c-nav-right"><span class="c-step-counter">4 of 5</span><button class="c-btn-next" onclick="cNextStep()">Next →</button></div>
-          </div>
-        </div>
-        <!-- Step 4 -->
-        <div class="c-step" id="cstep4">
-          <div class="c-step-eyebrow">Step 5 of 5</div>
-          <div class="c-step-title">Review & confirm</div>
-          <div class="c-step-sub">Check your details, agree to the terms, and submit.</div>
-          <div class="c-summary-box">
-            <div class="c-sum-label">Submission Summary</div>
-            <div id="cSummaryContent"></div>
-          </div>
-          <div class="c-compliance-box">
-            <label class="c-compliance-check">
-              <input type="checkbox" id="cComplianceCheck" onchange="cToggleSubmit()"/>
-              <span>I confirm I have lawfully collected the names, email addresses, and phone numbers in this rent roll, and I authorize Split Pay to contact these residents on behalf of my property to promote Split Pay services.</span>
-            </label>
-          </div>
-          <div class="c-step-nav">
-            <button class="c-btn-back" onclick="cPrevStep()">← Back</button>
-            <div class="c-nav-right"><span class="c-step-counter">5 of 5</span><button class="c-btn-submit" id="cSubmitBtn" onclick="cSubmitForm()" disabled>Submit ✦</button></div>
-          </div>
-        </div>
-      </div>
-      <!-- Preview Panel -->
-      <div class="c-preview-side" id="cPreviewSide">
-        <div class="c-preview-label">Live Preview</div>
-        <div class="c-preview-tabs">
-          <button class="c-preview-tab active" id="cTabEmail" onclick="cSwitchTab('email')">✉ Email</button>
-          <button class="c-preview-tab" id="cTabSms" onclick="cSwitchTab('sms')">💬 SMS</button>
-        </div>
-        <div class="c-email-card" id="cEmailPreview">
-          <div class="c-email-topbar">
-            <div class="meta">From: Split Pay &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2e474058475a4b5d6e5d5e42475a5e4f57004d4143">[email&#160;protected]</a>&gt;</div>
-            <div class="meta" style="margin-bottom:5px">To: Jane Smith &lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d373c33381d38253c302d3138733e3230">[email&#160;protected]</a>&gt;</div>
-            <div class="subj" id="cPrevSubj">Your property manager invites you to use Split Pay</div>
-          </div>
-          <div class="c-email-logo-bar">
-            <div class="c-email-logo-icon">SP</div>
-            <div class="c-email-logo-text">Split Pay</div>
-          </div>
-          <div class="c-email-body">
-            <p id="cPrevBody">Hi <span class="c-hl">Jane Smith</span>, Split Pay is now available for your unit at <span class="c-hl">123 Main St., Brooklyn NY 11201</span>.</p>
-            <br/>
-            <p>Accept <span class="c-hl" id="cPrevPM">your property manager</span>'s invitation to apply — it only takes a few minutes.</p>
-            <div class="c-email-cta-btn">Accept Invitation →</div>
-            <p style="font-size:10px;color:#9ca3af">Split Pay lets residents split rent into two payments — at no cost to your property.</p>
-          </div>
-          <div class="c-email-foot">© Split Pay · You're receiving this because your property manager invited you.</div>
-        </div>
-        <div class="c-sms-card" id="cSmsPreview">
-          <div class="c-sms-bubble" id="cPrevSMS">Hi John Doe, your property manager has invited you to use Split Pay. Apply: rent.app/go</div>
-          <div class="c-sms-time">Delivered</div>
-        </div>
-      </div>
-    </div>
-    <div class="c-success-screen" id="cSuccessScreen">
-      <div class="c-success-icon">🎉</div>
-      <h2>You're all set, <span id="cSuccessName">there</span>!</h2>
-      <p>We've received your rent roll and will begin sending personalized Split Pay invitations to your residents. Our team will follow up within 1 business day to confirm.</p>
-      <div style="margin-top:32px;padding:24px;background:var(--cream);border-radius:16px;border:1.5px solid rgba(67,189,174,0.2);max-width:380px;width:100%;text-align:center;">
-        <div style="font-size:22px;margin-bottom:10px;">🏢</div>
-        <div style="font-size:15px;font-weight:700;color:var(--near-black);margin-bottom:6px;">Managing another property?</div>
-        <div style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6;">Add a second building — each gets its own rent roll and invitation campaign.</div>
-        <button onclick="cAddAnotherProperty()" style="background:var(--teal);color:white;border:none;padding:11px 24px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:background 0.15s;" onmouseover="this.style.background='var(--teal-dark)'" onmouseout="this.style.background='var(--teal)'">Add Another Property →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="toast">✓ Copied</div>
-
-
-<script data-cfasync="false">
-/* ═══════════════════════════
-   GET THE KIT MODAL
-═══════════════════════════ */
-function showDLScreen(n){document.querySelectorAll('.dl-screen').forEach(s=>s.classList.remove('active'));document.getElementById('dlScreen'+n).classList.add('active');}
-const dlModal=document.getElementById('dlModal'),calModal=document.getElementById('calModal');
-function openDL(){dlModal.classList.add('open');document.body.style.overflow='hidden';showDLScreen(1);}
-function closeDL(){dlModal.classList.remove('open');document.body.style.overflow='';}
-function openCal(){calModal.classList.add('open');document.body.style.overflow='hidden';}
-function closeCal(){calModal.classList.remove('open');document.body.style.overflow='';}
-
-async function submitDL() {
-  const btn = document.getElementById('dlSubmitBtn');
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  const first = document.getElementById('dl-first').value.trim();
-  const last  = document.getElementById('dl-last').value.trim();
-  const email = document.getElementById('dl-email').value.trim();
-  if (!first || !email) { alert('Please fill in at least your first name and email.'); btn.disabled = false; btn.textContent = 'Download Now'; return; }
-  const payload = {
-    formType:      'kit',
-    firstName:     first,
-    lastName:      last,
-    company:       document.getElementById('dl-company').value.trim(),
-    unitCount:     document.getElementById('dl-units').value.trim(),
-    pms:           document.getElementById('pmsSelect').value,
-    email:         email,
-    phone:         document.getElementById('dl-phone').value.trim(),
-  };
-  // Fire both in parallel — don't block success screen on CRM write
-  const [closeResult] = await Promise.allSettled([
-    fetch('/.netlify/functions/submit-to-close', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload),
-    }),
-    fetch('/.netlify/functions/send-kit-email', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ firstName: first, email: email }),
-    }),
-  ]);
-  if (closeResult.status === 'rejected') {
-    console.error('Close submission error:', closeResult.reason);
-    btn.disabled = false; btn.textContent = 'Download Now';
-    return;
+<script>
+(function(){
+  var SESSION_KEY='sp_chat_history', OPEN_KEY='sp_chat_open';
+  function loadHistory(){try{return JSON.parse(sessionStorage.getItem(SESSION_KEY)||'[]');}catch(e){return[];}}
+  function saveHistory(h){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify(h.slice(-60)));}catch(e){}}
+  function wasOpen(){return sessionStorage.getItem(OPEN_KEY)==='1';}
+  function setOpenState(v){try{sessionStorage.setItem(OPEN_KEY,v?'1':'0');}catch(e){}}
+  var history=loadHistory(), isOpen=false;
+  var widget=document.getElementById('sp-chat'), msgs=document.getElementById('sp-msgs');
+  var input=document.getElementById('sp-input'), send=document.getElementById('sp-send');
+  var typing=document.getElementById('sp-typing'), badge=document.getElementById('sp-badge');
+  function appendMsg(role,text){
+    var d=document.createElement('div'); d.className='sp-msg '+role;
+    var b=document.createElement('div'); b.className='sp-bubble';
+    b.innerHTML=text.replace(/(https?://[^s<>"]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+    d.appendChild(b); msgs.insertBefore(d,typing); msgs.scrollTop=msgs.scrollHeight; return d;
   }
-  showDLScreen(2);
-}
-
-function goToConcierge(){
-  closeDL();
-  const fn=document.getElementById('dl-first').value.trim();
-  const ln=document.getElementById('dl-last').value.trim();
-  const co=document.getElementById('dl-company').value.trim();
-  const em=document.getElementById('dl-email').value.trim();
-  const ph=document.getElementById('dl-phone').value.trim();
-  const uc=document.getElementById('dl-units').value.trim();
-  if(fn)document.getElementById('cFirstName').value=fn;
-  if(ln)document.getElementById('cLastName').value=ln;
-  if(co)document.getElementById('cFirm').value=co;
-  if(em)document.getElementById('cPmEmail').value=em;
-  if(ph)document.getElementById('cPmPhone').value=ph;
-  if(uc)document.getElementById('cUnitCount').value=uc;
-  openConcierge();
-}
-function checkPMS(){const s=document.getElementById('pmsSelect'),b=document.getElementById('pmsCompat');if(s.value){b.style.display='flex';document.getElementById('pmsCompatText').textContent=`Compatible — Split Pay works with ${s.value}. No integration required.`;}else b.style.display='none';}
-
-document.querySelectorAll('.overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});});
-
-/* ═══════════════════════════
-   FLYER
-═══════════════════════════ */
-const FLYER_LINKS={'en-woman-phone':'1meIKg_W8G4gjOcj7OMu880yBrA-nQABe','en-man-chair':'1O3qlS57u_WGQ4vC0KXoa4ZPXbo_GSS85','en-woman-cat':'1XPe-NtVt4QEkJzht2L_734ci3um7J-SZ','en-headphones':'1FjvG2j4n3nfBDzgG2uRxDYjbMX22sQoP','es-man-chair':'1wT8yL5dfHXltNj7MebZzvapo682MUO2r','es-woman-cat':'1pWpy9gWJsPHJ39lVoUSKzcE_4sBcQLvl','es-woman-phone':'1QixcXngv8QloQu8GmrW8voS2vE9mPxNs','es-headphones':'1Cve9L6iW8oOziyMB5e-j4vJsfvqYtB_b','pt-woman-phone':'1ItS11QiwGymZ2vVrHEj4w4p_Ea_ckFus','pt-man-chair':'1x-qLSj6KenfVxbT7Ax_1HyO94XzVhpOw','pt-woman-cat':'14nDnwzUhOb7I4IMlYQK6M7XQX4qe-K5z','pt-headphones':'1TydHeSNhlAMDR59Rip_Ykvt_bnoiDp3y'};
-let flyerLang='en',flyerVariant='woman-phone';
-function getFlyerFileId(){return FLYER_LINKS[`${flyerLang}-${flyerVariant}`]||'';}
-function updateFlyerPreview(){const id=getFlyerFileId();document.getElementById('flyerPreviewIframe').src=id?`https://drive.google.com/file/d/${id}/preview`:'';}
-function setLang(l,b){flyerLang=l;document.querySelectorAll('.lang-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');updateFlyerPreview();}
-function setVariant(v,b){flyerVariant=v;document.querySelectorAll('.variant-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');updateFlyerPreview();}
-function openFlyer(){document.getElementById('flyerModal').classList.add('open');document.body.style.overflow='hidden';updateFlyerPreview();}
-function closeFlyer(){document.getElementById('flyerModal').classList.remove('open');document.body.style.overflow='';document.getElementById('flyerPreviewIframe').src='';}
-function downloadFlyer(){const id=getFlyerFileId();if(id)window.open(`https://drive.google.com/uc?export=download&id=${id}`,'_blank');else showToast('No file found for this selection');}
-
-/* ═══════════════════════════
-   VIDEOS
-═══════════════════════════ */
-const EXPLAINER_VIDEO={fileId:'14OZyJ5eh6JsefUrT3h4bm4cDMfDjXr92'};
-const AD_VIDEOS=[{label:'Podcast',fileId:'11Jrgu_sPDxIRLvTywceOGPEW-yKG6vv-'},{label:'Rent is Due Today 3',fileId:'1OrM5qKy3xfVfuLp6-f2_jwrSOTz_Kz6y'},{label:'Rent is Due Today 2',fileId:'1TPFmNnmdu1miFzcEzJZlgqpHA6yj1Rwu'},{label:'Rent is Due Today 1',fileId:'17GTLz4HJNELuCfi66nkkSzmyIBsmWfLT'},{label:'Times Square',fileId:'1fQSmpgMUk9NCXzSvBBOURTfS116p-Qj-'},{label:'Video Gamers',fileId:'1HfJdhddCrkqFGHRo5x_tTdmSq4C_gMp1'},{label:'Driving 1',fileId:'1G1UF-_T_7rNvMIKC6kE_8l9jGst5yVfh'},{label:'Gameshow',fileId:'1SlSMhoU55KUw5nQvNCeqkvN7vLYHFsp6'},{label:'Can I Pay Half the Rent?',fileId:'1N6s_gkAf3Up0tF6-yJuCGEdQ7QwyVh-2'},{label:'Podcast 2',fileId:'1dFmZlLsZF4jpqMabWlL33M6JDivKq8kq'},{label:'Coffee Rent Hack',fileId:'1md5oSKb5lBOZFOAuwkvrZl8fi6o2pHiC'},{label:'Breaking News',fileId:'1xHc_mnOIIrL1XFUlcz3GXQCmpeza5pAB'},{label:'Superwoman',fileId:'1b98wPH7MSHNYY3n7hG8XgSkVY6tOd_Lf'},{label:'Ninja',fileId:'1dY_W88uhfjHEfSVp52UxmifKrKLCq5_u'},{label:'Gameshow 2',fileId:'1izMM5F54aRHc5LfGl9XY6OgtufMVYKYx'}];
-let currentVideoTab='explainer';
-function openVideoModal(tab){document.getElementById('videoModal').classList.add('open');document.body.style.overflow='hidden';switchVideoTab(tab||'explainer');}
-function closeVideoModal(){document.getElementById('videoModal').classList.remove('open');document.body.style.overflow='';}
-function switchVideoTab(tab){currentVideoTab=tab;document.getElementById('tabExplainer').classList.toggle('active',tab==='explainer');document.getElementById('tabAds').classList.toggle('active',tab==='ads');renderVideoContent();}
-function renderVideoContent(){
-  const el=document.getElementById('videoContent');
-  if(currentVideoTab==='explainer'){el.innerHTML=`<div style="max-width:680px;margin:0 auto;"><div class="video-player-wrap" style="margin-bottom:20px;"><iframe src="https://drive.google.com/file/d/${EXPLAINER_VIDEO.fileId}/preview" allowfullscreen allow="autoplay"></iframe></div><div style="display:flex;gap:10px;"><a href="https://drive.google.com/uc?export=download&id=${EXPLAINER_VIDEO.fileId}" target="_blank" style="flex:1;background:var(--orange);color:var(--white);padding:14px 20px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;text-align:center;">⬇ Download Video</a><button onclick="closeVideoModal()" class="flyer-dl-ghost" style="flex:1;">Close</button></div></div>`;}
-  else{el.innerHTML=`<div id="adPlayerWrap" style="display:none;max-width:680px;margin:0 auto 24px;"></div><div class="video-grid" id="adGrid"></div>`;document.getElementById('adGrid').innerHTML=AD_VIDEOS.map(v=>`<div class="video-item" onclick="playAd('${v.fileId}','${v.label}')"><div class="video-thumb"><div class="video-play"></div></div><div class="video-label">${v.label}</div></div>`).join('');}
-}
-function playAd(fid,label){
-  const wrap=document.getElementById('adPlayerWrap');
-  wrap.style.display='block';
-  wrap.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"><span style="font-size:14px;font-weight:700;">${label}</span><button onclick="document.getElementById('adPlayerWrap').style.display='none'" style="background:none;border:1.5px solid var(--border);border-radius:100px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;">✕ Close</button></div><div class="video-player-wrap"><iframe src="https://drive.google.com/file/d/${fid}/preview" allowfullscreen allow="autoplay"></iframe></div>`;
-  wrap.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-/* ═══════════════════════════
-   DEMO MODAL
-═══════════════════════════ */
-function openDemoModal(){
-  document.getElementById('demoIframe').src=`https://drive.google.com/file/d/${EXPLAINER_VIDEO.fileId}/preview`;
-  document.getElementById('demoModal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeDemoModal(){document.getElementById('demoModal').classList.remove('open');document.body.style.overflow='';document.getElementById('demoIframe').src='';}
-
-/* ═══════════════════════════
-   EMAIL TEMPLATES
-═══════════════════════════ */
-const EMAIL_TEMPLATES=[
-  {subject:"Introducing a smarter way to pay rent at {{property_name}}",body:`Hi [Resident Name],\n\nWe're excited to let you know that Split Pay is now available for residents at {{property_name}}.\n\nSplit Pay lets you divide your rent into two smaller payments — one on your due date, one two weeks later — with no changes to how you pay through {{portal_link}}. A small fee applies to residents.\n\nTo get started, simply visit rent.app/go and apply. It takes just a few minutes. Once approved, you'll receive an ACH account and routing number to add to your payment profile in our portal.\n\nIf you have any questions, feel free to reach out.\n\nBest,\nThe {{property_name}} Team`},
-  {subject:"Split Pay is now available — pay rent in two parts",body:`Hi [Resident Name],\n\nStarting this month, you can use Split Pay to divide your rent into two payments at {{property_name}}.\n\nGet started at rent.app/go — takes about 5 minutes to apply.\n\nQuestions? Reply to this email.\n\n— The {{property_name}} Team`},
-  {subject:"Reminder: Split Pay is available before rent is due",body:`Hi [Resident Name],\n\nJust a heads-up — if you haven't tried Split Pay yet, now's a great time to set it up before rent is due.\n\nSplit Pay lets you split your rent into two payments for a small monthly fee. Apply at rent.app/go, then add your new ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`},
-  {subject:"Rent due soon — Split Pay can help",body:`Hi [Resident Name],\n\nRent will be due shortly. If you'd like to split your payment into two parts, you can still apply for Split Pay at rent.app/go.\n\nOnce approved, add your new ACH account to {{portal_link}} before submitting your payment.\n\n— {{property_name}}`},
-  {subject:"Today's the day — Split Pay available now",body:`Hi [Resident Name],\n\nRent is due today. If you're using Split Pay, make sure you've updated your payment info in {{portal_link}}.\n\nHaven't signed up yet? Visit rent.app/go — approvals are fast.\n\n— {{property_name}}`},
-  {subject:"Thank you for paying rent — Split Pay tip for next month",body:`Hi [Resident Name],\n\nThanks for submitting your rent payment this month.\n\nIf you'd like to split next month's rent into two payments, Split Pay makes it easy. Apply at rent.app/go before your next due date and add your ACH details to {{portal_link}}.\n\nBest,\nThe {{property_name}} Team`}
-];
-let currentEmailIdx=0;
-function openEmailModal(){document.getElementById('emailModal').classList.add('open');document.body.style.overflow='hidden';setEmailTemplate(0,document.querySelector('#emailModal .variant-btn'));}
-function closeEmailModal(){document.getElementById('emailModal').classList.remove('open');document.body.style.overflow='';}
-function setEmailTemplate(i,btn){
-  currentEmailIdx=i;
-  document.querySelectorAll('#emailModal .variant-btn').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  const t=EMAIL_TEMPLATES[i];
-  document.getElementById('emailSubjectDisplay').textContent=t.subject;
-  document.getElementById('emailBodyDisplay').textContent=t.body;
-}
-function copyEmail(){
-  const t=EMAIL_TEMPLATES[currentEmailIdx];
-  navigator.clipboard.writeText(`Subject: ${t.subject}\n\n${t.body}`).then(()=>showToast('✓ Copied to clipboard'));
-}
-
-/* ═══════════════════════════
-   SMS MODAL
-═══════════════════════════ */
-const SMS_SCRIPTS=[
-  {label:"Launch",text:"Hi [Name], Split Pay is now available at {{property_name}}. Split your rent into 2 payments for a small fee. Apply in minutes: rent.app/go — {{property_name}} Mgmt"},
-  {label:"Reminder — Early",text:"Reminder: Split Pay lets you pay rent in 2 parts for a small fee. Set it up before rent is due: rent.app/go — {{property_name}}"},
-  {label:"Reminder — Urgent",text:"Rent due soon. Use Split Pay to pay in 2 parts — apply now: rent.app/go. Questions? Reply to this message. — {{property_name}}"},
-  {label:"Due Today",text:"Rent is due today. If you're using Split Pay, make sure your account is updated in the portal. Haven't applied? rent.app/go — {{property_name}}"},
-  {label:"Post Rent Day",text:"Thanks for paying rent! Want to split next month? Apply for Split Pay at rent.app/go before your next due date. — {{property_name}}"}
-];
-function openSMSModal(){
-  document.getElementById('smsModal').classList.add('open');
-  document.body.style.overflow='hidden';
-  const list=document.getElementById('smsList');
-  list.innerHTML=SMS_SCRIPTS.map((s,i)=>`
-    <div style="background:var(--cream);border-radius:16px;padding:22px 24px;border:1.5px solid var(--border);">
-      <div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;">${s.label}</div>
-      <div style="font-size:14px;color:var(--near-black);line-height:1.7;margin-bottom:16px;">${s.text}</div>
-      <button onclick="copySMS(${i})" style="background:var(--near-black);color:var(--white);border:none;padding:9px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Copy</button>
-    </div>`).join('');
-}
-function closeSMSModal(){document.getElementById('smsModal').classList.remove('open');document.body.style.overflow='';}
-function copySMS(i){navigator.clipboard.writeText(SMS_SCRIPTS[i].text).then(()=>showToast('✓ Copied'));}
-
-/* ═══════════════════════════
-   LOGOS MODAL
-═══════════════════════════ */
-const LOGOS_DATA={
-  logos:[
-    {label:'Primary Logo — Light BG',fileId:'1A2b3c4d5e6f7g8h9i0jK',desc:'PNG, transparent background'},
-    {label:'Primary Logo — Dark BG',fileId:'1B3c4d5e6f7g8h9i0jKL',desc:'PNG, white version'},
-    {label:'Mark Only',fileId:'1C4d5e6f7g8h9i0jKLM',desc:'SVG + PNG'},
-    {label:'Wordmark Only',fileId:'1D5e6f7g8h9i0jKLMN',desc:'SVG + PNG'},
-  ],
-  screenshots:[
-    {label:'App Home Screen',fileId:'1E6f7g8h9i0jKLMNO',desc:'iOS screenshot'},
-    {label:'Payment Split View',fileId:'1F7g8h9i0jKLMNOP',desc:'iOS screenshot'},
-    {label:'Approval Screen',fileId:'1G8h9i0jKLMNOPQ',desc:'iOS screenshot'},
-  ],
-  howitworks:[
-    {label:'How It Works — Step 1',fileId:'1H9i0jKLMNOPQR',desc:'1200×675px PNG'},
-    {label:'How It Works — Step 2',fileId:'1I0jKLMNOPQRS',desc:'1200×675px PNG'},
-    {label:'How It Works — Full Flow',fileId:'1JKLMNOPQRSt',desc:'1200×675px PNG'},
-  ]
-};
-let currentLogosTab='logos';
-function openLogosModal(){document.getElementById('logosModal').classList.add('open');document.body.style.overflow='hidden';switchLogosTab('logos');}
-function closeLogosModal(){document.getElementById('logosModal').classList.remove('open');document.body.style.overflow='';}
-function switchLogosTab(tab){
-  currentLogosTab=tab;
-  ['logos','screenshots','howitworks'].forEach(t=>{document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle('active',t===tab);});
-  const items=LOGOS_DATA[tab];
-  document.getElementById('logosContent').innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">${items.map(it=>`
-    <div style="border:1.5px solid var(--border);border-radius:16px;overflow:hidden;background:var(--white);">
-      <div style="background:var(--cream);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
-        <div style="width:48px;height:48px;background:var(--near-black);border-radius:12px;display:flex;align-items:center;justify-content:center;">
-          <svg width="20" height="20" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="13" height="13" rx="2" stroke="white" stroke-width="1.5"/><rect x="20" y="3" width="13" height="13" rx="2" stroke="white" stroke-width="1.5"/><rect x="3" y="20" width="13" height="13" rx="2" stroke="white" stroke-width="1.5"/><rect x="20" y="20" width="13" height="13" rx="2" stroke="white" stroke-width="1.5"/></svg>
-        </div>
-      </div>
-      <div style="padding:14px 16px;">
-        <div style="font-size:13px;font-weight:700;margin-bottom:4px;">${it.label}</div>
-        <div style="font-size:12px;color:var(--gray);margin-bottom:12px;">${it.desc}</div>
-        <a href="https://drive.google.com/uc?export=download&id=${it.fileId}" target="_blank" style="background:var(--orange);color:white;padding:7px 16px;border-radius:100px;font-size:12px;font-weight:700;text-decoration:none;display:inline-block;">⬇ Download</a>
-      </div>
-    </div>`).join('')}</div>`;
-}
-
-/* ═══════════════════════════
-   FAQ MODAL
-═══════════════════════════ */
-/* ── FAQ data ──────────────────────────────────────*/
-const FAQ_SECTIONS=[
-  {label:'Basics',color:'#F56B3F',title:'What is Split Pay?',items:[
-    {q:'What is Split Pay and what does it do?',
-     a:'Split Pay lets residents split their monthly rent into two payments — one on the due date and one approximately two weeks later. The resident gets flexibility; you still receive full rent through your portal on the due date, every month.'},
-    {q:'Does this cost us anything to offer?',
-     a:'<strong>No.</strong> Split Pay is completely free for property managers and owners. No setup fee, monthly fee, or per-transaction fee. Residents pay a small fee — you pay nothing.'},
-    {q:'Do we need to change anything in our system?',
-     a:'<strong>Nothing changes on your end.</strong> Split Pay works with your existing portal. You\'ll see one full rent payment hit your account, on time, every month — just like always.'},
-  ]},
-  {label:'How It Works',color:'#2D4A6B',title:'The resident experience',items:[
-    {q:'How does a resident sign up?',
-     a:'Residents visit <strong>rent.app/go</strong> to apply. They connect their bank account and enter their Split Pay ACH details into your payment portal. Setup takes a few minutes. After that, Split Pay automatically handles the split.'},
-    {q:'Will I see two payments hit our system instead of one?',
-     a:'<strong>No.</strong> You will always see one full rent payment on the due date. The two-payment arrangement is strictly between Split Pay and the resident. Your records are unaffected.'},
-    {q:'What if a resident misses a payment to Split Pay?',
-     a:'That\'s between the resident and Split Pay. Split Pay handles recovery and does <strong>not</strong> reverse rent payments already made through your portal. Your income is not affected.'},
-  ]},
-  {label:'Objections',color:'#B7860B',title:'What residents might push back on',items:[
-    {q:'"Is this safe? I don\'t want to share my bank info."',
-     a:'Split Pay is SOC 2 compliant, end-to-end encrypted, and CCPA and GDPR compliant. Built by veterans of Cash App and Dropbox. 550,000+ bank accounts linked.',
-     callout:'"It\'s the same security standard used by Cash App and major fintech apps."'},
-    {q:'"Will this affect my credit score?"',
-     a:'Split Pay reports on-time payments to credit bureaus — it can actually <strong>help build credit</strong>. No hard credit pull when signing up.'},
-    {q:'"Can I pay my rent with Split Pay after my due date?"',
-     a:'Yes, Split Pay can process payments at any point and deposits to us are standard ACH processing speed (typically the same day).'},
-  ]},
-];
-const FAQ_COMPAT=['AppFolio','Yardi','Buildium','Rent Manager','Entrata / ResMan','RentCafe / RealPage','TurboTenant / DoorLoop','Any portal accepting ACH'];
-const FAQ_FACTS=['Free for property managers — always','Zero setup or IT work required','Available in all 50 US states','1,000+ property management firms','$100M+ payments processed','English & Spanish support','Materials in EN, ES, PT'];
-
-function buildFAQHTML(forPDF){
-  const r=forPDF?'8':'12', p=forPDF?'14px 18px':'18px 22px', mb=forPDF?'20':'24', fs=forPDF?'12':'13';
-  let s='';
-  s+=`<div style="background:#1C1C1E;border-radius:${r}px;padding:${p};display:flex;align-items:flex-start;gap:12px;margin-bottom:${mb}px;"><span style="font-size:18px;flex-shrink:0;">💡</span><p style="margin:0;font-size:${fs}px;color:#ccc;line-height:1.7;"><strong style="color:white;">Key message:</strong> Split Pay requires zero setup from you and works with your existing payment portal. Residents pay a small monthly fee — you pay nothing. Your full rent arrives on time, every month.</p></div>`;
-  FAQ_SECTIONS.forEach(sec=>{
-    s+=`<div style="margin-bottom:${forPDF?'18':'22'}px;"><div style="margin-bottom:8px;"><span style="background:${sec.color};color:white;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;">${sec.label}</span></div><div style="font-size:${forPDF?'14':'16'}px;font-weight:800;color:#1C1C1E;margin-bottom:10px;letter-spacing:-0.3px;">${sec.title}</div>`;
-    sec.items.forEach(item=>{
-      s+=`<div style="border:1.5px solid #e8e8e0;border-radius:${r}px;padding:${forPDF?'12px 16px':'16px 20px'};margin-bottom:8px;background:white;"><div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;"><span style="background:#F56B3F;color:white;font-size:10px;font-weight:800;width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">Q</span><div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:#1C1C1E;line-height:1.5;">${item.q}</div></div><div style="font-size:${forPDF?'11.5':'13'}px;color:#555;line-height:1.75;padding-left:26px;">${item.a}</div>${item.callout?`<div style="margin-top:8px;margin-left:26px;background:#FEF9E6;border-left:3px solid #F7C948;padding:8px 12px;border-radius:0 6px 6px 0;font-size:${forPDF?'11':'12'}px;color:#7a6000;font-style:italic;">💬 ${item.callout}</div>`:''}</div>`;
+  function renderHistory(){
+    Array.from(msgs.children).forEach(function(c){if(c.id!=='sp-typing')c.remove();});
+    history.forEach(function(m){appendMsg(m.role==='user'?'user':'bot',m.content);});
+  }
+  window.spToggle=function(){
+    isOpen=!isOpen; widget.classList.toggle('open',isOpen); setOpenState(isOpen);
+    if(isOpen){
+      renderHistory();
+      if(history.length===0){
+        setTimeout(function(){
+          var w="Hi! I can help you promote Split Pay to your residents, answer questions, or walk you through the partner program. What's on your mind?";
+          appendMsg('bot',w); history.push({role:'assistant',content:w}); saveHistory(history);
+        },300);
+      }
+      setTimeout(function(){input.focus();},350);
+      badge.classList.remove('show');
+    }
+  };
+  window.spSend=function(){
+    var msg=input.value.trim(); if(!msg||send.disabled)return;
+    input.value=''; input.style.height='auto';
+    appendMsg('user',msg); history.push({role:'user',content:msg}); saveHistory(history);
+    send.disabled=true; typing.classList.add('show'); msgs.scrollTop=msgs.scrollHeight;
+    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:history,context:'User is on '+window.location.pathname+' — '+document.title})
+    }).then(function(r){return r.json();}).then(function(data){
+      typing.classList.remove('show');
+      var reply=(data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:'Sorry, I had trouble with that.';
+      appendMsg('bot',reply); history.push({role:'assistant',content:reply}); saveHistory(history);
+      send.disabled=false;
+      if(!isOpen){badge.textContent='1';badge.classList.add('show');}
+    }).catch(function(){
+      typing.classList.remove('show');
+      appendMsg('bot','Sorry, having trouble connecting. Try again in a moment.');
+      send.disabled=false;
     });
-    s+='</div>';
-  });
-  s+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:${forPDF?'18':'22'}px;"><div style="border:1.5px solid #e8e8e0;border-radius:${r}px;padding:${forPDF?'14px 16px':'18px 20px'};background:white;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#2D4A6B;margin-bottom:10px;">✅ Compatible Platforms</div>${FAQ_COMPAT.map(p=>`<div style="font-size:${forPDF?'11.5':'13'}px;color:#374151;padding:3px 0;display:flex;align-items:center;gap:6px;"><span style="color:#27AE60;font-weight:700;">✓</span>${p}</div>`).join('')}</div><div style="border:1.5px solid #e8e8e0;border-radius:${r}px;padding:${forPDF?'14px 16px':'18px 20px'};background:white;"><div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#2D4A6B;margin-bottom:10px;">📋 Key Facts</div>${FAQ_FACTS.map(f=>`<div style="font-size:${forPDF?'11.5':'13'}px;color:#374151;padding:3px 0;display:flex;align-items:center;gap:6px;"><span style="color:#27AE60;font-weight:700;">✓</span>${f}</div>`).join('')}</div></div>`;
-  s+=`<div style="margin-bottom:${forPDF?'16':'20'}px;"><div style="margin-bottom:8px;"><span style="background:#43BDAE;color:white;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:100px;">Support</span></div><div style="font-size:${forPDF?'14':'16'}px;font-weight:800;color:#1C1C1E;margin-bottom:10px;letter-spacing:-0.3px;">Direct residents and managers here — not to your staff</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div style="background:#1C1C1E;border-radius:${r}px;padding:${forPDF?'14px 16px':'18px 20px'};"><div style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#F56B3F;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:#F56B3F;display:inline-block;"></span>Resident Support</div><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Email</div><div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">support@splitpay.com</div><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Phone / Text</div><div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">1 (877) 749-3592</div><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Hours</div><div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;">Mon–Fri, 8AM–8PM ET</div></div><div style="background:#1C1C1E;border-radius:${r}px;padding:${forPDF?'14px 16px':'18px 20px'};"><div style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#43BDAE;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:#43BDAE;display:inline-block;"></span>Property Manager Support</div><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Email</div><div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">landlords@splitpay.com</div><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Phone / Text</div><div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;margin-bottom:10px;">1 (877) 749-3592</div><div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;">Hours</div><div style="font-size:${forPDF?'12':'13'}px;font-weight:700;color:white;">Mon–Fri, 8AM–8PM ET</div></div></div></div>`;
-  s+=`<div style="text-align:center;font-size:11px;color:#aaa;padding-top:16px;border-top:1px solid #e8e8e0;">Split Pay is a product of Rent App · pmc.splitpay.com · For internal staff use only</div>`;
-  return s;
-}
-
-function openFAQModal(){
-  document.getElementById('faqModal').classList.add('open');
-  document.body.style.overflow='hidden';
-  const hdr=`<div style="background:var(--near-black);padding:24px 32px;"><div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;"><div style="display:flex;align-items:center;gap:10px;"><div style="width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:white;flex-shrink:0;">SP</div><div><div style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.3px;">Split Pay</div><div style="font-size:11px;color:#666;">by Rent App</div></div></div><div style="text-align:right;"><div style="font-size:14px;font-weight:800;color:white;">Staff FAQ Sheet</div><div style="font-size:11px;color:#666;">For leasing agents &amp; property management staff</div></div></div><div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:16px;"></div></div>`;
-  document.getElementById('faqModalBody').innerHTML=hdr+`<div style="padding:24px 32px 32px;">${buildFAQHTML(false)}</div>`;
-}
-function closeFAQModal(){document.getElementById('faqModal').classList.remove('open');document.body.style.overflow='';}
-function downloadFAQPDF(){
-  const css=`*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}body{font-family:Arial,Helvetica,sans-serif;background:white;font-size:13px;line-height:1.5;}a{color:inherit;text-decoration:none;}.page{max-width:740px;margin:0 auto;}.hdr{background:#1C1C1E;padding:22px 32px;display:flex;align-items:center;justify-content:space-between;}.hdr-l{display:flex;align-items:center;gap:10px;}.hdr-logo{width:32px;height:32px;background:#F56B3F;border-radius:8px;text-align:center;line-height:32px;font-weight:800;font-size:12px;color:white;flex-shrink:0;}.hdr-name{font-size:15px;font-weight:800;color:white;}.hdr-r{text-align:right;}.hdr-title{font-size:13px;font-weight:800;color:white;}.hdr-sub{font-size:11px;color:#888;margin-top:2px;}.body{padding:24px 32px 40px;}@media print{body{background:white;}@page{margin:0.45in;size:letter;}}`;
-  const hdr=`<div class="hdr"><div class="hdr-l"><div class="hdr-logo">SP</div><div><div class="hdr-name">Split Pay</div></div></div><div class="hdr-r"><div class="hdr-title">Staff FAQ Sheet</div><div class="hdr-sub">For leasing agents &amp; property management staff</div></div></div>`;
-  const doc=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Split Pay Staff FAQ</title><style>${css}</style></head><body><div class="page">${hdr}<div class="body">${buildFAQHTML(true)}</div></div><script>window.onload=function(){window.print();}<\/script></body></html>`;
+  };
+  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();spSend();}});
+  if(wasOpen()){setTimeout(function(){spToggle();},100);}
+})();
+</script>
+<!-- END SPLIT PAY CHAT WIDGET -->
+</body></html>`;
   const w=window.open('','_blank','width=800,height=900');
   w.document.open();w.document.write(doc);w.document.close();
 }

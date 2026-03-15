@@ -1,4 +1,6 @@
-function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';if(isHidden){const msgs=document.getElementById('floatChatMessages');if(msgs.children.length===0&&floatHistory.length>0){floatHistory.forEach(m=>appendMsg(msgs,m.role==='user'?'user':'bot',m.content));}setTimeout(()=>{document.getElementById('floatChatInput').focus();},50);}}
+function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';if(isHidden){const msgs=document.getElementById('floatChatMessages');if(msgs.children.length===0&&floatHistory.length>0){floatHistory.forEach(m=>appendMsg(msgs,m.role==='user'?'user':'bot',m.content));}setTimeout(()=>
+<style>
+{document.getElementById('floatChatInput').focus();},50);}}
   @keyframes slideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--near-black);background:var(--white);-webkit-font-smoothing:antialiased;}

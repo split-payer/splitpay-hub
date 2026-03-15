@@ -33,23 +33,25 @@
 
   /* ─── NAV — matches pmc.splitpay.com ─── */
   nav {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 40px;
+    background: rgba(255,255,255,0.92);
+    border-bottom: 1px solid rgba(0,0,0,0.09);
+    padding: 0 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    height: 68px;
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
   .nav-links {
     display: flex; align-items: center; gap: 32px;
     position: absolute; left: 50%; transform: translateX(-50%);
   }
-  .nav-links a { font-size: 14px; font-weight: 500; color: #555; text-decoration: none; white-space: nowrap; }
+  .nav-links a { font-size: 14px; font-weight: 400; color: rgb(107,107,107); text-decoration: none; white-space: nowrap; }
   .nav-links a:hover { color: var(--near-black); }
   .nav-links a[href="/promote"] { font-weight: 700; color: var(--near-black); }
   .nav-actions { display: flex; align-items: center; gap: 10px; }
@@ -149,7 +151,7 @@
     justify-content: center;
     gap: 0;
     position: sticky;
-    top: 60px;
+    top: 68px;
     z-index: 99;
   }
   .tab-btn {

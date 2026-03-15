@@ -1473,7 +1473,16 @@ function downloadFlexPDF(){
 ═══════════════════════════ */
 const CHAT_SYSTEM = 'You are talking to a property manager on pmc.splitpay.com. Be concise — 2–4 sentences max unless detail is clearly needed. Warm, direct tone.';
 
-const inlineHistory=[],floatHistory=[];
+// ── CHAT HISTORY — persists across page navigations via sessionStorage ──
+const SESSION_KEY = 'sp_chat_history';
+function loadHistory() {
+  try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || '[]'); } catch { return []; }
+}
+function saveHistory(h) {
+  try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(h.slice(-40))); } catch {} // keep last 40 messages
+}
+const inlineHistory = loadHistory();
+const floatHistory  = loadHistory();
 let _noteSent=false;
 function _getChatEmail(){return[...inlineHistory,...floatHistory].filter(m=>m.role==='user').map(m=>m.content).join(' ').match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/)?.[0]||'';}
 function _sendChatNote(){if(_noteSent)return;const email=_getChatEmail();if(!email)return;_noteSent=true;const t=[...inlineHistory,...floatHistory].map(m=>(m.role==='user'?'PM: ':'Bot: ')+m.content).join('\n');navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email,chatNote:'Chat via pmc.splitpay.com\n\n'+t})],{type:'application/json'}));}
@@ -1495,6 +1504,7 @@ async function sendChat(type){
     const reply=data.content?.[0]?.text||'Sorry, I had trouble with that.';
     typing.remove();appendMsg(messagesEl,'bot',reply);
     history.push({role:'assistant',content:reply});
+saveHistory(history);
   }catch(e){typing.remove();appendMsg(messagesEl,'bot','Sorry, I\'m having trouble connecting. Please try again in a moment.');}
 }
 function appendMsg(container,role,text){
@@ -1524,7 +1534,7 @@ function appendTyping(container){
   div.innerHTML=`<div style="width:24px;height:24px;background:var(--near-black);border-radius:6px;flex-shrink:0;"></div><div style="background:var(--white);border:1.5px solid var(--border);border-radius:4px 16px 16px 16px;padding:12px 16px;display:flex;gap:4px;align-items:center;">${[0,160,320].map(d=>`<span style="width:6px;height:6px;border-radius:50%;background:var(--gray);display:block;animation:blink 1.2s ${d}ms infinite;"></span>`).join('')}</div>`;
   container.appendChild(div);container.scrollTop=container.scrollHeight;return div;
 }
-function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';if(isHidden){setTimeout(()=>{document.getElementById('floatChatInput').focus();},50);}}
+function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';if(isHidden){const msgs=document.getElementById('floatChatMessages');if(msgs.children.length===0&&floatHistory.length>0){floatHistory.forEach(m=>appendMsg(msgs,m.role==='user'?'user':'bot',m.content));}setTimeout(()=>{document.getElementById('floatChatInput').focus();},50);}}
 function toggleFloatExpand(){const w=document.getElementById('floatWindow');const msgs=document.getElementById('floatChatMessages');const btn=document.getElementById('floatExpandBtn');const expanded=w.getAttribute('data-expanded')==='1';if(expanded){w.style.width='360px';msgs.style.height='280px';btn.textContent='⤢';btn.title='Expand';w.setAttribute('data-expanded','0');}else{w.style.width='520px';msgs.style.height='520px';btn.textContent='⤡';btn.title='Collapse';w.setAttribute('data-expanded','1');}}
 
 /* ═══════════════════════════

@@ -1,37 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Partner Program — Split Pay</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --orange:#F56B3F;
-    --orange-dark:#d4522a;
-    --yellow:#fae182;
-    --yellow-bg:#fef9e6;
-    --cream:#F2F0EB;
-    --black:#0E0E0E;
-    --near-black:#292929;
-    --near-black-mid:#3d3d3d;
-    --dark:#1C1C1E;
-    --gray:#6B6B6B;
-    --gray-light:#AEAEB2;
-    --white:#FFFFFF;
-    --off-white:#FAFAF8;
-    --border:rgba(0,0,0,0.09);
-    --teal:#43BDAE;
-    --teal-bg:rgba(67,189,174,0.1);
-    --teal-dark:#35a096;
-    /* partner-specific */
-    --forest:#1a3d20;
-    --forest-mid:#2a5c32;
-    --forest-light:#3a7a44;
-    --forest-border:rgba(255,255,255,0.07);
-    --green-cream:#EEF4EF;
-  }
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';if(isHidden){const msgs=document.getElementById('floatChatMessages');if(msgs.children.length===0&&floatHistory.length>0){floatHistory.forEach(m=>appendMsg(msgs,m.role==='user'?'user':'bot',m.content));}setTimeout(()=>{document.getElementById('floatChatInput').focus();},50);}}
   @keyframes slideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--near-black);background:var(--white);-webkit-font-smoothing:antialiased;}
@@ -39,7 +6,7 @@
   /* ── NAV (matches hub — white, same structure) ── */
   nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;gap:24px;}
   .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);}
+  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);position:absolute;left:50%;transform:translateX(-50%);}
   .nav-links a{text-decoration:none;color:inherit;transition:color 0.2s;}
   .nav-links a:hover{color:var(--near-black);}
   .nav-links a[href="/partners"]{font-weight:700;color:var(--near-black);}

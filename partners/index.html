@@ -39,17 +39,17 @@
   /* ── NAV (matches hub — white, same structure) ── */
   nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;gap:24px;}
   .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-  .nav-partner-pill{display:inline-flex;align-items:center;gap:5px;background:var(--green-cream);border:1px solid rgba(26,61,32,0.12);padding:4px 10px;border-radius:100px;font-size:11px;font-weight:700;color:var(--forest-light);letter-spacing:0.06em;text-transform:uppercase;margin-left:2px;}
   .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);}
   .nav-links a{text-decoration:none;color:inherit;transition:color 0.2s;}
   .nav-links a:hover{color:var(--near-black);}
   .nav-links a[href="/partners"]{font-weight:700;color:var(--near-black);}
   .nav-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
-  .btn-book{background:transparent;color:var(--near-black);border:1.5px solid rgba(0,0,0,0.2);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-book{background:transparent;color:var(--near-black);border:1.5px solid rgba(0,0,0,0.2);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:inherit;}
   .btn-book:hover{border-color:var(--near-black);}
-  .btn-kit{background:var(--orange);color:var(--white);border:none;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity 0.2s;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;}
+  .btn-kit{background:var(--orange);color:var(--white);border:none;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity 0.2s;font-family:inherit;}
   .btn-kit:hover{opacity:0.85;}
 
+  
   /* ── SHARED ── */
   .section{padding:112px 56px;position:relative;overflow:hidden;}
   .container{max-width:1080px;margin:0 auto;}
@@ -200,7 +200,7 @@
   .btn-final-g:hover{border-color:rgba(255,255,255,0.5);}
 
   /* ── FOOTER ── */
-  footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);padding:40px 56px;display:flex;align-items:center;justify-content:space-between;}
+footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);padding:40px 56px;display:flex;align-items:center;justify-content:space-between;}
   .footer-logo{display:flex;align-items:center;gap:10px;}
   .footer-links{display:flex;gap:28px;}
   .footer-links a{font-size:13px;color:#555;text-decoration:none;}
@@ -242,11 +242,11 @@
   <div class="nav-links">
     <a href="/">Get the Kit</a>
     <a href="/promote">How to Promote</a>
-    <a href="https://pmc.splitpay.com/partners">Partner Program</a>
+    <a href="/partners">Partner Program</a>
   </div>
   <div class="nav-actions">
-    <a class="btn-book" href="https://calendly.com/rent-app/onboarding">Book a meeting</a>
-    <button class="btn-kit" onclick="event.preventDefault();scrollToSection('apply')">Apply now</button>
+    <button class="btn-book" onclick="openCal()">Book a meeting</button>
+    <button class="btn-kit" onclick="openDL()">Get the Kit</button>
   </div>
 </nav>
 

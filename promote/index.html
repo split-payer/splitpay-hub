@@ -34,7 +34,7 @@
   
   nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;gap:24px;}
   .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);}
+  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);position:absolute;left:50%;transform:translateX(-50%);}
   .nav-links a{text-decoration:none;color:inherit;transition:color 0.2s;}
   .nav-links a:hover{color:var(--near-black);}
   .nav-links a[href="/promote"]{font-weight:700;color:var(--near-black);}
@@ -71,7 +71,7 @@
   .footer-logo{display:flex;align-items:center;gap:10px;}
   .footer-links{display:flex;gap:28px;}
   .footer-links a{font-size:13px;color:#555;text-decoration:none;}
-  .footer-copy{font-size:12px;color:#444;}─── */
+  .footer-copy{font-size:12px;color:#444;}
   .hero {
     background: var(--dark-card-2);
     padding: 56px 32px 48px;
@@ -130,7 +130,7 @@
   .stat-pill-val.teal { color: var(--teal); }
   .stat-pill-val.yellow { color: var(--yellow); }
 
-  /* ─── TABS ─── */
+  /* ─── TABS */
   .tabs-bar {
     background: var(--white);
     border-bottom: 1px solid var(--border);
@@ -168,7 +168,7 @@
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* ─── SECTION WRAPPERS ─── */
+  /* ─── SECTION WRAPPERS */
   .section {
     padding: 48px 32px;
     max-width: 900px;
@@ -198,7 +198,7 @@
     line-height: 1.6; margin-bottom: 28px;
   }
 
-  /* ─── STEPS (Quick Start) ─── */
+  /* ─── STEPS (Quick Start) */
   .steps { display: flex; flex-direction: column; gap: 16px; }
 
   .step-card {
@@ -282,7 +282,7 @@
   }
   .step-cta.teal-btn { background: var(--teal); }
 
-  /* ─── GIFT CARD CALLOUT ─── */
+  /* ─── GIFT CARD CALLOUT */
   .gift-card-strip {
     background: var(--dark-card);
     border-radius: 16px;
@@ -312,7 +312,7 @@
   .gift-amount span { color: var(--yellow); }
   .gift-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
 
-  /* ─── TEMPLATE CARDS ─── */
+  /* ─── TEMPLATE CARDS */
   .template-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -359,13 +359,13 @@
     font-family: 'DM Sans', sans-serif;
   }
 
-  /* ─── DIVIDER ─── */
+  /* ─── DIVIDER */
   .divider {
     height: 1px; background: var(--border);
     margin: 0;
   }
 
-  /* ─── ADVANCED: CHANNEL CARDS ─── */
+  /* ─── ADVANCED: CHANNEL CARDS */
   .channel-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -408,7 +408,7 @@
     flex-shrink: 0;
   }
 
-  /* ─── TIMING SCHEDULE ─── */
+  /* ─── TIMING SCHEDULE */
   .timeline {
     background: var(--white);
     border: 1.5px solid var(--border);
@@ -453,7 +453,7 @@
   .channel-tag.sms   { background: rgba(67,189,174,0.1); color: var(--teal); }
   .channel-tag.print { background: rgba(250,225,130,0.3); color: #8a6000; }
 
-  /* ─── CALCULATOR ─── */
+  /* ─── CALCULATOR */
   .calc-section {
     background: #292929;
     padding: 48px 0;
@@ -567,7 +567,7 @@
     font-style: italic;
   }
 
-  /* ─── CONCIERGE CTA ─── */
+  /* ─── CONCIERGE CTA */
   .cta-strip {
     background: var(--orange);
     padding: 40px 32px;
@@ -599,7 +599,7 @@
     border: 2px solid rgba(255,255,255,0.4);
   }
 
-  /* ─── ADOPTION TIPS GRID ─── */
+  /* ─── ADOPTION TIPS GRID */
   .tips-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -631,7 +631,7 @@
   }
   .impact-dot.filled { background: var(--orange); }
 
-  /* ─── DO / DON'T ─── */
+  /* ─── DO / DON'T */
   .do-dont {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -658,7 +658,7 @@
   .do-dont-list { display: flex; flex-direction: column; gap: 7px; }
   .do-dont-item { font-size: 12px; color: var(--near-black); line-height: 1.5; display: flex; gap: 7px; }
 
-  /* ─── RESPONSIVE ─── */
+  /* ─── RESPONSIVE */
   @media (max-width: 640px) {
     .template-grid, .channel-grid, .do-dont, .tips-grid, .calc-layout { grid-template-columns: 1fr; }
     .calc-layout { gap: 16px; }

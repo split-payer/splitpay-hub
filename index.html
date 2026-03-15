@@ -38,7 +38,7 @@
   @media(max-width:1200px){.float-img{display:none;}}
   nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;gap:24px;}
   .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);}
+  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);position:absolute;left:50%;transform:translateX(-50%);}
   .nav-links a{text-decoration:none;color:inherit;transition:color 0.2s;}
   .nav-links a:hover{color:var(--near-black);}
   .nav-links a[href="/"]{font-weight:700;color:var(--near-black);}
@@ -1343,7 +1343,7 @@ function switchLogosTab(tab){
 /* ═══════════════════════════
    FAQ MODAL
 ═══════════════════════════ */
-/* ── FAQ data ───────────────────────────────────────── */
+/* ── FAQ data ──────────────────────────────────────*/
 const FAQ_SECTIONS=[
   {label:'Basics',color:'#F56B3F',title:'What is Split Pay?',items:[
     {q:'What is Split Pay and what does it do?',
@@ -1406,7 +1406,7 @@ function downloadFAQPDF(){
   w.document.open();w.document.write(doc);w.document.close();
 }
 
-/* ── Flex comparison ────────────────────────────────── */
+/* ── Flex comparison ───────────────────────────────*/
 const FLEX_ROWS=[
   {cat:'Approval & Access',rows:[
     {label:'Approval method',          sp:'Cash flow-based (no credit check)',   fx:'Credit check required'},

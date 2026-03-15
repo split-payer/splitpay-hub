@@ -31,66 +31,60 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ─── NAV — matches pmc.splitpay.com ─── */
-  .site-nav {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 40px;
+  /* ─── NAV ─── */
+  nav {
+    background: rgba(255,255,255,0.92);
+    border-bottom: 1px solid rgba(0,0,0,0.09);
+    padding: 0 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    height: 68px;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 200;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
-  .site-nav-logo {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none; flex-shrink: 0;
-  }
-  .site-nav-logo img { height: 30px; display: block; }
-  .site-nav-links {
-    display: flex; align-items: center; gap: 32px;
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-links {
+    display: flex; align-items: center; gap: 36px;
     position: absolute; left: 50%; transform: translateX(-50%);
   }
-  .site-nav-links a {
-    font-size: 14px; font-weight: 500; color: #555;
-    text-decoration: none; white-space: nowrap;
-  }
-  .site-nav-links a:hover { color: var(--near-black); }
-  .site-nav-links a.active { font-weight: 700; color: var(--near-black); }
-  .site-nav-right { display: flex; align-items: center; gap: 10px; }
-  .nav-btn-ghost {
+  .nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--near-black); }
+  .nav-links a[href="/promote"] { font-weight: 700; color: var(--near-black); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .btn-book {
     font-size: 13px; font-weight: 600; color: var(--near-black);
     border: 1.5px solid rgba(0,0,0,0.18); border-radius: 100px;
-    padding: 7px 18px; text-decoration: none; background: transparent;
-    white-space: nowrap;
+    padding: 7px 18px; background: transparent; cursor: pointer;
+    font-family: inherit; white-space: nowrap;
   }
-  .nav-btn-ghost:hover { background: var(--cream); }
-  .nav-btn-orange {
+  .btn-book:hover { background: var(--cream); }
+  .btn-kit {
     font-size: 13px; font-weight: 700; color: var(--white);
-    background: var(--orange); border-radius: 100px;
-    padding: 8px 18px; text-decoration: none; white-space: nowrap;
-    border: none;
+    background: var(--orange); border: none; border-radius: 100px;
+    padding: 8px 18px; cursor: pointer; font-family: inherit; white-space: nowrap;
   }
-  .nav-btn-orange:hover { opacity: 0.9; }
+  .btn-kit:hover { opacity: 0.9; }
 
-  /* ─── FOOTER — matches pmc.splitpay.com ─── */
+  /* ─── FOOTER ─── */
   footer {
     background: var(--near-black);
-    padding: 20px 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 40px 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
   }
-  .footer-links { display: flex; align-items: center; gap: 24px; }
-  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 13px; color: #555; text-decoration: none; }
   .footer-links a:hover { color: rgba(255,255,255,0.8); }
-  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+  .footer-copy { font-size: 12px; color: #444; }
 
-  /* ─── HERO ─── */
+/* ─── HERO ─── */
   .hero {
     background: var(--dark-card-2);
     padding: 56px 32px 48px;
@@ -714,7 +708,7 @@
 </nav>
 
 <!-- HERO -->
-<div class="hero" id="top">
+<div class="hero">
   <div class="hero-eyebrow">📣 PM Resident Outreach Guide</div>
   <h1>How to get residents<br>using <span>Split Pay</span></h1>
   <p class="hero-sub">A step-by-step playbook. Pick your effort level — 15 minutes or all-in. Either way, residents win.</p>
@@ -1260,7 +1254,7 @@
   </div>
 </div>
 
-<!-- FOOTER — matches pmc.splitpay.com / partners -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">
     <svg viewBox="368 0 1000 1000" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
@@ -1274,126 +1268,187 @@
         <linearGradient id="fg2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
       </defs>
     </svg>
+    <span style="font-size:14px;font-weight:700;color:var(--white);">Split Pay</span>
   </div>
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Contact</a>
-    <a href="/partners">Partner Program</a>
-  </div>
+  <div class="footer-links"><a href="https://splitpay.com/privacy">Privacy</a><a href="https://splitpay.com/terms">Terms</a><a href="mailto:support@splitpay.com">Contact</a><a href="/partners">Partner Program</a></div>
   <div class="footer-copy">© 2026 Split Pay · Powered by Rent App</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ── TAB SWITCHING ──
+<script>
+  // TAB SWITCHING
   function switchTab(id, btn) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
     document.getElementById('tab-' + id).classList.add('active');
     if (btn) btn.classList.add('active');
-    // scroll to tabs bar
     document.querySelector('.tabs-bar').scrollIntoView({behavior:'smooth', block:'start'});
   }
   function switchTabByName(id) {
-    const btn = document.querySelector(`.tab-btn[onclick*="${id}"]`);
+    var btn = document.querySelector('.tab-btn[onclick*="' + id + '"]');
     switchTab(id, btn);
   }
 
-  // ── TIER-AWARE CALCULATOR ──
-  const TIERS = [
-    { id: 'growth',   name: 'Growth',          min: 0,   max: 20,  rate: 0,  color: 'rgba(255,255,255,0.4)', bg: 'rgba(255,255,255,0.07)', border: 'rgba(255,255,255,0.15)' },
-    { id: 'local',    name: 'Local Partner',    min: 21,  max: 50,  rate: 3,  color: '#43BDAE',               bg: 'rgba(67,189,174,0.18)',  border: 'rgba(67,189,174,0.4)'  },
-    { id: 'regional', name: 'Regional Partner', min: 51,  max: 100, rate: 4,  color: '#fae182',               bg: 'rgba(250,225,130,0.18)', border: 'rgba(250,225,130,0.45)' },
-    { id: 'national', name: 'National Partner', min: 101, max: Infinity, rate: 5, color: '#F56B3F',           bg: 'rgba(245,107,63,0.18)', border: 'rgba(245,107,63,0.4)'  },
-  ];
-
-  function getTier(n) {
-    return TIERS.find(t => n >= t.min && n <= t.max) || TIERS[0];
+  // SESSION STORAGE
+  var SESSION_KEY = 'sp_chat_history';
+  function loadHistory() {
+    try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || '[]'); } catch(e) { return []; }
+  }
+  function saveHistory(h) {
+    try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(h.slice(-40))); } catch(e) {}
   }
 
+  // FLOAT CHAT
+  var floatHistory = loadHistory();
+
+  function toggleFloat() {
+    var w = document.getElementById('floatWindow');
+    var isHidden = w.style.display === 'none' || w.style.display === '';
+    w.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) {
+      var msgs = document.getElementById('floatChatMessages');
+      if (msgs.children.length === 0 && floatHistory.length > 0) {
+        floatHistory.forEach(function(m) { appendFloatMsg(m.role === 'user' ? 'user' : 'bot', m.content); });
+      } else if (msgs.children.length === 0) {
+        appendFloatMsg('bot', "Hi! I can help you promote Split Pay to your residents, answer questions about how it works, or walk you through the partner program. What's on your mind?");
+      }
+      setTimeout(function() { document.getElementById('floatChatInput').focus(); }, 50);
+    }
+  }
+
+  function appendFloatMsg(role, text) {
+    var wrap = document.getElementById('floatChatMessages');
+    var isBot = role === 'bot';
+    var d = document.createElement('div');
+    d.style.cssText = 'display:flex;gap:8px;align-items:flex-start;' + (isBot ? '' : 'justify-content:flex-end;');
+    if (isBot) {
+      d.innerHTML = '<div style="width:24px;height:24px;background:var(--near-black);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="white" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div><div style="background:var(--white);border:1.5px solid var(--border);border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.65;color:var(--near-black);max-width:240px;">' + text + '</div>';
+    } else {
+      d.innerHTML = '<div style="background:var(--orange);border-radius:12px 4px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.65;color:#fff;max-width:240px;">' + text + '</div>';
+    }
+    wrap.appendChild(d);
+    wrap.scrollTop = wrap.scrollHeight;
+  }
+
+  async function sendFloat() {
+    var input = document.getElementById('floatChatInput');
+    var msg = input.value.trim();
+    if (!msg) return;
+    input.value = '';
+    appendFloatMsg('user', msg);
+    floatHistory.push({role:'user', content:msg});
+    saveHistory(floatHistory);
+    var typing = document.createElement('div');
+    typing.id = 'floatTyping';
+    typing.style.cssText = 'font-size:12px;color:var(--muted);padding:4px 8px;';
+    typing.textContent = '...';
+    document.getElementById('floatChatMessages').appendChild(typing);
+    try {
+      var res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({messages: floatHistory, context: 'User is on /promote - the How to Promote Split Pay page'})
+      });
+      var data = await res.json();
+      var reply = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : 'Sorry, I had trouble with that.';
+      var t = document.getElementById('floatTyping');
+      if (t) t.remove();
+      appendFloatMsg('bot', reply);
+      floatHistory.push({role:'assistant', content:reply});
+      saveHistory(floatHistory);
+    } catch(e) {
+      var t = document.getElementById('floatTyping');
+      if (t) t.remove();
+      appendFloatMsg('bot', 'Sorry, having trouble connecting. Try again in a moment.');
+    }
+  }
+
+  // CALCULATOR
+  var TIERS = [
+    { id: 'growth',   name: 'Growth',          min: 0,   max: 20,  rate: 0, color: 'rgba(255,255,255,0.4)', bg: 'rgba(255,255,255,0.07)', border: 'rgba(255,255,255,0.15)' },
+    { id: 'local',    name: 'Local Partner',   min: 21,  max: 50,  rate: 3, color: '#43BDAE',               bg: 'rgba(67,189,174,0.18)',  border: 'rgba(67,189,174,0.4)'  },
+    { id: 'regional', name: 'Regional Partner',min: 51,  max: 100, rate: 4, color: '#fae182',               bg: 'rgba(250,225,130,0.18)', border: 'rgba(250,225,130,0.45)' },
+    { id: 'national', name: 'National Partner',min: 101, max: 99999,rate:5, color: '#F56B3F',               bg: 'rgba(245,107,63,0.18)', border: 'rgba(245,107,63,0.4)'  }
+  ];
+  function getTier(n) { for (var i=0;i<TIERS.length;i++){if(n>=TIERS[i].min&&n<=TIERS[i].max)return TIERS[i];}return TIERS[0]; }
+
   function calcSimple() {
-    const residents = parseInt(document.getElementById('s-residents').value);
-    const tier = getTier(residents);
-
+    var residents = parseInt(document.getElementById('s-residents').value);
+    var tier = getTier(residents);
     document.getElementById('c-residents').textContent = residents;
-
-    // ── Tier ladder highlight ──
-    TIERS.forEach(t => {
-      const el = document.getElementById('tier-' + t.id);
+    TIERS.forEach(function(t) {
+      var el = document.getElementById('tier-' + t.id);
       if (!el) return;
-      const isActive = t.id === tier.id;
+      var isActive = t.id === tier.id;
       el.style.background  = isActive ? t.bg    : 'rgba(255,255,255,0.04)';
       el.style.borderColor = isActive ? t.border : 'rgba(255,255,255,0.08)';
       el.style.transform   = isActive ? 'scale(1.04)' : 'scale(1)';
       el.style.boxShadow   = isActive ? '0 4px 20px rgba(0,0,0,0.3)' : 'none';
       el.style.opacity     = isActive ? '1' : '0.4';
     });
-
-    // ── Tier badge pill ──
-    const pill     = document.getElementById('c-tier-pill');
-    const tierName = document.getElementById('c-tier-name');
-    const tierRate = document.getElementById('c-tier-rate');
-    const nextTier = document.getElementById('c-next-tier');
-
-    pill.style.background = tier.bg;
-    pill.style.border     = '1px solid ' + tier.border;
-    tierName.style.color  = tier.color;
-    tierRate.style.color  = tier.color;
-    tierName.textContent  = tier.name;
-    tierRate.textContent  = tier.rate > 0 ? '$' + tier.rate + '/mo' : '—';
-
-    const nextIdx = TIERS.indexOf(tier) + 1;
-    if (nextIdx < TIERS.length) {
-      const next = TIERS[nextIdx];
-      nextTier.textContent = 'Reach ' + next.min + ' residents → unlock $' + next.rate + '/mo each';
-      nextTier.style.color = 'rgba(255,255,255,0.25)';
+    var pill=document.getElementById('c-tier-pill'),tierName=document.getElementById('c-tier-name'),tierRate=document.getElementById('c-tier-rate'),nextTier=document.getElementById('c-next-tier');
+    pill.style.background=tier.bg; pill.style.border='1px solid '+tier.border;
+    tierName.style.color=tier.color; tierRate.style.color=tier.color;
+    tierName.textContent=tier.name; tierRate.textContent=tier.rate>0?'$'+tier.rate+'/mo':'--';
+    var nextIdx=TIERS.indexOf(tier)+1;
+    if(nextIdx<TIERS.length){nextTier.textContent='Reach '+TIERS[nextIdx].min+' residents to unlock $'+TIERS[nextIdx].rate+'/mo each';nextTier.style.color='rgba(255,255,255,0.25)';}
+    else{nextTier.textContent='National Partner - maximum rate';nextTier.style.color='rgba(245,107,63,0.6)';}
+    document.getElementById('c-threshold-hint').style.display=tier.rate===0?'block':'none';
+    var monthly=tier.rate>0?residents*tier.rate:0,annual=monthly*12;
+    var mCard=document.getElementById('c-monthly-card'),aCard=document.getElementById('c-annual-card'),mVal=document.getElementById('c-monthly-val'),aVal=document.getElementById('c-annual-val'),mSub=document.getElementById('c-monthly-sub'),aSub=document.getElementById('c-annual-sub'),mLabel=document.getElementById('c-monthly-label'),aLabel=document.getElementById('c-annual-label');
+    if(tier.rate===0){
+      mCard.style.background=aCard.style.background='rgba(255,255,255,0.04)';
+      mCard.style.borderColor=aCard.style.borderColor='rgba(255,255,255,0.08)';
+      mVal.style.color=aVal.style.color='rgba(255,255,255,0.18)';
+      mLabel.style.color=aLabel.style.color='rgba(255,255,255,0.3)';
+      mVal.textContent=aVal.textContent='--';
+      mSub.style.color=aSub.style.color='rgba(255,255,255,0.25)';
+      mSub.textContent=aSub.textContent='Unlocks at 21 residents';
     } else {
-      nextTier.textContent = '🏆 National Partner — maximum rate';
-      nextTier.style.color = 'rgba(245,107,63,0.6)';
+      mCard.style.background=aCard.style.background=tier.bg;
+      mCard.style.borderColor=aCard.style.borderColor=tier.border;
+      mVal.style.color=aVal.style.color=mLabel.style.color=aLabel.style.color=tier.color;
+      mVal.textContent='$'+monthly.toLocaleString(); aVal.textContent='$'+annual.toLocaleString();
+      mSub.style.color=aSub.style.color='rgba(255,255,255,0.45)';
+      mSub.textContent=residents+' residents x $'+tier.rate+'/mo';
+      aSub.textContent='$'+monthly.toLocaleString()+'/mo x 12 months';
     }
+  }
 
-    // ── Threshold hint ──
-    document.getElementById('c-threshold-hint').style.display = tier.rate === 0 ? 'block' : 'none';
+  function openCal() { window.location.href = 'https://calendly.com/rent-app/onboarding'; }
+  function openDL()  { window.location.href = '/'; }
 
-    // ── Output cards ──
-    const monthly = tier.rate > 0 ? residents * tier.rate : 0;
-    const annual  = monthly * 12;
+  calcSimple();
+</script>
 
-    const mCard  = document.getElementById('c-monthly-card');
-    const aCard  = document.getElementById('c-annual-card');
-    const mVal   = document.getElementById('c-monthly-val');
-    const aVal   = document.getElementById('c-annual-val');
-    const mSub   = document.getElementById('c-monthly-sub');
-    const aSub   = document.getElementById('c-annual-sub');
-    const mLabel = document.getElementById('c-monthly-label');
-    const aLabel = document.getElementById('c-annual-label');
-
-    if (tier.rate === 0) {
-      mCard.style.background  = 'rgba(255,255,255,0.04)';
-      mCard.style.borderColor = 'rgba(255,255,255,0.08)';
-      aCard.style.background  = 'rgba(255,255,255,0.04)';
-      aCard.style.borderColor = 'rgba(255,255,255,0.08)';
-      mVal.style.color  = 'rgba(255,255,255,0.18)';
-      aVal.style.color  = 'rgba(255,255,255,0.18)';
-      mLabel.style.color = 'rgba(255,255,255,0.3)';
-      aLabel.style.color = 'rgba(255,255,255,0.3)';
-      mVal.textContent = '—';
-      aVal.textContent = '—';
-      mSub.style.color = 'rgba(255,255,255,0.25)';
-      mSub.textContent = 'Unlocks at 21 residents';
-      aSub.style.color = 'rgba(255,255,255,0.25)';
-      aSub.textContent = 'Unlocks at 21 residents';
-    } else {
-      mCard.style.background  = tier.bg;
-      mCard.style.borderColor = tier.border;
-      aCard.style.background  = tier.bg;
-      aCard.style.borderColor = tier.border;
-      mVal.style.color  = tier.color;
-      aVal.style.color  = tier.color;
-      mLabel.style.color = tier.color;
-      aLabel.style.color = tier.color;
-      mVal.textContent = '$' + monthly.toLocaleString();
-      aVal.textContent = '$' + annual.toLocaleString();
-      mSub.style.color = 'rgba(255,255,255,0.45)';
-      mSub.textContent = residents + ' residents × $' + tier.rate + '/mo';
-      aSub.style.color = 'rgba(255,255,25
+<!-- FLOAT CHAT WIDGET -->
+<style>
+  #floatWidget{position:fixed;bottom:24px;right:24px;z-index:9999;}
+  #floatBtn{width:52px;height:52px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,107,63,0.4);transition:transform 0.2s;}
+  #floatBtn:hover{transform:scale(1.08);}
+  #floatBtn svg{width:22px;height:22px;fill:white;}
+  #floatWindow{display:none;flex-direction:column;position:absolute;bottom:64px;right:0;width:300px;height:400px;background:var(--white);border-radius:16px;border:1.5px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,0.15);overflow:hidden;}
+  #floatHeader{background:var(--near-black);padding:14px 16px;display:flex;align-items:center;gap:10px;}
+  #floatChatMessages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--cream);}
+  #floatInputRow{padding:10px 12px;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--white);}
+  #floatChatInput{flex:1;padding:9px 14px;border:1.5px solid rgba(0,0,0,0.12);border-radius:100px;font-size:13px;font-family:inherit;outline:none;background:var(--cream);}
+  #floatChatInput:focus{border-color:var(--near-black);}
+  #floatSendBtn{width:34px;height:34px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  #floatSendBtn svg{width:14px;height:14px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<div id="floatWidget">
+  <div id="floatWindow">
+    <div id="floatHeader">
+      <div style="width:28px;height:28px;background:rgba(245,107,63,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="#F56B3F" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="#F56B3F" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="#F56B3F" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--white);">Split Pay Assistant</div><div style="font-size:11px;color:#666;display:flex;align-items:center;gap:4px;margin-top:1px;"><span style="width:5px;height:5px;border-radius:50%;background:#34C759;display:block;"></span>Online</div></div>
+      <button onclick="toggleFloat()" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;">x</button>
+    </div>
+    <div id="floatChatMessages"></div>
+    <div id="floatInputRow">
+      <input id="floatChatInput" type="text" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendFloat()">
+      <button id="floatSendBtn" onclick="sendFloat()"><svg viewBox="0 0 16 16"><path d="M2 8h12M8 2l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <button id="floatBtn" onclick="toggleFloat()" aria-label="Chat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+</div>
+</body>
+</html>

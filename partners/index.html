@@ -747,11 +747,7 @@
       // fail silently — still show success to user
     }
 
-    btn.textContent = '✓ Application received';
-    document.getElementById('refFirstName').textContent = firstName || 'there';
-    document.getElementById('refLinkDisplay').textContent = 'pmc.splitpay.com/go?ref=' + generatedRef;
-    const modal = document.getElementById('refSuccess');
-    modal.style.display = 'flex';
+    window.location.href = '/thank-you?type=partner';
   }
 
   // ── Google Maps Places Autocomplete ─────────────────────────────────────

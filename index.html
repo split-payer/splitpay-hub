@@ -1155,7 +1155,7 @@ async function submitDL() {
     btn.disabled = false; btn.textContent = 'Download Now';
     return;
   }
-  showDLScreen(2);
+  window.location.href = '/thank-you?type=kit';
 }
 
 function goToConcierge(){
@@ -1749,9 +1749,7 @@ async function cSubmitForm() {
     console.error('Concierge email error:', err);
     btn.disabled = false; btn.textContent = 'Submit ✦';
   }
-  document.getElementById('cModalBody').style.display = 'none';
-  document.getElementById('cSuccessScreen').classList.add('visible');
-  document.getElementById('cSuccessName').textContent = document.getElementById('cFirstName').value || 'there';
+  window.location.href = '/thank-you?type=concierge';
 }
 function cAddAnotherProperty(){
   // Reset file state

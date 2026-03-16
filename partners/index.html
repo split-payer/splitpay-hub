@@ -220,6 +220,8 @@
   }
   @media(max-width:540px){.tiers-grid{grid-template-columns:1fr;}}
 </style>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 
@@ -245,7 +247,7 @@
     <a href="/partners">Partner Program</a>
   </div>
   <div class="nav-actions">
-    <a class="btn-book" href="https://calendly.com/rent-app/onboarding">Book a meeting</a>
+    <a class="btn-book" href="https://calendly.com/rent-app/onboarding" onclick="Calendly.initPopupWidget({url:'https://calendly.com/rent-app/onboarding'});return false;">Book a meeting</a>
     <button class="btn-kit" onclick="event.preventDefault();scrollToSection('apply')">Apply now</button>
   </div>
 </nav>

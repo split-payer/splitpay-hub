@@ -854,7 +854,7 @@ function openCal(){var m=document.getElementById('cal-modal');if(!m){m=document.
   w.document.open();w.document.write(doc);w.document.close();
 }
 
-/* -- Flex comparison -------------------------------*/
+/* ── Flex comparison ───────────────────────────────*/
 const FLEX_ROWS=[
   {cat:'Approval & Access',rows:[
     {label:'Approval method',          sp:'Cash flow-based (no credit check)',   fx:'Credit check required'},
@@ -916,12 +916,12 @@ function downloadFlexPDF(){
 }
 
 
-/* ===========================
+/* ═══════════════════════════
    CHAT
-=========================== */
+═══════════════════════════ */
 const CHAT_SYSTEM = 'You are talking to a property manager on pmc.splitpay.com. Be concise — 2–4 sentences max unless detail is clearly needed. Warm, direct tone.';
 
-// -- CHAT HISTORY — persists across page navigations via sessionStorage --
+// ── CHAT HISTORY — persists across page navigations via sessionStorage ──
 const SESSION_KEY = 'sp_chat_history';
 function loadHistory() {
   try { return JSON.parse(sessionStorage.getItem(SESSION_KEY) || '[]'); } catch { return []; }
@@ -981,19 +981,19 @@ function appendTyping(container){
 function toggleFloat(){const w=document.getElementById('floatWindow');const isHidden=w.style.display==='none'||w.style.display==='';w.style.display=isHidden?'flex':'none';if(isHidden){const msgs=document.getElementById('floatChatMessages');if(msgs.children.length===0&&floatHistory.length>0){floatHistory.forEach(m=>appendMsg(msgs,m.role==='user'?'user':'bot',m.content));}setTimeout(()=>{document.getElementById('floatChatInput').focus();},50);}}
 function toggleFloatExpand(){const w=document.getElementById('floatWindow');const msgs=document.getElementById('floatChatMessages');const btn=document.getElementById('floatExpandBtn');const expanded=w.getAttribute('data-expanded')==='1';if(expanded){w.style.width='360px';msgs.style.height='280px';btn.textContent='⤢';btn.title='Expand';w.setAttribute('data-expanded','0');}else{w.style.width='520px';msgs.style.height='520px';btn.textContent='⤡';btn.title='Collapse';w.setAttribute('data-expanded','1');}}
 
-/* ===========================
+/* ═══════════════════════════
    FAQ ACCORDION
-=========================== */
+═══════════════════════════ */
 function tog(btn){const item=btn.parentElement;item.classList.toggle('open');}
 
-/* ===========================
+/* ═══════════════════════════
    TOAST
-=========================== */
+═══════════════════════════ */
 function showToast(msg='✓ Copied'){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2200);}
 
-/* ===========================
+/* ═══════════════════════════
    CONCIERGE
-=========================== */
+═══════════════════════════ */
 let cStep=0;const cTotalSteps=5;let cChannel='email',cPreviewTab='email',cFile=null,cColumnMap={};
 function openConcierge(){
   const o=document.getElementById('conciergeOverlay');
@@ -1082,7 +1082,7 @@ function cHandleFile(e){if(e.target.files[0])processFile(e.target.files[0]);}
 function processFile(file){
   cFile=file;
   document.getElementById('cUploadArea').classList.add('has-file');
-  document.getElementById('cUploadIcon').textContent='✅';
+  document.getElementById('cUploadIcon').textContent = '\uD83D\uDCC2';
   document.getElementById('cUploadTitle').textContent='File uploaded';
   document.getElementById('cFileName').textContent=file.name;
   const mapper=document.getElementById('cMapper');mapper.classList.add('visible');
@@ -1261,7 +1261,7 @@ function cAddAnotherProperty(){
   cGoToStep(1);
   cUpdatePreview();
 }
-// -- #chat hash → auto-open float widget --------------------------
+// ── #chat hash → auto-open float widget ──────────────────────────
 (function () {
   function openChatIfHash() {
     if (window.location.hash === '#chat') {

@@ -910,7 +910,7 @@ function closeFlexModal(){document.getElementById('flexModal').classList.remove(
 function downloadFlexPDF(){
   const css=`*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}body{font-family:Arial,Helvetica,sans-serif;background:white;font-size:13px;line-height:1.5;}a{color:inherit;text-decoration:none;}.page{max-width:740px;margin:0 auto;}.hdr{background:#1C1C1E;padding:22px 32px;display:flex;align-items:center;justify-content:space-between;}.hdr-l{display:flex;align-items:center;gap:10px;}.hdr-logo{width:32px;height:32px;background:#F56B3F;border-radius:8px;text-align:center;line-height:32px;font-weight:800;font-size:12px;color:white;flex-shrink:0;}.hdr-name{font-size:15px;font-weight:800;color:white;}.hdr-r{text-align:right;}.hdr-title{font-size:13px;font-weight:800;color:white;}.hdr-sub{font-size:11px;color:#888;margin-top:2px;}.body{padding:24px 32px 40px;}@media print{body{background:white;}@page{margin:0.45in;size:letter;}}`;
   const hdr=`<div class="hdr"><div class="hdr-l"><div class="hdr-logo">SP</div><div><div class="hdr-name">Split Pay</div></div></div><div class="hdr-r"><div class="hdr-title">Split Pay vs. Flex</div><div class="hdr-sub">For property managers &amp; leasing staff</div></div></div>`;
-  const doc=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Split Pay vs Flex</title><style>${css}</style></head><body><div class="page">${hdr}<div class="body">${buildFlexHTML(true)}</div></div><script>window.onload=function(){window.print();}<\/script></body></html>`;
+  const doc=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Split Pay vs Flex</title><style>${css}</style></head><body><div class="page">${hdr}<div class="body">${buildFlexHTML(true)}</div></div><script>window.onload=function(){window.print();}\x3c\/script></body></html>`;
   const w=window.open('','_blank','width=800,height=900');
   w.document.open();w.document.write(doc);w.document.close();
 }
@@ -1231,7 +1231,7 @@ function cAddAnotherProperty(){
 
   // Reset upload area
   document.getElementById('cUploadArea').classList.remove('has-file');
-  document.getElementById('cUploadIcon').textContent = '📂';
+  document.getElementById('cUploadIcon').textContent = '\uD83D\uDCC2';
   document.getElementById('cUploadTitle').textContent = 'Click to upload or drag & drop';
   document.getElementById('cFileName').textContent = '';
   document.getElementById('cFileInput').value = '';

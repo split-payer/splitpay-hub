@@ -264,7 +264,7 @@ let dupOpp = false;
     // ── 7. Slack alert ────────────────────────────────────────────────────
     const alertLines = {
       kit:       `📥 *Kit download*: ${name || email} (${companyName || '—'})`,
-      concierge: `🏠 *Concierge*: ${name || email} — ${propertyName || propertyAddress || '—'}`,
+      concierge: `🏠 *Concierge*: ${name || email} — ${propertyName || propertyAddress || '—'}${rentRollDriveUrl ? `\n📎 Rent roll: ${rentRollDriveUrl}` : ''}`,
       partner:   `🤝 *Partner application*: ${name || email} (${companyName || '—'}) · ref: \`${refSlug || '—'}\``,
     };
     await slackAlert(alertLines[formType] || `📋 *Form submit* (${formType}): ${email}`);

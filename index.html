@@ -1483,9 +1483,9 @@ function saveHistory(h) {
 }
 const inlineHistory = loadHistory();
 const floatHistory  = loadHistory();
-let _noteSent=false;
+let _noteSent=sessionStorage.getItem('sp_ts_sent');
 function _getChatEmail(){return[...inlineHistory,...floatHistory].filter(m=>m.role==='user').map(m=>m.content).join(' ').match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/)?.[0]||'';}
-function _sendChatNote(){if(_noteSent)return;const email=_getChatEmail();if(!email)return;_noteSent=true;const t=[...inlineHistory,...floatHistory].map(m=>(m.role==='user'?'PM: ':'Bot: ')+m.content).join('\n');navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email,chatNote:'Chat via pmc.splitpay.com\n\n'+t})],{type:'application/json'}));}
+function _sendChatNote(){if(_noteSent)return;const email=_getChatEmail();if(!email)return;_noteSent=true;sessionStorage.setItem('sp_ts_sent','1');const t=[...inlineHistory,...floatHistory].map(m=>(m.role==='user'?'PM: ':'Bot: ')+m.content).join('\n');navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email,chatNote:'Chat via pmc.splitpay.com\n\n'+t})],{type:'application/json'}));}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')_sendChatNote();});
 window.addEventListener('beforeunload',()=>_sendChatNote());
 async function sendChat(type){
@@ -1835,5 +1835,142 @@ function cAddAnotherProperty(){
   window.addEventListener('hashchange', openChatIfHash);
 })();
 </script>
+<!-- SPLIT PAY CHAT WIDGET -->
+<style>
+#sp-chat{position:fixed;bottom:28px;right:28px;z-index:99999;font-family:'DM Sans',-apple-system,sans-serif;}
+#sp-btn{width:48px;height:48px;border-radius:14px;background:#F56B3F;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(245,107,63,0.45);transition:transform .18s,box-shadow .18s;position:relative;}
+#sp-btn:hover{transform:scale(1.07);box-shadow:0 6px 22px rgba(245,107,63,0.55);}
+#sp-btn svg{width:22px;height:22px;fill:white;transition:opacity .15s,transform .15s;}
+#sp-btn .ico-chat{position:absolute;}
+#sp-btn .ico-close{position:absolute;opacity:0;transform:rotate(-90deg);}
+#sp-chat.open #sp-btn .ico-chat{opacity:0;transform:rotate(90deg);}
+#sp-chat.open #sp-btn .ico-close{opacity:1;transform:rotate(0);}
+#sp-badge{position:absolute;top:-5px;right:-5px;width:18px;height:18px;background:#ef4444;border-radius:50%;border:2px solid white;font-size:10px;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .2s,transform .2s;}
+#sp-badge.show{opacity:1;transform:scale(1);}
+#sp-win{position:absolute;bottom:62px;right:0;width:340px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.06);display:flex;flex-direction:column;overflow:hidden;transform:translateY(12px) scale(0.97);opacity:0;pointer-events:none;transition:transform .22s cubic-bezier(.34,1.4,.64,1),opacity .18s ease;max-height:520px;}
+#sp-chat.open #sp-win{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+#sp-head{background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#sp-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#F56B3F,#e8531a);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+#sp-head-text{flex:1;min-width:0;}
+#sp-head-name{font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.2;}
+#sp-head-status{font-size:11px;color:#888;display:flex;align-items:center;gap:4px;margin-top:1px;}
+#sp-online-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;flex-shrink:0;}
+#sp-head-close{background:none;border:none;cursor:pointer;color:#bbb;padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;}
+#sp-head-close:hover{color:#555;background:rgba(0,0,0,0.05);}
+#sp-head-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;}
+#sp-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f9f9f7;scroll-behavior:smooth;}
+#sp-msgs::-webkit-scrollbar{width:4px;}
+#sp-msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.12);border-radius:2px;}
+.sp-msg{display:flex;gap:8px;align-items:flex-end;animation:sp-pop .18s ease;}
+.sp-msg.bot{align-self:flex-start;}
+.sp-msg.user{align-self:flex-end;}
+@keyframes sp-pop{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.sp-bubble{padding:10px 14px;font-size:13px;line-height:1.6;max-width:260px;word-wrap:break-word;}
+.sp-msg.bot .sp-bubble{background:#fff;color:#1a1a1a;border-radius:4px 14px 14px 14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.06);}
+.sp-msg.user .sp-bubble{background:#F56B3F;color:#fff;border-radius:14px 4px 14px 14px;}
+.sp-msg.bot .sp-bubble a{color:#F56B3F;text-decoration:underline;}
+#sp-typing{display:none;align-items:flex-end;}
+#sp-typing.show{display:flex;}
+.sp-typing-bubble{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:4px 14px 14px 14px;padding:12px 16px;display:flex;gap:4px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.sp-dot{width:6px;height:6px;border-radius:50%;background:#ccc;animation:sp-blink 1.2s infinite;}
+.sp-dot:nth-child(2){animation-delay:.2s;}
+.sp-dot:nth-child(3){animation-delay:.4s;}
+@keyframes sp-blink{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sp-input-row{padding:10px 12px;border-top:1px solid rgba(0,0,0,0.07);display:flex;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;}
+#sp-input{flex:1;padding:9px 14px;border:1.5px solid rgba(0,0,0,0.11);border-radius:10px;font-size:13px;font-family:inherit;outline:none;resize:none;background:#f9f9f7;color:#1a1a1a;line-height:1.5;max-height:100px;overflow-y:auto;transition:border-color .15s;}
+#sp-input:focus{border-color:#F56B3F;background:#fff;}
+#sp-input::placeholder{color:#bbb;}
+#sp-send{width:34px;height:34px;border-radius:9px;background:#F56B3F;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s,transform .15s;}
+#sp-send:hover{opacity:.88;transform:scale(1.05);}
+#sp-send:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+#sp-send svg{width:15px;height:15px;fill:none;stroke:white;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<div id="sp-chat">
+  <div id="sp-win">
+    <div id="sp-head">
+      <div id="sp-avatar">💬</div>
+      <div id="sp-head-text">
+        <div id="sp-head-name">Split Pay Assistant</div>
+        <div id="sp-head-status"><span id="sp-online-dot"></span>Online · replies instantly</div>
+      </div>
+      <button id="sp-head-close" onclick="spToggle()" aria-label="Close">
+        <svg viewBox="0 0 16 16"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+      </button>
+    </div>
+    <div id="sp-msgs">
+      <div id="sp-typing"><div class="sp-typing-bubble"><span class="sp-dot"></span><span class="sp-dot"></span><span class="sp-dot"></span></div></div>
+    </div>
+    <div id="sp-input-row">
+      <textarea id="sp-input" placeholder="Ask anything…" rows="1"></textarea>
+      <button id="sp-send" onclick="spSend()" aria-label="Send"><svg viewBox="0 0 16 16"><path d="M2 8h12M8 2l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <button id="sp-btn" onclick="spToggle()" aria-label="Chat with Split Pay">
+    <svg class="ico-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="ico-close" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="19" y1="5" x2="5" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <span id="sp-badge"></span>
+  </button>
+</div>
+<script>
+(function(){
+  var SESSION_KEY='sp_chat_history', OPEN_KEY='sp_chat_open';
+  function loadHistory(){try{return JSON.parse(sessionStorage.getItem(SESSION_KEY)||'[]');}catch(e){return[];}}
+  function saveHistory(h){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify(h.slice(-60)));}catch(e){}}
+  function wasOpen(){return sessionStorage.getItem(OPEN_KEY)==='1';}
+  function setOpenState(v){try{sessionStorage.setItem(OPEN_KEY,v?'1':'0');}catch(e){}}
+  var history=loadHistory(), isOpen=false;
+  var widget=document.getElementById('sp-chat'), msgs=document.getElementById('sp-msgs');
+  var input=document.getElementById('sp-input'), send=document.getElementById('sp-send');
+  var typing=document.getElementById('sp-typing'), badge=document.getElementById('sp-badge');
+  function appendMsg(role,text){
+    var d=document.createElement('div'); d.className='sp-msg '+role;
+    var b=document.createElement('div'); b.className='sp-bubble';
+    b.innerHTML=text.replace(/(new RegExp('(https?:[/][/][^\\s<>"]+)','g'))/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+    d.appendChild(b); msgs.insertBefore(d,typing); msgs.scrollTop=msgs.scrollHeight; return d;
+  }
+  function renderHistory(){
+    Array.from(msgs.children).forEach(function(c){if(c.id!=='sp-typing')c.remove();});
+    history.forEach(function(m){appendMsg(m.role==='user'?'user':'bot',m.content);});
+  }
+  window.spToggle=function(){
+    isOpen=!isOpen; widget.classList.toggle('open',isOpen); setOpenState(isOpen);
+    if(isOpen){
+      renderHistory();
+      if(history.length===0){
+        setTimeout(function(){
+          var w="Hi! I can help you promote Split Pay to your residents, answer questions, or walk you through the partner program. What's on your mind?";
+          appendMsg('bot',w); history.push({role:'assistant',content:w}); saveHistory(history);
+        },300);
+      }
+      setTimeout(function(){input.focus();},350);
+      badge.classList.remove('show');
+    }
+  };
+  window.spSend=function(){
+    var msg=input.value.trim(); if(!msg||send.disabled)return;
+    input.value=''; input.style.height='auto';
+    appendMsg('user',msg); history.push({role:'user',content:msg}); saveHistory(history);
+    send.disabled=true; typing.classList.add('show'); msgs.scrollTop=msgs.scrollHeight;
+    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:history,context:'User is on '+window.location.pathname+' — '+document.title})
+    }).then(function(r){return r.json();}).then(function(data){
+      typing.classList.remove('show');
+      var reply=(data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:'Sorry, I had trouble with that.';
+      appendMsg('bot',reply); history.push({role:'assistant',content:reply}); saveHistory(history);
+      send.disabled=false;
+      if(!isOpen){badge.textContent='1';badge.classList.add('show');}
+    }).catch(function(){
+      typing.classList.remove('show');
+      appendMsg('bot','Sorry, having trouble connecting. Try again in a moment.');
+      send.disabled=false;
+    });
+  };
+  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();spSend();}});
+  var _beaconSent=false;function _sendTranscript(){if(_beaconSent||history.length<2)return;var allText=history.filter(function(m){return m.role==='user';}).map(function(m){return m.content;}).join(' ');var emailMatch=allText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);if(!emailMatch)return;_beaconSent=true;var transcript=history.map(function(m){return(m.role==='user'?'PM: ':'Bot: ')+m.content;}).join('\n');var note='Chat transcript from pmc.splitpay.com\n\n'+transcript;navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email:emailMatch[0],chatNote:note})],{type:'application/json'}));}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')_sendTranscript();});window.addEventListener('beforeunload',function(){_sendTranscript();});
+  if(wasOpen()){setTimeout(function(){spToggle();},100);}
+})();
+</script>
+<!-- END SPLIT PAY CHAT WIDGET -->
 </body>
 </html>

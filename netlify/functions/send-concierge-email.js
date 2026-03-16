@@ -178,7 +178,7 @@ exports.handler = async (event) => {
                   <p style="margin:0 0 2px;font-size:14px;font-weight:700;color:#ffffff;">Nils Decker</p>
                   <p style="margin:0 0 10px;font-size:12px;color:#5a7a90;">Head of Business Development · Split Pay</p>
                   <p style="margin:0;font-size:12px;color:#5a7a90;line-height:2;">
-                    <a href="tel:+13478171759" style="color:#5a7a90;text-decoration:none;">+1-320-592-4807</a><br>
+                    <a href="tel:+13205924807" style="color:#5a7a90;text-decoration:none;">+1-320-592-4807</a><br>
                     <a href="mailto:nils@splitpay.com" style="color:#00B2A9;text-decoration:none;">nils@splitpay.com</a><br>
                     <a href="https://linkedin.com/in/nilsdecker" style="color:#00B2A9;text-decoration:none;">LinkedIn</a>
                   </p>

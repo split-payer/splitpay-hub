@@ -997,6 +997,7 @@
   };
   input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
   input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();spSend();}});
+  var _beaconSent=false;function _sendTranscript(){if(_beaconSent||history.length<2)return;var allText=history.filter(function(m){return m.role==='user';}).map(function(m){return m.content;}).join(' ');var emailMatch=allText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);if(!emailMatch)return;_beaconSent=true;var transcript=history.map(function(m){return(m.role==='user'?'PM: ':'Bot: ')+m.content;}).join('\n');var note='Chat transcript from pmc.splitpay.com\n\n'+transcript;navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email:emailMatch[0],chatNote:note})],{type:'application/json'}));}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')_sendTranscript();});window.addEventListener('beforeunload',function(){_sendTranscript();});
   if(wasOpen()){setTimeout(function(){spToggle();},100);}
 })();
 </script>

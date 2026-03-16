@@ -840,7 +840,8 @@ footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);
   };
   input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
   input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();spSend();}});
-  var _beaconSent=false;function _sendTranscript(){if(_beaconSent||history.length<2)return;var allText=history.filter(function(m){return m.role==='user';}).map(function(m){return m.content;}).join(' ');var emailMatch=allText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);if(!emailMatch)return;_beaconSent=true;var transcript=history.map(function(m){return(m.role==='user'?'PM: ':'Bot: ')+m.content;}).join('\n');var note='Chat transcript from pmc.splitpay.com\n\n'+transcript;navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email:emailMatch[0],chatNote:note})],{type:'application/json'}));}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')_sendTranscript();});window.addEventListener('beforeunload',function(){_sendTranscript();});
+  
+  var _TSKEY='sp_ts_sent';function _sendTranscript(){if(sessionStorage.getItem(_TSKEY))return;var h=loadHistory();if(h.length<2)return;var allText=h.filter(function(m){return m.role==='user';}).map(function(m){return m.content;}).join(' ');var em=allText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);if(!em)return;sessionStorage.setItem(_TSKEY,'1');var t=h.map(function(m){return(m.role==='user'?'PM: ':'Bot: ')+m.content;}).join('\n');navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email:em[0],chatNote:'Chat transcript from pmc.splitpay.com\n\n'+t})],{type:'application/json'}));}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')_sendTranscript();});window.addEventListener('beforeunload',function(){_sendTranscript();});
   if(wasOpen()){setTimeout(function(){spToggle();},100);}
 })();
 </script>
@@ -930,11 +931,7 @@ function saveHistory(h) {
 }
 const inlineHistory = loadHistory();
 const floatHistory  = loadHistory();
-let _noteSent=false;
-function _getChatEmail(){return[...inlineHistory,...floatHistory].filter(m=>m.role==='user').map(m=>m.content).join(' ').match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/)?.[0]||'';}
-function _sendChatNote(){if(_noteSent)return;const email=_getChatEmail();if(!email)return;_noteSent=true;const t=[...inlineHistory,...floatHistory].map(m=>(m.role==='user'?'PM: ':'Bot: ')+m.content).join('\n');navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email,chatNote:'Chat via pmc.splitpay.com\n\n'+t})],{type:'application/json'}));}
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')_sendChatNote();});
-window.addEventListener('beforeunload',()=>_sendChatNote());
+
 async function sendChat(type){
   const isInline=type==='inline';
   const inputEl=document.getElementById(isInline?'inlineChatInput':'floatChatInput');
@@ -1096,7 +1093,7 @@ function processFile(file){
       <div class="c-mapper-arrow">→</div>
       <select style="width:100%;padding:7px 10px;border:1.5px solid rgba(0,0,0,0.12);border-radius:6px;font-family:inherit;font-size:12px;" onchange="cColumnMap['${f}']=this.value">
         <option value="">Auto-detect</option>
-        ${['first_name','last_name','email','phone','name','mobile'].map(c=>`<option value="${c}">${c}</option>`).join('')}
+        ${['first_name','last_name','email','phone','name','mobile'].map(function(c){return '<option value="'+c+'">'+c+'</option>';}).join('')}
       </select>
     </div>`).join('');
 }
@@ -1119,7 +1116,7 @@ function cBuildSummary(){
     ['Units',units||'Not specified'],
     ['Channel',channelLabels[cChannel]||cChannel],
     ['Rent Roll',cFile?cFile.name:'No file uploaded'],
-  ].map(([k,v])=>`<div class="c-sum-row"><span class="c-sum-key">${k}</span><span class="c-sum-val">${v}</span></div>`).join('');
+  ].map(function(e){var k=e[0],v=e[1];return '<div class="c-sum-row"><span class="c-sum-key">'+k+'</span><span class="c-sum-val">'+v+'</span></div>';}).join('');
 }
 function cToggleSubmit(){document.getElementById('cSubmitBtn').disabled=!document.getElementById('cComplianceCheck').checked;}
 

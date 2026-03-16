@@ -707,30 +707,6 @@ footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);
   <div class="footer-copy">© 2026 Split Pay · Powered by Rent App</div>
 </footer>
 
-<!-- FLOATING CHAT -->
-<div id="floatWidget" style="position:fixed;bottom:28px;right:28px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
-  <div id="floatWindow" style="display:none;width:360px;background:var(--white);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,0.18);overflow:hidden;border:1.5px solid var(--border);flex-direction:column;">
-    <div style="background:var(--near-black);padding:20px 22px;display:flex;align-items:center;gap:12px;">
-      <div style="width:32px;height:32px;background:rgba(245,107,63,0.2);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#F56B3F" stroke-width="1.5"/><path d="M6 7.5C6 6.12 7.12 5 8.5 5S11 6.12 11 7.5c0 1.16-.78 2.14-1.84 2.43L9 10v1.5" stroke="#F56B3F" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="14" r="0.75" fill="#F56B3F"/></svg></div>
-      <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:var(--white);">Split Pay Assistant</div><div style="font-size:11px;color:#666;display:flex;align-items:center;gap:5px;margin-top:2px;"><span style="width:5px;height:5px;border-radius:50%;background:#34C759;display:block;"></span>Online</div></div>
-      <button id="floatExpandBtn" onclick="toggleFloatExpand()" title="Expand" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;font-family:inherit;margin-right:4px;">⤢</button><button onclick="toggleFloat()" style="background:rgba(255,255,255,0.08);border:none;color:#888;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-family:inherit;">✕</button>
-    </div>
-    <div id="floatChatMessages" style="padding:18px;height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:var(--off-white);">
-      <div style="display:flex;gap:8px;align-items:flex-start;">
-        <div style="width:24px;height:24px;background:var(--near-black);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="2" stroke="white" stroke-width="1.2"/><line x1="4.5" y1="5.5" x2="9.5" y2="5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="8" x2="7.5" y2="8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg></div>
-        <div style="background:var(--white);border:1.5px solid var(--border);border-radius:4px 12px 12px 12px;padding:10px 14px;font-size:13px;line-height:1.65;color:var(--near-black);">Hi! Ask me anything about Split Pay — compatibility, how it works, what you need to do (spoiler: very little).</div>
-      </div>
-    </div>
-    <div style="padding:12px 14px;border-top:1.5px solid var(--border);background:var(--white);display:flex;gap:8px;">
-      <textarea id="floatChatInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat('float');}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';" style="flex:1;padding:10px 14px;border:1.5px solid rgba(0,0,0,0.12);border-radius:16px;font-size:13px;font-family:inherit;outline:none;background:var(--cream);resize:none;overflow:hidden;min-height:36px;max-height:120px;line-height:1.5;box-sizing:border-box;" onfocus="this.style.borderColor='var(--near-black)'" onblur="this.style.borderColor='rgba(0,0,0,0.12)'"></textarea>
-      <button onclick="sendChat('float')" style="background:var(--orange);color:var(--white);border:none;width:36px;height:36px;border-radius:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
-  </div>
-  <button onclick="toggleFloat()" style="width:56px;height:56px;background:var(--orange);border:none;border-radius:100%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(245,107,63,0.4);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14a1 1 0 011 1v9a1 1 0 01-1 1H7l-4 3V5a1 1 0 011-1z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </button>
-</div>
-
 <!-- GET THE KIT MODAL -->
 <div class="overlay" id="dlModal">
   <div class="modal-card">
@@ -1482,17 +1458,15 @@ function saveHistory(h) {
   try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(h.slice(-40))); } catch {} // keep last 40 messages
 }
 const inlineHistory = loadHistory();
-const floatHistory  = loadHistory();
 let _noteSent=sessionStorage.getItem('sp_ts_sent');
-function _getChatEmail(){return[...inlineHistory,...floatHistory].filter(m=>m.role==='user').map(m=>m.content).join(' ').match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/)?.[0]||'';}
-function _sendChatNote(){if(_noteSent)return;const email=_getChatEmail();if(!email)return;_noteSent=true;sessionStorage.setItem('sp_ts_sent','1');const t=[...inlineHistory,...floatHistory].map(m=>(m.role==='user'?'PM: ':'Bot: ')+m.content).join('\n');navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email,chatNote:'Chat via pmc.splitpay.com\n\n'+t})],{type:'application/json'}));}
+function _getChatEmail(){return inlineHistory.filter(m=>m.role==='user').map(m=>m.content).join(' ').match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/)?.[0]||'';}
+function _sendChatNote(){if(_noteSent)return;const email=_getChatEmail();if(!email)return;_noteSent=true;sessionStorage.setItem('sp_ts_sent','1');const t=inlineHistory.map(m=>(m.role==='user'?'PM: ':'Bot: ')+m.content).join('\n');navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email,chatNote:'Chat via pmc.splitpay.com\n\n'+t})],{type:'application/json'}));}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')_sendChatNote();});
 window.addEventListener('beforeunload',()=>_sendChatNote());
 async function sendChat(type){
-  const isInline=type==='inline';
-  const inputEl=document.getElementById(isInline?'inlineChatInput':'floatChatInput');
-  const messagesEl=document.getElementById(isInline?'inlineChatMessages':'floatChatMessages');
-  const history=isInline?inlineHistory:floatHistory;
+  const inputEl=document.getElementById('inlineChatInput');
+  const messagesEl=document.getElementById('inlineChatMessages');
+  const history=inlineHistory;
   const msg=inputEl.value.trim();if(!msg)return;
   inputEl.value='';
   appendMsg(messagesEl,'user',msg);
@@ -1816,23 +1790,6 @@ function cAddAnotherProperty(){
   cGoToStep(1);
   cUpdatePreview();
 }
-// ── #chat hash → auto-open float widget ──────────────────────────
-(function () {
-  function openChatIfHash() {
-    if (window.location.hash === '#chat') {
-      var w = document.getElementById('floatWindow');
-      if (w && (w.style.display === 'none' || w.style.display === '')) {
-        toggleFloat();
-      }
-      var inp = document.getElementById('floatChatInput');
-      if (inp) inp.focus();
-    }
-  }
-  window.addEventListener('load', function () {
-    setTimeout(openChatIfHash, 600);
-  });
-  window.addEventListener('hashchange', openChatIfHash);
-})();
 </script>
 <!-- SPLIT PAY CHAT WIDGET -->
 <style>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/logos/logo-icon.svg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Partner Program — Split Pay</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
@@ -220,6 +221,8 @@
   }
   @media(max-width:540px){.tiers-grid{grid-template-columns:1fr;}}
 </style>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
 
@@ -246,7 +249,7 @@
 <a href="/splitpay-vs-flex">Split Pay vs. Flex</a>
   </div>
   <div class="nav-actions">
-    <a class="btn-book" href="https://calendly.com/rent-app/onboarding">Book a meeting</a>
+    <a class="btn-book" href="https://calendly.com/rent-app/onboarding" onclick="Calendly.initPopupWidget({url:'https://calendly.com/rent-app/onboarding'});return false;">Book a meeting</a>
     <button class="btn-kit" onclick="event.preventDefault();scrollToSection('apply')">Apply now</button>
   </div>
 </nav>
@@ -746,11 +749,7 @@
       // fail silently — still show success to user
     }
 
-    btn.textContent = '✓ Application received';
-    document.getElementById('refFirstName').textContent = firstName || 'there';
-    document.getElementById('refLinkDisplay').textContent = 'pmc.splitpay.com/go?ref=' + generatedRef;
-    const modal = document.getElementById('refSuccess');
-    modal.style.display = 'flex';
+    window.location.href = '/thank-you?type=partner';
   }
 
   // ── Google Maps Places Autocomplete ─────────────────────────────────────

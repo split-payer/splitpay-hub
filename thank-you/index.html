@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/logos/logo-icon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're all set — Split Pay</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:#F56B3F;
+    --orange-dark:#d4522a;
+    --yellow:#fae182;
+    --yellow-bg:#fef9e6;
+    --cream:#F2F0EB;
+    --near-black:#292929;
+    --gray:#6B6B6B;
+    --white:#FFFFFF;
+    --border:rgba(0,0,0,0.09);
+    --teal:#43BDAE;
+    --teal-dark:#35a096;
+    --forest:#1a3d20;
+    --forest-mid:#2a5c32;
+    --green-cream:#EEF4EF;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes checkPop { 0% { transform:scale(0) rotate(-10deg); opacity:0; } 60% { transform:scale(1.15) rotate(2deg); } 100% { transform:scale(1) rotate(0deg); opacity:1; } }
+  @keyframes shimmer { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',-apple-system,sans-serif; color:var(--near-black); background:var(--white); -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; flex-direction:column; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:200; background:rgba(255,255,255,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 56px; height:68px; gap:24px; }
+  .nav-logo { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+  .nav-links { display:flex; gap:36px; font-size:14px; color:var(--gray); position:absolute; left:50%; transform:translateX(-50%); }
+  .nav-links a { text-decoration:none; color:inherit; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--near-black); }
+  .nav-actions { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+  .btn-book { background:transparent; color:var(--near-black); border:1.5px solid rgba(0,0,0,0.2); padding:9px 18px; border-radius:100px; font-size:13px; font-weight:500; cursor:pointer; transition:all 0.2s; font-family:inherit; text-decoration:none; display:inline-flex; align-items:center; }
+  .btn-book:hover { border-color:var(--near-black); }
+  .btn-kit { background:var(--orange); color:var(--white); border:none; padding:10px 20px; border-radius:100px; font-size:13px; font-weight:600; cursor:pointer; transition:opacity 0.2s; font-family:inherit; text-decoration:none; display:inline-flex; align-items:center; }
+  .btn-kit:hover { opacity:0.85; }
+
+  /* HERO */
+  .hero {
+    flex:1;
+    background:var(--yellow);
+    padding:72px 56px 64px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse 60% 80% at 50% 120%, rgba(245,107,63,0.18) 0%, transparent 65%);
+    pointer-events:none;
+  }
+
+  /* Check circle */
+  .check-wrap {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:72px; height:72px;
+    background:var(--near-black); border-radius:50%;
+    margin-bottom:28px;
+    animation: checkPop 0.55s cubic-bezier(.34,1.56,.64,1) 0.1s both;
+  }
+  .check-wrap svg { width:32px; height:32px; }
+
+  .hero-eyebrow {
+    display:inline-block;
+    font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    color:rgba(41,41,41,0.5);
+    margin-bottom:14px;
+    animation: fadeUp 0.5s ease 0.2s both;
+  }
+  .hero h1 {
+    font-size:clamp(40px,5.5vw,72px);
+    font-weight:800; letter-spacing:-2.5px; line-height:1.04;
+    color:var(--near-black);
+    max-width:700px; margin:0 auto 18px;
+    animation: fadeUp 0.5s ease 0.3s both;
+  }
+  .hero-sub {
+    font-size:17px; color:rgba(41,41,41,0.65);
+    max-width:480px; margin:0 auto 48px; line-height:1.65;
+    animation: fadeUp 0.5s ease 0.4s both;
+  }
+
+  /* What happens next — inline steps */
+  .next-steps {
+    display:inline-flex; flex-direction:column; gap:10px;
+    text-align:left; max-width:420px; width:100%;
+    margin-bottom:48px;
+    animation: fadeUp 0.5s ease 0.5s both;
+  }
+  .next-step {
+    display:flex; align-items:flex-start; gap:12px;
+    background:rgba(255,255,255,0.6); border:1px solid rgba(0,0,0,0.07);
+    border-radius:12px; padding:14px 16px;
+  }
+  .step-num {
+    width:22px; height:22px; border-radius:50%;
+    background:var(--near-black); color:var(--yellow);
+    font-size:11px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; margin-top:1px;
+  }
+  .step-text { font-size:13px; color:var(--near-black); line-height:1.55; }
+  .step-text strong { font-weight:700; }
+
+  /* TILES */
+  .tiles-section {
+    background:var(--white);
+    padding:64px 56px 80px;
+  }
+  .tiles-eyebrow {
+    text-align:center;
+    font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--gray); margin-bottom:10px;
+  }
+  .tiles-title {
+    text-align:center;
+    font-size:26px; font-weight:800; letter-spacing:-0.6px;
+    color:var(--near-black); margin-bottom:40px;
+  }
+  .tiles {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:16px; max-width:960px; margin:0 auto;
+  }
+
+  /* Tile cards */
+  .tile {
+    border-radius:20px; padding:32px 28px 28px;
+    display:flex; flex-direction:column;
+    text-decoration:none; color:inherit;
+    transition:transform 0.2s, box-shadow 0.2s;
+    position:relative; overflow:hidden;
+  }
+  .tile:hover { transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,0,0,0.1); }
+
+  .tile-kit { background:var(--cream); border:1.5px solid rgba(0,0,0,0.08); }
+  .tile-promote { background:var(--near-black); }
+  .tile-partners { background:var(--forest); }
+
+  .tile-badge {
+    display:inline-flex; align-items:center;
+    font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    padding:4px 10px; border-radius:100px; width:fit-content;
+    margin-bottom:20px;
+  }
+  .tile-kit .tile-badge { background:rgba(0,0,0,0.07); color:var(--near-black); }
+  .tile-promote .tile-badge { background:rgba(245,107,63,0.2); color:var(--orange); }
+  .tile-partners .tile-badge { background:rgba(250,225,130,0.15); color:var(--yellow); }
+
+  .tile-icon { font-size:32px; margin-bottom:14px; }
+  .tile-title { font-size:19px; font-weight:800; letter-spacing:-0.4px; margin-bottom:8px; }
+  .tile-kit .tile-title { color:var(--near-black); }
+  .tile-promote .tile-title { color:var(--white); }
+  .tile-partners .tile-title { color:var(--yellow); }
+
+  .tile-desc { font-size:13px; line-height:1.65; flex:1; margin-bottom:22px; }
+  .tile-kit .tile-desc { color:var(--gray); }
+  .tile-promote .tile-desc { color:rgba(255,255,255,0.55); }
+  .tile-partners .tile-desc { color:rgba(255,255,255,0.5); }
+
+  .tile-cta {
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13px; font-weight:700;
+    padding:10px 20px; border-radius:100px;
+    width:fit-content; text-decoration:none;
+  }
+  .tile-kit .tile-cta { background:var(--near-black); color:var(--white); }
+  .tile-promote .tile-cta { background:var(--orange); color:var(--white); }
+  .tile-partners .tile-cta { background:var(--yellow); color:var(--forest); }
+
+  /* FOOTER */
+  footer { background:var(--near-black); border-top:1px solid rgba(255,255,255,0.06); padding:40px 56px; display:flex; align-items:center; justify-content:space-between; }
+  .footer-logo { display:flex; align-items:center; gap:10px; }
+  .footer-links { display:flex; gap:28px; }
+  .footer-links a { font-size:13px; color:#555; text-decoration:none; }
+  .footer-copy { font-size:12px; color:#444; }
+
+  @media(max-width:768px) {
+    nav { padding:0 20px; }
+    .nav-links { display:none; }
+    .hero { padding:56px 24px 48px; }
+    .tiles-section { padding:48px 24px 64px; }
+    .tiles { grid-template-columns:1fr; }
+    footer { flex-direction:column; gap:16px; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="368 0 1000 1000" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+      <mask id="nm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#nm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#ng1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#ng2)"/>
+      </g>
+      <defs>
+        <linearGradient id="ng1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="ng2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
+    <span style="font-size:16px;font-weight:700;letter-spacing:-0.4px;color:var(--near-black);">Split Pay</span>
+  </div>
+  <div class="nav-links">
+    <a href="/">Get the Kit</a>
+    <a href="/promote">How to Promote</a>
+    <a href="/partners">Partner Program</a>
+  </div>
+  <div class="nav-actions">
+    <a class="btn-book" href="https://calendly.com/rent-app/onboarding" onclick="if(window.Calendly){Calendly.initPopupWidget({url:'https://calendly.com/rent-app/onboarding'});return false;}">Book a meeting</a>
+    <a class="btn-kit" href="/">Get the Kit</a>
+  </div>
+</nav>
+
+<!-- HERO — content swapped by JS based on ?type= param -->
+<div class="hero">
+  <div class="check-wrap">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="6,17 13,24 26,9" stroke="#fae182" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="hero-eyebrow" id="eyebrow">Kit download</div>
+  <h1 id="hero-h1">Your kit is on<br>its way.</h1>
+  <p class="hero-sub" id="hero-sub">Check your inbox — we've sent the flyers and everything you need to get residents set up. Should arrive in the next minute or two.</p>
+
+  <div class="next-steps" id="next-steps">
+    <!-- Kit steps — default -->
+    <div class="next-step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Check your inbox</strong> — flyers are attached, ready to forward to residents</div>
+    </div>
+    <div class="next-step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Pick your favourite flyer</strong> and send it to all residents — takes 3 minutes</div>
+    </div>
+    <div class="next-step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Follow up in 3 days</strong> — most sign-ups happen on the second touchpoint</div>
+    </div>
+  </div>
+</div>
+
+<!-- TILES -->
+<div class="tiles-section">
+  <div class="tiles-eyebrow">What's next</div>
+  <div class="tiles-title" id="tiles-title">Make the most of Split Pay</div>
+  <div class="tiles" id="tiles">
+
+    <!-- Kit tile (shown for concierge, hidden for kit) -->
+    <a href="/" class="tile tile-kit" id="tile-kit">
+      <div class="tile-badge">📦 Starter Kit</div>
+      <div class="tile-icon">📄</div>
+      <div class="tile-title">Download the full kit</div>
+      <div class="tile-desc">Resident flyers in English, Spanish & Portuguese. Email templates, SMS scripts, explainer videos — everything in one place.</div>
+      <span class="tile-cta">Get the Kit →</span>
+    </a>
+
+    <!-- Promote tile -->
+    <a href="/promote" class="tile tile-promote">
+      <div class="tile-badge">📣 Promote</div>
+      <div class="tile-icon">🚀</div>
+      <div class="tile-title">How to get residents to sign up</div>
+      <div class="tile-desc">Step-by-step playbook. Quick start in 15 minutes or go all-in with the full multi-channel strategy. Includes copy-paste templates.</div>
+      <span class="tile-cta">See the Playbook →</span>
+    </a>
+
+    <!-- Partners tile -->
+    <a href="/partners" class="tile tile-partners">
+      <div class="tile-badge">🤝 Partner Program</div>
+      <div class="tile-icon">💰</div>
+      <div class="tile-title">Earn $3–5 per resident, monthly</div>
+      <div class="tile-desc">Get a referral link, share it with residents, and earn rev-share as they use Split Pay. Tiers upgrade automatically. No invoicing.</div>
+      <span class="tile-cta">Apply Now →</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="368 0 1000 1000" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+      <mask id="fm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#fm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#fg1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#fg2)"/>
+      </g>
+      <defs>
+        <linearGradient id="fg1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="fg2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
+    <span style="font-size:14px;font-weight:700;color:var(--white);">Split Pay</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://splitpay.com/privacy">Privacy</a>
+    <a href="https://splitpay.com/terms">Terms</a>
+    <a href="mailto:support@splitpay.com">Contact</a>
+    <a href="/partners">Partner Program</a>
+  </div>
+  
+  <div class="footer-copy">© 2026 Split Pay · Powered by Rent App</div>
+</footer>
+
+<script>
+// Swap content based on ?type=kit (default) or ?type=concierge or ?type=partner
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var type = params.get('type') || 'kit';
+
+  var configs = {
+    kit: {
+      eyebrow: 'Kit download',
+      h1: 'Your kit is on<br>its way.',
+      sub: 'Check your inbox — we\'ve sent the flyers and everything you need to get residents set up. Should arrive in the next minute or two.',
+      steps: [
+        { n:1, text: '<strong>Check your inbox</strong> — flyers are attached, ready to forward to residents' },
+        { n:2, text: '<strong>Pick your favourite flyer</strong> and send it to all residents — takes 3 minutes' },
+        { n:3, text: '<strong>Follow up in 3 days</strong> — most sign-ups happen on the second touchpoint' },
+      ],
+      tilesTitle: 'Make the most of Split Pay',
+      hideKitTile: false,
+    },
+    concierge: {
+      eyebrow: 'Concierge submitted',
+      h1: 'We\'re on it.<br>You\'re done.',
+      sub: 'We\'ll review your rent roll and send personalized invitations to every resident. Nothing more needed from you.',
+      steps: [
+        { n:1, text: '<strong>We review your rent roll</strong> and prepare personalized outreach' },
+        { n:2, text: '<strong>Each resident gets a personalized invite</strong> — by email, SMS, or both' },
+        { n:3, text: '<strong>Nothing changes for you</strong> — your portal and process stay exactly the same' },
+      ],
+      tilesTitle: 'While you wait — explore more',
+      hideKitTile: false,
+    },
+    partner: {
+      eyebrow: 'Application received',
+      h1: 'You\'re in.<br>Welcome aboard.',
+      sub: 'We\'ll confirm your application within 1 business day. Your referral link is already live — you can start sharing it today.',
+      steps: [
+        { n:1, text: '<strong>Check your inbox</strong> — your referral link is waiting there' },
+        { n:2, text: '<strong>Share your link</strong> with residents via email, SMS, or your lobby' },
+        { n:3, text: '<strong>Earn $3–5/resident/month</strong> once you hit 21 active residents' },
+      ],
+      tilesTitle: 'Get your residents signed up',
+      hideKitTile: false,
+    },
+  };
+
+  var cfg = configs[type] || configs.kit;
+
+  document.getElementById('eyebrow').textContent = cfg.eyebrow;
+  document.getElementById('hero-h1').innerHTML = cfg.h1;
+  document.getElementById('hero-sub').textContent = cfg.sub;
+  document.getElementById('tiles-title').textContent = cfg.tilesTitle;
+
+  // Rebuild steps
+  var stepsEl = document.getElementById('next-steps');
+  stepsEl.innerHTML = cfg.steps.map(function(s) {
+    return '<div class="next-step"><div class="step-num">' + s.n + '</div><div class="step-text">' + s.text + '</div></div>';
+  }).join('');
+
+  // For partner type — swap tile order: kit first, promote second, partners hidden (they just applied)
+  if (type === 'partner') {
+    var tilePartner = document.querySelector('.tile-partners');
+    if (tilePartner) tilePartner.style.display = 'none';
+    // Add a concierge tile instead
+    var tilesEl = document.getElementById('tiles');
+    var concTile = document.createElement('a');
+    concTile.href = '/#concierge';
+    concTile.className = 'tile';
+    concTile.style.cssText = 'background:#1a2f3d;';
+    concTile.innerHTML = '<div class="tile-badge" style="background:rgba(67,189,174,0.15);color:#43BDAE;">🤖 Concierge</div><div class="tile-icon">📤</div><div class="tile-title" style="color:#fff;">We\'ll invite residents for you</div><div class="tile-desc" style="color:rgba(255,255,255,0.5);">Upload your rent roll and Split Pay sends personalized invitations to every resident — email, SMS, or both. 5 minutes, set and forget.</div><span class="tile-cta" style="background:#43BDAE;color:#fff;">Open Concierge →</span>';
+    tilesEl.appendChild(concTile);
+  }
+})();
+</script>
+
+</body>
+</html>

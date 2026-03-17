@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split Pay vs. Flex — Rent Splitting Comparison for Property Managers</title>
+<meta name="description" content="Split Pay vs. Flex: a full side-by-side comparison for property managers. Approval rates, fees, setup, support, and more — updated March 2026.">
+<link rel="icon" type="image/svg+xml" href="/assets/logos/logo-icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:#F56B3F;
+    --orange-dim:rgba(245,107,63,0.1);
+    --yellow:#fae182;
+    --cream:#F2F0EB;
+    --near-black:#292929;
+    --gray:#6B6B6B;
+    --gray-light:#AEAEB2;
+    --white:#FFFFFF;
+    --border:rgba(0,0,0,0.08);
+    --teal:#43BDAE;
+    --dark:#0f1923;
+    --flex:#6366f1;
+    --flex-dim:rgba(99,102,241,0.08);
+    --green:#22c55e;
+    --green-dim:rgba(34,197,94,0.1);
+    --red:#ef4444;
+    --red-dim:rgba(239,68,68,0.08);
+  }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',-apple-system,sans-serif;color:var(--near-black);background:var(--white);-webkit-font-smoothing:antialiased;}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;gap:24px;}
+  .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none;}
+  .nav-links{display:flex;gap:36px;font-size:14px;color:var(--gray);position:absolute;left:50%;transform:translateX(-50%);}
+  .nav-links a{text-decoration:none;color:inherit;transition:color 0.2s;white-space:nowrap;}
+  .nav-links a:hover{color:var(--near-black);}
+  .nav-actions{display:flex;gap:8px;align-items:center;flex-shrink:0;}
+  .btn-ghost{background:transparent;color:var(--near-black);border:1.5px solid rgba(0,0,0,0.18);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;transition:border-color 0.2s;}
+  .btn-ghost:hover{border-color:var(--near-black);}
+  .btn-primary{background:var(--orange);color:#fff;border:none;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;transition:opacity 0.2s;}
+  .btn-primary:hover{opacity:0.86;}
+
+  /* HERO */
+  .hero{background:var(--dark);padding:88px 56px 72px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 70% at 30% 60%,rgba(245,107,63,0.14) 0%,transparent 55%),radial-gradient(ellipse 40% 70% at 70% 60%,rgba(99,102,241,0.1) 0%,transparent 55%);pointer-events:none;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);padding:5px 14px;border-radius:100px;margin-bottom:28px;animation:fadeUp 0.4s ease both;}
+  .hero h1{font-size:clamp(34px,5vw,64px);font-weight:800;letter-spacing:-2px;line-height:1.06;color:#fff;max-width:720px;margin:0 auto 18px;animation:fadeUp 0.4s ease 0.08s both;}
+  .hero h1 .sp{color:var(--orange);}
+  .hero h1 .fl{color:#818cf8;}
+  .hero-sub{font-size:16px;color:rgba(255,255,255,0.45);max-width:480px;margin:0 auto 48px;line-height:1.7;animation:fadeUp 0.4s ease 0.15s both;}
+
+  /* HERO STAT CARDS */
+  .hero-cards{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.4s ease 0.22s both;}
+  .hc{border-radius:14px;padding:20px 28px;text-align:center;min-width:200px;}
+  .hc-sp{background:rgba(245,107,63,0.12);border:1px solid rgba(245,107,63,0.22);}
+  .hc-fl{background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.18);}
+  .hc-eye{font-size:10px;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;margin-bottom:8px;}
+  .hc-sp .hc-eye{color:var(--orange);}
+  .hc-fl .hc-eye{color:#818cf8;}
+  .hc-val{font-size:38px;font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:6px;}
+  .hc-sp .hc-val{color:#fff;}
+  .hc-fl .hc-val{color:#818cf8;}
+  .hc-desc{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5;}
+
+
+
+  /* TABLE SECTION */
+  .table-section{padding:72px 56px;background:var(--white);}
+  .container{max-width:1020px;margin:0 auto;}
+  .s-eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+  .s-title{font-size:28px;font-weight:800;letter-spacing:-0.6px;margin-bottom:36px;}
+
+  /* Column headers */
+  .tbl-head{display:grid;grid-template-columns:2.2fr 1fr 1fr;border-bottom:2px solid rgba(0,0,0,0.08);position:sticky;top:68px;z-index:10;background:var(--white);}
+  .th-attr{padding:14px 0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-light);}
+  .th-sp{padding:14px 20px;text-align:center;background:rgba(245,107,63,0.05);border-radius:10px 10px 0 0;border:1px solid rgba(245,107,63,0.12);border-bottom:none;}
+  .th-fl{padding:14px 20px;text-align:center;background:rgba(99,102,241,0.04);border-radius:10px 10px 0 0;border:1px solid rgba(99,102,241,0.09);border-bottom:none;}
+  .th-name{font-size:14px;font-weight:800;letter-spacing:-0.2px;}
+  .th-name.sp{color:var(--orange);}
+  .th-name.fl{color:var(--flex);}
+  .th-tag{font-size:11px;color:var(--gray);margin-top:2px;}
+
+  /* Group label */
+  .grp-lbl{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-light);padding:22px 0 6px;}
+
+  /* Row — single consistent design */
+  .tbl-row{display:grid;grid-template-columns:2.2fr 1fr 1fr;border-bottom:1px solid rgba(0,0,0,0.05);}
+  .tbl-row:last-child{border-bottom:none;}
+  .td-attr{padding:14px 24px 14px 0;font-size:13px;font-weight:400;color:var(--near-black);display:flex;align-items:center;}
+
+  /* Value cells — ONE font size, ONE weight, consistent */
+  .td-sp,.td-fl{padding:14px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;}
+  .td-sp{background:rgba(245,107,63,0.03);border-left:1px solid rgba(245,107,63,0.1);border-right:1px solid rgba(245,107,63,0.1);}
+  .td-fl{background:rgba(99,102,241,0.02);border-right:1px solid rgba(99,102,241,0.06);}
+
+  /* Three and only three cell states */
+  /* 1. Win — green pill, Split Pay advantage */
+  .win{display:inline-flex;align-items:center;gap:5px;background:var(--green-dim);color:var(--green);font-size:13px;font-weight:500;padding:4px 12px;border-radius:100px;white-space:nowrap;}
+  .pos{font-size:13px;font-weight:500;color:var(--orange);}
+  .neu{font-size:13px;font-weight:400;color:var(--gray);}
+
+  /* Support row — mild red background only */
+  .support-row{display:grid;grid-template-columns:2.2fr 1fr 1fr;border-bottom:1px solid rgba(0,0,0,0.05);background:rgba(239,68,68,0.03);}
+  .pain-tag{display:inline-flex;align-items:center;gap:4px;background:var(--red-dim);color:var(--red);font-size:11px;font-weight:700;padding:3px 9px;border-radius:100px;margin-top:4px;width:fit-content;}
+
+  /* SCENARIOS */
+  .scenarios{padding:0 56px 72px;background:var(--white);}
+  .sc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1020px;margin:0 auto;}
+  .sc{border-radius:16px;padding:24px;border:1.5px solid var(--border);transition:box-shadow 0.2s,transform 0.2s;}
+  .sc:hover{box-shadow:0 6px 24px rgba(0,0,0,0.07);transform:translateY(-2px);}
+  .sc.sp-w{border-color:rgba(245,107,63,0.25);background:rgba(245,107,63,0.03);}
+  .sc.fl-w{border-color:rgba(99,102,241,0.18);background:var(--flex-dim);}
+  .sc.both{background:var(--cream);}
+  .sc-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:14px;}
+  .sp-w .sc-badge{background:var(--orange-dim);color:var(--orange);}
+  .fl-w .sc-badge{background:var(--flex-dim);color:var(--flex);}
+  .both .sc-badge{background:rgba(0,0,0,0.06);color:var(--gray);}
+  .sc-icon{font-size:26px;margin-bottom:10px;}
+  .sc-title{font-size:15px;font-weight:800;letter-spacing:-0.3px;margin-bottom:7px;}
+  .sc-body{font-size:13px;color:var(--gray);line-height:1.65;}
+
+  /* SEO SECTION */
+  .seo-section{background:var(--cream);padding:72px 56px;}
+  .seo-inner{max-width:720px;margin:0 auto;}
+  .seo-h2{font-size:22px;font-weight:800;letter-spacing:-0.4px;margin-bottom:12px;margin-top:40px;color:var(--near-black);}
+  .seo-h2:first-child{margin-top:0;}
+  .seo-p{font-size:15px;color:var(--gray);line-height:1.8;margin-bottom:16px;}
+  .seo-p strong{color:var(--near-black);}
+
+  /* LEGAL */
+  .legal{background:var(--white);padding:36px 56px;border-top:1px solid var(--border);}
+  .legal-inner{max-width:1020px;margin:0 auto;}
+  .legal-lbl{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-light);margin-bottom:8px;}
+  .legal-text{font-size:11px;color:var(--gray-light);line-height:1.9;}
+  .legal-text a{color:var(--gray-light);}
+
+  /* CTA */
+  .cta{background:var(--dark);padding:88px 56px;text-align:center;position:relative;overflow:hidden;}
+  .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 110%,rgba(245,107,63,0.18) 0%,transparent 60%);pointer-events:none;}
+  .cta h2{font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-1.5px;color:#fff;margin-bottom:14px;}
+  .cta p{font-size:16px;color:rgba(255,255,255,0.45);max-width:440px;margin:0 auto 36px;line-height:1.7;}
+  .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .btn-cta{background:var(--orange);color:#fff;border:none;padding:15px 30px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity 0.2s;}
+  .btn-cta:hover{opacity:0.87;}
+  .btn-cta-g{background:transparent;color:rgba(255,255,255,0.65);border:1.5px solid rgba(255,255,255,0.18);padding:14px 26px;border-radius:100px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;transition:border-color 0.2s,color 0.2s;}
+  .btn-cta-g:hover{border-color:rgba(255,255,255,0.4);color:#fff;}
+
+  /* FOOTER */
+  footer{background:var(--near-black);border-top:1px solid rgba(255,255,255,0.06);padding:40px 56px;display:flex;align-items:center;justify-content:space-between;}
+  .footer-logo{display:flex;align-items:center;gap:10px;}
+  .footer-links{display:flex;gap:28px;}
+  .footer-links a{font-size:13px;color:#555;text-decoration:none;}
+  .footer-copy{font-size:12px;color:#444;}
+
+  @media(max-width:768px){
+    nav{padding:0 20px;} .nav-links{display:none;}
+    .hero,.table-section,.scenarios,.cta,.legal,.seo-section{padding-left:24px;padding-right:24px;}
+    .hero-cards{flex-direction:column;align-items:center;}
+    .tbl-head{position:static;}
+    .sc-grid{grid-template-columns:1fr;}
+    footer{flex-direction:column;gap:16px;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <svg viewBox="368 0 1000 1000" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+      <mask id="nm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#nm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#ng1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#ng2)"/>
+      </g>
+      <defs>
+        <linearGradient id="ng1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="ng2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
+    <span style="font-size:16px;font-weight:700;letter-spacing:-0.4px;color:var(--near-black);">Split Pay</span>
+  </a>
+  <div class="nav-links">
+    <a href="/">Get the Kit</a>
+    <a href="/promote">How to Promote</a>
+    <a href="/partners">Partner Program</a>
+  </div>
+  <div class="nav-actions">
+    <a class="btn-ghost" href="https://calendly.com/rent-app/onboarding" onclick="if(window.Calendly){Calendly.initPopupWidget({url:'https://calendly.com/rent-app/onboarding'});return false;}">Book a meeting</a>
+    <a class="btn-primary" href="/">Get the Kit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">📊 Side-by-side comparison · Updated March 2026</div>
+  <h1><span class="sp">Split Pay</span> vs. <span class="fl">Flex</span></h1>
+  <p class="hero-sub">Two ways residents can split rent. The differences that matter most: who actually gets approved, and for how much.</p>
+  <div class="hero-cards">
+    <div class="hc hc-sp">
+      <div class="hc-eye">✓ Split Pay — approval rate</div>
+      <div class="hc-val">~50%</div>
+      <div class="hc-desc">Cashflow-based · no credit check<br>no hard pull · approves more residents</div>
+    </div>
+    <div class="hc hc-fl">
+      <div class="hc-eye">Flex — approval rate</div>
+      <div class="hc-val">12–15%</div>
+      <div class="hc-desc">Credit check required · hard pull<br>most applicants rejected outright</div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- SUPPORT CALLOUT -->
+<div style="background:var(--yellow);padding:32px 56px;">
+  <div style="max-width:1020px;margin:0 auto;display:flex;align-items:flex-start;gap:48px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:260px;">
+      <div style="font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(41,41,41,0.45);margin-bottom:8px;">⚠️ Known PM pain point</div>
+      <div style="font-size:20px;font-weight:800;color:var(--near-black);letter-spacing:-0.3px;margin-bottom:8px;">When residents have questions — who do they call?</div>
+      <div style="font-size:14px;color:rgba(41,41,41,0.6);line-height:1.6;max-width:440px;">Property managers regularly report fielding Flex resident questions themselves. With Split Pay, residents have four direct support channels. You're never the middleman.</div>
+    </div>
+    <div style="display:flex;gap:20px;flex-shrink:0;flex-wrap:wrap;align-items:flex-start;">
+      <div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(41,41,41,0.4);margin-bottom:8px;">Split Pay</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(41,41,41,0.08);border:1px solid rgba(41,41,41,0.12);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--near-black);">📞 Phone</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(41,41,41,0.08);border:1px solid rgba(41,41,41,0.12);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--near-black);">💬 Live chat</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(41,41,41,0.08);border:1px solid rgba(41,41,41,0.12);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--near-black);">✉️ Email</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(41,41,41,0.08);border:1px solid rgba(41,41,41,0.12);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--near-black);">📱 SMS</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(41,41,41,0.4);margin-bottom:8px;">Flex</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(41,41,41,0.05);border:1px solid rgba(41,41,41,0.08);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:400;color:rgba(41,41,41,0.45);">Help center</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(41,41,41,0.05);border:1px solid rgba(41,41,41,0.08);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:400;color:rgba(41,41,41,0.45);">Email (queue)</div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(41,41,41,0.05);border:1px solid rgba(41,41,41,0.08);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:400;color:rgba(41,41,41,0.35);">→ Often: the PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-section">
+  <div class="container">
+    <div class="s-eye">Full breakdown</div>
+    <div class="s-title">Every dimension compared</div>
+
+    <!-- Column headers -->
+    <div class="tbl-head">
+      <div class="th-attr">Feature</div>
+      <div class="th-sp"><div class="th-name sp">Split Pay</div><div class="th-tag">No setup required</div></div>
+      <div class="th-fl"><div class="th-name fl">Flex</div><div class="th-tag">PM contract required</div></div>
+    </div>
+
+    <!-- APPROVAL -->
+    <div class="grp-lbl">Approval &amp; Access</div>
+    <div class="tbl-row"><div class="td-attr">Approval method</div><div class="td-sp"><span class="win">&#10003; Cashflow-based</span></div><div class="td-fl"><span class="neu">Credit check</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Approval rate</div><div class="td-sp"><span class="pos">~50%</span></div><div class="td-fl"><span class="neu">12&#8211;15%</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Approval amounts</div><div class="td-sp"><span class="pos">Usually 50% of rent</span></div><div class="td-fl"><span class="neu">Often 20&#8211;30% only</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Time to approval</div><div class="td-sp"><span class="win">&#10003; 5&#8211;10 seconds</span></div><div class="td-fl"><span class="neu">Often days</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Approved for less</div><div class="td-sp"><span class="neu">Yes</span></div><div class="td-fl"><span class="neu">Yes</span></div></div>
+
+    <div class="grp-lbl">Property Manager Setup</div>
+    <div class="tbl-row"><div class="td-attr">Contract required</div><div class="td-sp"><span class="win">&#10003; No</span></div><div class="td-fl"><span class="neu">Yes</span></div></div>
+    <div class="tbl-row"><div class="td-attr">PMS integration</div><div class="td-sp"><span class="win">&#10003; No</span></div><div class="td-fl"><span class="neu">Required</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Time to launch</div><div class="td-sp"><span class="win">&#10003; Minutes</span></div><div class="td-fl"><span class="neu">Weeks</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Accounting changes</div><div class="td-sp"><span class="win">&#10003; Zero impact</span></div><div class="td-fl"><span class="neu">Workflow changes</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Cost to PM</div><div class="td-sp"><span class="neu">Free</span></div><div class="td-fl"><span class="neu">Free</span></div></div>
+
+    <div class="grp-lbl">Resident Fees</div>
+    <div class="tbl-row"><div class="td-attr">Monthly fee</div><div class="td-sp"><span class="pos">$9.99/mo</span></div><div class="td-fl"><span class="neu">$14.99/mo</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Percentage fee</div><div class="td-sp"><span class="neu">1.5%</span></div><div class="td-fl"><span class="neu">1%</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Total cost ($1,000 rent)</div><div class="td-sp"><span class="neu">$24.99/mo</span></div><div class="td-fl"><span class="neu">$24.99/mo</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Credit reporting</div><div class="td-sp"><span class="win">&#10003; Equifax + Experian</span></div><div class="td-fl"><span class="neu">TransUnion only</span></div></div>
+
+    <div class="grp-lbl">Operations &amp; Risk</div>
+    <div class="tbl-row"><div class="td-attr">Missed payments</div><div class="td-sp"><span class="pos">Split Pay handles</span></div><div class="td-fl"><span class="neu">Flex handles</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Chargeback risk</div><div class="td-sp"><span class="win">&#10003; None</span></div><div class="td-fl"><span class="neu">Possible</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Availability</div><div class="td-sp"><span class="neu">All 50 states</span></div><div class="td-fl"><span class="neu">Most states</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Security</div><div class="td-sp"><span class="neu">SOC 2</span></div><div class="td-fl"><span class="neu">SOC 2</span></div></div>
+
+    <div class="grp-lbl">Resident Support</div>
+    <div class="tbl-row"><div class="td-attr">Who handles questions</div><div class="td-sp"><span class="win">&#10003; Split Pay team</span></div><div class="td-fl"><span class="neu">Property manager</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Support channels</div><div class="td-sp"><span class="win">&#10003; Phone, chat, email, SMS</span></div><div class="td-fl"><span class="neu">Help center, email</span></div></div>
+    <div class="tbl-row"><div class="td-attr">PM direct contact</div><div class="td-sp"><span class="pos">Direct BD line</span></div><div class="td-fl"><span class="neu">Support queue</span></div></div>
+
+    <div class="grp-lbl">PM Earnings</div>
+    <div class="tbl-row"><div class="td-attr">First-resident bonus</div><div class="td-sp"><span class="win">&#10003; $100 gift card</span></div><div class="td-fl"><span class="neu">None</span></div></div>
+    <div class="tbl-row"><div class="td-attr">Revenue share</div><div class="td-sp"><span class="win">&#10003; $3&#8211;$5/resident/mo</span></div><div class="td-fl"><span class="neu">None</span></div></div>
+
+  </div>
+</div>
+
+<!-- SCENARIOS -->
+<div class="scenarios">
+  <div class="container">
+    <div class="s-eye">Use cases</div>
+    <div class="s-title" style="margin-bottom:24px;">When to use which</div>
+    <div class="sc-grid">
+
+      <div class="sc sp-w">
+        <div class="sc-badge">✓ Split Pay wins</div>
+        <div class="sc-icon">👥</div>
+        <div class="sc-title">You want more residents to actually qualify</div>
+        <div class="sc-body">Flex rejects 85–88% of applicants at the credit-check stage. Split Pay's cashflow model approves ~50% — no credit score required. That's 3–4× more residents who can actually use the tool.</div>
+      </div>
+
+      <div class="sc sp-w">
+        <div class="sc-badge">✓ Split Pay wins</div>
+        <div class="sc-icon">💰</div>
+        <div class="sc-title">You want residents approved for amounts that actually help</div>
+        <div class="sc-body">Even residents who pass Flex's credit check are often approved for a fraction of their rent — not enough to make a difference. Split Pay's cashflow model approves residents for amounts that cover the split they actually need.</div>
+      </div>
+
+      <div class="sc sp-w">
+        <div class="sc-badge">✓ Split Pay wins</div>
+        <div class="sc-icon">⚡</div>
+        <div class="sc-title">You want residents signed up this week</div>
+        <div class="sc-body">No contract, no integration, no waiting. Share a flyer and residents can sign up in minutes. Flex requires integration setup and a PM contract before a single resident can access it.</div>
+      </div>
+
+      <div class="sc sp-w">
+        <div class="sc-badge">✓ Split Pay wins</div>
+        <div class="sc-icon">🎧</div>
+        <div class="sc-title">You don't want resident support calls on your desk</div>
+        <div class="sc-body">Split Pay offers phone, live chat, email, and SMS. Residents get help directly. Property managers regularly report fielding Flex resident questions themselves when Flex support is difficult to reach.</div>
+      </div>
+
+      <div class="sc fl-w">
+        <div class="sc-badge" style="background:var(--flex-dim);color:var(--flex);">Flex may work</div>
+        <div class="sc-icon">💸</div>
+        <div class="sc-title">Resident pays very high rent and fee % matters</div>
+        <div class="sc-body">On rents above ~$2,500/month, Flex's lower % fee (1% vs 1.5%) makes total cost slightly lower. For most rent levels the gap is small — and Flex's lower approval rate often makes it moot regardless.</div>
+      </div>
+
+      <div class="sc both">
+        <div class="sc-badge">Use both</div>
+        <div class="sc-icon">🤝</div>
+        <div class="sc-title">You already have Flex and want more coverage</div>
+        <div class="sc-body">They're not mutually exclusive. Some PMs use both — Flex for residents who already have it, Split Pay for the 85% Flex rejects. Zero overlap, more residents served.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SEO SECTION -->
+<div class="seo-section">
+  <div class="seo-inner">
+
+    <h2 class="seo-h2">Split Pay vs. Flex: what property managers need to know</h2>
+    <p class="seo-p">Both Split Pay and Flex let residents pay rent in two payments instead of one — but the experience for property managers and residents is very different. The most important difference isn't pricing. It's who actually gets approved.</p>
+    <p class="seo-p">Flex uses a <strong>credit-based approval model</strong>. Residents apply, Flex pulls their credit, and most are rejected — industry estimates put Flex's approval rate at 12–15%. That means if you offer Flex, roughly 85% of residents who try to use it will be turned away. For many property managers, the tool never gains traction because the resident experience at signup is a dead end for the majority.</p>
+    <p class="seo-p">Split Pay uses <strong>cashflow-based underwriting</strong> — no credit check, no hard pull. Approval takes 5–10 seconds. Roughly 50% of residents qualify, and those who don't fully qualify can start at a partial split (20–30%) and earn more access over time. The gap in reach is significant: 3–4× more of your residents can actually use Split Pay than can use Flex.</p>
+
+    <h2 class="seo-h2">The setup difference: minutes vs. weeks</h2>
+    <p class="seo-p">Getting Flex live at a property requires signing a PM contract and — for a seamless experience — integrating with your property management software (AppFolio, Yardi, Entrata, RentCafe, etc.). While Flex claims under 24 hours to get live in some cases, full PMS integration typically takes longer, and non-integrated properties require residents to manually enter rent amounts each month.</p>
+    <p class="seo-p">Split Pay requires <strong>nothing from the property manager</strong>. Residents get a virtual bank account and routing number, which they enter into your existing resident portal. Payments arrive as standard ACH — indistinguishable from any other bank transfer. No contracts, no integration, no accounting changes. You can share a flyer today and have residents signed up tonight.</p>
+
+    <h2 class="seo-h2">Resident support: the hidden cost of choosing Flex</h2>
+    <p class="seo-p">One of the most frequently cited complaints from property managers using Flex is that resident support questions end up on their desk. When residents can't reach Flex support directly, they call the leasing office. Split Pay offers four direct resident support channels — phone, live chat, email, and SMS — so residents always have somewhere to turn that isn't you.</p>
+
+    <h2 class="seo-h2">Pricing: closer than it looks, but Split Pay wins at lower rents</h2>
+    <p class="seo-p">Split Pay charges $9.99/month + 1.5% of rent. Flex charges $14.99/month + 1% of rent. On a $1,000 rent, both cost the resident $24.99/month. On a $1,500 rent, Flex is slightly cheaper ($29.99 vs $32.49). On a $750 rent, Split Pay is cheaper ($21.24 vs $22.49). The pricing is comparable — but Split Pay's lower base fee benefits residents in more affordable markets.</p>
+    <p class="seo-p">For property managers, <strong>both tools are free</strong>. Split Pay additionally offers a $100 Amazon gift card when the first resident in a building uses Split Pay, plus $3–5/resident/month through the Partner Program. Flex offers no PM revenue share.</p>
+
+    <h2 class="seo-h2">Is Split Pay or Flex better for property managers?</h2>
+    <p class="seo-p">For most property managers, Split Pay is the stronger choice: higher approval rates, no setup required, same-day launch, four resident support channels, and a PM revenue share program. Flex may be appropriate if you manage large luxury properties with high average rents and already have an established Flex integration in place. In most other scenarios — especially for managers who want to offer rent splitting without any operational lift — Split Pay wins on every practical dimension.</p>
+
+  </div>
+</div>
+
+<!-- LEGAL -->
+<div class="legal">
+  <div class="legal-inner">
+    <div class="legal-lbl">Disclaimers &amp; Notes</div>
+    <div class="legal-text">
+      Approval rates are estimates based on publicly available information and internal data as of March 2026. Actual approval rates vary by building, resident profile, and underwriting criteria. Flex approval rate of 12–15% is an industry estimate; actual Flex approval rates may vary. Split Pay approval rate of ~50% reflects cashflow-based underwriting; individual results vary. Fees are accurate as of March 2026 and subject to change — verify current pricing at <a href="https://getflex.com">getflex.com</a> and <a href="https://rent.app">rent.app</a>. Credit reporting: Split Pay reports to Equifax and Experian at no additional charge. Flex reports to TransUnion at no additional charge (as of February 2024); opt-out available. Chargeback risk for Flex reflects the nature of credit-line products; this is not a guaranteed outcome and may vary. Split Pay does not reverse rent payments already processed through your PMS. Partner Program earnings are available to qualifying property managers; see <a href="/partners">pmc.splitpay.com/partners</a> for full terms. All comparisons are made in good faith based on publicly available information. Split Pay is not affiliated with Flex (Flexible Finance Inc.). Questions: <a href="mailto:support@splitpay.com">support@splitpay.com</a>.
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Ready to get started<br>with Split Pay?</h2>
+  <p>No contract, no integration, nothing changes for you. Share a flyer and residents can sign up today.</p>
+  <div class="cta-btns">
+    <a href="/" class="btn-cta">Get the Free Kit →</a>
+    <a href="/partners" class="btn-cta-g">Join the Partner Program</a>
+  </div>
+  <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.2);">Free for property managers · $0 setup · Works with any PMS</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg viewBox="368 0 1000 1000" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+      <mask id="fm" maskUnits="userSpaceOnUse" x="368" y="0" width="1000" height="1000" style="mask-type:alpha"><circle cx="868" cy="500" r="500" fill="black"/></mask>
+      <g mask="url(#fm)">
+        <path d="M514.446 853.554C608.214 947.322 735.391 1000 868 1000C1000.61 1000 1127.78 947.322 1221.55 853.554C1315.32 759.786 1368 632.609 1368 500.001C1368 367.392 1315.32 240.215 1221.55 146.447L514.446 853.554Z" fill="url(#fg1)"/>
+        <path d="M1221.55 146.447C1127.78 52.6785 1000.61 0 868 0C735.392 0 608.215 52.6783 514.447 146.447C420.678 240.215 368 367.392 368 500C368 632.608 420.678 759.785 514.446 853.553L1221.55 146.447Z" fill="url(#fg2)"/>
+      </g>
+      <defs>
+        <linearGradient id="fg1" x1="514" y1="854" x2="1222" y2="146" gradientUnits="userSpaceOnUse"><stop offset="0.2" stop-color="#F56B3F"/><stop offset="0.95" stop-color="#F56B3F" stop-opacity="0"/></linearGradient>
+        <linearGradient id="fg2" x1="516.5" y1="854" x2="1222" y2="145.5" gradientUnits="userSpaceOnUse"><stop offset="0.05" stop-color="#F56B3F" stop-opacity="0"/><stop offset="0.8" stop-color="#F56B3F"/></linearGradient>
+      </defs>
+    </svg>
+    <span style="font-size:14px;font-weight:700;color:#fff;">Split Pay</span>
+  </div>
+  <div class="footer-links">
+    <a href="https://splitpay.com/privacy">Privacy</a>
+    <a href="https://splitpay.com/terms">Terms</a>
+    <a href="mailto:support@splitpay.com">Contact</a>
+    <a href="/partners">Partner Program</a>
+    <a href="/splitpay-vs-flex">Split Pay vs. Flex</a>
+  </div>
+  <div class="footer-copy">© 2026 Split Pay · Powered by Rent App</div>
+</footer>
+
+
+<!-- SPLIT PAY CHAT WIDGET -->
+<style>
+#sp-chat{position:fixed;bottom:28px;right:28px;z-index:99999;font-family:'DM Sans',-apple-system,sans-serif;}
+#sp-btn{width:48px;height:48px;border-radius:14px;background:#F56B3F;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(245,107,63,0.45);transition:transform .18s,box-shadow .18s;position:relative;}
+#sp-btn:hover{transform:scale(1.07);box-shadow:0 6px 22px rgba(245,107,63,0.55);}
+#sp-btn svg{width:22px;height:22px;fill:white;transition:opacity .15s,transform .15s;}
+#sp-btn .ico-chat{position:absolute;}
+#sp-btn .ico-close{position:absolute;opacity:0;transform:rotate(-90deg);}
+#sp-chat.open #sp-btn .ico-chat{opacity:0;transform:rotate(90deg);}
+#sp-chat.open #sp-btn .ico-close{opacity:1;transform:rotate(0);}
+#sp-badge{position:absolute;top:-5px;right:-5px;width:18px;height:18px;background:#ef4444;border-radius:50%;border:2px solid white;font-size:10px;font-weight:700;color:white;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .2s,transform .2s;}
+#sp-badge.show{opacity:1;transform:scale(1);}
+#sp-win{position:absolute;bottom:62px;right:0;width:340px;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.06);display:flex;flex-direction:column;overflow:hidden;transform:translateY(12px) scale(0.97);opacity:0;pointer-events:none;transition:transform .22s cubic-bezier(.34,1.4,.64,1),opacity .18s ease;max-height:520px;}
+#sp-chat.open #sp-win{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+#sp-head{background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#sp-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#F56B3F,#e8531a);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+#sp-head-text{flex:1;min-width:0;}
+#sp-head-name{font-size:13px;font-weight:700;color:#1a1a1a;line-height:1.2;}
+#sp-head-status{font-size:11px;color:#888;display:flex;align-items:center;gap:4px;margin-top:1px;}
+#sp-online-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;display:block;flex-shrink:0;}
+#sp-head-close{background:none;border:none;cursor:pointer;color:#bbb;padding:4px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:color .15s,background .15s;}
+#sp-head-close:hover{color:#555;background:rgba(0,0,0,0.05);}
+#sp-head-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;}
+#sp-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f9f9f7;scroll-behavior:smooth;}
+#sp-msgs::-webkit-scrollbar{width:4px;}
+#sp-msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.12);border-radius:2px;}
+.sp-msg{display:flex;gap:8px;align-items:flex-end;animation:sp-pop .18s ease;}
+.sp-msg.bot{align-self:flex-start;}
+.sp-msg.user{align-self:flex-end;}
+@keyframes sp-pop{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.sp-bubble{padding:10px 14px;font-size:13px;line-height:1.6;max-width:260px;word-wrap:break-word;}
+.sp-msg.bot .sp-bubble{background:#fff;color:#1a1a1a;border-radius:4px 14px 14px 14px;box-shadow:0 1px 3px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.06);}
+.sp-msg.user .sp-bubble{background:#F56B3F;color:#fff;border-radius:14px 4px 14px 14px;}
+.sp-msg.bot .sp-bubble a{color:#F56B3F;text-decoration:underline;}
+#sp-typing{display:none;align-items:flex-end;}
+#sp-typing.show{display:flex;}
+.sp-typing-bubble{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:4px 14px 14px 14px;padding:12px 16px;display:flex;gap:4px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,0.08);}
+.sp-dot{width:6px;height:6px;border-radius:50%;background:#ccc;animation:sp-blink 1.2s infinite;}
+.sp-dot:nth-child(2){animation-delay:.2s;}
+.sp-dot:nth-child(3){animation-delay:.4s;}
+@keyframes sp-blink{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+#sp-input-row{padding:10px 12px;border-top:1px solid rgba(0,0,0,0.07);display:flex;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;}
+#sp-input{flex:1;padding:9px 14px;border:1.5px solid rgba(0,0,0,0.11);border-radius:10px;font-size:13px;font-family:inherit;outline:none;resize:none;background:#f9f9f7;color:#1a1a1a;line-height:1.5;max-height:100px;overflow-y:auto;transition:border-color .15s;}
+#sp-input:focus{border-color:#F56B3F;background:#fff;}
+#sp-input::placeholder{color:#bbb;}
+#sp-send{width:34px;height:34px;border-radius:9px;background:#F56B3F;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s,transform .15s;}
+#sp-send:hover{opacity:.88;transform:scale(1.05);}
+#sp-send:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+#sp-send svg{width:15px;height:15px;fill:none;stroke:white;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<div id="sp-chat">
+  <div id="sp-win">
+    <div id="sp-head">
+      <div id="sp-avatar">💬</div>
+      <div id="sp-head-text">
+        <div id="sp-head-name">Split Pay Assistant</div>
+        <div id="sp-head-status"><span id="sp-online-dot"></span>Online · replies instantly</div>
+      </div>
+      <button id="sp-head-close" onclick="spToggle()" aria-label="Close">
+        <svg viewBox="0 0 16 16"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>
+      </button>
+    </div>
+    <div id="sp-msgs">
+      <div id="sp-typing"><div class="sp-typing-bubble"><span class="sp-dot"></span><span class="sp-dot"></span><span class="sp-dot"></span></div></div>
+    </div>
+    <div id="sp-input-row">
+      <textarea id="sp-input" placeholder="Ask anything…" rows="1"></textarea>
+      <button id="sp-send" onclick="spSend()" aria-label="Send"><svg viewBox="0 0 16 16"><path d="M2 8h12M8 2l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <button id="sp-btn" onclick="spToggle()" aria-label="Chat with Split Pay">
+    <svg class="ico-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="ico-close" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="19" y1="5" x2="5" y2="19" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <span id="sp-badge"></span>
+  </button>
+</div>
+<script>
+(function(){
+  var SESSION_KEY='sp_chat_history', OPEN_KEY='sp_chat_open';
+  function loadHistory(){try{return JSON.parse(sessionStorage.getItem(SESSION_KEY)||'[]');}catch(e){return[];}}
+  function saveHistory(h){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify(h.slice(-60)));}catch(e){}}
+  function wasOpen(){return sessionStorage.getItem(OPEN_KEY)==='1';}
+  function setOpenState(v){try{sessionStorage.setItem(OPEN_KEY,v?'1':'0');}catch(e){}}
+  var history=loadHistory(), isOpen=false;
+  var widget=document.getElementById('sp-chat'), msgs=document.getElementById('sp-msgs');
+  var input=document.getElementById('sp-input'), send=document.getElementById('sp-send');
+  var typing=document.getElementById('sp-typing'), badge=document.getElementById('sp-badge');
+  function appendMsg(role,text){
+    var d=document.createElement('div'); d.className='sp-msg '+role;
+    var b=document.createElement('div'); b.className='sp-bubble';
+    b.innerHTML=text.replace(/(new RegExp('(https?:[/][/][^\\s<>"]+)','g'))/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+    d.appendChild(b); msgs.insertBefore(d,typing); msgs.scrollTop=msgs.scrollHeight; return d;
+  }
+  function renderHistory(){
+    Array.from(msgs.children).forEach(function(c){if(c.id!=='sp-typing')c.remove();});
+    history.forEach(function(m){appendMsg(m.role==='user'?'user':'bot',m.content);});
+  }
+  window.spToggle=function(){
+    isOpen=!isOpen; widget.classList.toggle('open',isOpen); setOpenState(isOpen);
+    if(isOpen){
+      renderHistory();
+      if(history.length===0){
+        setTimeout(function(){
+          var w="Hi! I can help you promote Split Pay to your residents, answer questions, or walk you through the partner program. What's on your mind?";
+          appendMsg('bot',w); history.push({role:'assistant',content:w}); saveHistory(history);
+        },300);
+      }
+      setTimeout(function(){input.focus();},350);
+      badge.classList.remove('show');
+    }
+  };
+  window.spSend=function(){
+    var msg=input.value.trim(); if(!msg||send.disabled)return;
+    input.value=''; input.style.height='auto';
+    appendMsg('user',msg); history.push({role:'user',content:msg}); saveHistory(history);
+    send.disabled=true; typing.classList.add('show'); msgs.scrollTop=msgs.scrollHeight;
+    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:history,context:'User is on '+window.location.pathname+' — '+document.title})
+    }).then(function(r){return r.json();}).then(function(data){
+      typing.classList.remove('show');
+      var reply=(data.content&&data.content[0]&&data.content[0].text)?data.content[0].text:'Sorry, I had trouble with that.';
+      appendMsg('bot',reply); history.push({role:'assistant',content:reply}); saveHistory(history);
+      send.disabled=false;
+      if(!isOpen){badge.textContent='1';badge.classList.add('show');}
+    }).catch(function(){
+      typing.classList.remove('show');
+      appendMsg('bot','Sorry, having trouble connecting. Try again in a moment.');
+      send.disabled=false;
+    });
+  };
+  input.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();spSend();}});
+  var _beaconSent=false;function _sendTranscript(){if(_beaconSent||history.length<2)return;var allText=history.filter(function(m){return m.role==='user';}).map(function(m){return m.content;}).join(' ');var emailMatch=allText.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);if(!emailMatch)return;_beaconSent=true;var transcript=history.map(function(m){return(m.role==='user'?'PM: ':'Bot: ')+m.content;}).join('\n');var note='Chat transcript from pmc.splitpay.com\n\n'+transcript;navigator.sendBeacon('/api/submit-to-close',new Blob([JSON.stringify({formType:'chat',email:emailMatch[0],chatNote:note})],{type:'application/json'}));}document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')_sendTranscript();});window.addEventListener('beforeunload',function(){_sendTranscript();});
+  if(wasOpen()){setTimeout(function(){spToggle();},100);}
+})();
+</script>
+<!-- END SPLIT PAY CHAT WIDGET -->
+</body>
+</html>

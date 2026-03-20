@@ -373,14 +373,24 @@
   if (type === 'partner') {
     var refUrl = params.get('ref');
     if (refUrl) {
-      var refBox = document.createElement('div');
-      refBox.style.cssText = 'margin:20px auto 0;max-width:480px;background:#fff;border-radius:12px;padding:16px 20px;text-align:left;';
-      refBox.innerHTML = '<p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#7a6000;text-transform:uppercase;letter-spacing:0.08em;">Your referral link</p>'
-        + '<div style="display:flex;gap:8px;align-items:center;">'
-        + '<code style="flex:1;font-size:13px;color:#1a1a1a;background:#f5f5f0;padding:8px 12px;border-radius:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + refUrl + '</code>'
-        + '<button onclick="navigator.clipboard.writeText(\'' + refUrl + '\');this.textContent=\'Copied!\';setTimeout(()=>this.textContent=\'Copy\',1800)" style="background:#E8531A;color:#fff;border:none;font-size:12px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;">Copy</button>'
+      // Build and show popup modal
+      var overlay = document.createElement('div');
+      overlay.id = 'refPopup';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);animation:fadeUp 0.25s ease;';
+      overlay.innerHTML = ''
+        + '<div style="background:#fff;border-radius:24px;padding:40px 36px 32px;max-width:480px;width:100%;text-align:center;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.2);">'
+        + '<button onclick="document.getElementById(\'refPopup\').remove()" style="position:absolute;top:16px;right:16px;background:rgba(0,0,0,0.07);border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:#555;display:flex;align-items:center;justify-content:center;font-family:inherit;">&#x2715;</button>'
+        + '<div style="font-size:36px;margin-bottom:12px;">🎉</div>'
+        + '<h2 style="font-size:24px;font-weight:800;letter-spacing:-0.5px;color:#1a1a1a;margin:0 0 8px;">You\'re in!</h2>'
+        + '<p style="font-size:14px;color:#666;line-height:1.6;margin:0 0 28px;">Here\'s your referral link — share it with residents and start earning.</p>'
+        + '<div style="background:#f5f5f0;border-radius:14px;padding:20px 20px 16px;margin-bottom:20px;text-align:left;">'
+        + '<p style="margin:0 0 8px;font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:0.1em;">Your referral link</p>'
+        + '<p id="refUrlText" style="font-size:13px;font-weight:600;color:#1a3d20;word-break:break-all;margin:0 0 14px;line-height:1.5;">' + refUrl + '</p>'
+        + '<button id="refCopyBtn" onclick="navigator.clipboard.writeText(\'' + refUrl + '\').then(function(){var b=document.getElementById(\'refCopyBtn\');b.textContent=\'✓ Copied!\';b.style.background=\'#1a3d20\';setTimeout(function(){b.textContent=\'Copy link\';b.style.background=\'#E8531A\';},2000)})" style="width:100%;background:#E8531A;color:#fff;border:none;border-radius:100px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.2s;">Copy link</button>'
+        + '</div>'
+        + '<button onclick="document.getElementById(\'refPopup\').remove()" style="background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;text-decoration:underline;font-family:inherit;">Close and see next steps</button>'
         + '</div>';
-      document.getElementById('next-steps').after(refBox);
+      document.body.appendChild(overlay);
     }
   }
 

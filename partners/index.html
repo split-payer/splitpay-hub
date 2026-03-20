@@ -749,7 +749,7 @@
       // fail silently — still show success to user
     }
 
-    window.location.href = '/thank-you?type=partner';
+    window.location.href = '/thank-you?type=partner&ref=' + encodeURIComponent('https://pmc.splitpay.com/go?ref=' + generatedRef);
   }
 
   // ── Google Maps Places Autocomplete ─────────────────────────────────────

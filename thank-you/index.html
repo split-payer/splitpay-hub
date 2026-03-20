@@ -371,6 +371,20 @@
 
   // For partner type — swap tile order: kit first, promote second, partners hidden (they just applied)
   if (type === 'partner') {
+    var refUrl = params.get('ref');
+    if (refUrl) {
+      var refBox = document.createElement('div');
+      refBox.style.cssText = 'margin:20px auto 0;max-width:480px;background:#fff;border-radius:12px;padding:16px 20px;text-align:left;';
+      refBox.innerHTML = '<p style="margin:0 0 6px;font-size:11px;font-weight:700;color:#7a6000;text-transform:uppercase;letter-spacing:0.08em;">Your referral link</p>'
+        + '<div style="display:flex;gap:8px;align-items:center;">'
+        + '<code style="flex:1;font-size:13px;color:#1a1a1a;background:#f5f5f0;padding:8px 12px;border-radius:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + refUrl + '</code>'
+        + '<button onclick="navigator.clipboard.writeText(\'' + refUrl + '\');this.textContent=\'Copied!\';setTimeout(()=>this.textContent=\'Copy\',1800)" style="background:#E8531A;color:#fff;border:none;font-size:12px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;">Copy</button>'
+        + '</div>';
+      document.getElementById('next-steps').after(refBox);
+    }
+  }
+
+  if (type === 'partner') {
     var tilePartner = document.querySelector('.tile-partners');
     if (tilePartner) tilePartner.style.display = 'none';
     // Add a concierge tile instead

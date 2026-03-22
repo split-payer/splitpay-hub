@@ -269,7 +269,27 @@ let dupOpp = false;
     };
     await slackAlert(alertLines[formType] || `📋 *Form submit* (${formType}): ${email}`);
 
-    // ── 8. Partner welcome email ──────────────────────────────────────────
+    // ── 8. Close task for partner review ─────────────────────────────────
+    if (formType === 'partner' && leadId) {
+      try {
+        const today = new Date().toISOString().split('T')[0];
+        await fetch('https://api.close.com/api/v1/task/', {
+          method: 'POST',
+          headers: { Authorization: authHeader, 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            lead_id: leadId,
+            text: `Review new partner application — ${companyName || name || email}`,
+            due_date: today,
+            is_complete: false,
+          }),
+        });
+        console.log(`Close: partner review task created for lead ${leadId}`);
+      } catch (err) {
+        console.error('Partner task creation failed:', err.message);
+      }
+    }
+
+    // ── 9. Partner welcome email ──────────────────────────────────────────
     if (formType === 'partner' && email) {
       try {
         const siteUrl = process.env.URL || 'https://pmc.splitpay.com';
